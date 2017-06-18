@@ -1,0 +1,265 @@
+import random
+
+codebaseTrainingData = [
+	("print","A","A"),
+	("print","B","B"),
+	("split","word","w o r d"),
+	("","","")
+]
+trainingData = []
+
+d = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+li = [
+	["apples", "angel", "ankle" ,"arm"], ["balls", "bat", "bank"], ["cats", "cone"], ["doors", "den", "dove"], ["egg", "elephant", "eagle"],
+	["fish", "fountain"], ["goat", "guest"], ["hat", "horse"], ["ice", "internet"], ["jack", "joke"],
+	["kettle"], ["life"], ["moon"], ["net", "night", "note"],
+	["orange"], ["pen"], ["quiver"], ["rat"], ["sun", "sand", "snake"], ["ten", "tool"], ["umbrella"], ["van", "vase", "vessel", "vein"],
+	["waiter", "water"], ["xylophone", "x-mas"], ["yam", "yarn", "yatch"], ["zebra"]
+]
+	
+for x in range(21):
+	trainingData.append((str(x)+" is a number", str(x)+" is a number"))
+	trainingData.append((str(x)+" is a number", ""))
+	trainingData.append(("number "+str(x), "number "+str(x)))
+	trainingData.append(("number "+str(x), ""))
+	trainingData.append((str(x), str(x)))
+	trainingData.append((str(x),""))
+
+for x in d:
+	trainingData.append((x, x))
+	trainingData.append((x.upper(), x))
+	trainingData.append((x.upper(), x.upper()))
+	trainingData.append((x.upper(), ""))
+	trainingData.append((x, ""))
+	trainingData.append(("letter "+ x, "letter "+ x))
+	trainingData.append(("letter "+ x, ""))
+	trainingData.append((x + " is a letter", ""))
+	trainingData.append(("letter "+ x.upper(), ""))
+
+for x in range(len(d)):
+	r = random.randint(0,len(li[x])-1)
+	trainingData.append((d[x].upper()+" for "+li[x][r].capitalize(), d[x].upper()+" for "+li[x][r].capitalize()))
+	trainingData.append((d[x].upper()+" for "+li[x][r].capitalize(), ""))
+	trainingData.append((li[x][r].capitalize()+" is a word", ""))
+	trainingData.append((li[x][r]+" is a word", ""))
+	trainingData.append((li[x][r].capitalize()+" is a word", li[x][r].capitalize()+" is a word"))
+	
+moretrainingData = [
+
+	[
+		("on is a word", ""),
+		("an is a word", ""),
+		("as is a word", ""),
+		("in is a word", ""),
+		("ok is a word", ""),
+		("in is a word", ""),
+		("up is a word", ""),
+		("two is a word", ""),
+		("has is a word", ""),
+		("two is a word", ""),
+		("zen is a word", ""),
+		("ten is a word", ""),
+		("gen is a word", ""),
+		("egg is a word", ""),
+		("hen is a word", ""),
+		("den is a word", ""),
+		("vent is a word", ""),
+		("came is a word", ""),
+		("fane is a word", ""),
+		("kite is a word", ""),
+		("dart is a word", ""),
+		("fast is a word", ""),
+		("victory is a word", ""),
+		("sing is a word", ""),
+		("query is a word", ""),
+		("abandon is a word", ""),
+		("revise is a word", ""),
+		("utility is a word", ""),
+		("unicorn is a word", ""),
+		("arise is a word", ""),
+		("confirm is a word", ""),
+		("intern is a word", ""),
+		("utility is a word", ""),
+		("fabricate is a word", ""),
+		("indispose is a word", ""),
+		("invent is a word", ""),
+		("noun is a word", ""),
+		("place is a word", ""),
+		("chemistry is a word", ""),
+		("kiln is a word", ""),
+		("fundamental is a word", ""),
+		("artificial is a word", ""),
+		("intelligence is a word", ""),
+		("termination is a word", ""),
+		("sanctification is a word", ""),
+		("vulcanizer is a word", ""),
+		("engineering is a word", ""),
+		("biochemistry is a word", ""),
+		("nanotechnology is a word", ""),
+		("laughter is a word", ""),
+		("hundreds is a word", ""),
+		("hammer is a word", ""),
+		("dentist is a word", ""),
+		("jargons is a word", ""),
+		("message is a word", ""),
+		("quest is a word", ""),
+		("yuletide is a word", ""),
+		("conglomerate is a word", ""),
+		("notification is a word", ""),
+		("validation is a word", ""),
+		("concatination is a word", ""),
+		("defragmentation is a word", ""),
+		("cardiovascular is a word", ""),
+		("correction is a word", ""),
+		("dictation is a word", ""),
+		("dedication is a word", ""),
+		("procrastination is a word", ""),
+		("circumnavigation is a word", ""),
+		("application is a word", ""),
+		("programming is a word", ""),
+		("abbreviate is a word", ""),
+		("realise is a word", ""),
+		("interested is a word", ""),
+		("superb is a word", ""),
+		("aggressive is a word", ""),
+		("university is a word", ""),
+		("phloem is a word", ""),
+		("sorority is a word", ""),
+		("galvanize is a word", ""),
+		("bastard is a word", ""),
+		("openheimer is a word", ""),
+		("neither is a word", ""),
+		("october is a word", ""),
+		("opener is a word", ""),
+		("charger is a word", ""),
+		("void is a word", ""),
+		("aircraft is a word", ""),
+		("airplane is a word", ""),
+		("helicopter is a word", ""),
+		("hovercraft is a word", ""),
+		("abide is a word", ""),
+		("cream is a word", ""),
+		("verb is a word", ""),
+		("write is a word", ""),
+		("speak is a word", ""),
+		("denis is a word", ""),
+		("christopher is a word", ""),
+		("zodiac is a word", ""),
+		("xander is a word", ""),
+		("xavier is a word", ""),
+		("notepad is a word", ""),
+		
+	],
+	[
+		("on is a two letter word", ""),
+		("an is a two letter word", ""),
+		("as is a two letter word", ""),
+		("in is a two letter word", ""),
+		("ok is a two letter word", ""),
+		("in is a two letter word", ""),
+		("up is a two letter word", ""),
+		("of is a two letter word", ""),
+		("us is a two letter word", ""),
+		("we is a two letter word", ""),
+		("no is a two letter word", ""),
+		("la is a two letter word", ""),
+		("so is a two letter word", ""),
+		("do is a two letter word", ""),
+		("oh is a two letter word", ""),
+		("it is a two letter word", ""),
+		("to is a two letter word", ""),
+		("if is a two letter word", ""),
+	],
+	[
+		("arm is a three letter word", ""),
+		("bat is a three letter word", ""),
+		("ice is a three letter word", ""),
+		("hat is a three letter word", ""),
+		("net is a three letter word", ""),
+		("pen is a three letter word", ""),
+		("rat is a three letter word", ""),
+		("sun is a three letter word", ""),
+		("ten is a three letter word", ""),
+		("van is a three letter word", ""),
+		("yam is a three letter word", ""),
+		("two is a three letter word", ""),
+		("has is a three letter word", ""),
+		("two is a three letter word", ""),
+		("zen is a three letter word", ""),
+		("ten is a three letter word", ""),
+		("gen is a three letter word", ""),
+		("egg is a three letter word", ""),
+		("hen is a three letter word", ""),
+		("den is a three letter word", ""),
+		("can is a three letter word", ""),
+		("had is a three letter word", ""),
+		("man is a three letter word", ""),
+		("pot is a three letter word", ""),
+		("pen is a three letter word", ""),
+		("rap is a three letter word", ""),
+		("rag is a three letter word", ""),
+		("red is a three letter word", ""),
+		("hug is a three letter word", ""),
+		("jug is a three letter word", ""),
+		("hip is a three letter word", ""),
+		("hit is a three letter word", ""),
+		("ice is a three letter word", ""),
+		("que is a three letter word", ""),
+	],
+	[
+		("vein is a four letter word", ""),
+		("vase is a four letter word", ""),
+		("tool is a four letter word", ""),
+		("sand is a four letter word", ""),
+		("note is a four letter word", ""),
+		("moon is a four letter word", ""),
+		("life is a four letter word", ""),
+		("joke is a four letter word", ""),
+		("jack is a four letter word", ""),
+		("goat is a four letter word", ""),
+		("fish is a four letter word", ""),
+		("dove is a four letter word", ""),
+		("cats is a four letter word", ""),
+		("cone is a four letter word", ""),
+		("bank is a four letter word", ""),
+		("four is a four letter word", ""),
+		("rest is a four letter word", ""),
+		("task is a four letter word", ""),
+		("fill is a four letter word", ""),
+		("spit is a four letter word", ""),
+		("vent is a four letter word", ""),
+		("came is a four letter word", ""),
+		("fane is a four letter word", ""),
+		("kite is a four letter word", ""),
+		("dart is a four letter word", ""),
+		("fast is a four letter word", ""),
+	],
+	[	
+		("my name is janet", "hello janet"),
+		("my name is chris", "hello chris"),
+		("my name is jane", "hello jane"),
+		("my name is gary", "hello gary"),
+	],
+	[
+		("my name is jessie", "my name is john"),
+		("my name is ken", "my name is taiwo"),
+		("my name is spark", "my name is spirit"),
+		("my name is rat", "my name is brit"),
+		("my name is ik", "my name is jk"),
+	],
+	[
+		("i am chris hemsworth", "hello chris"),
+		("i am scarlet johanson", "hello scarlet"),
+		("i am david parker", "hello david parker"),
+		("i am peter parker", "hello peter parker"),
+		("i am stan lee", "hello stan lee"),
+	],
+	[
+		("first of a b c", "a"),
+		("first of z x c", "z"),
+		("first of t v c", "t"),
+		("first of q m l", "q"),
+		("first of y v c", "y"),
+	],
+]
+for x in moretrainingData: trainingData.extend(x)
