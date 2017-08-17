@@ -1,7 +1,6 @@
 
 class console:
-    def getInput(self):
-        
+    def getInput(self):        
         if self.switch is True:
             getInput = input("\_> ")
         else:
