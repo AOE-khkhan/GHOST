@@ -5,16 +5,20 @@ class terminal:
             st = cmd.replace("?rollback ","")
 ##            print('ROBOCOPY "sessions\\'+st+'" "memory" /E')
             os.system('del memory\\console\\events\\ /q')
+            self.create('events')
             os.system('ROBOCOPY "sessions\\'+st+'" "memory" /E')
             self.loadMemory()
             
         elif cmd.startswith("?cache "):
             st = cmd.replace("?cache ","")
             os.system('mkdir "sessions\\'+st+'"')
+            os.system('del "sessions\\'+st+'\\console\\events\\" /q')
+##            input('del "sessions\\'+st+'\\console\\events\\" /q')
             os.system('ROBOCOPY "memory" "sessions\\'+st+'" /E')
             
         elif cmd.startswith("??"):
             st = cmd.replace("??","")
+##            r = eval(st)
             try:
                 r = eval(st)
                 if r == None or (type(r) == str and len(r) < 1):

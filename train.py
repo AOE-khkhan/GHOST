@@ -260,6 +260,6 @@ moretrainingData = [
                 tuple([str(x) + " / " + str(xx), str(x/xx)]) for x in range(10) for xx in range(1,20)
 	]
 ]
-# for x in moretrainingData[-1]: trainingData.extend(x)
-##trainingData.extend(moretrainingData[1])
-##trainingData.extend(moretrainingData[-1])
+##for x in moretrainingData[-1]: trainingData.extend(x)
+trainingData.extend(moretrainingData[1])
+trainingData.extend(moretrainingData[-1])

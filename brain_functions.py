@@ -3,6 +3,43 @@ import os
 from functions import *
 
 class brain_functions:
+    def generate_starters(self, li):
+        val = []
+        length = sum([li[x] for x in li])
+        if length < 1:
+            return []
+        
+        c = {}
+        val_n = {}
+        for x in li:
+            st = x.split()
+            for n in range(1, len(st)+1, 1):
+                v = " ".join(st[:n])
+                val.append(v)
+                if v in val_n:
+                    val_n[v] += li[x]
+                else:
+                    val_n.setdefault(v, li[x])
+
+                if v in c:
+                    c[v].append(x)
+                else:
+                    c.setdefault(v, [x])
+        val_s = set(val)
+        val = [x for x in val_s if val.count(x)*val_n[x] > 1]
+        n = 0
+        chkd = []
+        for x in val:
+            for y in c[x]:
+                if y not in chkd:
+                    n += li[y]
+                    chkd.append(y)
+        self.show_process('predicted starters = {}, no = {}, sum total = {}, ratio = {}'.format(val, n, length, n/length))
+        if n/length >= (1 - (length**-1)):
+            return val
+        else:
+            return []
+    
     def search_codebase(self, data, que, ans):
         cdv = {}
         ac = []
@@ -21,19 +58,39 @@ class brain_functions:
                 allcls.setdefault(data, clses)
 
         return allcls
-    
+
+    def dist(self, data, x):
+        c = 0
+        st = data.split()
+        xs = x.split()
+        for vn in range(len(xs)):
+            vx = xs[vn]
+            if vx in st:
+                c += (1 - abs((vn/len(xs)) - (st.index(vx)/len(st))))
+                st[st.index(vx)] = "`"
+        return c
+
+    def zzz(self, data):
+        li = {}
+        for x in self.memory:
+            c = self.dist(data, x)
+            if c > 0:
+                li.setdefault(x, c)
+        pd = self.sort_dict(li)
+        print(pd[:10])
+        
     def find_answer(self, data, ans):
         que = {}
         for x in self.memory:
 ##            if all([xx in x and data.split().count(xx) == x.split().count(xx) for xx in data.split()]):
             for y in self.read_data(x):
-                sim = self.percentage_similarity(data, x, " ")
-                rel = self.getRelation(data, x, " ")
-                if len(y) > 0 and sim > 0:
-                    if y == ans:
-                        que.setdefault(x, sim*(1-rel))
+                if y == ans and x != data:
+                    c = self.dist(data, x)
+                    if c > 0:
+                        que.setdefault(x, c)
         pd = self.sort_dict(que)
         m = 0
+
         if len(pd) > 0:
             if pd[0][0] == data and len(pd) > 1: m = 1
             que = [x for x in que if que[x] >= pd[m][-1]]
@@ -90,8 +147,8 @@ class brain_functions:
             else:
                 b = b.replace(x, "", 1)
 
-        if len(limit_val)/length > 0:
-            print('------------', len(limit_val)/length)
+##        if len(limit_val)/length > 0:
+##            print('------------', len(limit_val)/length)
         return ret
 
     def getModelMax(self, Model):
@@ -150,6 +207,7 @@ class brain_functions:
                         
                     if e_a !=False:
                         self.increase_confidence(e_a[0], confidence)
+        self.show_process("confirming event {} => {} => {}".format(suspected_que, data, self.confirmed_event))
         return self.confirmed_event
     
     def set_event(self, data, data_class,  codebase, confidence, val, key='', cls2=[]):
@@ -178,7 +236,7 @@ class brain_functions:
         a, b = int(a), int(b)
         a, b = a+value[0], b+value[1]
         self.update_event(event_name, self.read_event(event_name, 'classes'), self.read_event(event_name, 'codebase'), str(a)+'/'+str(b), self.read_event(event_name, 'format'), self.read_event(event_name, 'key'), self.read_event(event_name, 'classes2'))
-##        print('increasing {} confidence to {}, {}'.format(event_name, a, b))
+        self.show_process("affecting event confidence {} => {}".format(self.events_id[event_name], value))
         
     def create_event(self, value, cls, codebase, confidence, Format, key, cls2=''):
         name = str(len(self.events_id))
@@ -360,7 +418,7 @@ class brain_functions:
         if len(s1) == len(s2):
             l = [s1[x] for x in range(len(s1))]
             lmap = [s2[x] for x in range(len(s1))]
-            
+
         else:
             for x in range(len(s)):
                 if s[x] in s2 and s2.index(s[x]) in order:
@@ -403,6 +461,7 @@ class brain_functions:
         m = []
         for n in range(len(l)):
             m.append((l[n],lmap[n]))
+        
         return m
    
     def show_process(self, value=""):
@@ -411,15 +470,22 @@ class brain_functions:
     def formatOutput(self,dataMap,ansFormat):
         output = ""
         out = " "+str(ansFormat[0])+" "
-        for d in dataMap:
-            out = out.replace(" "+d[-1]+" ", " "+d[0]+" ", 1)
+        ans = " ".join([x[-1] for x in dataMap])
+
+        if ans == ansFormat[0]:
+            for x in dataMap:
+                output += x[0]+ " "
+        else:
+            for d in dataMap:
+                out = out.replace(" "+d[-1]+" ", " "+d[0]+" ", 1)
+            output = out.strip()
 ##            
 ##        for m in out.split():
 ##            for dm in dataMap:
 ##                if " "+m+" " in " "+dm[1]+" " and dm[1] != "":
 ##                    out = out.replace(" "+m+" ", " "+dm[0]+" ", 1)
 ##                    
-        return out.strip()
+        return output
     
     def getCommonFormat(self,que,ans):
         q = que.split(" ")  #list(que)
@@ -666,6 +732,8 @@ class brain_functions:
     def saveInput(self, objectname):
         if objectname not in self.memory:
             #save input to  memory
+            for x in objectname.split():
+                self.save2memory(x, 1)
             self.save2memory(objectname)
         self.write("data/"+str(self.memory.index(objectname)))
         self.write("datafreq/"+str(self.memory.index(objectname)))
@@ -691,6 +759,7 @@ class brain_functions:
         self.saveData("context", self.context)
         self.saveData("session", self.session)
         self.saveData("freq", self.freq)
+        self.saveData("ifreq", self.ifreq)
         self.saveData('events', self.events_id)
         self.loadMemory()
 
@@ -736,6 +805,7 @@ class brain_functions:
             self.session = self.load("session")
             self.memory = self.load("memory")
             self.freq = self.load("freq")
+            self.ifreq = self.load("ifreq")
         else:
             self.setup()
             self.createMemory()
@@ -760,16 +830,20 @@ class brain_functions:
             s = string.split(sep)
             
         c = 0
-        for v in d:
+        for vn in range(len(d)):
+            v = d[vn]
+            inf = (len(d) - vn)/len(d)
             if v in s:
                 if strict:
                     if d.index(v) == s.index(v):
-                        c += 1.0
+                        c += 1.0*inf
                     else:
-                        c += 0.5
+                        c += 0.5*inf
                 else:
-                    c += 1.0
+                    c += 1.0*inf
                 s[s.index(v)] = "`"
+                d[d.index(v)] = "`"
+            else:
                 d[d.index(v)] = "`"
         if len(s) > 0:
             infl1 = c/len(s)

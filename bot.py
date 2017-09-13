@@ -10,6 +10,7 @@ from mouth import voice
 class bot(console, intelligence, voice):
     ghostName = "Iris"
     session = []
+    string = ''
     context = []
     tpoint = []
     memory = []
@@ -20,12 +21,14 @@ class bot(console, intelligence, voice):
     new_expected_ans = []
     events_id = {}
     freq = []
+    ifreq = []
     show_info = True
     confirmed_event = False
     reply = False
     reply_value = ''
     predicted_list = []
     last_predicted_list = []
+    used_event = False          #for ans
     
     source = lastSource = ""
     
@@ -33,7 +36,7 @@ class bot(console, intelligence, voice):
     switch = True
     
     #ghost test state(default is on for test)
-    test_state = 1
+    test_state = 0
     
     learning = 0
 
@@ -45,7 +48,7 @@ class bot(console, intelligence, voice):
     speak_state = 0
 
     def __init__(self):
-        if self.test_state == 0:
+        if self.test_state == 1:
             self.createMemory()
             self.train()
             
@@ -57,11 +60,13 @@ class bot(console, intelligence, voice):
             self.confirmed_event = False
             
             #using the console class to grab input from user
-            self.string = self.getInput()
+            while len(self.string.strip()) < 1:
+                self.string = self.getInput()
             
             #pushing recieved string to brain for analysis
             self.output()
             
+            self.string = ''
             for x in self.new_expected_ans: self.set_expected_ans(x, self.expected_ans)
             self.new_expected_ans = []        
 
@@ -71,15 +76,9 @@ class bot(console, intelligence, voice):
             if self.string.strip() != '' or r is not None:
                 if type(r) == tuple and r[0] != None and r[-1] == 1:
                     r = r[0]
-                    self.reply = True
-                    self.reply_value = r
-                    self.setReply(self.string, r)
-                    self.last_predicted_list = self.predicted_list
-                    self.predicted_list = []
                     if self.speak_state:
                         self.speak(r)
                 else:
-                    self.reply = False
                     r = ''
                 print('\n{}\n'.format(r))
             
@@ -104,7 +103,7 @@ class bot(console, intelligence, voice):
     def train(self):
         c = 0
         #self.chunk_learn(filename)
-        self.trainCodebase()
+##        self.trainCodebase()
         self.learning = 1
         for td in trainingData:
             if len(td[0]) > 0:
@@ -115,8 +114,9 @@ class bot(console, intelligence, voice):
                     self.saveInput(td[0])
                     
                 self.setContext(td[0])
-                self.setReply(td[0], td[1]) #save obj property
-                self.setContext(td[1])
+                if len(td[1].strip()) > 0:
+                    self.setReply(td[0], td[1]) #save obj property
+                    self.setContext(td[1])
                 print("training ghost {}% complete".format(formatVal((c/len(trainingData))*100)))
         self.learning = 0
         

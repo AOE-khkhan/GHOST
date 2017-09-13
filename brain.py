@@ -20,24 +20,31 @@ class intelligence(subsetter, terminal, brain_functions):
         
         else:
             if data not in ["~","/"]:
+                for x in data.split():
+                    self.save2memory(x, 1)
                 self.save2memory(data)
 
-##            print(self.context[-1], self.reply)
-            if self.context[-1] == "/" and self.reply == True:
-                r = self.confirm_event(data, self.context[-3])
-##                print(r)
-                if r == False:
-##                    print(2, self.context[-5:], data, self.context[-2])
-                    self.setReply(self.context[-3], data)
-                    if self.context[-1] == data:
-                        self.context.pop()
+            if self.reply == True:
+                if self.context[-1] == "/":
+                    confidence = (0,1)
+                else:
+                    confidence = (1,1)
+                if self.used_event != False:
+                    self.increase_confidence(self.used_event, confidence)
+                    self.used_event = False
+
+                if self.context[-3] not in ["~","/"]:
+                    r = self.confirm_event(data, self.context[-3])
+                    if r == False:
+                        self.setReply(self.context[-3], data)
+                        if self.context[-1] == data:
+                            self.context.pop()
                             
-##            print(self.context[-5:])
             self.setContext(data)
-##            print(self.context[-5:])
+
             if len(self.context) > 2:
 ##                if self.context[-2] not in ["/", "~"] and data not in ["/", "~"]: self.setReply(self.context[-2], data)
-                if(self.reply == True and self.context[-2] == data):
+                if(data not in ["~","/"] and self.reply == True and self.context[-2] == data):
                     self.confirm_event(data, self.context[-3])
 
                 if self.context[-2] != "/" and self.reply == False:
@@ -73,12 +80,12 @@ class intelligence(subsetter, terminal, brain_functions):
                     else:
                         if self.context[-2] == "/" and len(self.context) > 3:
                             self.pre_process(self.context[-4], data)
-                print('... pre processed')
+                self.show_process('... pre processed')
                 r = self.event_process(data)
                 if r == None:
                     return (self.compute(data), 1)
                 else:
-                    return (r, 1)
+                    return (self.Filter([(r, 1)]), 1)
                 
     def analyse(self, data):
         r = self.prepare(data)
@@ -88,8 +95,8 @@ class intelligence(subsetter, terminal, brain_functions):
             return r
 
     def getQueRelated(self, data):
-        rel = self.getRelated(data, " ", ((len(data.split())/2)**-1)/2, strict=True)
-        related = rel.copy()             
+        rel = self.getRelated(data, " ", (len(data.split())**-1)/2, strict=True)
+        related = rel.copy()
         for x in rel:
             if len(x.split()) != len(data.split()):
                 related[x] *= 0.5
@@ -101,6 +108,7 @@ class intelligence(subsetter, terminal, brain_functions):
 
             related = {x:related[x] for x in related if related[x] >= pd[m][-1]*0.5}
             return related
+        
         else:
             return {}
 
@@ -135,15 +143,6 @@ class intelligence(subsetter, terminal, brain_functions):
         self.show_process("{} class(es) found: {}".format(len(searchFormat_classes), [x+" "+str(len(x)) for x in searchFormat_classes]))
         self.show_process("and {} more class(es) found: {}".format(len(new_searchFormat_classes), [x+" "+str(len(x)) for x in new_searchFormat_classes]))
 
-##        for cls in [searchFormat_classes, new_searchFormat_classes]:
-##            for cl in cls:
-##                temp_searchFormats = [searchFormats[i] for i in cls[cl]]
-##                
-##                #this inherits properties from the related values to generate more artificial data 
-##                if len(temp_searchFormats) > 1 and all([temp_searchFormats[0][0] in a for a in temp_searchFormats]):
-##                    self.show_process("Inheriting for ... {}".format(cl))
-##                    self.inheritProperties(cl, [x[-1] for x in temp_searchFormats])
-
     def trimModels(self, dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats):
         allclasses = []
         for i in range(len(que)):
@@ -168,14 +167,15 @@ class intelligence(subsetter, terminal, brain_functions):
     def getQnA(self, data):
         related = self.getQueRelated(data)
         relatedlist = [x for x in related]
-        self.show_process('related = {}'.format(relatedlist[:10]))    
+        self.show_process('related = {}, count = {}'.format(relatedlist[:10], len(relatedlist)))    
 
         que, ans, qna_infl = self.getQueAns(relatedlist)
         
         return que, ans, qna_infl
     
     def pre_process(self, data, data_after):
-        print('pre processing... data = {}, data_after = {}'.format(data, data_after))
+        self.show_process('\npre processing...')
+        self.show_process('data = {}, data_after = {}'.format(data, data_after))
         que, ans, qna_infl, dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats, output_classes = self.get_classes(data)
 
         outf = self.formatOutput(self.mapStrings(data, data), self.getCommonFormat(data_after, data))
@@ -186,7 +186,8 @@ class intelligence(subsetter, terminal, brain_functions):
         output_class = output_classes[outf]
         temp_qna_infl = [qna_infl[y] for y in output_class]
         temp_que = [que[y] for y in output_class]
-   
+        temp_ans = [ans[y] for y in output_class]
+        
         #this uses the datamap to turn the individual que to look as that of data
         temp_searchFormats = [searchFormats[y] for y in output_class]
 
@@ -195,29 +196,7 @@ class intelligence(subsetter, terminal, brain_functions):
         
         if len(sf) < 1 and sum(temp_qna_infl) < 3:
             return
-    
-        sfl = list(set(sf))
-        sfi = {x:sf.count(x) for x in sfl}
-        k = {}
         
-        for xk in sfl:
-            for xxk in xk.split():
-                if xxk != '[var]' and xxk not in k:
-                    for xkx in sfl:
-                        if xxk in xkx:
-                            if xxk in k:
-                                k[xxk] += sfi[xkx]
-                            else:
-                                k.setdefault(xxk, sfi[xkx])
-        print(k, len(sf))
-        if len(k) > 1:
-            k = self.sort_dict(k)
-            comp = int(k[0][-1])/len(sf)
-            print(comp)
-            if comp > 0.75:
-                key = k[0][0]
-            print('k', key)
-
         ac = []
         for y in temp_que:
             ac.append(self.getAllClasses([y]))
@@ -229,34 +208,73 @@ class intelligence(subsetter, terminal, brain_functions):
         if r == data_after:
             cdb = 1
 ##        (cl.replace('[var]', y[0]), y[-1], data, temp_searchFormat_max, x, common_cls)
-        print('class', outf, cdb)
+        self.show_process('class = {}'.format(outf))
         if str(sorted(data_class)) not in self.events and self.confirmed_event == False:
             if cdb == 1:
-                self.set_event(data, sorted(data_class), str(cdb), '0/0', data, key)
+                if self.confirmed_event == False:
+                    sfl = list(set(sf))
+                    sfi = {x:sf.count(x) for x in sfl}
+                    k = {}
+                    
+                    for xk in sfl:
+                        for xxk in xk.split():
+                            if xxk != '[var]' and xxk not in k:
+                                for xkx in sfl:
+                                    if xxk in xkx:
+                                        if xxk in k:
+                                            k[xxk] += sfi[xkx]
+                                        else:
+                                            k.setdefault(xxk, sfi[xkx])
+                    for x in k:
+                        if x in self.memory:
+                            f = int(self.ifreq[self.memory.index(x)])
+                            if f > 1:
+                                k[x] *= (1 - (f**-1))
+
+                    sfl = sum([k[x] for x in k])
+                    if sfl > 0:
+                        k = self.sort_dict(k)
+
+                        key = k[0][0]
+                        self.show_process('key = {}'.format(key))
+
+                    self.set_event(data, sorted(data_class), str(cdb), '0/0', data, key)
             else:
                 related_que = self.find_answer(data, data_after)
                 
-                print('rel', related_que[:10])
+                self.show_process('rel = {}'.format(related_que[:10]))
                 if related_que == []:
                     self.generateEvent(data, data_after, key, outf)
                         
                 for x in related_que:
+                    dm =  self.mapStrings(data, x)
+                    string = x
+                    if any([vx[0] == vx[-1] for vx in dm]):
+                        for vx in dm:
+                            if vx[0] == vx[-1]:
+                                string = string.replace(vx[0], "", 1)
+                        key = self.formatOutput(dm,(string, []))
+                    else:
+                        string = " "+data+" "
+                        for vx in x.split():
+                            if " "+vx+" " in string:
+                                string = string.replace(" "+vx+" ", " ", 1)
+                        key = string.strip()
+##                    print(dm, string, key)
+                    self.show_process('key = {}'.format(key))
                     r = self.try_process(x)
                     if r != None:
                         self.set_event(data, sorted(data_class), '1', '0/0', x, key)
-                        print(data, '----and----', x, 'here-------------------------------------')
-
+                        
                     else:
                         self.generateEvent(data, data_after, key, outf)
                         
     def generateEvent(self, data, data_after, key, outf):
         for x in self.last_predicted_list:
-            print(x[:-1])
             if data_after == x[0]:
-                print('data_rel', x[3])
+
                 relxx = self.getQueRelated(x[3])
 
-                print('relxx', self.sort_dict(relxx)[:10])
                 ac = []
                 for y in relxx:
                     ac.append(self.getAllClasses([y]))
@@ -264,14 +282,23 @@ class intelligence(subsetter, terminal, brain_functions):
                 data_class = sorted(ac)
                 
                 self.set_event(data, data_class, '0', '0/0', outf, key, x[-1])
-                print(data, '=====>', outf, 'here-------------------------------------')
                 
-    def isset(self, data, que):
+    def isset(self, data, que, ans, cl, temp_searchFormat_max, common_cls):
+        rev_session = self.session.copy()
+        rev_session.reverse()
+        length = len(self.session)
+
         predicted_list = {}
         if all(data == x for x in que):     #get the best replied one
-            print([(x, int(self.read_datafreq(data)[self.read_data(data).index(x)]), int(self.readfreq(data))) for x in predicted_list if x in self.read_data(data)])
-            if all(data == x for x in que): predicted_list = {x:predicted_list[x]*(int(self.read_datafreq(data)[self.read_data(data).index(x)])/int(self.readfreq(data))) for x in predicted_list if x in self.read_data(data)}
-            return predicted_list
+            predicted_list = {x:(int(self.read_datafreq(data)[self.read_data(data).index(x)])/int(self.readfreq(data))) for x in ans if x in self.read_data(data)}
+
+            predicted = []
+            for x in predicted_list:
+                if x in self.session:
+                    i = length - 1 - rev_session.index(x)
+            
+                predicted.append((cl.replace('[var]', x), i, data, temp_searchFormat_max, x, common_cls))
+            return predicted
 
     def get_classes(self, data):
         self.show_process("data = {}".format(data))
@@ -312,25 +339,35 @@ class intelligence(subsetter, terminal, brain_functions):
             que, ans, qna_infl, dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats, output_classes = self.get_classes(data)
 ##            self.show_process("outputFormats_infl = {}".format(pd))
             
-            #if its a single data with multiple replies        
-            r = self.isset(data, que)
-            if r != None:
-                return self.Filter(r)
-            
             #instantiating variables
             predicted_list = []     #this is the predicted ans
             predicted_no = []
             for cl in output_classes:
+                
+                if cl == data and sum(temp_qna_infl) > 1:
+                    self.show_process('\nclass: {}'.format(cl))
+
+                    r = data
+                    if r not in predicted_list:
+                        predicted_list.append(r)
+                        predicted_no.append(1)
+                    else:
+                        predicted_no[predicted_list.index(r)] += 1
+                        continue
+                    
                 output_class = output_classes[cl]
+
+                temp_que = [que[y] for y in output_class]
+                
+                temp_ans = [ans[y] for y in output_class]
 
                 temp_qna_infl = [qna_infl[y] for y in output_class]
                 
                 if sum(temp_qna_infl) < 2:
                     continue
-                
-                temp_que = [que[y] for y in output_class]
 
-                temp_ans = [ans[y] for y in output_class]
+                else:
+                    self.show_process('\nclass: {}'.format(cl))
 
                 #this maps the related que to data
                 temp_dataMap = [dataMap[y] for y in output_class]
@@ -358,7 +395,6 @@ class intelligence(subsetter, terminal, brain_functions):
                 temp_search_memory_li = [self.memory.index(temp_ans[x]) < self.memory.index(temp_que[x]) for x in range(len(temp_ans))]
                 temp_search_memory = max([temp_search_memory_li.count(x) for x in set(temp_search_memory_li)]) == temp_search_memory_li.count(True)
 
-                self.show_process('class: {}'.format(cl))
                 self.show_process("search_memory = {}".format(temp_search_memory))
                 
                 common_classes = []
@@ -371,53 +407,81 @@ class intelligence(subsetter, terminal, brain_functions):
                     ans_length = len(temp_ans)
                     li = temp_ans.copy()
                     li.insert(len(li), data)
-                    if cl == '[var]':
+                    if cl == '[var]2':
                         for vx in li:
                             vcl = self.getAllClasses([vx])
                             for vxn in vcl:
                                 if vxn != '[var]' and vxn in cl_db:
                                     cl_db[vxn] += 1
                                 else:
-                                    if vxn != '[var]': cl_db.setdefault(vxn, 1)                        
-                        cl_db = {x:(cl_db[x]/len(temp_ans))*class_infl for x in cl_db if cl_db[x] > 1}
+                                    if vxn != '[var]': cl_db.setdefault(vxn, 1)
                         
+                        cl_db = {x:(cl_db[x]/len(temp_ans))*class_infl for x in cl_db if cl_db[x] > 1}
+                        print(len(cl_db))
+                        m = 0
+                        if len(cl_db) > 0:
+                            pd = self.sort_dict(cl_db)
+                            ma = pd[0][-1]
+                            mi = pd[-1][-1]
+                            m = (ma + mi)/2
+                        if m > 0: cl_db = {x:cl_db[x] for x in cl_db if cl_db[x] >= m}
+                        print('mean = ', m, len(cl_db), pd[0], pd[-1])
                     else:
                         cl_db = {cl:1.0*class_infl}
+                        
+                self.show_process('prev_ans = {}'.format(temp_ans[:5]))
                 
-                for cx in temp_commonFormatAns:
+                varz = {}
+                for cn in range(len(temp_commonFormatAns)):
+                    cx = temp_commonFormatAns[cn]
                     for ct in range(cx[0].count('[var]')):  
-##                        print(cx[-1][ct])
+                        varz.setdefault(cx[-1][ct], temp_qna_infl[cn])
                         vcl = self.orClass(cx[-1][ct], sep=" ")
                         common_classes.append(vcl)
 
+                self.show_process("varz = {}".format(varz))
+                starters = self.generate_starters(varz)
+                self.show_process('starters = {}'.format(starters))
+        
                 temp_genScore = self.getScore(common_classes, strict=False)
-                self.show_process("temp_score = {}".format(self.sort_dict(temp_genScore)[:10]))
-                if '[var] is a place' in temp_genScore:
-                    print('[var] is a place', temp_genScore['[var] is a place'])
-
+##                self.show_process("temp_score = {}".format(self.sort_dict(temp_genScore)[:10]))
+                
                 common_cls = [] # this all the classification of the answer for creating events through predicted_list
                 if len(temp_genScore) > 0:
                     temp_genScore_li = self.sort_dict(temp_genScore)
                     common_cls = [x for x in temp_genScore_li if x[-1] == temp_genScore_li[0][-1]]
 
-                print('common_cls = ', common_cls[:10])    
+##                print('common_cls = ', common_cls[:10])
+                    
+                #if its a single data with multiple replies        
+                ret = self.isset(data, temp_que, temp_ans, cl, temp_searchFormat_max, common_cls)
+                if cl == '[var]' and ret != None and sum(temp_qna_infl) > 1:
+                    self.show_process("common que with var ans: {}".format([x[0]+":"+str(x[1]) for x in ret]))
+                    for r in ret:
+                        if r not in predicted_list:
+                            predicted_list.append(r)
+                            predicted_no.append(1)
+                        else:
+                            predicted_no[predicted_list.index(r)] += 1
+                    continue
+                
                 self.show_process("class list_score = {}".format(self.sort_dict(cl_db)[:10]))
-                self.show_process('score {} {} {} {}'.format(temp_qna_infl, sum(temp_qna_infl), sum(qna_infl), sum(temp_qna_infl)/sum(qna_infl)))
+                self.show_process('index = {}, score = {}, sum_total = {}, sum = {}, ratio = {}'.format(output_classes[cl], temp_qna_infl[:5], sum(temp_qna_infl), sum(qna_infl), sum(temp_qna_infl)/sum(qna_infl)))
                 cmps = []
 ##                print('cl_db', self.sort_dict(cl_db))
                 if len(cl_db) > 0:
                     for x in cl_db:
 ##                        print('\n working on',x)
-                        ret = self.matchAns(data, x)
+                        ret = self.matchAns(data, x, starters)
                         for y in ret:
                             cmps.append((cl.replace('[var]', y[0]), y[-1], data, temp_searchFormat_max, x, common_cls))
                             
-##                print(self.sort_dict(cmps)[:10])
+                self.show_process("cmps = {}".format([x[0] for x in cmps[:10]]))
                 self.show_process()
                 pr = self.getClassScore2({x[0]:'' for x in cmps}, temp_genScore, data=False, is_same=False, sep= " ")
                 if pr != []:
                     cmps = [x for x in cmps if x[0] in pr]
-                print('pr', pr)
+
                 predicted_list.extend(cmps)
                 predicted_no.extend([x[0] for x in cmps])
 
@@ -429,22 +493,48 @@ class intelligence(subsetter, terminal, brain_functions):
                     m = c
             predicted_list = [x for x in predicted_list if len(predicted_no) > 0 and predicted_no.count(x[0]) == m]
             self.predicted_list = predicted_list
-            self.show_process("final suggested ans = {}".format([x[0] for x in predicted_list]))
+            self.show_process("final suggested ans = {}".format([x[0]+":"+str(x[1]) for x in predicted_list]))
             return self.Filter(predicted_list)
         
-    def matchAns(self, data, x):
-        cmp = self.getRelated(x, sep=" ", treshold=(len(x.split())**-1)/2, strict=True)
-        vs = [xx for xx in cmp if self.percentage_similarity(data, x, sep=" ") > 0.1]
+    def matchAns(self, data, x, starters=[]):
+        rev_session = self.session.copy()
+        rev_session.reverse()
+        length = len(self.session)
+        
+        t = (len(x.split())**-1)/2
+        cmp = self.getRelated(x, sep=" ", treshold=t, strict=True)
+
+        vs = [xx for xx in cmp if self.percentage_similarity(data, xx, sep=" ") > 0.1]
+
         li = []
+        backup_li = []
+        
+        self.show_process('matching ans for {}: {} related = {}, count = {} to {}'.format(data, x, vs[:5], len(cmp), len(vs)))
         for vx in vs:
-            i = self.memory.index(vx)
+            i = -1
+            if vx in self.session:
+                i = length - 1 - rev_session.index(vx)
             dm =  self.mapStrings(x, vx)
 ##                            -----------------this is to get the corresponding [var] value in data map---------------------
             rep = " "+" ".join([xy[-1].replace((' '+xy[0]+' ').replace(' [var] ', '', 1).strip(), '', 1).strip() for xy in dm if ' [var] ' in ' '+xy[0]+' ']) +" "
-            if " "+x.replace('[var]', '').strip()+" " in " "+vx+" " and rep not in " "+data+" " and len(rep.strip()) > 0 and rep in " "+vx+" ":
-                self.show_process("{} {} {}".format(" "+x.replace('[var]', '').strip()+" ",'---in----',  " "+vx+" "))
-                li.append((rep.strip(), i))
-        return li
+            if self.is_in(x.replace('[var]', '').strip(), vx) and rep not in " "+data+" " and len(rep.strip()) > 0 and rep in " "+vx+" ":
+##                self.show_process("{} {} {}".format(" "+x.replace('[var]', '').strip()+" ",'---in----',  " "+vx+" "))
+                rep = rep.strip()
+##                self.show_process('vx = {}:{}'.format(vx, cmp[vx]))
+            
+                if len(starters) > 0:
+                    for xx in starters:
+                        if rep.startswith(xx):
+                            li.append((rep, i))
+                            break
+                        else:
+                            backup_li.append((rep, i))
+                else:
+                    li.append((rep, i))
+        if li == []:
+            return backup_li
+        else:
+            return li
     
     def Filter(self, predicted):
         if len(predicted) > 0:
@@ -453,16 +543,36 @@ class intelligence(subsetter, terminal, brain_functions):
                 if x[1] > i:
                     reply = x[0]
                     i = x[1]
+
+            self.reply = True
+            self.reply_value = reply
+            self.setReply(self.string, reply)
+            self.last_predicted_list = self.predicted_list
+            self.predicted_list = []
             return reply
+        
+        else:
+            self.reply = False
+                    
     
     def save2memory(self, data, artificial=0):
         if data in self.memory:
-            if artificial == 0: self.freq[self.memory.index(data)] = str(int(self.freq[self.memory.index(data)]) + 1)
+            i = self.memory.index(data)
+            if artificial == 1:
+                self.ifreq[i] = str(int(self.ifreq[self.memory.index(data)]) + 1)
+            else:
+                self.freq[self.memory.index(data)] = str(int(self.freq[self.memory.index(data)]) + 1)
+                
         else:
             self.memory.append(data)
-            self.saveInput(data)
-            if artificial == 0: self.freq.append("1")
-            else: self.freq.append("0")
+            self.write("data/"+str(self.memory.index(data)))
+            self.write("datafreq/"+str(self.memory.index(data)))
+            if artificial == 1:
+                self.ifreq.append("1")
+                self.freq.append("0")
+            else:
+                self.freq.append("1")
+                self.ifreq.append("0")
         self.save()
 		
     def save2codebase(self, cmd, value):
@@ -486,7 +596,7 @@ class intelligence(subsetter, terminal, brain_functions):
                 key = self.read_event(x, 'key')
 ##                print('key', key)
                 if len(key.strip()) > 0:
-                    if " "+key+" " in " "+data+" ":
+                    if all([" "+k+" " in " "+data+" " for k in key.split()]):
                         go = True
                     else:
                         go = False
@@ -496,7 +606,7 @@ class intelligence(subsetter, terminal, brain_functions):
                     else:
                         go = True
 ##                print('before go')
-                if go and self.events_id[x] in self.getRelated(data, sep=" ", treshold=0.01, strict=True):
+                if go:#self.events_id[x] in self.getRelated(data, sep=" ", treshold=0.01, strict=True):
                     event_id = self.events_id[x]
 ##                    print('after go')
                     if event_id != False and self.is_in(ev, str(cls), 10e-01):
@@ -504,19 +614,23 @@ class intelligence(subsetter, terminal, brain_functions):
                         dm =  self.mapStrings(data, event_id)
                         rep = self.formatOutput(dm,(self.read_event(x, 'format'),[]))
 ##                        print(dm, self.read_event(x, 'format'), rep)
-                        
+
+                        cmd = rep
                         if self.read_event(x, 'codebase') == '1':
                             rep = self.try_process(rep)
                             
                         else:
-                            print(data, self.read_event(x, 'format'))
+##                            print(data, self.read_event(x, 'format'))
                             rep = self.matchAns(data, self.read_event(x, 'format'))
-                            print(rep)
+##                            print(rep)
                         expected_ans = (x, data, rep)
                         self.set_expected_ans(expected_ans, self.new_expected_ans)
                         
                         confidence = self.read_event(x, 'confidence')
-                        confidence = self.try_process(confidence)
+                        if confidence != '0/0':
+                            confidence = self.try_process(confidence)
+                        else:
+                            confidence = 0
 
                         try:
                             confidence = float(confidence)
@@ -525,11 +639,11 @@ class intelligence(subsetter, terminal, brain_functions):
                             
                         if confidence == None:
                             confidence = 0
-        ##                print(dm, self.read_event(event_id, 'format'), rep, confidence)
-                        if expected_ans[-1] != None: print('cmd = {}, expected ans = {}, confidence = {}'.format(rep, expected_ans[-1], confidence))
+                        print('cmd = {}, expected ans = {}, confidence = {}'.format(cmd, expected_ans[-1], confidence))
+                        if expected_ans[-1] != None: print('cmd = {}, expected ans = {}, confidence = {}'.format(cmd, expected_ans[-1], confidence))
                         if expected_ans[-1] != None and dm != [] and confidence >= 0.5:
-                            self.show_process('cmd = {}, expected ans = {}, confidence = {}'.format(rep, expected_ans[-1], confidence))
-
+                            self.show_process('cmd = {}, expected ans = {}, confidence = {}'.format(cmd, expected_ans[-1], confidence))
+                            self.used_event = x
                             return expected_ans[-1]
 
                         
