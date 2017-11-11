@@ -1,63 +1,55 @@
-import os, json
+import os
 
 from functions import *
 
 class brain_functions:
-    def fetch_objects(self, data):
+    def fetch_object(self, data):
         s = self.getSubsets(data)
         obj = {x:1 for x in s}
 ##        self.show_process('subsets = {}'.format(s))
-
-        sub = {}
         for x in s:
-            if x in self.memory:
-                f = int(self.memory[x]["ifreq"])
-                if f > 1:
-                    f = f**-1
-                sub.setdefault(x,f)
-##        print(self.sort_dict(sub))
-        for x in s:
-            for y in x.split():
-                if y in sub: obj[x] *= sub[y]
-##        self.show_process('checking = {}, f = {}'.format(x, obj))
+            f = 0
+            for y in self.memory:
+                if x in y:
+                    f += int(self.freq[self.memory.index(y)])
+            self.show_process('checking = {}, f = {}'.format(x, f))
+            if f > 1:
+                obj[x] *= (f**-1)
         pd = self.sort_dict(obj)
-##        self.show_process('objs = {}'.format(pd))
+        self.show_process('objs = {}'.format(pd))
+        
         if len(pd) == 1:
             pass
-
+        
         elif len(pd) > 0:
-            m = pd[0][-1]
-            sf = get_sf(m)
-            if sf == 0:
-                sf = 1
+            m = pd[0][-1]*0.75
+            li = [x[0] for x in pd if x[-1] >= m]
+            exli = [x[0] for x in pd if x[-1] < m]
 
-            m = (10**(-1*sf))*0.75
-            objs = obj.copy()
-            obj = [x[0] for x in pd if x[-1] >= m]
-##            print(obj)
-            exobj = [x[0] for x in pd if x[-1] < m]
-            for x in exobj:
-##                print('testing', x)
-                if any([y in x for y in obj]):
-                    obj.append(x)
-                        
-                else:
-                    break
-                    
-##            print(obj)
-            obj2 = []
+            self.show_process('factors = {}'.format(li))
+            self.show_process('eliminators = {}'.format(exli))
+        
+            exli2 = exli.copy()
+            
+            for n in range(len(exli2)):
+                for x in exli2:
+                    if x != exli2[n] and x in exli2[n]:
+                        print(x,'---', exli2[n])
+                        if x in exli:
+                            exli.remove(x)
+                        break
+            print(exli)
+            newli = [x for x in li]
+            for n in range(len(li)):
+                for x in exli:
+                    print(x,'---', newli[n])
+                    if x in newli[n]:
+                        newli[n] = newli[n].replace(x, '', 1)
+                        break
+            print(newli)
 
-            while obj != obj2:
-                obj2 = obj.copy()
+            obj = [x.strip() for x in set(newli) if x.strip() not in exli2 and x in data]
                 
-                for n in range(len(obj2)):
-                    for x in obj2:
-                        if x != obj2[n] and x in obj2[n]:
-##                            print(x,'---', obj2[n])
-                            if x in obj:
-                                obj.remove(x)
-                            break
-##            print(obj)
         return obj
     
     def generate_starters(self, li):
@@ -140,7 +132,7 @@ class brain_functions:
         que = {}
         for x in self.memory:
 ##            if all([xx in x and data.split().count(xx) == x.split().count(xx) for xx in data.split()]):
-            for y in self.memory[x]["ans"]:
+            for y in self.read_data(x):
                 if y == ans and x != data:
                     c = self.dist(data, x)
                     if c > 0:
@@ -156,14 +148,14 @@ class brain_functions:
             return []
     
     def create(self, name, path="memory\\console\\"):
-        file = open(path+name,"w")
+        file = open(path+name+".txt","w")
         file.write("")
         file.close()
         
     def createMemory(self):
         if not os.path.exists('memory/console/memory.txt'):
             self.setup()
-        for x in ['memory.json', 'events.json', 'session.txt', 'context.txt']:
+        for x in ['memory', 'codebase', 'sessions', 'context', 'freq']:
             self.create(x)
         self.create('text.txt', 'resources\\')
         
@@ -268,7 +260,20 @@ class brain_functions:
         return self.confirmed_event
     
     def set_event(self, data, data_class,  codebase, confidence, val, key='', cls2=[]):
-        if str(sorted(data_class)) not in self.events:
+##        print('for data {}'.format(data), end='')
+##        if str(sorted(data_class)) in self.events:
+##            print(', it is in events',[self.events_id[x] for x in self.events[str(sorted(data_class))]], end='')
+##        else:
+##            print(', its not in events', end='')
+##        if str(sorted(data_class)) in self.events and any([self.events_id[x] in self.getRelated(data, " ", True) for x in self.events[str(sorted(data_class))]]):
+##            print(' and in related')
+##        else:
+##            print(' not in related')
+        data_rel = self.getRelated(data, " ", True)
+        if str(sorted(data_class)) in self.events and any([self.events_id[x] in data_rel for x in self.events[str(sorted(data_class))]]):
+            pass
+        
+        else:
             self.show_process('creating event===============' + data)
             self.create_event(data, str(sorted(data_class)), codebase, '0/0', val, key, str(sorted(cls2)))
 ##            input('enter!')
@@ -279,19 +284,37 @@ class brain_functions:
         a,b = confidence.split('/')
         a, b = int(a), int(b)
         a, b = a+value[0], b+value[1]
-        self.update_event(event_name, "confidence", str(a)+'/'+str(b))
-        self.show_process("affecting event confidence {} => {}".format(self.events[event_name]["id"], value))
+        self.update_event(event_name, self.read_event(event_name, 'classes'), self.read_event(event_name, 'codebase'), str(a)+'/'+str(b), self.read_event(event_name, 'format'), self.read_event(event_name, 'key'), self.read_event(event_name, 'classes2'))
+        self.show_process("affecting event confidence {} => {}".format(self.events_id[event_name], value))
         
     def create_event(self, value, cls, codebase, confidence, Format, key, cls2=''):
-        self.events.setdefault(cls, {"id":value, "classes":cls, "codebase":str(codebase), "confidence":confidence, "format":Format, "key":key, "classes2":cls2})
+        name = str(len(self.events_id))
+        file = open('memory/console/events/'+name+'.txt', 'w')
+        file.writelines([value+'\n', cls+'\n', str(codebase)+'\n', confidence+'\n', Format+'\n', key+'\n', cls2+'\n'])
+        file.close()
+        
+        self.events_id.setdefault(name, value)
+        self.saveData('events', self.events_id)
+        if str(cls) in self.events:
+            self.events[str(cls)].append(name)
+            
+        else:
+            self.events.setdefault(str(cls), [name])
         self.save()
 
-    def update_event(self, cls, key, value):
-        self.events[cls][key] = value
+    def update_event(self, event_id, cls, codebase, confidence, Format, key, cls2=''):
+        value = self.events_id[event_id]
+        file = open('memory/console/events/'+event_id+'.txt', 'w')
+        file.writelines([value+'\n', cls+'\n', str(codebase)+'\n', confidence+'\n', Format+'\n', key+'\n', cls2+'\n'])
+        file.close()
         self.save()
-
+        
     def read_event(self, event_id, key):
-        return self.events[event_id][key]
+        key_db = {'id':0, 'classes':1, 'codebase':2, 'confidence':3, 'format':4, 'key':5, 'classes2':6}
+        file = open('memory/console/events/'+event_id+'.txt')
+        r = [x.replace('\n',"") for x in file.readlines()]
+        file.close()
+        return r[key_db[key]]
     
     def try_process(self, cmd):
         try:
@@ -407,16 +430,8 @@ class brain_functions:
             return factor1,factor2,intersect
         else:
             return "","",""
-    
-    def setObjects(self, data):
-        if len(self.objects) == 10:
-            self.objects.pop(0)
-        self.objects.append(self.fetch_objects(data))
-
-        self.save()
-    
+     
     def setContext(self, data):
-        self.setObjects(data)
         if len(self.context) == 100:
             self.context.pop(0)
         self.context.append(data)
@@ -513,7 +528,12 @@ class brain_functions:
             for d in dataMap:
                 out = out.replace(" "+d[-1]+" ", " "+d[0]+" ", 1)
             output = out.strip()
-
+##            
+##        for m in out.split():
+##            for dm in dataMap:
+##                if " "+m+" " in " "+dm[1]+" " and dm[1] != "":
+##                    out = out.replace(" "+m+" ", " "+dm[0]+" ", 1)
+##                    
         return output
     
     def getCommonFormat(self,que,ans):
@@ -542,6 +562,15 @@ class brain_functions:
             file.close()
         except Exception as e:
             print(e)
+
+    def read_data(self, filename):
+        return self.read("data/"+str(self.memory.index(filename)))
+
+    def read_datafreq(self, filename):
+        return self.read("datafreq/"+str(self.memory.index(filename)))
+
+    def readfreq(self, data):
+        return self.freq[self.memory.index(data)]
             
     def read(self, filename):
         file = open("memory/console/" + str(filename) + ".txt", "r")
@@ -723,18 +752,6 @@ class brain_functions:
             return any([data in a for a in li])
         else:
             return all([data in a for a in li])
-
-    def write_json(self, name, dictionary):
-        content = json.dumps(dictionary)
-        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'w')
-        file.write(content)
-        file.close()
-
-    def read_json(self, name):
-        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'r')
-        content = file.read()
-        file.close()
-        return json.loads(content)
         
     def tryread(self, filename):
         try:
@@ -746,36 +763,53 @@ class brain_functions:
         data = [x + "\n" for x in data]
         self.write(filename, data)
 
+    def saveMethod(self, objectname, value=""):
+        name = str(len(self.codebase))
+
+        #save input to  memory
+        self.write("codebase/"+name)
+        self.save2codebase(objectname, value)
+        self.setValue(name, objectname, value)
+        
+    def setValue(self, name, objectname, value):
+        data = self.read("codebase/"+name)
+        if len(data) == 0:
+            data.append(objectname)
+            data.append(value)
+        self.saveData("codebase/"+name, data)
+
     def saveInput(self, objectname):
         if objectname not in self.memory:
             #save input to  memory
             for x in objectname.split():
-                self.save2memory(x)
+                self.save2memory(x, 1)
             self.save2memory(objectname)
-        
-    def setReply(self, objectname, reply, silent=False):
-        if silent == False:
-            self.setContext(reply)
+        self.write("data/"+str(self.memory.index(objectname)))
+        self.write("datafreq/"+str(self.memory.index(objectname)))
+
+    def setReply(self, objectname, reply):
+        self.setContext(reply)
         if reply not in self.memory:
             #save input to  memory
             self.save2memory(reply)
-        if objectname not in self.memory:
-            self.save2memory(objectname, 1)
-        data = self.memory[objectname]["ans"]
-
+        data = self.read("data/"+str(self.memory.index(objectname)))
+        datafreq = self.read("datafreq/"+str(self.memory.index(objectname)))
         if reply in data:
-            self.memory[objectname]["ans"][reply] = str(int(data[reply]) + 1)
-            
+            datafreq[data.index(reply)] = str(int(datafreq[data.index(reply)]) + 1)
         else:
-            self.memory[objectname]["ans"].setdefault(reply, "1")
-
+            data.append(reply)
+            datafreq.append("1")
+        self.saveData("data/"+str(self.memory.index(objectname)), data)
+        self.saveData("datafreq/"+str(self.memory.index(objectname)), datafreq)
         
     def save(self):
-        self.write_json("memory", self.memory)
+        self.saveData("memory", self.memory)
+        self.saveData("codebase", [str(len(self.codebase))+"\n"])
         self.saveData("context", self.context)
         self.saveData("session", self.session)
-
-        self.write_json('events', self.events)
+        self.saveData("freq", self.freq)
+        self.saveData("ifreq", self.ifreq)
+        self.saveData('events', self.events_id)
         self.loadMemory()
 
     def load(self, filename):
@@ -785,17 +819,32 @@ class brain_functions:
     def loadContext(self):
         self.context = self.load("context")
 
+    def loadCodebase(self):
+        cb = int(open("memory/console/codebase.txt").read().replace("\n", ""))
+        self.codebase = {open('memory/console/codebase/'+str(x)+'.txt').readlines()[0].replace("\n", "")
+                         :open('memory/console/codebase/'+str(x)+'.txt').readlines()[1].replace("\n", "") for x in range(cb)}
+        self.rev_codebase = {self.codebase[x]:x for x in self.codebase}
         
     def loadEvents(self):
-        self.events = self.read_json("events")
-        
+        for r, d, f in os.walk('memory/console/events/'):
+            pass
+        self.events_id = {x.replace('.txt', '', 1).replace('\n', '', 1):open('memory/console/events/'+x).readlines()[0].replace('\n', '', 1) for x in f}
+        self.events = {}
+        for x in self.events_id:
+            key = self.read_event(x, 'classes')
+            if key in self.events:
+                self.events[key].append(x)
+            else:
+                self.events.setdefault(key, [x])
+
     def info(self, string): #to show information
         if self.show_info:
             print(string)
         
     def loadMemory(self):
-        if os.path.exists('memory/console/memory.json'):
+        if os.path.exists('memory/console/memory.txt'):
             self.loadContext()
+            self.loadCodebase()
             
             try:
                 self.loadEvents()
@@ -803,14 +852,16 @@ class brain_functions:
                 print(e)
             
             self.session = self.load("session")
-            self.memory = self.read_json("memory")
+            self.memory = self.load("memory")
+            self.freq = self.load("freq")
+            self.ifreq = self.load("ifreq")
         else:
             self.setup()
             self.createMemory()
 
     def setup(self, li=None):
         if li == None:
-            li = ['resources', 'memory', 'sessions', 'memory/console/']
+            li = ['resources', 'memory', 'sessions', 'memory/console/', 'memory/console/data/', 'memory/console/datafreq', 'memory/console/codebase', 'memory/console/events/']
         for x in li:
             if os.path.exists(x):
                 pass
@@ -904,17 +955,14 @@ class brain_functions:
                 new_dict.setdefault(x, ref[x]*other[x])
         return new_dict
     
-    def readfreq(self, data):
-        return self.memory[data]["freq"]
-
     def getQueAns(self, datalist):
         que = []
         ans = []
         infl = []
         for x in datalist:
-            for y in self.memory[x]["ans"]:
+            for y in self.read_data(x):
                 if len(y) > 0:
                     ans.append(y)
                     que.append(x)
-                    infl.append(int(self.memory[x]["ans"][y]))
+                    infl.append(int(self.read_datafreq(x)[self.read_data(x).index(y)]))
         return que, ans, infl

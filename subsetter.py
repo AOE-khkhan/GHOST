@@ -1,5 +1,5 @@
 class subsetter:
-    def getSubsets(self,data):
+    def getSubsets(self, data):
         classified  = []
         dataList = data.split()
         for i in dataList:

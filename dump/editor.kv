@@ -1,0 +1,18 @@
+#:kivy 1.1.0
+
+Root:
+    text_input: text_input
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Save'
+                on_release: self.save
+
+        BoxLayout:
+            TextInput:
+                id: text_input
+                text: self.text

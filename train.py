@@ -1,17 +1,5 @@
 import random
 
-#degree of random addition
-n = 21
-li = [1, 2, 5, 7, 10, 13, 21]
-codebaseTrainingData = [
-	tuple([str(x) + " + " + str(xx), str(x+xx)]) for x in li for xx in li
-	] + [tuple([str(x) + " * " + str(xx), str(x*xx)]) for x in li for xx in li
-	] + [tuple([str(x) + " - " + str(xx), str(x-xx)]) for x in li for xx in li
-        ] + [tuple([str(x) + " / " + str(xx), str(x/xx)]) for x in li for xx in li
-        ] + [
-            ('say hi', 'xxx{[s00000001]}xxx'),
-            ('', ''),
-]
 trainingData = []
 
 d = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]

@@ -1,3 +1,5 @@
+import json
+
 def word_tokenize(string):
     return list(string)#.split()
 
@@ -14,4 +16,34 @@ def formatVal(num):
     else:
         num += 0.01
         return float(str(num)[:s.index(".")+3])
+
+def write_json(path, dictionary):
+        content = json.dumps(dictionary)
+        file = open(path+'.json', 'w')
+        file.write(content)
+        file.close()
+
+def read_json(path):
+    file = open(path+'.json', 'r')
+    content = file.read()
+    file.close()
+    return json.loads(content)
     
+def write_file(path, contents):
+    file = open(path, 'w')
+    file.write(contents)
+    file.close()
+    
+def get_sf(val):
+    st = list(format((val),".20f"))
+    sf = 0
+    for s in st:
+        if s == '.':
+            continue
+
+        if s != '0':
+            break
+        
+        else:
+            sf += 1
+    return sf

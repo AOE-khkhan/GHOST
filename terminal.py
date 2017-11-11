@@ -1,20 +1,24 @@
 import os
 class terminal:
     def runCommand(self,cmd):
-        if cmd.startswith("?rollback "):
-            st = cmd.replace("?rollback ","")
+        if cmd.startswith("??rollback "):
+            st = cmd.replace("??rollback ","")
 ##            print('ROBOCOPY "sessions\\'+st+'" "memory" /E')
             os.system('del memory\\console\\events\\ /q')
             self.create('events')
             os.system('ROBOCOPY "sessions\\'+st+'" "memory" /E')
             self.loadMemory()
             
-        elif cmd.startswith("?cache "):
-            st = cmd.replace("?cache ","")
+        elif cmd.startswith("??cache "):
+            st = cmd.replace("??cache ","")
             os.system('mkdir "sessions\\'+st+'"')
             os.system('del "sessions\\'+st+'\\console\\events\\" /q')
 ##            input('del "sessions\\'+st+'\\console\\events\\" /q')
             os.system('ROBOCOPY "memory" "sessions\\'+st+'" /E')
+        elif cmd.startswith("??open "):
+##            self.cui = cmd.replace("??open ","")
+            self.setProperty("class_name", cmd.replace("??open ",""))
+            self.render_gui()
             
         elif cmd.startswith("??"):
             st = cmd.replace("??","")

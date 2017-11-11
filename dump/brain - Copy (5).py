@@ -347,6 +347,26 @@ class intelligence(subsetter, terminal, brain_functions):
             predicted_list = []     #this is the predicted ans
             predicted_no = []
             for cl in output_classes:
+
+                output_class = output_classes[cl]
+
+                temp_qna_infl = [qna_infl[y] for y in output_class]
+##                
+##                if (cl == data or "[var]" not in cl) and sum(temp_qna_infl) > 1:
+##                    self.show_process('\nclass: {}'.format(cl))
+##
+##                    r = data
+##                    if r not in predicted_list:
+##                        predicted_list.append(r)
+##                        predicted_no.append(sum(temp_qna_infl))
+##                    else:
+##                        predicted_no[predicted_list.index(r)] += sum(temp_qna_infl)
+##                        continue
+##                    
+##                if "[var]" not in cl and sum(temp_qna_infl) > 1:
+##                    print(predicted_list, predicted_no, temp_qna_infl)
+##                    continue
+##                
                 output_class = output_classes[cl]
 
                 temp_que = [que[y] for y in output_class]
@@ -460,21 +480,17 @@ class intelligence(subsetter, terminal, brain_functions):
                 self.show_process("class list_score = {}".format(self.sort_dict(cl_db)[:10]))
                 self.show_process('index = {}, score = {}, sum_total = {}, sum = {}, ratio = {}'.format(output_classes[cl], temp_qna_infl[:5], sum(temp_qna_infl), sum(qna_infl), sum(temp_qna_infl)/sum(qna_infl)))
                 cmps = []
-                
-                if (cl == data or "[var]" not in cl) and sum(temp_qna_infl) > 1:
-                    cmps.append((cl, -1, data, temp_searchFormat_max, cl, common_cls))
-                    
-                elif len(cl_db) > 0:
+##                print('cl_db', self.sort_dict(cl_db))
+                if len(cl_db) > 0:
                     for x in cl_db:
+##                        print('\n working on',x)
                         ret = self.matchAns(data, x, starters)
                         for y in ret:
-                            val = (cl.replace('[var]', y[0]), y[-1], data, temp_searchFormat_max, x, common_cls)
-                            if val not in cmps: cmps.append(val)
+                            cmps.append((cl.replace('[var]', y[0]), y[-1], data, temp_searchFormat_max, x, common_cls))
                             
                 self.show_process("cmps = {}".format([x[0] for x in cmps[:10]]))
                 self.show_process()
                 pr = self.getClassScore2({x[0]:'' for x in cmps}, temp_genScore, data=False, is_same=False, sep= " ")
-                
                 if pr != []:
                     cmps = [x for x in cmps if x[0] in pr]
 
@@ -527,10 +543,8 @@ class intelligence(subsetter, terminal, brain_functions):
                             backup_li.append((rep, i))
                 else:
                     li.append((rep, i))
-                    
         if li == []:
             return backup_li
-        
         else:
             return li
     
@@ -541,9 +555,6 @@ class intelligence(subsetter, terminal, brain_functions):
                 if x[1] > i:
                     reply = x[0]
                     i = x[1]
-
-                elif x[1] == -1:
-                    reply = x[0]
 
             self.reply = True
             self.reply_value = reply

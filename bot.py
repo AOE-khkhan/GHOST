@@ -1,36 +1,43 @@
-import time
+import time, json
 from functions import *
 from collections import Counter
 
-from train import trainingData, codebaseTrainingData
+from train import trainingData
 from console import console
 from brain import intelligence
 from mouth import voice
+from GUI import GUI
 
-class bot(console, intelligence, voice):
+class bot(console, intelligence, voice, GUI):
+    PROPERTIES = {"ifreq":0, "freq":0, "ans":{}}
+    MEMORY_PATH = "memory"
+    CONSOLE_MEMORY_PATH = MEMORY_PATH+"/console/"
+
     ghostName = "Iris"
     session = []
     string = ''
     context = []
-    tpoint = []
-    memory = []
-    codebase = {}
-    rev_codebase = {}
+    objects = []
+
+    memory = {}
     events = {}
+    
     expected_ans = []
     new_expected_ans = []
-    events_id = {}
-    freq = []
-    ifreq = []
+
     show_info = True
     confirmed_event = False
     reply = False
+
     reply_value = ''
+
     predicted_list = []
     last_predicted_list = []
+
     used_event = False          #for ans
     
     source = lastSource = ""
+    cui = "home"
     
     #for console input in user mode
     switch = True
@@ -55,6 +62,8 @@ class bot(console, intelligence, voice):
         else:
             self.loadMemory()
 
+##        self.load_gui()
+##        self.render_gui()
         while self.state is True:
             #initializations
             self.confirmed_event = False
@@ -62,7 +71,7 @@ class bot(console, intelligence, voice):
             #using the console class to grab input from user
             while len(self.string.strip()) < 1:
                 self.string = self.getInput()
-            
+
             #pushing recieved string to brain for analysis
             self.output()
             
@@ -84,22 +93,7 @@ class bot(console, intelligence, voice):
             
     def process(self,data):
         return self.analyse(data)
-
-    def trainCodebase(self):
-        c = 0
-        #self.chunk_learn(filename)
-        self.learning = 1
-        for td in codebaseTrainingData:
-            if len(td[0]) > 0:
-                c += 1
-                
-                #save the object name
-                self.saveMethod(td[0], td[1])
-                
-                print("training ghost codebase {}% complete".format(formatVal((c/len(codebaseTrainingData))*100)))
-        self.learning = 0
-        self.loadCodebase()
-        
+    
     def train(self):
         c = 0
         #self.chunk_learn(filename)
