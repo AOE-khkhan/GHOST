@@ -6,9 +6,9 @@ from train import trainingData
 from console import console
 from brain import intelligence
 from mouth import voice
-from GUI import GUI
+##from GUI import GUI
 
-class bot(console, intelligence, voice, GUI):
+class bot(console, intelligence, voice):#, GUI):
     PROPERTIES = {"ifreq":0, "freq":0, "ans":{}}
     MEMORY_PATH = "memory"
     CONSOLE_MEMORY_PATH = MEMORY_PATH+"/console/"
