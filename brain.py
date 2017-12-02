@@ -33,7 +33,7 @@ class intelligence(subsetter, terminal, brain_functions):
                     self.increase_confidence(self.used_event, confidence)
                     self.used_event = False
 
-                if self.context[-3] not in ["~","/"]:
+                if self.context[-3] not in ["~","/"] and data not in ["~","/"]:
                     r = self.confirm_event(data, self.context[-3])
                     if r == False:
                         self.setReply(self.context[-3], data)
@@ -44,20 +44,20 @@ class intelligence(subsetter, terminal, brain_functions):
 
             if len(self.context) > 2:
 ##                if self.context[-2] not in ["/", "~"] and data not in ["/", "~"]: self.setReply(self.context[-2], data)
-                if(data not in ["~","/"] and self.reply == True and self.context[-2] == data):
+                if(data not in ["~","/"] and self.context[-3] not in ["~","/"] and self.reply == True and self.context[-2] == data):
                     self.confirm_event(data, self.context[-3])
 
-                if self.context[-2] != "/" and self.reply == False:
+                if self.context[-2] not in ["~","/"] and self.reply == False:
                     r = self.confirm_event(data, self.context[-2])
 ##                    print(r)
-                    if r == False:
+                    if r == False and data not in ["~","/"]:
 ##                        print(1, self.context[-2], data)
                         self.setReply(self.context[-2], data, True)
                         if self.context[-2] == data:
                             self.context.pop()
                             
 ##                print(self.context[-5:])
-            if len(self.context) > 3 and self.context[-2] == "~" and not self.learning:
+            if len(self.context) > 3 and self.context[-2] in ["~","/"] and data not in ["~","/"] and not self.learning:
                 self.setReply(self.context[-3], data)
                 if self.reply == False: self.confirm_event(data, self.context[-3])
 ##                if(self.reply == True and self.context[-2] == data): self.confirm_event(data, self.context[-3])
@@ -95,23 +95,26 @@ class intelligence(subsetter, terminal, brain_functions):
             return r
 
     def getQueRelated(self, data):
-        rel = self.getRelated(data, " ", (len(data.split())**-1)/2, strict=True)
-        related = rel.copy()
-        for x in rel:
-            if len(x.split()) != len(data.split()):
-                related[x] *= 0.5
-        pd = self.sort_dict(related)
+        if len(data.split()) > 0:
+            rel = self.getRelated(data, " ", (len(data.split())**-1)/2, strict=True)
+            related = rel.copy()
+            for x in rel:
+                if len(x.split()) != len(data.split()):
+                    related[x] *= 0.5
+            pd = self.sort_dict(related)
 
-        m = 0
-        if len(pd) > 0:
-            if pd[0][0] == data and len(pd) > 1: m = 1
+            m = 0
+            if len(pd) > 0:
+                if pd[0][0] == data and len(pd) > 1: m = 1
 
-            related = {x:related[x] for x in related if related[x] >= pd[m][-1]*0.5}
-            return related
-        
+                related = {x:related[x] for x in related if related[x] >= pd[m][-1]*0.5}
+                return related
+            
+            else:
+                return {}
         else:
             return {}
-
+        
     def inheriter(self, data, rel, searchFormats):
         rel = relatedlist.copy()
         if data in rel: rel.remove(data)
@@ -159,7 +162,7 @@ class intelligence(subsetter, terminal, brain_functions):
                     ans[i] = chk[0][0]
                     commonFormatQue[i] = self.getCommonFormat(que[i],ans[i])
                     commonFormatAns[i] = self.getCommonFormat(ans[i],que[i])
-                    outputFormats[i] = self.formatOutput(dataMap[i],commonFormatAns[i])            
+                    outputFormats[i] = self.formatOutput(dataMap[i],commonFormatAns[i]).strip()          
             self.show_process("\nque = {}\nans = {}\ndatamap = {}\ncommonFormatQue = {}\ncommonFormatAns = {}\noutputFormat = {}\nsearchFormat = {}\n".format(que[i], ans[i], dataMap[i], commonFormatQue[i], commonFormatAns[i], outputFormats[i], searchFormats[i]))
 
         return dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats
@@ -297,10 +300,13 @@ class intelligence(subsetter, terminal, brain_functions):
             predicted_list = {x:(int(self.memory[data]["ans"][x])/int(self.memory[data]["freq"])) for x in ans if x in self.memory[data]["ans"]}
 
             predicted = []
+            
             for x in predicted_list:
                 if x in self.session:
                     i = length - 1 - rev_session.index(x)
-            
+
+                else:
+                    i = -1
                 predicted.append((cl.replace('[var]', x), i, data, temp_searchFormat_max, x, common_cls))
             return predicted
 
@@ -334,7 +340,7 @@ class intelligence(subsetter, terminal, brain_functions):
             infl = {x:outputFormats_infl[x] for x in outputFormats_infl if outputFormats_infl[x] > 0}
 
 ##------------------------this classifies the output formats and studies each to get reply---------------------------------------------------------------------
-            output_classes = {x:[i for i in range(len(outputFormats)) if x == outputFormats[i]] for x in set(outputFormats)}
+            output_classes = {x.strip():[i for i in range(len(outputFormats)) if x == outputFormats[i]] for x in set(outputFormats)}
             
             self.show_process("output_classes = {}\n".format(output_classes))
         return que, ans, qna_infl, dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats, output_classes
@@ -346,8 +352,9 @@ class intelligence(subsetter, terminal, brain_functions):
             #instantiating variables
             predicted_list = []     #this is the predicted ans
             predicted_no = []
-            for cl in output_classes:
-                output_class = output_classes[cl]
+            for clx in output_classes.copy():
+                cl = clx
+                output_class = output_classes[clx]
 
                 temp_que = [que[y] for y in output_class]
                 
@@ -366,7 +373,7 @@ class intelligence(subsetter, terminal, brain_functions):
                 
                 #this gets the common que in ans   
                 temp_commonFormatQue = [commonFormatQue[y] for y in output_class]
-                
+                    
                 #this gets the common anns in que 
                 temp_commonFormatAns = [commonFormatAns[y] for y in output_class]
 
@@ -377,6 +384,42 @@ class intelligence(subsetter, terminal, brain_functions):
                 #this uses the datamap to turn the individual ans to look as that of data
                 temp_outputFormats = [outputFormats[y] for y in output_class]
 
+                var_infl = {}
+                for cfax in temp_commonFormatAns:
+                    for cfa in cfax[-1]:
+                        cfav = cfa+'`'+str(cfax[-1].index(cfa))
+                        if cfav in var_infl:
+                            var_infl[cfav] += 1
+
+                        else:
+                            var_infl.setdefault(cfav, 1)
+
+                var_infl = {x:var_infl[x]/len(temp_commonFormatAns) for x in var_infl}
+##                self.show_process('\npossible replacements = {}'.format(var_infl))
+                
+                var_pd = [x[0] for x in self.sort_dict(var_infl) if x[-1] >= 0.9]
+                if len(var_pd) > 0:
+                    var, ind = var_pd[0].split('`')
+                    var_li = cl.split('[var]')
+                    new_var = var_li.copy()
+                    ind = int(ind)
+                    for i in range(cl.split().count('[var]')):
+                        if i == ind:
+                            new_var[ind] += ' '+var
+                            new_var[ind] = new_var[ind].strip()
+
+                            if len(new_var)-1 > ind:
+                                new_var[ind] += new_var[ind+1]
+                                new_var.pop(ind+1)
+                                new_var[ind] = new_var[ind].strip()
+                            
+                    if new_var != var_li:
+                        new_cl = ' [var] '.join(new_var).strip()
+                        output_classes.setdefault(new_cl, output_classes[cl])
+                        cl = new_cl
+                self.show_process('possible replacements = {}'.format(var_pd))
+                self.show_process('this is a new class = {}\n'.format(cl))
+
                 #output format
                 temp_outputFormat = cl
 
@@ -385,45 +428,147 @@ class intelligence(subsetter, terminal, brain_functions):
 
                 #check for activation
                 temp_search_memory_li = [self.session.index(temp_ans[x]) < self.session.index(temp_que[x]) for x in range(len(temp_ans))]
+                
+                self.show_process("search_memory_li = {}".format(temp_search_memory_li))
                 temp_search_memory = max([temp_search_memory_li.count(x) for x in set(temp_search_memory_li)]) == temp_search_memory_li.count(True)
 
-                self.show_process("search_memory = {}".format(temp_search_memory))
+##                self.show_process("search_memory = {}".format(temp_search_memory))
                 
                 common_classes = []
                 
                 cl_db = dict([])      #variable to hold the model of the ans
+                false_list = [] #used to store indexes cases which replies are already in memory
                 
                 class_infl = sum(temp_qna_infl)/sum(qna_infl)
-                if sum(temp_qna_infl) > 2:
+                if sum(temp_qna_infl) > 1:
 ##--------------------------this is to derive the model to fetch the ans------------------------------
-                    ans_length = len(temp_ans)
-                    li = temp_ans.copy()
-                    li.insert(len(li), data)
-                    if cl == '[var]2':
-                        for vx in li:
-                            vcl = self.getAllClasses([vx])
-                            for vxn in vcl:
-                                if vxn != '[var]' and vxn in cl_db:
-                                    cl_db[vxn] += 1
+                    ix = 0
+                    ali = []
+
+                    if False in temp_search_memory_li and cl != '[var]':
+                        for i in range(temp_search_memory_li.count(False)):
+                            LI = temp_search_memory_li[ix+1:]
+
+                            if False in LI:
+                                if temp_search_memory_li.index(False) == 0 and 0 not in false_list:
+                                    false_list.append(0)
+
+                                ix += LI.index(False) + 1
+                                false_list.append(ix)
+                                vx = temp_searchFormats[ix][-1].copy()
+                                
+                                if len(vx) > 0:
+                                    vx = vx[0]
                                 else:
-                                    if vxn != '[var]': cl_db.setdefault(vxn, 1)
+                                    continue
+                                
+                                ali.append((vx, temp_dataMap[ix], temp_ans[ix].replace(vx, '', 1).strip(), ix))
+
+                        if ali == []:
+                            ali.append((data, temp_dataMap[0], '', ix))
+                            
+                    xtemp_que = [que[y] for y in output_class if y in false_list]
+                
+                    xtemp_ans = [ans[y] for y in output_class if y in false_list]
+
+                    xtemp_qna_infl = [qna_infl[y] for y in output_class if y in false_list]
+                    
+                    #this maps the related que to data
+                    xtemp_dataMap = [dataMap[y] for y in output_class if y in false_list]
+                    
+                    #this gets the common que in ans   
+                    xtemp_commonFormatQue = [commonFormatQue[y] for y in output_class if y in false_list]
                         
-                        cl_db = {x:(cl_db[x]/len(temp_ans))*class_infl for x in cl_db if cl_db[x] > 1}
-                        print(len(cl_db))
-                        m = 0
-                        if len(cl_db) > 0:
-                            pd = self.sort_dict(cl_db)
-                            ma = pd[0][-1]
-                            mi = pd[-1][-1]
-                            m = (ma + mi)/2
-                        if m > 0: cl_db = {x:cl_db[x] for x in cl_db if cl_db[x] >= m}
-                        print('mean = ', m, len(cl_db), pd[0], pd[-1])
-                    else:
-                        cl_db = {cl:1.0*class_infl}
+                    #this gets the common anns in que 
+                    xtemp_commonFormatAns = [commonFormatAns[y] for y in output_class if y in false_list]
+
+                    #this uses the datamap to turn the individual que to look as that of data
+                    xtemp_searchFormats = [searchFormats[y] for y in output_class if y in false_list]
+                    xtemp_searchFormat_max = self.getModelMax([x[0] for x in temp_searchFormats])
                         
-                self.show_process('prev_ans = {}'.format(temp_ans[:5]))
+                    if cl == '[var]':
+                        for x in range(len(temp_searchFormats)):
+                            vx = temp_searchFormats[x][-1].copy()
+                            if len(vx) > 0:
+                                vx = vx[0]
+                            else:
+                                continue
+                            
+                            ali.append((vx, temp_dataMap[x], temp_ans[x].replace(vx, '', 1).strip()))
+
+##                    else:
+##                        cl_db = {cl:1.0*class_infl}
+
+                    self.show_process('variable keywords = {}'.format(ali))           
+                
+                    for ansx in ali:
+                        rel = [x[0].replace(ansx[2], '', 1).strip() for x in self.sort_dict(self.getPartOfs(ansx[2])) if x[0].replace(ansx[2], '', 1).strip() != ansx[0] and x[0].replace(ansx[2], '', 1).strip() != '']
+                        cm = [self.getCommonFormat(self.formatOutput(ansx[1], (z, [])), data) for y in [self.getCommon([[x[0] for x in self.sort_dict(self.getPartOfs(xx))], [x[0] for x in self.sort_dict(self.getPartOfs(ansx[0]))]]) for xx in rel] for z in y]
+                        
+                        cm_all = [x[0] for x in cm]
+                        cm_set = set(cm_all)
+                        n = 0
+                        for x in cm_set:
+                            if cm_all.count(x) > n:
+                                n = cm_all.count(x)
+                                val = x
+
+                        cm = [x for x in cm if x[0] == val]
+                        cmi = [ansx[-1] for x in cm]
+                        
+                    cmx = {}
+                    cmxi = []
+                    for i in range(len(cm)):
+                        x = cm[i]
+                        if x[0] in cmx:
+                            cmx[x[0]].append(x[1][0])
+                            cmxi.append(cmi[i])
+                            
+                        else:
+                            cmx.setdefault(x[0], [x[1][0]])
+                            
+                cmx_infl = {x:len(cmx[x]) for x in cmx}
+                pd = self.sort_dict(cmx_infl)
+                if len(pd) > 0:
+                    cmx_val = pd[0][0]
+                else:
+                    cmx_val = None
+                self.show_process('possible data source = {}'.format(cmx))           
+
+                if cmx_val != None:
+                    varz = {}
+                    print('xnew_form = ', cmx[cmx_val])
+                    for cn in range(len(cmx[cmx_val])):
+                        cx = cmx[cmx_val][cn]
+                        varz.setdefault(cx, xtemp_qna_infl[cmi[cn]])
+                        vcl = self.orClass(cx, sep=" ")
+                        common_classes.append(vcl)
+
+                    self.show_process("xvarz = {}".format(varz))
+                    starters = self.generate_starters(varz)
+                    self.show_process('xstarters = {}'.format(starters))
+##--------------------------------------------------this is the computation of cases which reply is in memory b4 hand--------------------------------------------------
+                temp_que = [que[y] for y in output_class if y not in false_list]
+                
+                temp_ans = [ans[y] for y in output_class if y not in false_list]
+
+                temp_qna_infl = [qna_infl[y] for y in output_class if y not in false_list]
+                
+                #this maps the related que to data
+                temp_dataMap = [dataMap[y] for y in output_class if y not in false_list]
+                
+                #this gets the common que in ans   
+                temp_commonFormatQue = [commonFormatQue[y] for y in output_class if y not in false_list]
+                    
+                #this gets the common anns in que 
+                temp_commonFormatAns = [commonFormatAns[y] for y in output_class if y not in false_list]
+
+                #this uses the datamap to turn the individual que to look as that of data
+                temp_searchFormats = [searchFormats[y] for y in output_class if y not in false_list]
+                temp_searchFormat_max = self.getModelMax([x[0] for x in temp_searchFormats])
                 
                 varz = {}
+                print('new_form = ', temp_commonFormatAns)
                 for cn in range(len(temp_commonFormatAns)):
                     cx = temp_commonFormatAns[cn]
                     for ct in range(cx[0].count('[var]')):  
@@ -444,22 +589,18 @@ class intelligence(subsetter, terminal, brain_functions):
                     common_cls = [x for x in temp_genScore_li if x[-1] == temp_genScore_li[0][-1]]
 
 ##                print('common_cls = ', common_cls[:10])
-                    
+
+                cmps = []
+                   
                 #if its a single data with multiple replies        
                 ret = self.isset(data, temp_que, temp_ans, cl, temp_searchFormat_max, common_cls)
                 if cl == '[var]' and ret != None and sum(temp_qna_infl) > 1:
                     self.show_process("common que with var ans: {}".format([x[0]+":"+str(x[1]) for x in ret]))
                     for r in ret:
-                        if r not in predicted_list:
-                            predicted_list.append(r)
-                            predicted_no.append(1)
-                        else:
-                            predicted_no[predicted_list.index(r)] += 1
-                    continue
-                
+                        cmps.append(r)
+
                 self.show_process("class list_score = {}".format(self.sort_dict(cl_db)[:10]))
                 self.show_process('index = {}, score = {}, sum_total = {}, sum = {}, ratio = {}'.format(output_classes[cl], temp_qna_infl[:5], sum(temp_qna_infl), sum(qna_infl), sum(temp_qna_infl)/sum(qna_infl)))
-                cmps = []
                 
                 if (cl == data or "[var]" not in cl) and sum(temp_qna_infl) > 1:
                     cmps.append((cl, -1, data, temp_searchFormat_max, cl, common_cls))
@@ -489,7 +630,7 @@ class intelligence(subsetter, terminal, brain_functions):
                     m = c
             predicted_list = [x for x in predicted_list if len(predicted_no) > 0 and predicted_no.count(x[0]) == m]
             self.predicted_list = predicted_list
-            self.show_process("final suggested ans = {}".format([x[0]+":"+str(x[1]) for x in predicted_list]))
+            self.show_process("\nfinal suggested ans = {}".format([x[0]+":"+str(x[1]) for x in predicted_list]))
             return self.Filter(predicted_list)
         
     def matchAns(self, data, x, starters=[]):
@@ -521,18 +662,12 @@ class intelligence(subsetter, terminal, brain_functions):
                 if len(starters) > 0:
                     for xx in starters:
                         if rep.startswith(xx):
-                            li.append((rep, i))
+                            li = [(rep, i)]
                             break
-                        else:
-                            backup_li.append((rep, i))
+                        
                 else:
                     li.append((rep, i))
-                    
-        if li == []:
-            return backup_li
-        
-        else:
-            return li
+        return li
     
     def Filter(self, predicted):
         if len(predicted) > 0:

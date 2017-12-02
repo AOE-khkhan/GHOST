@@ -64,6 +64,8 @@ class bot(console, intelligence, voice):#, GUI):
 
 ##        self.load_gui()
 ##        self.render_gui()
+        self.string = '??rollback last'
+        self.output()
         while self.state is True:
             #initializations
             self.confirmed_event = False
@@ -99,6 +101,7 @@ class bot(console, intelligence, voice):#, GUI):
         #self.chunk_learn(filename)
 ##        self.trainCodebase()
         self.learning = 1
+        length = len(trainingData)
         for td in trainingData:
             if len(td[0]) > 0:
                 c += 1
@@ -108,10 +111,11 @@ class bot(console, intelligence, voice):#, GUI):
                     self.saveInput(td[0])
                     
                 self.setContext(td[0])
+                
                 if len(td[1].strip()) > 0:
                     self.setReply(td[0], td[1]) #save obj property
                     self.setContext(td[1])
-                print("training ghost {}% complete".format(formatVal((c/len(trainingData))*100)))
+                print("training ghost {}% complete".format(formatVal((c/length)*100)))
         self.learning = 0
         
     def learn(self,filename):

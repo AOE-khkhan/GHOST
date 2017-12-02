@@ -849,7 +849,7 @@ class brain_functions:
             infl1 = 0
         return infl1
     
-    def getRelation(self,data,string,sep=""):
+    def getRelation(self, data, string, sep=""):
         infl1 = self.percentage_similarity(data, string, sep)
         infl2 = self.percentage_similarity(string, data, sep)
         return formatVal((infl1*infl2))
@@ -867,11 +867,11 @@ class brain_functions:
     def getAllClasses(self, li):
         allclasses = []
         for x in li:
-            for y in x.split(" "):
-                l = self.getClasses(y)
-                for a in l:
-                    if a not in allclasses:
-                        allclasses.append(a)
+##            for y in x.split(" "):
+##                l = self.getClasses(y)
+##                for a in l:
+##                    if a not in allclasses:
+##                        allclasses.append(a)
             l = self.getClasses(x)
             for b in l:
                 if b not in allclasses:
@@ -918,3 +918,10 @@ class brain_functions:
                     que.append(x)
                     infl.append(int(self.memory[x]["ans"][y]))
         return que, ans, infl
+
+    def getPartOfs(self, data):
+        li = []
+        for x in self.memory:
+            if data in x and x != data:
+                li.append(x)
+        return {x:self.getRelation(data, x, sep=" ") for x in li}      
