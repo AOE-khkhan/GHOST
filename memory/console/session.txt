@@ -186,348 +186,44 @@ z
 letter z
 z is a letter
 letter Z
-spell word
-w o r d word
-w o r d word
-1
-1
-1
-my name is christy
-chemistry is the study of matter
-an integer is a whole number
-isotopy is the phonemena where atoms of the same element have different mass number
-what is my name
-christian
-christian
-what is my name
-christy
-christy
-what is my name
-christy
-christy
-what is chemistry
-chemistry is the study of matter
-chemistry is the study of matter
-what is the holiday at the end of the year
-christmas
-christmas
-christmas is the holiday at the end of the year
-christmas is the holiday at the end of the year
-christmas happens at the end of the year
-who is the man in the suit
-jack jonas
-jack jonas
-what is the last word repeated
-kidney, kidney is the last word repeated
-kidney, kidney is the last word repeated
-my name is christian
-my name is iris
-i am jack johnson
-i speak yoruba
-what do i speak
-yoruba
-yoruba
-janet is very powerful
-who is very powerful
-janet is very powerful
-janet is very powerful
-what is this all about
-nothing
-nothing
-jack goes to school everyday
-where does jack go everyday
-school
-school
-shile has the gate
-who has the gate
-shile has the gate
-shile has the gate
-peter was a matyr
-what was peter
-peter was a matyr
-peter was a matyr
-peter is my brother
-who is my brother
-peter
-peter
-i have a desk
-what do i have
-a desk
-a desk
-Russia has the most weapons in the world
-my father's name is jerry
-my father's name is John
-what country has most weapons
-Russia
-Russia
-what is my father's name
-John
-John
-what can i say to the minster
-Anything
-Anything
-The jungle is so dangerous
-The wild is so dangerous
-what else is so dangerous
-The jungle
-The jungle
-the color is what
-what is the last fact stated
-jericho
-jericho
-what comes after
-war
-war
-what is the sum of two numbers
-35
-35
-what is an integer
-an integer is a whole number
-an integer is a whole number
-what is isotopy
-isotopy is the phonemena where atoms of the same element have different mass number
-isotopy is the phonemena where atoms of the same element have different mass number
-what is a bicameral mind
-it's a concept in artificial consciousness
-it's a concept in artificial consciousness
-what is so important that it can't wait
-my money
-my money
-what are you so sure about
-the carnival
-the carnival
-i am making a bot
-what are you doing
-making a bot
-making a bot
-what is the meaning of that word
-democracy is the meaning
-democracy is the meaning
-jacob is my name
-what is your name
-jacob
-jacob
-the name of the man is carl
-what is the name of the man
-carl is the name of the man
-carl is the name of the man
-the title of the book is the end of the world
-what is the book title
-the book title is the end of the world
-the book title is the end of the world
-what is our status
-our status is a negative one
-our status is a negative one
-chemistry is the study of matter
-what is chemistry
-the study of matter
-the study of matter
-diamond is the hardest substance
-the hardest substance is diamond
-what is the hardest substance
-diamond
-diamond
-the capital of nigeria is abuja
-what is abuja
-the capital of nigeria
-the capital of nigeria
-a member of the nucleus is a nucleon
-what is a nucleon
-a nucleon is a member of a nucleus
-a nucleon is a member of a nucleus
-usa is a country
-what is usa
-usa is a country
-usa is a country
-ayo is a boy
-what is ayo
-ayo is a boy
-ayo is a boy
-ayo is a pro hacker
-ayo likes cheese
-chike is a good girl
-what is chike
-chike is a good girl
-chike is a good girl
-laz is a wealthy man
-laz likes cakes
-jay is a freak
-what is laz
-laz is a wealthy man
-laz is a wealthy man
-liverpool is a place
-jack is a wuss
-usa is a place
-liverpool is a place
-ikeja is a place
-nigeria is a place
-lagos is a place
-las vegas is a place
-mile 12 is a place
-ketu is a place
-las vegas is in usa
-where is las vegas
-las vegas is in usa
-las vegas is in usa
-obama is in usa
-usa is a place
-liverpool is a place
-uk is a place
-where is obama
-obama is in usa
-obama is in usa
-ikeja is in nigeria
-where is ikeja
-ikeja is in nigeria
-ikeja is in nigeria
-the great wall of china is in china
-where is the great wall of china
-the great wall of china is in china
-the great wall of china is in china
-liverpool is in the uk
-where is liverpool
-liverpool is in the uk
-liverpool is in the uk
-the war was in 1945
-when was the war
-the war was in 1945
-the war was in 1945
-democracy day is on july 4th
-a day is time
-a moment is a time
-moday is the first day of the week
-tuesday is the second day of the week
-wednesday is the third day of the week
-thursday is the fourth day of the week
-friday is the fourth day of the week
-saturday is the fourth day of the week
-sunday is the fourth day of the week
-when is democracy day
-democracy day is on july 4th
-democracy day is on july 4th
-my birthday is on june 4th
-when is my birthday
-my birthday is on june 4th
-my birthday is on june 4th
-when is the arrival
-the arrival is on tuesday
-the arrival is on tuesday
-the deadline is on friday
-when is the deadline
-on friday
-on friday
-valentine's day is on february 14th
-when is valentine's day
-february 14th
-february 14th
-the movie is at 12 noon
-when is the movie
-12 noon
-12 noon
-liverpool is in the uk
-where is liverpool
-in the uk
-in the uk
-the show is by 10 0' clock
-when is the show
-10 0' clock
-10 0' clock
-the show starts tommorow
-when is the show starting
-tommorow
-tommorow
-the U.N is the united United Nations
-what is the U.N
-the United Nations
-the United Nations
-Z is the last letter
-the last letter is Z
-what is the last letter
-Z
-Z
-spell word
-w o r d word
-w o r d word
-spell game
-g a m e game
-g a m e game
-spell noun
-n o u n noun
-n o u n noun
-spell shy
-s h y shy
-s h y shy
-spell show
-s h o w show
-s h o w show
-say shape
-shape
-shape
-say no
-no
-no
-say hi
-hi
-hi
-say we
-we
-we
-say what
-what
-what
-say bye
-bye
-bye
-say 'here we go'
-here we go
-here we go
-when is the movie showing
-tuesday
-tuesday
-when is the date coming
-saturday
-saturday
-when is the perfect moment
-tuesday
-tuesday
-the movie showing on tuesday
-the date is coming on saturday
-the perfect moment is by tuesday
-the class is when
-friday
-friday
-we are going home tommorow
-when are we going home
-tommorow
-tommorow
-the time is tommorow
-by this time tommorow
-when is the cat leaving
-sunday
-sunday
-when is the gamethrow
-the gamethrow is on saturday and sunday
-the gamethrow is on saturday and sunday
-the food comes in when
-thursday or saturday
-thursday or saturday
-when does the lecture end
-wednesday
-wednesday
-the cat is leaving on sunday
-the gamethrow is on saturday and sunday
-the food comes in on thursday or saturday
-the lecture ends on wednesday
-the show is by 10 o' clock
-the movie is showing on tuesday
-the show is starting tommorow
-the cat is leaving on sunday
-jericho is the last fact stated
-the last fact stated is jericho
-democracy is the meaning of that word
-U.N is the United Nations
-35 is the sum of the two numbers
-the cat is leaving on sunday
+Hello
+Hi
+Hi
+My name is Barack Obama
+I stay in Ney york
+What is your name
+Sheldon Cooper
+Sheldon Cooper
+How old are you
+I am 25 years old
+I am 25 years old
+What is your name
+My name is Jerry
+My name is Jerry
+What is your's
+Kathrine McPhee
+Kathrine McPhee
+How was your day
+My day was fine, thank you
+My day was fine, thank you
+Where are you going to now
+I am going to London
+I am going to London
+Where is that
+It is in the UK
+It is in the UK
+What is UK
+UK is the United Kingdom
+UK is the United Kingdom
+Hello
+Good Morning
+Good Morning
+Where can I get a bus here
+Downtown
+Downtown
+Ok
+Thank you
+Thank you
 0 + 0
 0
 0
@@ -1998,179 +1694,84 @@ the cat is leaving on sunday
 9 / 19
 0.47368421052631576
 0.47368421052631576
-1 + 1
-2
-2 + 3
-5
-4 + 3
-7
-2 + 4
-6
-2 + 5
-3 + 5
-8
-2 + 3
-5
-3 + 4
-2
-2 + 3
-5
-2 + 3
-5
-2 + 3
-5
-2 + 3
-5
-3 + 6
-5 + 3
-2 + 6
-2 + 4
-6
-2 + 3
-5
-4 + 2
-6
-3 + 4
-7
-3 + 4
-7
-3 + 5
-2 + 3
-5
-3 + 4
-7
-2 + 5
-7
-3 + 6
-3 + 6
-9
-3 + 7
-3 + 7
-10
-2 + 9
-2 + 9
-11
-10 - 2
-10 - 2
-8
-6 - 3
-3
-5 - 1
-4
-6 - 5
-6 - 5
-1
-2 - 6
-2 - 6
--4
-1 - 7
-1 - 7
--6
-6 - 1
-6 - 1
-5
-10 - 1
-10 - 1
-9
+Hello
+Hi
+Hi
+My name is Barack Obama
+I stay in Ney york
+What is your name
+Sheldon Cooper
+Sheldon Cooper
+How old are you
+I am 25 years old
+I am 25 years old
+What is your name
+My name is Jerry
+My name is Jerry
+What is your's
+Kathrine McPhee
+Kathrine McPhee
+How was your day
+My day was fine, thank you
+My day was fine, thank you
+Where are you going to now
+I am going to London
+I am going to London
+Where is that
+It is in the UK
+It is in the UK
+What is UK
+UK is the United Kingdom
+UK is the United Kingdom
+Hello
+Good Morning
+Good Morning
+Where can I get a bus here
+Downtown
+Downtown
+Ok
+Thank you
+Thank you
+hello
+Hey
+Hey
+my name is james gordon
+What is your name
+my name is carrie underwood
+my name is carrie underwood
+Where are you staying
+I am stating in Los angeles
+I am stating in Los angeles
+hello
+hi
+hi
+my name is jerry
+what is my name
+your name is jerry
+your name is jerry
+my name is dan williams
+what is my name
+your name is dan williams
+your name is dan williams
+my name is martin luther king the third
+what is my name
+your name is martin luther king the third
+your name is martin luther king the third
+my name is massie williams jnr
+what is my name
+your name is massie williams
+your name is massie williams
+my name is john kennedy
+what is my name
+your name is john
+your name is john
+my name is harry potter
+what is my name
+your name is harry
+your name is harry
+hello
+hi
+my name is kristen stewart
+my name is kristen stewart
 what is my name
 what is my name
-my name is money
-what is chemistry
-what is chemistry
-chemistry is the study of matter
-54 + 16
-70
-what is the coeff of x squared in 6 xsquared plus 3
-what is the coeff of x squared in 6 xsquared plus 3
-the coeff of x squared in 6 xsquared plus 3 is abuja
-/
-/
-5
-5
-what is the coeff of x squared in 9 xsquared plus 7 x plus 2
-6
-what is the coeff of x squared in 4 xsquared plus 2 x
-4
-what is the coeff of x squared in 3 xsquared plus 5
-5
-what is the coeff of x squared in 11 xsquared plus 12
-what is the coeff of x squared in 3 xsquared plus 5
-3
-what is the real part of 2i + 3
-the real part of 2i + 3 is carnival
-/
-/
-3
-3
-what is the real part of 6i + 8
-8
-what is the real part of 7i + 3
-what is the real part of 3i + 9
-what is the real part of 5i + 7
-what is the real part of 63i + 16
-what is the real part of 6i + 4
-what is the real part of 3i + 5
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-what is chemistry
-chemistry is the study of matter
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello 
-hello
-hello 
-what is the real part of 7i + 12
-what is the real part of 7i + 12
-12
-what is the coeff of x squared in 3 x squared + 6
-what is the coeff of x squared in 3 x squared + 6
-6
-/
-3
-what is the coeff of x squared in 3 x squared + 6
-the coeff of x squared in 3 x squared + 6 is abuja
-/
-/
-3
-3
-what is the coeff of x squared in 9 x squared + 8
-9
-what is the coeff of x squared in 5 x squared + 12
-5
-what is the coeff of x squared in 10 x squared + 6
-what is the coeff of x squared in 10 x squared + 6
-10
-what is the coeff of x squared in 10 x squared + 6
-what is the coeff of x squared in 10 x squared + 6
-the coeff of x squared in 10 x squared + 6 is abuja
-what is the real part of 5i + 2
-what is the real part of 5i + 2
-the real part of 5i + 2 is carnival
-what is the real part of 5i + 2
-the real part of 5i + 2 is carnival
-what is the real part of 5i + 2
-the real part of 5i + 2 is carnival
-open explorer
-my name is morgius
-what is my name
-my name is morgius
-my sister is in london
-my sister is in london
-london is a place
-janet is my sister
-where is janet
-janet is my sister
