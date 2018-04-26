@@ -1,5 +1,5 @@
 
-class console:
+class Console:
     def getInput(self):        
         if self.switch is True:
             getInput = input("\_> ")
@@ -36,9 +36,3 @@ class console:
         else:
             return getInput
 
-    def switchSource(self):
-        self.lastSource = self.source
-        if self.source == "x":
-            self.source = "y"
-        else:
-            self.source = "x"

@@ -1,4 +1,4 @@
-class subsetter:
+class Subsetter:
     def getSubsets(self, data):
         classified  = []
         dataList = data.split()

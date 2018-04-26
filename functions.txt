@@ -1,0 +1,1 @@
+createMemory, train, loadMemory, getInput, process, output, speak, setData, getData, dataInMemory

@@ -3,24 +3,34 @@ from functions import *
 from collections import Counter
 
 from train import trainingData
-from console import console
-from brain import intelligence
-from mouth import voice
+from console import Console
+from brain import Intelligence
+##from mouth import voice
 ##from GUI import GUI
 
-class bot(console, intelligence, voice):#, GUI):
+r = time.time()
+def tt(string=''):
+    global r
+    x = time.time()
+    print('{} in {} seconds'.format(string, round(x-r, 4)))
+    r = x
+    
+class bot(Console, Intelligence):#, GUI):
     PROPERTIES = {"ifreq":0, "freq":0, "ans":{}}
     MEMORY_PATH = "memory"
     CONSOLE_MEMORY_PATH = MEMORY_PATH+"/console/"
-
+    BLOCK_SIZE = 256
+    INDEX_SIZE = 1024
+    
     ghostName = "Iris"
-    session = []
     string = ''
-    context = []
-    objects = []
 
-    memory = {}
-    events = {}
+    #Session data(from session 1 to other)
+    xxque, xxans, xxqna_infl, xxque_sessions, xxans_sessions, xxin_memory = [], [], [], [], [], []
+
+    context = []
+    
+    cache_data = {}
     
     expected_ans = []
     new_expected_ans = []
@@ -36,14 +46,17 @@ class bot(console, intelligence, voice):#, GUI):
 
     used_event = False          #for ans
     
-    source = lastSource = ""
+    source = "x"
+    lastSource = ""
     cui = "home"
+
+    lastInputSource = ""
     
     #for console input in user mode
     switch = True
     
     #ghost test state(default is on for test)
-    test_state = 0
+    test_state = 1
     
     learning = 0
 
@@ -55,67 +68,77 @@ class bot(console, intelligence, voice):#, GUI):
     speak_state = 0
 
     def __init__(self):
-        if self.test_state == 1:
+        tt('start')
+        if self.test_state == 0:
             self.createMemory()
             self.train()
             
         else:
             self.loadMemory()
+        tt('memory set up')
 
-##        self.load_gui()
-##        self.render_gui()
-        self.string = '??rollback last'
-        self.output()
         while self.state is True:
             #initializations
             self.confirmed_event = False
-            
+
             #using the console class to grab input from user
             while len(self.string.strip()) < 1:
                 self.string = self.getInput()
-
+            tt('grabbed user input')
+            
+            self.string = self.string.strip()
             #pushing recieved string to brain for analysis
-            self.output()
-            
-            self.string = ''
-            for x in self.new_expected_ans: self.set_expected_ans(x, self.expected_ans)
-            self.new_expected_ans = []        
+            if self.string != '':
+                self.switchSource()
+                self.output(self.string)
+                self.switchSource()
 
-    def output(self):
-        if len(self.string) != 0:
-            r = self.process(self.string)
-            if self.string.strip() != '' or r is not None:
-                if type(r) == tuple and r[0] != None and r[-1] == 1:
-                    r = r[0]
-                    if self.speak_state:
-                        self.speak(r)
-                else:
-                    r = ''
-                print('\n{}\n'.format(r))
+            tt('output')
+            self.string = ""
             
+    def output(self, string, callback=False):
+        r = self.process(string)
+        tt('process')
+        
+        if r is not None:
+            if type(r) == tuple:
+                r, callback = r
+
+            if self.speak_state:
+                self.speak(r)
+            
+        else:
+            r = ''
+        print('\n{}\n'.format(r))
+        
+        if callback:
+            self.output(r, callback)
+
     def process(self,data):
-        return self.analyse(data)
+        return self.analyseInput(data)
     
     def train(self):
         c = 0
-        #self.chunk_learn(filename)
-##        self.trainCodebase()
         self.learning = 1
+        self.source = "x"
         length = len(trainingData)
         for td in trainingData:
+            c += 1
             if len(td[0]) > 0:
-                c += 1
                 
-                #save the object name
-                if td[0] not in self.memory:
-                    self.saveInput(td[0])
-                    
-                self.setContext(td[0])
+                #log training data
+                td_index = self.save2memory(td[0])
+                self.log(td[0], td_index)
                 
-                if len(td[1].strip()) > 0:
-                    self.setReply(td[0], td[1]) #save obj property
-                    self.setContext(td[1])
-                print("training ghost {}% complete".format(formatVal((c/length)*100)))
+            if len(td[1].strip()) > 0:
+                self.switchSource()
+                
+                td_index = self.save2memory(td[1])
+                self.log(td[1], td_index)
+
+                self.switchSource()
+
+            print("training ghost {}% complete".format(formatVal((c/length)*100)))
         self.learning = 0
         
     def learn(self,filename):
@@ -142,7 +165,7 @@ class bot(console, intelligence, voice):#, GUI):
                 print("ghost reading '{}': {}% complete".format(filename,formatVal((c/len(trainingData))*100)))
         self.learning = 0
 
-    def chunk_learn(self, filename, common=100):
+    def chunkLearn(self, filename, common=100):
         files = [open(str(filename)+".txt").read()]
         words = []
         for xx in files:

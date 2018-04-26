@@ -1,231 +1,81 @@
-import os, json
+import os, json, time
 
 from functions import *
 
-class brain_functions:
-    def fetch_objects(self, data):
-        s = self.getSubsets(data)
-        obj = {x:1 for x in s}
-##        self.show_process('subsets = {}'.format(s))
-
-        sub = {}
-        for x in s:
-            if x in self.memory:
-                f = int(self.memory[x]["ifreq"])
-                if f > 1:
-                    f = f**-1
-                sub.setdefault(x,f)
-##        print(self.sort_dict(sub))
-        for x in s:
-            for y in x.split():
-                if y in sub: obj[x] *= sub[y]
-##        self.show_process('checking = {}, f = {}'.format(x, obj))
-        pd = self.sort_dict(obj)
-##        self.show_process('objs = {}'.format(pd))
-        if len(pd) == 1:
-            pass
-
-        elif len(pd) > 0:
-            m = pd[0][-1]
-            sf = get_sf(m)
-            if sf == 0:
-                sf = 1
-
-            m = (10**(-1*sf))*0.75
-            objs = obj.copy()
-            obj = [x[0] for x in pd if x[-1] >= m]
-##            print(obj)
-            exobj = [x[0] for x in pd if x[-1] < m]
-            for x in exobj:
-##                print('testing', x)
-                if any([y in x for y in obj]):
-                    obj.append(x)
-                        
-                else:
-                    break
-                    
-##            print(obj)
-            obj2 = []
-
-            while obj != obj2:
-                obj2 = obj.copy()
-                
-                for n in range(len(obj2)):
-                    for x in obj2:
-                        if x != obj2[n] and x in obj2[n]:
-##                            print(x,'---', obj2[n])
-                            if x in obj:
-                                obj.remove(x)
-                            break
-##            print(obj)
-        return obj
-    
-    def generate_starters(self, li):
-        val = []
-        length = sum([li[x] for x in li])
-        if length < 1:
-            return []
-        
-        c = {}
-        val_n = {}
-        for x in li:
-            st = x.split()
-            for n in range(1, len(st)+1, 1):
-                v = " ".join(st[:n])
-                val.append(v)
-                if v in val_n:
-                    val_n[v] += li[x]
-                else:
-                    val_n.setdefault(v, li[x])
-
-                if v in c:
-                    c[v].append(x)
-                else:
-                    c.setdefault(v, [x])
-        val_s = set(val)
-        val = [x for x in val_s if val.count(x)*val_n[x] > 1]
-        n = 0
-        chkd = []
-        for x in val:
-            for y in c[x]:
-                if y not in chkd:
-                    n += li[y]
-                    chkd.append(y)
-        self.show_process('predicted starters = {}, no = {}, sum total = {}, ratio = {}'.format(val, n, length, n/length))
-        if n/length >= (1 - (length**-1)):
-            return val
-        else:
-            return []
-    
-    def search_codebase(self, data, que, ans):
-        cdv = {}
-        ac = []
-        
-        for a in ans:
-            if a in self.rev_codebase and self.rev_codebase[a] in que:
-                if self.rev_codebase[a] not in cdv:
-                    cdv.setdefault(self.rev_codebase[a], a)
-                    ac.append(self.getAllClasses([self.rev_codebase[a]]))
-        ac = sorted(self.getCommon(ac))
-        allcls = {}
-
-        if len(cdv) > 0:
-            for a in cdv:
-                clses = self.common_classes(ac, data)
-                allcls.setdefault(data, clses)
-
-        return allcls
-
-    def dist(self, data, x):
-        c = 0
-        st = data.split()
-        xs = x.split()
-        for vn in range(len(xs)):
-            vx = xs[vn]
-            if vx in st:
-                c += (1 - abs((vn/len(xs)) - (st.index(vx)/len(st))))
-                st[st.index(vx)] = "`"
-        return c
-
-    def zzz(self, data):
-        li = {}
-        for x in self.memory:
-            c = self.dist(data, x)
-            if c > 0:
-                li.setdefault(x, c)
-        pd = self.sort_dict(li)
-        print(pd[:10])
-        
-    def find_answer(self, data, ans):
-        que = {}
-        for x in self.memory:
-##            if all([xx in x and data.split().count(xx) == x.split().count(xx) for xx in data.split()]):
-            for y in self.memory[x]["ans"]:
-                if y == ans and x != data:
-                    c = self.dist(data, x)
-                    if c > 0:
-                        que.setdefault(x, c)
-        pd = self.sort_dict(que)
-        m = 0
-
-        if len(pd) > 0:
-            if pd[0][0] == data and len(pd) > 1: m = 1
-            que = [x for x in que if que[x] >= pd[m][-1]]
-            return que
-        else:
-            return []
-    
-    def create(self, name, path="memory\\console\\"):
+class BrainFunctions:
+    def createFile(self, name, path="memory\\console\\"):
         file = open(path+name,"w")
         file.write("")
         file.close()
         
     def createMemory(self):
-        if not os.path.exists('memory/console/memory.txt'):
+        if not os.path.exists('memory/console/memory_index.json'):
             self.setup()
-        for x in ['memory.json', 'events.json', 'session.txt', 'context.txt']:
-            self.create(x)
-        self.create('text.txt', 'resources\\')
-        
-    def set_expected_ans(self, expected_ans, general_expected_ans):
-        if (len(self.expected_ans) == 0):
-            general_expected_ans.append(expected_ans)
+        for x in ['memory_index.json', 'session_index.json', 'context.json', 'blocks/0.json', 'ref/0.json', 'sessions/0.json', 'memory_log.json']:
+            if x.endswith('.json'):
+                d = {}
+                if 'memory_index' in x:
+                    d = {0:0}
+                elif 'memory_log' in x:
+                    d = {'last_index':-1, 'last_block':0, 'last_ref':0, 'last_session':0, 'last_session_index':-1, 'last_ref_index':-1}
+                elif 'session_index' in x:
+                    d = {0:0}
+                self.writeJson(x[:-5], d)
+            else:
+                self.createFile(x)
+        self.createFile('text.txt', 'resources\\')
+
+    def createSession(self, data, session_index):        
+        session = {}
+        ind = str(self.resetMemoryLogId('last_session_index'))
+        session.setdefault(ind, [data])
+
+        self.writeSession(str(session_index), session)
+        data_sessions = self.locateMemoryData(data, "sessions")
+        data_session = ind+" "+str(0)
+
+        if session_index in data_sessions and data_session not in data_sessions[session_index]:
+            data_sessions[session_index].append(data_session)
+
         else:
-            if any([((x[1] == expected_ans[1]) and (x[-1] == expected_ans[-1])) for x in self.expected_ans]):
-                pass
-            else:
-                general_expected_ans.append(expected_ans)
-        
-    def common_classes(self, ac, val):
-        rel = self.sort_dict(self.getRelated(val, sep=' ', treshold=0.1, strict=True, length=False, db=self.codebase))
-        m = 1.0
-        if len(rel) > 1 and rel[0][-1] == 1.0:
-            m = rel[1][-1]
-        rel = [x[0] for x in rel if x[-1] > 0 and x[-1] >= rel[0][-1]*m and self.is_in(str(ac), str(self.getAllClasses([x[0]])))]
-        clses = self.getCommon([ac, self.getCommon([self.getAllClasses([x]) for x in rel])])
-        
-        return clses
-        
-    def is_in(self, a, b, limit=0.1):
-        limit_val = ''
-        ret = True
-        
-        length =  (len(a)*len(b))   
-        if len(a) == 0 or len(b) == 0:
-            a = b = ''
-            ret  = False
+            data_sessions.setdefault(session_index, [data_session])
+        self.setLocatedMemoryData(data, 'sessions', data_sessions)
 
-        for x in a:
-            if x not in b:
-                limit_val += x
-                if len(limit_val)/length > limit:
-                    ret = False
-                    break
-            else:
-                b = b.replace(x, "", 1)
-
-##        if len(limit_val)/length > 0:
-##            print('------------', len(limit_val)/length)
-        return ret
-
-    def getModelMax(self, Model):
-        d = {}
-        model = ''
-        for n in range(len(Model)):
-            if Model[n] in d.keys():
-                d[Model[n]] += 1
-            else:
-                d.setdefault(Model[n], 1)
-                
-        ind = [x for x in d.values()]
+    def createRef(self, data, index, ref_index):
+        memory_index = self.readJson('memory_index')
+        memory_index.setdefault(ref_index, ref_index)
+        self.writeJson('memory_index', memory_index)
+        self.writeRef(str(ref_index), {index: data})
         
-        if len(ind) > 0:
-            m = max(ind)
 
-            if ind.count(m) == 1:
-                index = ind.index(m)
-                model = [x for x in d.keys()][index]
-        return model
+    def dataInMemory(self, data):
+        memory_index = self.readJson('memory_index')
+        for index in memory_index:
+            indexes = self.readJson('ref/'+index)
+            indxs = []
+            for i in range(len(indexes)):
+                indxs.append(indexes[str(i)])
+
+            if data in indxs:
+                val = str(index)+"."+str(indxs.index(data))
+                return val
+        else:
+            return False
+
+    def formatOutput(self,dataMap,ansFormat):
+        output = ""
+        out = " "+str(ansFormat[0])+" "
+        ans = " ".join([x[-1] for x in dataMap])
+
+        if ans == ansFormat[0]:
+            for x in dataMap:
+                output += x[0]+ " "
+        else:
+            for d in dataMap:
+                out = out.replace(" "+d[-1]+" ", " "+d[0]+" ", 1)
+            output = out.strip()
+
+        return output.strip()
     
     def generateModelers(self, data, que, ans):
         #this maps the related que to data
@@ -244,117 +94,49 @@ class brain_functions:
         outputFormats = [self.formatOutput(dataMap[x],commonFormatAns[x]) for x in range(len(commonFormatAns))]
 
         return dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats
-    
-    def process_event(self, values, codebase, key):
-        for val in values:
-            self.set_event(val, values[val],  codebase, '0/0', val, key)
-
-    def confirm_event(self, data, suspected_que):
-        if len(self.expected_ans) > 0:
-            if any([(x[1] == suspected_que and x[-1] != None) for x in self.expected_ans]):
-                for x in self.expected_ans:
-                    e_a = False
-                    if x[1] == suspected_que and x[-1] != None:
-                        e_a = x
-                        if x[-1] == data:
-                            confidence =  (1,1)
-                            self.confirmed_event = True
-                        else:
-                            confidence = (0, 1)
-                        
-                    if e_a !=False:
-                        self.increase_confidence(e_a[0], confidence)
-        self.show_process("confirming event {} => {} => {}".format(suspected_que, data, self.confirmed_event))
-        return self.confirmed_event
-    
-    def set_event(self, data, data_class,  codebase, confidence, val, key='', cls2=[]):
-        if str(sorted(data_class)) not in self.events:
-            self.show_process('creating event===============' + data)
-            self.create_event(data, str(sorted(data_class)), codebase, '0/0', val, key, str(sorted(cls2)))
-##            input('enter!')
-
-    def increase_confidence(self, event_name, value):
-##        print('increasing confidence of '+event_name, value)
-        confidence = self.read_event(event_name, 'confidence')
-        a,b = confidence.split('/')
-        a, b = int(a), int(b)
-        a, b = a+value[0], b+value[1]
-        self.update_event(event_name, "confidence", str(a)+'/'+str(b))
-        self.show_process("affecting event confidence {} => {}".format(self.events[event_name]["id"], value))
-        
-    def create_event(self, value, cls, codebase, confidence, Format, key, cls2=''):
-        self.events.setdefault(cls, {"id":value, "classes":cls, "codebase":str(codebase), "confidence":confidence, "format":Format, "key":key, "classes2":cls2})
-        self.save()
-
-    def update_event(self, cls, key, value):
-        self.events[cls][key] = value
-        self.save()
-
-    def read_event(self, event_id, key):
-        return self.events[event_id][key]
-    
-    def try_process(self, cmd):
-        try:
-            rcmd = eval(cmd)
-            return str(rcmd)
-        
-        except Exception as e:
-            return None
-            
-    def inheritProperties(self, data, related):
-        ad_li = [] #list of possible classes
-        m = min([len(x) for x in related])
-        
-        for n in range(m):
-            cl = self.getClassIntersect([x[n] for x in related])
-            if "[var]" in cl: cl.remove("[var]")
-            print(cl)
-            for c in cl:
-                ad = c.replace("[var]", data)
-                if ad not in ad_li and ad not in self.memory:
-                    print("\ndata = {}\nad = {}\nrelated = {}\n".format(data, ad, related))
-                    ad_li.append(ad)
-        for x in ad_li: self.save2memory(x, 1)
-        
-    def generateArtificialData(self, data):
-        related = self.bestRelated(data, multiply_factor=0.5, length=1, treshold=0.1, strict=True)
-        related = [x for x in related if self.getClasses(x) != ["[var]"]]
-##        if not self.learning: print(related)
-        ad_li = []
-        
-        if len(related) > 1:
-            cl = self.getClassIntersect(related)
-            if "[var]" in cl: cl.remove("[var]")
            
-            for c in cl:
-                ad = c.replace("[var]", data)
-                if ad not in ad_li and ad not in self.memory:
-                    print("\ndata = {}\nad = {}\nrelated = {}\n".format(data, ad, related))
-                    ad_li.append(ad)
-        for x in ad_li: self.save2memory(x, 1)
-                
-    def bestRelated(self, data, multiply_factor=0.0, strict=True, treshold=0.0, length=False, sep="", db=None):
-        rel = self.getRelated(data, sep, treshold, strict, len(data), db=db)
-        if length != False:
-            rel = {x:rel[x] for x in rel if len(x.split()) == length}
+    def genNextId(self, key):
+        sd = self.readJson('memory_log')
             
-##        if not self.learning: print(data, self.sort_dict(rel))
+        sd[key] += 1
+        index = sd[key]
+        
+        self.writeJson('memory_log', sd)
+        return index
 
-        related = {}
-        for x in rel:
-            if sep == "" and len(x) == len(data):
-                related.setdefault(x, rel[x])
-
-            if sep == " " and len(x.split()) == len(data.split()):
-                related.setdefault(x, rel[x])
+    def getCommonFormat(self,que,ans):
+        q = que.split(" ")  #list(que)
+        a = ans.split(" ")  #list(ans)
+        f = ""
+        r = []
+        for x in q:
+            if x in a:
+                f += " "+x
+                a[a.index(x)] = "`"
+            else:
                 
-        if strict and data in related:
-            related.pop(data)
-            
-        pd = self.sort_dict(related)
-##        if not self.learning: print(data, pd)
-        rel = [x[0] for x in pd if x[-1] > 0 and x[-1] >= pd[0][-1]*multiply_factor]
-        return rel
+                if f.endswith(" [var]") == False:
+                    f += " [var]"
+                    r.append(x)
+                else:
+                    r[-1] += " "+x
+                
+        return (f.strip(),r)
+    
+    def getClasses(self, data):
+        li = []
+        for x in self.memory:
+            val = " "+x+" "
+            d = " "+data+" "
+            b = False
+            while d in val:
+                b = True
+                val = val.replace(d, " [var] ", 1)
+            if b:
+                if val.strip() not in li:
+                    li.append(val.strip())
+
+        return li
 
     def getCommon(self, li):
         l = [len(x) for x in li]
@@ -367,63 +149,256 @@ class brain_functions:
                 if all([x in cl for cl in li]) and x not in common:
                     common.append(x)
             return common
-    
-    def andClass(self, data, sep=""):
-        if sep == "":
-            dl = list(data)
-        else:
-            dl = data.split(sep)
-        classes = []
-        for x in dl:
-            classes.append(self.getClasses(x))
-
-        common = self.getCommon(classes)
-        common = sorted(common)
-        return common
-
-    def orClass(self, data, sep=""):
-        if sep == "":
-            dl = list(data)
-        else:
-            dl = data.split(sep)
-        allclasses = []
-        for x in dl:
-            allclasses.extend(self.getAllClasses(dl))
-        return allclasses
-    
-    def factorize(self,string1,string2):
-        subset1 = self.getSubsets(string1)
-        intersect = ""
-        string2 = " "+string2.strip()+" "
-        string1 = " "+string1.strip()+" "
-        for x in subset1:
-            if " "+x+" " in string2 and ((string2.index(" "+x+" ") == 0) or (string2.index(" "+x+" ")+len(" "+x+" ") == len(string2))) and ((string1.index(" "+x+" ") == 0) or (string1.index(" "+x+" ")+len(" "+x+" ") == len(string1))):
-                if len(x) > len(intersect):
-                    intersect = " "+x+" "
-        if len(intersect) > 0:
-            factor1 = string1.replace(intersect,"",1).strip()
-            factor2 = string2.replace(intersect,"",1).strip()
-            intersect = intersect.strip()
-            return factor1,factor2,intersect
-        else:
-            return "","",""
-    
-    def setObjects(self, data):
-        if len(self.objects) == 10:
-            self.objects.pop(0)
-        self.objects.append(self.fetch_objects(data))
-
-        self.save()
-    
-    def setContext(self, data):
-        self.setObjects(data)
-        if len(self.context) == 100:
-            self.context.pop(0)
-        self.context.append(data)
-        self.session.append(data)
-
-        self.save()
         
+    def getFeatures(self, data, callback=False):
+        self.showProcess("data = {}".format(data))
+        if callback == True:
+            que, ans, qna_infl, que_sessions, ans_sessions, in_memory = self.xxque, self.xxans, self.xxqna_infl, self.xxque_sessions, self.xxans_sessions, self.xxin_memory
+
+        else:
+            que, ans, qna_infl, que_sessions, ans_sessions, in_memory = self.getQnA(data)
+
+        dataMap = commonFormatQue = commonFormatAns = searchFormats = outputFormats = output_classes = []
+##-----------------------------------------this is for inheritance of properties when no ans---------------------------------------------------------------------
+                    
+        if len(ans) > 0:
+            dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats = self.generateModelers(data, que, ans)
+
+            #keep the originals
+            original_ans = ans.copy()
+            original_commonFormatAns = commonFormatAns.copy()
+            original_outputFormats = outputFormats.copy()
+
+            # for i in range(len(que)):
+            #     self.showProcess("\nque = {}\nans = {}\ndatamap = {}\ncommonFormatQue = {}\ncommonFormatAns = {}\noutputFormat = {}\nsearchFormat = {}\nque_sessions = {}\nans_sessions = {}\nin_memory = {}\n".format(
+            #         que[i], ans[i], dataMap[i], commonFormatQue[i], commonFormatAns[i], outputFormats[i], searchFormats[i], que_sessions[i], ans_sessions[i], in_memory[i]))
+
+##            dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats = self.trimModels(dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats)
+
+            outputFormats_infl = {x:outputFormats.count(x)/len(outputFormats) for x in set(outputFormats)}
+            pd = self.sortDict(outputFormats_infl)
+            infl = {x:outputFormats_infl[x] for x in outputFormats_infl if outputFormats_infl[x] > 0}
+
+##------------------------this classifies the output formats and studies each to get reply---------------------------------------------------------------------
+            output_classes = {x.strip():[i for i in range(len(outputFormats)) if x == outputFormats[i]] for x in set(outputFormats)}
+            
+            self.showProcess("output_classes = {}\n".format(output_classes))
+        return que, ans, qna_infl, dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats, output_classes, que_sessions, ans_sessions, in_memory
+
+    def getMax(self, Model):
+        d = {}
+        model = ''
+        for n in range(len(Model)):
+            if Model[n] in d.keys():
+                d[Model[n]] += 1
+            else:
+                d.setdefault(Model[n], 1)
+                
+        ind = [x for x in d.values()]
+        
+        if len(ind) > 0:
+            m = max(ind)
+
+            if ind.count(m) == 1:
+                index = ind.index(m)
+                model = [x for x in d.keys()][index]
+        return model
+    
+    def getMemoryData(self, data, key):
+        index = self.dataInMemory(data)
+        if index == False and type(index) == bool:
+            pass
+        
+        else:
+            return self.locateMemoryData(index, key)
+
+    def getQueAns(self, datalist, rel_index=None):
+        que = []
+        ans = []
+        infl = []
+        que_sessions = []
+        ans_sessions = []
+        in_memory = []
+        for x in datalist:
+            if rel_index == None:
+                sess = self.getMemoryData(x, "sessions")
+
+            else:
+                sess = self.locateMemoryData(rel_index[x], "sessions")
+            
+            for sess_id in sess:
+                sf = self.readSession(sess_id)
+
+                for si in sess[sess_id]:
+                    #'i' is the index of the data in sess list
+                    sess_index, data_sess_index = str(si).split(" ")
+                    i = int(data_sess_index)
+                    li = sf[sess_index]
+                    
+                    if i+1 <= len(li)-1:
+                        y = li[i+1]
+                        ai = sess_id+"."+str(int(sess_index)+1)+"."+str(i+1)
+
+                    elif i == len(li)-1:
+                        if int(sess_index)+1 > self.BLOCK_SIZE:
+                            y = self.readSession(str(int(sess_id)+1))["0"][0]
+                            ai = str(int(sess_id)+1)+".0.0"
+
+                        if str(int(sess_index)+1) in sf:
+                            y = sf[str(int(sess_index)+1)][0]
+                            ai = sess_id+"."+str(int(sess_index)+1)+".0"
+
+                        else:
+                            continue
+                    
+                    else:
+                        continue
+
+                    ans.append(self.locateMemoryData(y, "text"))
+                    que.append(x)
+
+                    qsi = sess_id+"."+sess_index+"."+str(i)
+                    que_sessions.append(qsi)
+                    ans_sessions.append(ai)
+
+                    ans_sess = self.locateMemoryData(y, "sessions")
+                    m = None
+                    for sfi in ans_sess:
+                        for sfx in ans_sess[sfi]:
+                            ssi, sdi = sfx.split(" ")
+                            asi = sfi+"."+ssi+"."+sdi
+                            asi_value = int(asi.replace(".", ""))
+
+                            if m == None:
+                                m = asi_value
+
+                            if m != None and asi_value < m:
+                                m = asi_value
+                    
+                    qsi_value = int(qsi.replace(".", ""))
+                    ai_value = int(ai.replace(".", ""))
+
+                    if m < qsi_value:
+                        im = True
+
+                    else:
+                        im = False
+                    in_memory.append(im)
+
+                    # li.remove(rel_index[x])
+                    infl.append(1)
+
+        return que, ans, infl, que_sessions, ans_sessions, in_memory
+
+    def getQnA(self, data):
+        related, rel_index = self.getQueRelated(data)
+        relatedlist = [x for x in related]
+        self.showProcess('related = {}, count = {}'.format(relatedlist[:10], len(relatedlist)))    
+
+        que, ans, qna_infl, que_sessions, ans_sessions, in_memory = self.getQueAns(relatedlist, rel_index)
+        
+        return que, ans, qna_infl, que_sessions, ans_sessions, in_memory
+
+    def getQueRelated(self, data):
+        if len(data.split()) > 0:
+            rel, rel_index = self.getRelated(data, " ", (len(data.split())**-1)/2, strict=True)
+            related = rel.copy()
+            for x in rel:
+                if len(x.split()) != len(data.split()):
+                    related[x] *= 0.5
+            pd = self.sortDict(related)
+
+            m = 0
+            if len(pd) > 0:
+                if pd[0][0] == data and len(pd) > 1: m = 1
+
+                related = {x:related[x] for x in related if related[x] >= pd[m][-1]*0.5}
+                return related, rel_index
+            
+            else:
+                return {}, {}
+        else:
+            return {}, {}
+
+    def getRelated(self, data, sep="", treshold = 0.2, strict=False, length=False):
+        result = {}
+        rel_index = {}
+        memory_index = self.readJson('memory_index')
+        for mi in memory_index:
+            memory_ref = self.readRef(str(mi))
+            for valx in memory_ref:
+                val = memory_ref[valx]
+                rel = self.getRelation(data, val, sep)
+                if rel >= treshold:
+                    result.setdefault(val, rel)
+                    rel_index.setdefault(val, mi+"."+valx)
+                
+        return result, rel_index
+
+    def getRelation(self, data, string, sep=""):
+        infl1 = self.percentageSimilarity(data, string, sep)
+        infl2 = self.percentageSimilarity(string, data, sep)
+        return formatVal((infl1*infl2))
+
+    def getPartOfs(self, data):
+        li = []
+        que = []
+        ans = []
+        infl = []
+        for ind in self.memory_index:
+            memory_ref_data = self.readRef(ind)
+            
+            for x in memory_ref_data:
+                if data in x and x != data:
+                    li.append(x)
+        return {x:self.getRelation(data, x, sep=" ") for x in li}      
+
+    def info(self, string): #to show information
+        if self.show_info:
+            print(string)
+        
+    def loadMemory(self):
+        if os.path.exists('memory/console/memory_index.json'):
+            d = self.readJson("context")
+            self.context = []
+            for i in range(100):
+                if str(i) in d:
+                    self.context.append(d[str(i)])
+                else:
+                    break
+            self.memory_index = self.readJson("memory_index")
+
+        else:
+            self.setup()
+            self.createMemory()
+
+    def locateMemoryData(self, index, key):
+        block, index = index.split(".")
+        if key == "text":
+            ref = self.readJson('ref/'+block)
+            return ref[index]
+
+        else:    
+            memory_data = self.readJson('blocks/'+block)
+            if index in memory_data:
+                value = memory_data[index]
+                
+                if key == 'sessions':
+                    if "sessions" in value:
+                        value = json.loads(value[key])
+                    else:
+                        value = {}
+                else:
+                    value = value[key]
+                return value
+
+    def log(self, data, data_index):
+        if self.lastInputSource != self.source: self.genNextId("last_session_index")
+        
+        self.setContext(data)
+        self.setSession(data_index)
+        self.lastInputSource = self.source
+
     def mapStrings(self, str1, str2):
         s1 = str1.split(" ")#string 1
         s2 = str2.split(" ")#string 2
@@ -497,328 +472,12 @@ class brain_functions:
             m.append((l[n],lmap[n]))
         
         return m
-   
-    def show_process(self, value=""):
-        if self.show_process_state: print(value)
-
-    def formatOutput(self,dataMap,ansFormat):
-        output = ""
-        out = " "+str(ansFormat[0])+" "
-        ans = " ".join([x[-1] for x in dataMap])
-
-        if ans == ansFormat[0]:
-            for x in dataMap:
-                output += x[0]+ " "
-        else:
-            for d in dataMap:
-                out = out.replace(" "+d[-1]+" ", " "+d[0]+" ", 1)
-            output = out.strip()
-
-        return output
     
-    def getCommonFormat(self,que,ans):
-        q = que.split(" ")  #list(que)
-        a = ans.split(" ")  #list(ans)
-        f = ""
-        r = []
-        for x in q:
-            if x in a:
-                f += " "+x
-                a[a.index(x)] = "`"
-            else:
-                
-                if f.endswith(" [var]") == False:
-                    f += " [var]"
-                    r.append(x)
-                else:
-                    r[-1] += " "+x
-                
-        return (f.strip(),r)
+    def memory(self):
+        for data in range(self.readMemoryLog('last_ref')):
+            yield data
 
-    def write(self, filename, datalist=[]):
-        try:
-            file = open("memory/console/" + str(filename) + ".txt", "w")
-            file.writelines(datalist)
-            file.close()
-        except Exception as e:
-            print(e)
-            
-    def read(self, filename):
-        file = open("memory/console/" + str(filename) + ".txt", "r")
-        r = file.readlines()
-        file.close()
-        r = [x.replace("\n","") for x in r]
-        return r
-
-    def getClasses(self, data):
-        li = []
-        for x in self.memory:
-            val = " "+x+" "
-            d = " "+data+" "
-            b = False
-            while d in val:
-                b = True
-                val = val.replace(d, " [var] ", 1)
-            if b:
-                if val.strip() not in li:
-                    li.append(val.strip())
-
-        return li
-    ##rates the score of predicted vals rel to ref scores
-    def getClassScore2(self, predicted, gen_score, data=False, is_same=False, sep= " "):
-        ansval_infl = {x:0 for x in predicted}
-
-        for y in predicted:
-            allclasses = []
-            if data == False:
-##                print(y)
-                myclasses = self.orClass(y, sep=" ")
-##                print('[var] is a place' in myclasses)
-##                print('[var] is a place' in gen_score)
-                myclasses = self.getScore([myclasses])   
-##                print(self.sort_dict(myclasses)[:5])
-##                print()
-                for c in myclasses:
-                    if c in gen_score:
-                        ansval_infl[y] += gen_score[c]
-                        
-        if len(ansval_infl)> 0 and all([[a for a in ansval_infl.values()][0] == ansval_infl[x] for x in ansval_infl]):
-            return []
-        else:
-            ansval_infl = [x for x in ansval_infl if ansval_infl[x] > 0]
-            return ansval_infl
-    
-    ##rates the score of predicted vals rel to ref scores
-    def getClassScore(self, ansval, score, data=False, is_same=False, sep= " "):
-        ansval_infl = {x:0 for x in ansval}
-
-        for y in ansval:
-            allclasses = []
-            if data == False:
-                myclasses = self.andClass(y)
-                
-                if sorted(score) == sorted(myclasses):
-                    ansval_infl[y] += 1.0
-            else:
-                xx = self.getCommonFormat(y, data)
-                if len(xx[-1]) > 0 and  is_same == False:
-                    if sep == "":
-                        dl = []
-                        for x in xx[-1]:
-                            dl.extend(self.getAllClasses(list(x)))
-                            
-                    else: dl = self.getAllClasses(xx[-1])
-                    allclasses.extend(dl)
-                    
-                else:
-                    if sep == "": dl = list(xx[0].replace("[var]",""))
-                    else: dl = [xx[0].replace("[var]","")]
-                    allclasses.extend(self.getAllClasses(dl))
-
-                myclasses = self.getScore([allclasses])   
-
-                for c in score:
-                    if c in myclasses:
-                        ansval_infl[y] += score[c]
-        return ansval_infl
-
-    def getClassIntersect(self, li, strict=True):
-        c = -1
-        intersect = []
-        for k in li:
-            c += 1
-            if type(k) == list:
-                allclasses = self.getAllClasses(k)
-            else:
-                allclasses = self.getAllClasses([k])
-
-            if strict ==False and allclasses == []:
-                pass
-            else:
-                if c == 0:
-                    intersect = [x for x in self.getScore([allclasses])]
-                else:
-                    intersect = self.getCommon([intersect, [x for x in self.getScore([allclasses])]])
-            
-        return intersect 
-
-    def sort_last(self, li):
-        i = []
-        sli = self.session.copy()
-        sli.reverse()
-        
-        for x in li:
-            if x in sli:
-                i.append(sli.index(x))
-            else:
-                i.append(-1)
-        if i == []:
-            return -1
-        else:
-            m = i.index(min(i))
-            while all([-1 == x for x in i]) == False and m == -1:
-                i[i.index(min(i))] = max(i)
-                m = i.index(min(i))
-                
-            return m
-    
-    def getRelated(self, data, sep="", treshold = 0.0, strict=False, length=False, db=None):
-        infl = {}
-        if db == None: db = self.memory
-        for val in db:
-            rel = self.getRelation(data, val, sep)
-            if rel > treshold: infl.setdefault(val, rel)
-            elif length != False:
-                if sep == "":
-                    if len(val) == length:
-                        infl.setdefault(val, rel)
-                else:
-                    if len(val.split()) == length:
-                        infl.setdefault(val, rel)
-                        
-        infl_keys = [x for x in infl.keys()]
-        infl_values = [x for x in infl.values()]
-        li = []
-        for i in range(len(infl_values)):
-            li.append((infl_keys[i], infl_values[i]))
-
-        if strict:
-            if sep == "": score = self.andClass(data)
-            else: score = self.getScore([self.getAllClasses([data])])
-            
-            infl_i = self.getClassScore(infl, score, sep=sep)
-            pd = self.sort_dict(infl_i)
-            if len(pd) > 0 and pd[0][0] != data and len(pd) != 1:
-
-                m = 0
-                if pd[0][0] == data and len(pd) > 1: m = 1
-                
-                infl = {x:infl[x] for x in infl_i if infl_i[x] >= pd[m][-1]*0.70}# and infl_i[x] > 0}
-        return infl
-        
-    def getScore(self, classes, strict=True):
-        d = {}
-        l = [len(x) for x in classes]
-        if strict:
-            Type = 'all'
-        else:
-            Type = 'any'
-            
-        if len(l) > 0:
-            i = l.index(max(l))
-            for x in classes[i]:
-                if self.in_list(x, classes, Type):
-                    if x in d:
-                        d[x] += 1
-                    else:
-                        d.setdefault(x,1)
-            tot = sum([d[x] for x in d])
-            d = {x:d[x]/tot for x in d}
-            return d
-        else:
-            return {}
-
-    def in_list(self, data, li, Type):
-        if Type == 'any':
-            return any([data in a for a in li])
-        else:
-            return all([data in a for a in li])
-
-    def write_json(self, name, dictionary):
-        content = json.dumps(dictionary)
-        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'w')
-        file.write(content)
-        file.close()
-
-    def read_json(self, name):
-        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'r')
-        content = file.read()
-        file.close()
-        return json.loads(content)
-        
-    def tryread(self, filename):
-        try:
-            return self.read(filename)
-        except Exception as e:
-            return []
-        
-    def saveData(self, filename, data):
-        data = [x + "\n" for x in data]
-        self.write(filename, data)
-
-    def saveInput(self, objectname):
-        if objectname not in self.memory:
-            #save input to  memory
-            for x in objectname.split():
-                self.save2memory(x)
-            self.save2memory(objectname)
-        
-    def setReply(self, objectname, reply, silent=False):
-        if silent == False:
-            self.setContext(reply)
-        if reply not in self.memory:
-            #save input to  memory
-            self.save2memory(reply)
-        if objectname not in self.memory:
-            self.save2memory(objectname, 1)
-        data = self.memory[objectname]["ans"]
-
-        if reply in data:
-            self.memory[objectname]["ans"][reply] = str(int(data[reply]) + 1)
-            
-        else:
-            self.memory[objectname]["ans"].setdefault(reply, "1")
-
-        
-    def save(self):
-        self.write_json("memory", self.memory)
-        self.saveData("context", self.context)
-        self.saveData("session", self.session)
-
-        self.write_json('events', self.events)
-        self.loadMemory()
-
-    def load(self, filename):
-        var = [x.replace("\n", "") for x in self.read(filename)]
-        return var
-
-    def loadContext(self):
-        self.context = self.load("context")
-
-        
-    def loadEvents(self):
-        self.events = self.read_json("events")
-        
-    def info(self, string): #to show information
-        if self.show_info:
-            print(string)
-        
-    def loadMemory(self):
-        if os.path.exists('memory/console/memory.json'):
-            self.loadContext()
-            
-            try:
-                self.loadEvents()
-            except Exception as e:
-                print(e)
-            
-            self.session = self.load("session")
-            self.memory = self.read_json("memory")
-        else:
-            self.setup()
-            self.createMemory()
-
-    def setup(self, li=None):
-        if li == None:
-            li = ['resources', 'memory', 'sessions', 'memory/console/']
-        for x in li:
-            if os.path.exists(x):
-                pass
-            else:
-                self.info('setting up "{}"'.format(x))
-                os.mkdir(x)
-
-    def percentage_similarity(self, data, string, sep="", strict=True):
+    def percentageSimilarity(self, data, string, sep="", strict=True):
         if len(sep) < 1:
             d = list(data)
             s = list(string)
@@ -849,12 +508,104 @@ class brain_functions:
             infl1 = 0
         return infl1
     
-    def getRelation(self, data, string, sep=""):
-        infl1 = self.percentage_similarity(data, string, sep)
-        infl2 = self.percentage_similarity(string, data, sep)
-        return formatVal((infl1*infl2))
+    def readBlock(self, block):
+        return self.readJson('blocks/'+block)
 
-    def sort_dict(self, dic, ascending=True):
+    def readRef(self, ref):
+        return self.readJson('ref/'+ref)
+
+    def readMemoryLog(self, key=False):
+        memory_log = self.readJson('memory_log')
+        if False:
+            return memory_log
+
+        else:
+            return memory_log[key]
+        
+    def readJson(self, name):
+        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'r')
+        content = file.read()
+        file.close()
+        return json.loads(content)
+
+    def readSession(self, session):
+        return self.readJson('sessions/'+session)
+
+    def resetMemoryLogId(self, key):
+        sd = self.readJson('memory_log')
+            
+        sd[key] = 0
+        index = sd[key]
+        
+        self.writeJson('memory_log', sd)
+        return index
+    
+    def setContext(self, data):
+        if len(self.context) == 100:
+            self.context.pop(0)
+        self.context.append(data)
+        self.writeJson('context', {i:self.context[i] for i in range(len(self.context))})
+
+    def setLocatedMemoryData(self, index, key, value):
+        ret = index
+        
+        block, index = index.split(".")
+        if type(value) == dict:
+            value = json.dumps(value)
+            
+        if os.path.exists('memory/console/blocks/'+block+'.json'):
+            memory_block_data = self.readBlock(block)
+
+        else:
+            memory_block_data = {}
+
+        if index not in memory_block_data:
+            memory_block_data.setdefault(index, {})
+
+        if key in memory_block_data[index]:
+            memory_block_data[index][key] = value
+        else:
+            memory_block_data[index].setdefault(key, value)
+
+        self.writeJson('blocks/'+block, memory_block_data)
+        return ret
+
+    def setMemoryData(self, data, key, value):
+        index = self.dataInMemory(data)
+        if index == False and type(index) == bool:
+            index = self.genNextId('last_index')
+            last_ref = self.readMemoryLog('last_ref')
+            
+            if index < self.BLOCK_SIZE:
+                self.updateRef(data, index, last_ref)
+                
+            else:
+                index = self.resetMemoryLogId("last_index")
+                self.createRef(data, index, self.genNextId('last_ref'))
+
+            index = str(self.readMemoryLog('last_ref'))+"."+str(self.readMemoryLog('last_index'))
+        return self.setLocatedMemoryData(index, key, value)
+
+    def setSession(self, data_index):
+        last_session = self.readMemoryLog('last_session')
+        last_session_index = self.readMemoryLog('last_session_index')
+        if last_session_index < self.BLOCK_SIZE:
+            self.updateSession(data_index, last_session)
+            
+        else:
+            self.createSession(data_index, self.genNextId('last_session'))
+
+    def setup(self, li=None):
+        if li == None:
+            li = ['resources', 'memory', 'sessions', 'memory/console/', 'memory/console/blocks', 'memory/console/ref', 'memory/console/sessions']
+        for x in li:
+            if os.path.exists(x):
+                pass
+            else:
+                self.info('setting up "{}"'.format(x))
+                os.mkdir(x)
+
+    def sortDict(self, dic, ascending=True):
         new = []
         if len(dic) > 0:
             d = dic.copy()
@@ -863,65 +614,58 @@ class brain_functions:
                 new.append((v[1],v[0]))
                 d.pop(v[1])
         return new
-        
-    def getAllClasses(self, li):
-        allclasses = []
-        for x in li:
-##            for y in x.split(" "):
-##                l = self.getClasses(y)
-##                for a in l:
-##                    if a not in allclasses:
-##                        allclasses.append(a)
-            l = self.getClasses(x)
-            for b in l:
-                if b not in allclasses:
-                    allclasses.append(b)
-            
-        return allclasses
-
-    def getMRelated(self, li):
-        ref  = {}
-        for x in li:
-            rel = self.getRelated(x.replace("[var]","").strip())
-
-            for v in rel:
-                if v in ref:
-                    ref[v] += rel[v]
-                else:
-                    ref.setdefault(v, rel[v])
-        return ref
-
-    def intersect(self, dict1, dict2):
-        l = [dict1, dict2]
-        li = [len(x) for x in l]
-        ref = l[li.index(min(li))]
-        l.pop(li.index(min(li)))
-        other = l[0].copy()
-        
-        new_dict = {}
-        for x in ref:
-            if x in other:
-                new_dict.setdefault(x, ref[x]*other[x])
-        return new_dict
     
-    def readfreq(self, data):
-        return self.memory[data]["freq"]
+    def showProcess(self, value=""):
+        if self.show_process_state: print(value)
 
-    def getQueAns(self, datalist):
-        que = []
-        ans = []
-        infl = []
-        for x in datalist:
-            for y in self.memory[x]["ans"]:
-                if len(y) > 0:
-                    ans.append(y)
-                    que.append(x)
-                    infl.append(int(self.memory[x]["ans"][y]))
-        return que, ans, infl
+    
+    def switchSource(self):
+        self.lastSource = self.source
+        if self.source == "x":
+            self.source = "y"
 
-    def getPartOfs(self, data):
-        li = []
-        for x in self.memory:
-            if data in x and x != data:
-                li.append(x)
-        return {x:self.getRelation(data, x, sep=" ") for x in li}      
+        else:
+            self.source = "x"
+
+    def updateSession(self, data, session_index):
+        session = self.readSession(str(session_index))
+        ind = int(self.readMemoryLog('last_session_index'))
+       
+        if str(ind) in session:
+            session[str(ind)].append(data)
+
+        else:
+            # print("not exist ", ind)
+            session.setdefault(str(ind), [data])
+
+        self.writeSession(str(session_index), session)
+        data_sessions = self.locateMemoryData(data, "sessions")
+        data_session = str(ind)+" "+str(len(session[str(ind)])-1)
+
+        # print("zzzzzzzzzz", data, data_sessions, data_session)
+        if str(session_index) in data_sessions:
+            data_sessions[str(session_index)].append(data_session)
+        
+        else:
+            data_sessions.setdefault(session_index, [data_session])
+        self.setLocatedMemoryData(data, 'sessions', data_sessions)
+
+    def updateRef(self, data, index, ref_index):
+        memory_ref = self.readRef(str(ref_index))
+        memory_ref.setdefault(index, data)
+        self.writeRef(str(ref_index), memory_ref)
+
+    def writeRef(self, name, data):
+        self.writeJson('ref/'+name, data)
+
+    def writeSession(self, name, data):
+        self.writeJson('sessions/'+name, data)
+        
+    def writeJson(self, name, dictionary):
+        content = json.dumps(dictionary)
+        file = open(self.CONSOLE_MEMORY_PATH+name+'.json', 'w')
+        file.write(content)
+        file.close()
+
+    def writeRef(self, name, data):
+        self.writeJson('ref/'+name, data)

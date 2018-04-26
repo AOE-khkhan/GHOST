@@ -83,7 +83,14 @@ moretrainingData = [
             tuple([str(x) + " - " + str(xx), str(x-xx)]) for x in range(10) for xx in range(10) ] + [
             tuple([str(x) + " x " + str(xx), str(x*xx)]) for x in range(10) for xx in range(10) ] + [
             tuple([str(x) + " / " + str(xx), str(x/xx)]) for x in range(10) for xx in range(1,20)
+	],
+	[
+            ("count 1 to 5", "") ] + [ tuple([str(a), ""]) for a in range(1, 6) ] + [
+            ("count 1 to 10", "") ] + [ tuple([str(b), ""]) for b in range(1, 11) ] + [
+            ("count 1 to 15", "") ] + [ tuple(["", str(c)]) for c in range(1, 16) ] + [
+            ("count 1 to 20", "") ] + [ tuple(["", str(c)]) for c in range(1, 21)
+            
 	]
 ]
-##for x in moretrainingData: trainingData.extend(x)
-trainingData = moretrainingData[0]
+for x in moretrainingData: trainingData.extend(x)
+trainingData.extend(moretrainingData[-1])
