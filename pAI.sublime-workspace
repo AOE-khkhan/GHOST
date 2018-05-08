@@ -27,7 +27,7 @@
 			"file": "bot.py",
 			"settings":
 			{
-				"buffer_size": 5334,
+				"buffer_size": 5524,
 				"line_ending": "Windows"
 			}
 		}
@@ -64,7 +64,7 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/christian/Documents/work/python/work env/AI"
+		"/C/Users/Cross/Documents/christian's shit/AI/AI/GHOST"
 	],
 	"file_history":
 	[
@@ -142,7 +142,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5334,
+						"buffer_size": 5524,
 						"regions":
 						{
 						},

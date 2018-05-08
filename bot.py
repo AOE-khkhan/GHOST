@@ -8,13 +8,7 @@ from brain import Intelligence
 ##from mouth import voice
 ##from GUI import GUI
 
-r = time.time()
-def tt(string=''):
-    global r
-    x = time.time()
-    print('{} in {} seconds'.format(string, round(x-r, 4)))
-    r = x
-    
+
 class bot(Console, Intelligence):#, GUI):
     PROPERTIES = {"ifreq":0, "freq":0, "ans":{}}
     MEMORY_PATH = "memory"
@@ -29,23 +23,8 @@ class bot(Console, Intelligence):#, GUI):
     xxque, xxans, xxqna_infl, xxque_sessions, xxans_sessions, xxin_memory = [], [], [], [], [], []
 
     context = []
-    
-    cache_data = {}
-    
-    expected_ans = []
-    new_expected_ans = []
+    ARM = {'aGradients':{}, "model":"", "seperator":"", "confidence":0} #accumulated gradients
 
-    show_info = True
-    confirmed_event = False
-    reply = False
-
-    reply_value = ''
-
-    predicted_list = []
-    last_predicted_list = []
-
-    used_event = False          #for ans
-    
     source = "x"
     lastSource = ""
     cui = "home"
@@ -61,9 +40,10 @@ class bot(Console, Intelligence):#, GUI):
     learning = 0
 
     #ghost state(default is alive==1)
-    state = True
+    STATE = True
 
     show_process_state = True
+    
     #ghost speak state
     speak_state = 0
 
@@ -77,7 +57,7 @@ class bot(Console, Intelligence):#, GUI):
             self.loadMemory()
         tt('memory set up')
 
-        while self.state is True:
+        while self.STATE is True:
             #initializations
             self.confirmed_event = False
 
@@ -139,6 +119,7 @@ class bot(Console, Intelligence):#, GUI):
                 self.switchSource()
 
             print("training ghost {}% complete".format(formatVal((c/length)*100)))
+            
         self.learning = 0
         
     def learn(self,filename):

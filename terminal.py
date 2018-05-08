@@ -14,6 +14,9 @@ class Terminal:
             os.system('mkdir "sessions\\'+st+'"')
             os.system('del "sessions\\'+st+'\\console\\events\\" /q')
             os.system('ROBOCOPY "memory" "sessions\\'+st+'" /E')
+        
+        elif cmd.startswith("??quit"):
+            self.STATE = False
             
         elif cmd.startswith("??open "):
             self.setProperty("class_name", cmd.replace("??open ",""))
@@ -21,7 +24,7 @@ class Terminal:
             
         elif cmd.startswith("??"):
             st = cmd.replace("??","")
-
+            # r = eval(st)
             try:
                 r = eval(st)
                 if r == None or (type(r) == str and len(r) < 1):

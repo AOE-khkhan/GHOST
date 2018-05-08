@@ -8,13 +8,6 @@ from brain_functions import BrainFunctions
 from processor import Processor
 from functions import *
 
-r = time.time()
-def tt(string=''):
-    global r
-    x = time.time()
-    print('{} in {} seconds'.format(string, round(x-r, 4)))
-    r = x
-
 class Intelligence(Subsetter, Terminal, BrainFunctions, Processor):
     def analyseInput(self, data):
 ##        checks if input is a command or huamn language

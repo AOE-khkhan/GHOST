@@ -28,7 +28,7 @@ class BrainFunctions:
     def createSession(self, data, session_index):        
         session = {}
         ind = str(self.resetMemoryLogId('last_session_index'))
-        session.setdefault(ind, [data])
+        session.setdefault(ind, {'0':data})
 
         self.writeSession(str(session_index), session)
         data_sessions = self.locateMemoryData(data, "sessions")
@@ -149,7 +149,11 @@ class BrainFunctions:
                 if all([x in cl for cl in li]) and x not in common:
                     common.append(x)
             return common
-        
+    
+    def getDataIndexFromSession(self, index):
+        session_index, session_key, sid = index.split(".")
+        return self.readSession(str(session_index))[session_key][sid]
+   
     def getFeatures(self, data, callback=False):
         self.showProcess("data = {}".format(data))
         if callback == True:
@@ -172,8 +176,6 @@ class BrainFunctions:
             # for i in range(len(que)):
             #     self.showProcess("\nque = {}\nans = {}\ndatamap = {}\ncommonFormatQue = {}\ncommonFormatAns = {}\noutputFormat = {}\nsearchFormat = {}\nque_sessions = {}\nans_sessions = {}\nin_memory = {}\n".format(
             #         que[i], ans[i], dataMap[i], commonFormatQue[i], commonFormatAns[i], outputFormats[i], searchFormats[i], que_sessions[i], ans_sessions[i], in_memory[i]))
-
-##            dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats = self.trimModels(dataMap, commonFormatQue, commonFormatAns, searchFormats, outputFormats)
 
             outputFormats_infl = {x:outputFormats.count(x)/len(outputFormats) for x in set(outputFormats)}
             pd = self.sortDict(outputFormats_infl)
@@ -230,22 +232,23 @@ class BrainFunctions:
                 sf = self.readSession(sess_id)
 
                 for si in sess[sess_id]:
+
                     #'i' is the index of the data in sess list
                     sess_index, data_sess_index = str(si).split(" ")
                     i = int(data_sess_index)
                     li = sf[sess_index]
                     
                     if i+1 <= len(li)-1:
-                        y = li[i+1]
-                        ai = sess_id+"."+str(int(sess_index)+1)+"."+str(i+1)
+                        y = li[str(i+1)]
+                        ai = sess_id+"."+sess_index+"."+str(i+1)
 
                     elif i == len(li)-1:
                         if int(sess_index)+1 > self.BLOCK_SIZE:
-                            y = self.readSession(str(int(sess_id)+1))["0"][0]
+                            y = self.readSession(str(int(sess_id)+1))["0"]['0']
                             ai = str(int(sess_id)+1)+".0.0"
 
                         if str(int(sess_index)+1) in sf:
-                            y = sf[str(int(sess_index)+1)][0]
+                            y = sf[str(int(sess_index)+1)]['0']
                             ai = sess_id+"."+str(int(sess_index)+1)+".0"
 
                         else:
@@ -260,7 +263,11 @@ class BrainFunctions:
                     qsi = sess_id+"."+sess_index+"."+str(i)
                     que_sessions.append(qsi)
                     ans_sessions.append(ai)
-
+                    
+                    # print("sess id={}, si = {}, sf = {}".format(sess_id, si, sf))
+                    # print(ans[-1], x, qsi, ai)
+                    # input()
+                    
                     ans_sess = self.locateMemoryData(y, "sessions")
                     m = None
                     for sfi in ans_sess:
@@ -340,6 +347,24 @@ class BrainFunctions:
         infl2 = self.percentageSimilarity(string, data, sep)
         return formatVal((infl1*infl2))
 
+    def getRelationIntersect(self, que_val, ans_val):
+        que_rel, que_rel_index = self.getRelated(que_val, " ", (len(que_val.split())**-2)/2, strict=False)
+
+        #check ans in memory
+        ans_rel, ans_rel_index = self.getRelated(ans_val, " ", (len(ans_val.split())**-2)/2, strict=False)
+
+        #check intersection of que and ans in memory
+        if len(ans_rel_index) <= len(que_rel_index):
+            val_li = ans_rel
+            val_li2 = que_rel
+
+        else:
+            val_li = que_rel
+            val_li2 = ans_rel
+
+        rel_index = {x:val_li[x]*val_li2[x] for x in val_li if x in val_li2}
+        return rel_index
+
     def getPartOfs(self, data):
         li = []
         que = []
@@ -371,7 +396,7 @@ class BrainFunctions:
         else:
             self.setup()
             self.createMemory()
-
+    
     def locateMemoryData(self, index, key):
         block, index = index.split(".")
         if key == "text":
@@ -630,13 +655,13 @@ class BrainFunctions:
     def updateSession(self, data, session_index):
         session = self.readSession(str(session_index))
         ind = int(self.readMemoryLog('last_session_index'))
-       
+        
         if str(ind) in session:
-            session[str(ind)].append(data)
+            session[str(ind)].setdefault(str(len(session[str(ind)])), data)
 
         else:
             # print("not exist ", ind)
-            session.setdefault(str(ind), [data])
+            session.setdefault(str(ind), {'0':data})
 
         self.writeSession(str(session_index), session)
         data_sessions = self.locateMemoryData(data, "sessions")

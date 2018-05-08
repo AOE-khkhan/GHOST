@@ -86,9 +86,15 @@ moretrainingData = [
 	],
 	[
             ("count 1 to 5", "") ] + [ tuple([str(a), ""]) for a in range(1, 6) ] + [
+            ("count 1 to 7", "") ] + [ tuple([str(a), ""]) for a in range(1, 8) ] + [
+            ("count 1 to 9", "") ] + [ tuple([str(a), ""]) for a in range(1, 10) ] + [
             ("count 1 to 10", "") ] + [ tuple([str(b), ""]) for b in range(1, 11) ] + [
+            ("count 1 to 13", "") ] + [ tuple([str(b), ""]) for b in range(1, 14) ] + [
             ("count 1 to 15", "") ] + [ tuple(["", str(c)]) for c in range(1, 16) ] + [
-            ("count 1 to 20", "") ] + [ tuple(["", str(c)]) for c in range(1, 21)
+            ("count 1 to 17", "") ] + [ tuple(["", str(c)]) for c in range(1, 18) ] + [
+            ("count 1 to 20", "") ] + [ tuple(["", str(c)]) for c in range(1, 21) ] + [
+            ("count 1 to 23", "") ] + [ tuple(["", str(c)]) for c in range(1, 24) ] + [
+            ("count 1 to 29", "") ] + [ tuple(["", str(c)]) for c in range(1, 30)
             
 	]
 ]
