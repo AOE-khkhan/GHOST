@@ -8,7 +8,7 @@ class Processor:
     SIZE = 16
     
     def __init__(self):
-        self.memory = 'hi`hello`1+1 is 2`1+4 is 5`2+3 is 5`5+2 is 7`3+1 is 4`3+4 is 7`2+1 is 3`4+4 is 8`what is 2+3?`5`what is 2+1?`4`what is 3+4?`7`what is 5+2?`7`what is 1+1?`2`'
+        self.memory = ''#'hi`hello`1+1 is 2`1+4 is 5`2+3 is 5`5+2 is 7`3+1 is 4`3+4 is 7`2+1 is 3`4+4 is 8`what is 2+3?`5`what is 2+1?`4`what is 3+4?`7`what is 5+2?`7`what is 1+1?`2`'
         self.memory_length = len(self.memory)
         self.weights = {}
         
@@ -50,20 +50,19 @@ class Processor:
             return 0
 
     def process(self, current_data):
-        self.counter = (self.counter+1)
         # save data
         current_data_id = self.saveData(current_data)
 
         # reinforce weights
         if self.last_data != None and self.last_reinforced_weights != None:
             for output in self.last_reinforced_weights:
-                inc = -1
+                inc = 0
                 if output == current_data:
                     inc = 1
 
                 weight_ids = self.last_reinforced_weights[output]
                 for weight_id in weight_ids:
-                    print(self.getWeight(weight_id), inc, current_data, output, weight_id)
+                    # print(self.getWeight(weight_id), inc, current_data, output, weight_id)
                     self.updateWeight(weight_id, inc)
 
         positions = self.getPositions(current_data)
@@ -98,7 +97,7 @@ class Processor:
         return possible_outputs_scores[0]
 
     def saveData(self, data):
-        self.memory += ''.format(data)
+        self.memory += '{}'.format(data)
         self.memory_length += 1
         return self.memory_length
 
