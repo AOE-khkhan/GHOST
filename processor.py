@@ -8,14 +8,14 @@ class Processor:
     SIZE = 16
     
     def __init__(self):
-        self.memory = ''#'hi`hello`1+1 is 2`1+4 is 5`2+3 is 5`5+2 is 7`3+1 is 4`3+4 is 7`2+1 is 3`4+4 is 8`what is 2+3?`5`what is 2+1?`4`what is 3+4?`7`what is 5+2?`7`what is 1+1?`2`'
+        self.memory = ''
         self.memory_length = len(self.memory)
         self.weights = {}
         
         self.last_data = None    #holds the last input
         self.last_reinforced_weights = None  #holds a list of data that reinforced last input
 
-        self.possible_outputs = [{} for _ in range(self.SIZE)]
+        self.possible_outputs = ({} for _ in range(self.SIZE))
 
     def findDataInMemory(self, data, memory=None):
         if memory == None:
@@ -49,6 +49,18 @@ class Processor:
             self.weights[weight_id] = 0
             return 0
 
+    def mean(self, collections):
+        li = collections.copy()
+        length = len(li)
+        if length == 0:
+            return 0
+
+        else:
+            if type(li) == dict:
+                return sum([x for x in li.values()])/length
+
+            return sum(li)/length
+
     def process(self, current_data):
         # save data
         current_data_id = self.saveData(current_data)
@@ -69,11 +81,11 @@ class Processor:
         index = memory_length = len(self.memory)
 
         # gather connections
-        possible_outputs = self.possible_outputs[1:] + [{}]
+        possible_outputs = list(self.possible_outputs)[1:] + [{}]
         for i, j in positions:
             if j >= memory_length:
                 continue
-            
+
             possible_output = self.memory[j:j + self.SIZE]
             # print('input = {}, matches = {}, output = {}'.format(current_data, memory_thread[i-1:j], possible_output))
 
@@ -83,7 +95,6 @@ class Processor:
 
                 possible_outputs[n][po].append((i, n))
         
-        print(current_data)
         possible_outputs_scores = self.getScore(possible_outputs, current_data_id)
         # for p in possible_outputs_scores:
         #     print(p)
@@ -94,7 +105,8 @@ class Processor:
         self.possible_outputs = possible_outputs.copy()
         self.last_data = current_data
 
-        return possible_outputs_scores[0]
+        predicted_outputs = possible_outputs_scores[0]
+        return {output:predicted_outputs[output] for output in predicted_outputs if predicted_outputs[output] > self.mean(predicted_outputs)}
 
     def saveData(self, data):
         self.memory += '{}'.format(data)
