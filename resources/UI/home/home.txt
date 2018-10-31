@@ -1,3 +1,0 @@
-<div class="full {class_name}" id="WebGL-output">
-
-</div>
