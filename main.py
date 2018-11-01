@@ -1,3 +1,9 @@
+'''
+Author: Joshua, Christian r0b0tx
+Date: 1 Nov 2018
+File: main.py
+Project: GHOST
+'''
 
 # import lib code
 from processor import Processor
