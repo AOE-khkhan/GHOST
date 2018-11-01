@@ -121,5 +121,5 @@ class Processor:
 
     def updateWeight(self, weight_id, inc):
         mw = self.getWeight(weight_id)
-        self.weights[weight_id] += inc
+        self.weights[weight_id] = (self.weights[weight_id] + inc)/2
         return
