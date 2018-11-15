@@ -37,7 +37,7 @@ class Processor:
         self.context = []
 
         # contains the output wave function
-        self.processes = [[[[] for _ in range(self.STATE_SIZE)] for __ in range(self.STATE_SIZE)] for ___ in range(self.SIZE)]
+        self.processes = [[[] for _ in range(self.STATE_SIZE)] for ___ in range(self.SIZE)]
 
     def addToContext(self, data):
         if len(self.context) == self.SIZE:
@@ -79,11 +79,11 @@ class Processor:
         for i in range(self.SIZE):
             weights = self.normalize(self.nodes[i][binary_data_index])
             for j in range(self.STATE_SIZE):
-                self.processes[i][binary_data_index][j].append(weights[j])
-        self.log(self.processes[:][binary_data_index], 'processes')
+                self.processes[i][j].append(weights[j])
+        # self.log(self.processes, 'processes')
 
-        predicted_outputs = [formatFloat(sum(x)/self.SIZE) for x in self.processes[0][binary_data_index]]
-        # self.log(self.processes[0][binary_data_index], 'processes')
+        predicted_outputs = [formatFloat(sum(x)/self.SIZE) for x in self.processes[0]]
+        # self.log(self.processes[0], 'processes')
         # self.log(predicted_outputs, 'predicted_outputs')
         
         m = formatFloat(max(predicted_outputs))
@@ -94,7 +94,7 @@ class Processor:
         # self.log(predicted_output, 'output')
 
         # restructure the processes
-        self.processes.append([[[] for _ in range(self.STATE_SIZE)] for __ in range(self.STATE_SIZE)])
+        self.processes.append([[] for _ in range(self.STATE_SIZE)])
         self.processes = self.processes[1:]
 
 

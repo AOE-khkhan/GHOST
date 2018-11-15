@@ -32,7 +32,7 @@ def main():
     weight = None
     po = None
     for data in input_data:
-        print('x = {}, y = {}, y_pred = {}, weight = {}, {}'.format(last_input_data, data, last_outputs, weight, po))
+        print('x = {}, y = {}, y_pred = {}, weight = {}, '.format(last_input_data, data, last_outputs, weight, po))
 
         data_binary_str = toBin(data)
 
