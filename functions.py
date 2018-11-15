@@ -10,3 +10,6 @@ def log(output='', title=None):
 
     print('{}\n'.format(output))
     return
+
+def formatFloat(number):
+	return round(number, 4)
