@@ -8,128 +8,110 @@ Project: GHOST
 
 # import from python standard lib
 import re
+from itertools import combinations
 
 class Processor:
     """docstring for Processor"""    
-    SIZE = 8**2
     
     def __init__(self):
-        self.memory = ''
-        self.memory_length = len(self.memory)
-        self.weights = {}
-        
-        self.last_data = None    #holds the last input
-        self.last_reinforced_weights = None  #holds a list of data that reinforced last input
+        self.log_state = True
+        self.SIZE = 3
 
-        self.possible_outputs = ({} for _ in range(self.SIZE))
+        # holds the dendrites combinations that exist and indexes them
+        self.dendrites2index = {}
+        self.index2dendrites = {}
 
-    def findDataInMemory(self, data, memory=None):
-        if memory == None:
-            memory = self.memory
+        # holds the connection between dendrites
+        # and possibly higher order connections (this should represent deep concepts) 
+        self.connections2index = [{} for _ in range(self.SIZE)]
+        self.index2connections = [{} for _ in range(self.SIZE)]
 
-        return re.finditer(re.escape(data), memory)
+        # holds the indices of the last dendrites
+        self.last_dendrites = None
 
-    def getPositions(self, data, memory=None):
-        matches = self.findDataInMemory(data, memory)
-        for match in matches:
-            start, stop = match.span()
-            yield start, stop
+    def connect(self, d1, d2, level):
+        length = len(self.connections2index[level])
+        connections = []
+        for dx in d1:
+            for dy in d2:
+                connection = tuple(sorted([dx,dy]))
+                print(connection)
+                if connection in self.connections2index[level]:
+                    connection_index = self.connections2index[level][connection]
 
-    def getScore(self, po, current_data_id):
-        '''
-        po - possible outputs
-        pos - possible outputs scores
-        '''
-        pos = []
-        for index, p in enumerate(po):
-            pos.append({})
-            for output in p:
-                pos[-1][output] = sum([self.getWeight((matched_data_id, id_n, _)) for matched_data_id, id_n, _ in p[output]])
-        return pos
+                else:
+                    self.connections2index[level][connection] = length
+                    connection_index = length
+                    length += 1
 
-    def getWeight(self, weight_id):
-        if weight_id in self.weights:
-            return self.weights[weight_id]
+                connections.append(connection_index)
+        return connections
 
-        else:
-            self.weights[weight_id] = 0
-            return 0
+    def log(self, output, title=None):
+        if not self.log_state:
+            return
 
-    def mean(self, collections):
-        li = collections.copy()
-        length = len(li)
-        if length == 0:
-            return 0
+        if title != None:
+            print('\n {} \n{}'.format(title, ''.join(['=' for _ in range(len(title)+2)])))
 
-        else:
-            if type(li) == dict:
-                return sum([x for x in li.values()])/length
-
-            return sum(li)/length
-
-    def process(self, current_data_index, input_data, NODES):
-        current_data = input_data[current_data_index]
-
-        # save data
-        current_data_id = self.saveData(current_data)
-
-        # reinforce weights
-        if self.last_data != None and self.last_reinforced_weights != None:
-            for output in self.last_reinforced_weights:
-                if output != current_data:
-                    continue
-
-                weight_ids = self.last_reinforced_weights[output]
-                
-                for weight_id in weight_ids:
-                    data_id, _, input_data_atm = weight_id
-                    inc = 0
-
-                    for i in range(8):
-                        if input_data_atm[i] == NODES[i].memory[data_id]:
-                            inc += 1
-                    # print(inc)
-                    # print(self.getWeight(weight_id), inc, current_data, output, weight_id)
-                    self.updateWeight(weight_id, inc//8)
-
-        positions = self.getPositions(current_data)
-        index = memory_length = len(self.memory)
-
-        # gather connections
-        possible_outputs = list(self.possible_outputs)[1:] + [{}]
-        for i, j in positions:
-            if j >= memory_length:
-                continue
-
-            possible_output = self.memory[j:j + self.SIZE]
-            # print('input = {}, matches = {}, output = {}'.format(current_data, memory_thread[i-1:j], possible_output))
-
-            for n, po in enumerate(possible_output):
-                if po not in possible_outputs[n]:
-                    possible_outputs[n][po] = []
-
-                possible_outputs[n][po].append((i, n, input_data))
-        
-        possible_outputs_scores = self.getScore(possible_outputs, current_data_id)
-        # for p in possible_outputs_scores:
-        #     print(p)
-        #     break
-
-        # set next state parameters
-        self.last_reinforced_weights = possible_outputs[0]
-        self.possible_outputs = possible_outputs.copy()
-        self.last_data = current_data
-
-        predicted_outputs = possible_outputs_scores[0]
-        return predicted_outputs
-        # return {output:predicted_outputs[output] for output in predicted_outputs if predicted_outputs[output] > self.mean(predicted_outputs)}
-
-    def saveData(self, data):
-        self.memory += '{}'.format(data)
-        self.memory_length += 1
-        return self.memory_length
-
-    def updateWeight(self, weight_id, inc):
-        mw = self.getWeight(weight_id)
-        self.weights[weight_id] += inc
+        print('{}\n'.format(output))
         return
+
+    def getDendrites(self, input_list):
+        return [i for i, x in enumerate(input_list) if x == '1']
+
+    def getHighOrderDendrites(self, dendrites):
+        '''
+        this combines dendrites to see which combination influences next process
+        '''
+        length = len(dendrites)
+        new_dendrites = []
+        for r in range(2, length+1):
+            combs = combinations(dendrites, r)
+
+            for comb in combs:
+                new_dendrites.append(comb)
+
+        new_dendrites.extend(dendrites)
+        return new_dendrites
+
+    def process(self, binary_str):
+        input_list = list(binary_str)
+
+        # get the dendrites formed
+        dendrites = self.getDendrites(input_list)
+        # self.log(dendrites, 'dendrites')
+
+        # get high order dendrites
+        dendrites = self.getHighOrderDendrites(dendrites)
+        
+        # logs the dendrites in memory and represent them as indexes
+        dendrites = self.setupDendrites(dendrites)
+
+        self.log(dendrites, 'dendrites updated')
+
+        if self.last_dendrites != None:
+            connections = self.connect(dendrites, self.last_dendrites, 1)
+            self.log(connections, 'connections')
+
+
+        self.last_dendrites = dendrites
+        return
+
+
+    def setupDendrites(self, dendrites):
+        length = len(self.dendrites2index)
+        dendrite_indices = []
+        for dendrite in dendrites:
+            if dendrite not in self.dendrites2index:
+                self.dendrites2index[dendrite] = length
+                self.index2dendrites[length] = dendrite
+                index = length
+                length += 1
+
+
+            else:
+                index = self.dendrites2index[dendrite]
+
+            dendrite_indices.append(index)
+        return dendrite_indices
