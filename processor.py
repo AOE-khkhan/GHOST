@@ -16,7 +16,7 @@ from functions import log, formatFloat
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=3, size=3):
+    def __init__(self, n_sensors=8, size=3):
         # if to show output
         self.log_state = True
 
@@ -78,16 +78,19 @@ class Processor:
         # add the influence of the current data to process
         for i in range(self.SIZE):
             weights = self.normalize(self.nodes[i][binary_data_index])
+            # print(i, weights)
             for j in range(self.STATE_SIZE):
                 self.processes[i][j].append(weights[j])
-        # self.log(self.processes, 'processes')
+        # self.log(self.processes[0], 'processes')
 
         predicted_outputs = [formatFloat(sum(x)/self.SIZE) for x in self.processes[0]]
-        # self.log(self.processes[0], 'processes')
+        # self.log([formatFloat(sum(x)/self.SIZE) for x in self.processes[0]], 'processes')
         # self.log(predicted_outputs, 'predicted_outputs')
         
         m = formatFloat(max(predicted_outputs))
         predicted_outputs = [self.registry[i] for i, x in enumerate(predicted_outputs) if x >= m and m > formatFloat(0)]
+        # self.log(predicted_outputs, 'predicted_outputs')
+        # print(self.register, self.registry)
         # predicted_output = predicted_outputs[0] if len(predicted_outputs) > 0 else None
 
         # self.log(m, 'max')
@@ -101,7 +104,7 @@ class Processor:
         # add data to context
         self.addToContext(binary_data_index)
 
-        return predicted_outputs, m, self.processes[0]
+        return predicted_outputs, m, self.processes
 
     def save(self, data):
         if data in self.register:
