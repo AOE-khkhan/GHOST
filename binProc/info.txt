@@ -1,5 +1,0 @@
-I think this binary pocessor is not working cos:
-	8bit binary data input is not continous but state like so it doesn't generate data not known as one can not imagine sth it does not know
-
-	the least is 8bit, it processes (8bit x no of sensors) at a time
-	

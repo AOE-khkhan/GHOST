@@ -1,0 +1,2 @@
+the wave function method isn't working.
+so i plan on assigning weights to the inluences from the past bits
