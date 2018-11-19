@@ -56,7 +56,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=8, size=5):
+    def __init__(self, n_sensors=8, size=8):
         # if to show output
         self.log_state = True
 
