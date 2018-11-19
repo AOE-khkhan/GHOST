@@ -49,7 +49,6 @@ File: processor.py
 Project: GHOST
 '''
 
-
 # import from python standard lib
 from itertools import combinations
 
@@ -93,14 +92,13 @@ class Processor:
         log(output, title)
         return
 
-    def normalize(self, li, factor=None):
+    def normalize(self, li):
         s = sum(li)
-
-        if s == 0:
-            return [0 for _ in li]
+        if s > 0:
+            return [x/s for x in li]
 
         else:
-            return [x/s for x in li]
+            return [0 for _ in li]
 
     def process(self, data):
         for i, state in enumerate(self.last_states):
@@ -135,7 +133,7 @@ class Processor:
                 index = length
                         
             if index == len(self.nodes[i]):
-                self.nodes[i].append([0 for _ in range(self.STATE_SIZE)])
+                self.nodes[i].append([0.0 for _ in range(self.STATE_SIZE)])
             
             weights = self.normalize(self.nodes[i][index])
             
