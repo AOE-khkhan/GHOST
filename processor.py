@@ -31,7 +31,7 @@ class Processor:
         self.registry = {}  #index:binary_data
 
         # matrix of nodes that process and project data
-        self.nodes = [[[0 for _ in range(self.STATE_SIZE)] for __ in range(self.STATE_SIZE)] for ___ in range(self.SIZE)]
+        self.nodes = { for comb in combinations(for __ in range(self.STATE_SIZE)}
 
         # holds the last information of size length
         self.context = []
