@@ -103,7 +103,7 @@ class Processor:
     def process(self, data):
         for i, state in enumerate(self.last_states):
             index = self.register[i][state]
-            self.nodes[i][index][data] += 1
+            self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
 
             # print('state = {}, bin_prop = {}, index = {}'.format(state, i, index))
             # input()
