@@ -26,7 +26,13 @@ def train(filepath):
                 yield s
             yield '`'
 
-            
+def learn_counting(n=31, n_iter=2):
+    for _ in range(n_iter):
+        for i in range(n):
+            data = str(i)
+            for c in list(data):
+                yield c
+            yield '`'
 
 def log(output='', title=None):
     if type(output) in [str, int, type(None)]:
@@ -39,8 +45,6 @@ def log(output='', title=None):
     print('{}\n'.format(output))
     return
 
-def formatFloat(number):
-	return round(number, 4)
 
 '''
 Author: Joshua, Christian r0b0tx
@@ -55,7 +59,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=8, size=8):
+    def __init__(self, n_sensors=8, size=3):
         # if to show output
         self.log_state = True
 
@@ -104,9 +108,16 @@ class Processor:
         for i, state in enumerate(self.last_states):
             index = self.register[i][state]
             self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
+            if state == (96,57):
+                print('state = {}, level = {}, data = {}'.format(state, toBin(i+1), data))
 
-            # print('state = {}, bin_prop = {}, index = {}'.format(state, i, index))
-            # input()
+                for li, level in enumerate(self.nodes):
+                    for sti, st in enumerate(level):
+                        if 49 not in self.registry[li][sti]:
+                            continue
+                        m = max(st)
+                        mv_li = [ix for ix, x in enumerate(st) if x == m]
+                        print('state = {}-{}, level = {}, max_vals = {}'.format(sti, self.registry[li][sti], toBin(li+1), mv_li))
 
         # add data to context
         self.addToContext(data)
@@ -162,16 +173,18 @@ PROCESSOR = Processor()
 def main():
     # start the sensor
     # input_data = '''hello`hi`i live in nigeria, it is a very big place`hello`hi`what is 1+4?`hello`hi`my name is jack`hi`i am james, i come from the north.`do you speak latin?`no`good morning`hi`how are you doing?`i am great thank you`hello, my name is uri`hi, i'm emma.`hey`hey`can you come today?`no`see me tommorow`hi janet`hello kareem`hello`hi`'''
-
     # input_data = "hello`hi`two`hello`hi`"
-    # input_data = "hi`"
     # input_data = 'hi`hello`1+1 is 2`1+4 is 5`2+3 is 5`5+2 is 7`3+1 is 4`3+4 is 7`2+1 is 3`4+4 is 8`what is 2+3?`5`what is 2+1?`4`what is 3+4?`7`what is 5+2?`7`what is 1+1?`2`hi`'
     
-    input_data = train('train.txt')
+    # input_data = train('train.txt')
+    input_data = learn_counting()
+
+    # initialize
     last_outputs = None
     last_input_data = None
     weight = None
     po = None
+    
     for c in input_data:
         print('x = {}, y = {}, y_pred = {}, weight = {}, '.format(last_input_data, c, last_outputs, weight, po))
 
