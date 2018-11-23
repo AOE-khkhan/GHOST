@@ -1,2 +1,1 @@
-the wave function method isn't working.
-so i plan on assigning weights to the inluences from the past bits
+now i am trying to create transformations and generate a probability func for the trensformation in relation to the states

@@ -89,6 +89,9 @@ class Processor:
         self.context.insert(0, data)
         return
 
+    def getTransformations(self, state_x, state_y):
+        pass
+        
     def log(self, output, title=None):
         if not self.log_state:
             return
@@ -113,11 +116,14 @@ class Processor:
 
                 for li, level in enumerate(self.nodes):
                     for sti, st in enumerate(level):
-                        if 49 not in self.registry[li][sti]:
+                        statex = self.registry[li][sti]
+                        if 49 not in statex:
                             continue
-                        m = max(st)
-                        mv_li = [ix for ix, x in enumerate(st) if x == m]
-                        print('state = {}-{}, level = {}, max_vals = {}'.format(sti, self.registry[li][sti], toBin(li+1), mv_li))
+                        max_probability = max(st)
+                        max_probability_values = [ix for ix, x in enumerate(st) if x == max_probability]
+                        if data in mv_li:
+                            self.getTransformations(statex, max_probability_values)
+                            print('state = {}-{}, level = {}, max_vals = {}'.format(sti, self.registry[li][sti], toBin(li+1), mv_li))
 
         # add data to context
         self.addToContext(data)
