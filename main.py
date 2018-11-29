@@ -26,7 +26,7 @@ def train(filepath):
                 yield s
             yield '`'
 
-def learn_counting(n=31, n_iter=2):
+def learn_counting(n=51, n_iter=1):
     for _ in range(n_iter):
         for i in range(n):
             data = str(i)
@@ -82,6 +82,9 @@ class Processor:
 
         self.last_concepts = []
 
+        # holds the hidden relation between states and concepts
+        self.transformations = [{} for _ in range(self.MEMORY_SIZE)]
+
     def addToContext(self, data):
         if len(self.context) == self.SIZE:
             self.context.pop()
@@ -89,21 +92,35 @@ class Processor:
         self.context.insert(0, data)
         return
 
-    def getTransformations(self, state_x, state_y):
-        states = [state_y]
-        for ix, sx in enumerate(state_x):
-            new_states = []
-            for state in states:
-                for iy, sy in enumerate(state):
-                    if type(sy) == str:
+    def getConcepts(self):
+        concepts = []
+
+        # get concept range based on precent concept as the context might not be up to max
+        concept_range = sum([2**x for x in range(len(self.context))])
+        
+        for n in range(concept_range):
+            concept = tuple([self.context[i] for i, x in enumerate(list(toBin(n+1))[::-1]) if x == '1'])
+            if concept == tuple([]):
+                continue
+
+            concepts.append(concept)
+        return concepts
+
+    def getTransformations(self, concept_x, concept_y):
+        concepts = [concept_y]
+        for ix, cx in enumerate(concept_x):
+            new_concepts = []
+            for concept in concepts:
+                for iy, cy in enumerate(concept):
+                    if type(cy) == str:
                         continue
                     
-                    if sx == sy:
-                        s_new = list(state)
-                        s_new[iy] = str(ix)
-                        new_states.append(tuple(s_new))
-            states = new_states.copy()
-        return new_states
+                    if cx == cy:
+                        c_new = list(concept)
+                        c_new[iy] = str(ix)
+                        new_concepts.append(tuple(c_new))
+            concepts = new_concepts.copy()
+        return new_concepts
         
     def log(self, output, title=None):
         if not self.log_state:
@@ -121,50 +138,17 @@ class Processor:
             return [0 for _ in li]
 
     def process(self, data):
-        for i, concept in enumerate(self.last_concepts):
-            index = self.register[i][concept]
-            self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
-
-            for j, concept_ in enumerate(self.last_concepts):
-                if concept != (96,57):
-                    continue
-
-                for li, concepts in enumerate(self.nodes):
-                    for ci, states in enumerate(concepts):
-                        other_concept = self.registry[li][ci]
-
-                        if concept_ != (49,):
-                            continue
-
-                        if not all([x in other_concept for x in concept_]):
-                            continue
-
-                        max_probability = max(states)
-                        if max_probability == 0:
-                            continue
-
-                        max_probability_states = [ix for ix, x in enumerate(states) if x == max_probability]
-                        if data in max_probability_states:
-                            print('concept = {}, level = {}, data = {}'.format(concept, toBin(i+1), data))
-                            print('   concept = {}-{}, level = {}, max_vals = {}, max_prob = {}'.format(ci, other_concept, toBin(li+1), max_probability_states, max_probability))
-                            self.getTransformations(concept_, other_concept)
+        # update the node network
+        self.update(data)
 
         # add data to context
         self.addToContext(data)
         
+        # the process instance
         processes = [[] for _ in range(self.CONCEPT_SIZE)]
 
-        concepts = []
-
-        # get concept range based on precent concept as the context might not be up to max
-        concept_range = sum([2**x for x in range(len(self.context))])
-        
-        for n in range(concept_range):
-            concept = tuple([self.context[i] for i, x in enumerate(list(toBin(n+1))[::-1]) if x == '1'])
-            if concept == tuple([]):
-                continue
-
-            concepts.append(concept)
+        # get the states at this instance
+        concepts = self.getConcepts()
 
         for i, concept in enumerate(concepts):
             if concept in self.register[i]:
@@ -187,6 +171,19 @@ class Processor:
                 # if weight > 0:
                 #     print(j, weight)
 
+            if len(self.context) > 2 and self.context[-1] != 96 and self.context[-2] != 57:
+                continue
+
+            for j, concept_ in enumerate(concepts):
+                if concept_index not in self.transformations[i]:
+                    continue
+
+                transformations = self.transformations[i][concept_index]
+
+                for ti in transformations:
+                    for transformation in transformations[ti]:
+                        state = self.solveTransformation(transformation, concepts[ti])
+
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
         predicted_outputs = [state for state, x in enumerate(predicted_outputs) if x >= m and m > 0]
@@ -194,6 +191,58 @@ class Processor:
         self.last_concepts = concepts.copy()                
         return predicted_outputs, m, processes
 
+    def solveTransformation(self, transformation, concept):
+        transform = list(transformation)
+        for i, t in enumerate(transformation):
+            if type(t) != str:
+                continue
+
+            index = int(t)
+            transform[i] = concept[index]
+        print(transformation, 'to', transform)
+                
+        return transform
+
+    def update(self, data):
+        for i, concept in enumerate(self.last_concepts):
+            index = self.register[i][concept]
+            self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
+            # if concept == (96,57) and i+1 == 3:
+            #     pass
+
+            # else:
+            #     continue
+
+            for j, concept_ in enumerate(self.last_concepts):
+                for li, concepts in enumerate(self.nodes):
+                    for ci, states in enumerate(concepts):
+                        other_concept = self.registry[li][ci]
+
+                        if not all([x in other_concept for x in concept_]):
+                            continue
+
+                        max_probability = max(states)
+                        if max_probability == 0:
+                            continue
+
+                        max_probability_states = [ix for ix, x in enumerate(states) if x == max_probability]
+                        if data in max_probability_states:
+                            # print('concept = {}, level = {}, data = {}'.format(concept, toBin(i+1), data))
+                            # print('   concept = {}-{}, level = {}, max_vals = {}, max_prob = {}'.format(ci, other_concept, toBin(li+1), max_probability_states, max_probability))
+                            transformations = self.getTransformations(concept_, other_concept)
+                            
+                            if index not in self.transformations[i]:
+                                self.transformations[i][index] = {}
+
+                            if j not in self.transformations[i][index]:
+                                self.transformations[i][index][j] = {}
+
+                            for transformation in transformations:
+                                if transformation not in self.transformations[i][index][j]:
+                                    self.transformations[i][index][j][transformation] = 0
+                                
+                                self.transformations[i][index][j][transformation] += 1
+        return
 '''
 Author: Joshua, Christian r0b0tx
 Date: 1 Nov 2018
