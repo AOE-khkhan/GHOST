@@ -59,7 +59,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=8, size=3):
+    def __init__(self, state_size=8, size=3):
         # if to show output
         self.log_state = True
 
@@ -68,7 +68,7 @@ class Processor:
         self.MEMORY_SIZE = sum([2**x for x in range(self.SIZE)])
 
         # sensory binary data size
-        self.STATE_SIZE = 2**n_sensors
+        self.CONCEPT_SIZE = 2**state_size
 
         # holds the addreses of the sensory state
         self.register = [{} for _ in range(self.MEMORY_SIZE)]  #binary_data:index
@@ -80,7 +80,7 @@ class Processor:
         # holds the last information of size length
         self.context = []
 
-        self.last_states = []
+        self.last_concepts = []
 
     def addToContext(self, data):
         if len(self.context) == self.SIZE:
@@ -90,7 +90,20 @@ class Processor:
         return
 
     def getTransformations(self, state_x, state_y):
-        pass
+        states = [state_y]
+        for ix, sx in enumerate(state_x):
+            new_states = []
+            for state in states:
+                for iy, sy in enumerate(state):
+                    if type(sy) == str:
+                        continue
+                    
+                    if sx == sy:
+                        s_new = list(state)
+                        s_new[iy] = str(ix)
+                        new_states.append(tuple(s_new))
+            states = new_states.copy()
+        return new_states
         
     def log(self, output, title=None):
         if not self.log_state:
@@ -108,62 +121,77 @@ class Processor:
             return [0 for _ in li]
 
     def process(self, data):
-        for i, state in enumerate(self.last_states):
-            index = self.register[i][state]
+        for i, concept in enumerate(self.last_concepts):
+            index = self.register[i][concept]
             self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
-            if state == (96,57):
-                print('state = {}, level = {}, data = {}'.format(state, toBin(i+1), data))
 
-                for li, level in enumerate(self.nodes):
-                    for sti, st in enumerate(level):
-                        statex = self.registry[li][sti]
-                        if 49 not in statex:
+            for j, concept_ in enumerate(self.last_concepts):
+                if concept != (96,57):
+                    continue
+
+                for li, concepts in enumerate(self.nodes):
+                    for ci, states in enumerate(concepts):
+                        other_concept = self.registry[li][ci]
+
+                        if concept_ != (49,):
                             continue
-                        max_probability = max(st)
-                        max_probability_values = [ix for ix, x in enumerate(st) if x == max_probability]
-                        if data in mv_li:
-                            self.getTransformations(statex, max_probability_values)
-                            print('state = {}-{}, level = {}, max_vals = {}'.format(sti, self.registry[li][sti], toBin(li+1), mv_li))
+
+                        if not all([x in other_concept for x in concept_]):
+                            continue
+
+                        max_probability = max(states)
+                        if max_probability == 0:
+                            continue
+
+                        max_probability_states = [ix for ix, x in enumerate(states) if x == max_probability]
+                        if data in max_probability_states:
+                            print('concept = {}, level = {}, data = {}'.format(concept, toBin(i+1), data))
+                            print('   concept = {}-{}, level = {}, max_vals = {}, max_prob = {}'.format(ci, other_concept, toBin(li+1), max_probability_states, max_probability))
+                            self.getTransformations(concept_, other_concept)
 
         # add data to context
         self.addToContext(data)
         
-        processes = [[] for _ in range(self.STATE_SIZE)]
+        processes = [[] for _ in range(self.CONCEPT_SIZE)]
 
-        states = []
-        n_range = sum([2**x for x in range(len(self.context))])
-        for n in range(n_range):
-            state = tuple([self.context[i] for i, x in enumerate(list(toBin(n+1))[::-1]) if x == '1'])
-            if state == tuple([]):
+        concepts = []
+
+        # get concept range based on precent concept as the context might not be up to max
+        concept_range = sum([2**x for x in range(len(self.context))])
+        
+        for n in range(concept_range):
+            concept = tuple([self.context[i] for i, x in enumerate(list(toBin(n+1))[::-1]) if x == '1'])
+            if concept == tuple([]):
                 continue
 
-            states.append(state)
+            concepts.append(concept)
 
-        for i, state in enumerate(states):            
-            if state in self.register[i]:
-                index = self.register[i][state]
+        for i, concept in enumerate(concepts):
+            if concept in self.register[i]:
+                concept_index = self.register[i][concept]
 
             else:
                 length = len(self.register[i])
-                self.register[i][state] = length
-                self.registry[i][length] = state
-                index = length
+                self.register[i][concept] = length
+                self.registry[i][length] = concept
+                concept_index = length
                         
-            if index == len(self.nodes[i]):
-                self.nodes[i].append([0.0 for _ in range(self.STATE_SIZE)])
+            if concept_index == len(self.nodes[i]):
+                self.nodes[i].append([0.0 for _ in range(self.CONCEPT_SIZE)])
             
-            weights = self.normalize(self.nodes[i][index])
+            # probability distribution of concept to states
+            concept2states_weights = self.normalize(self.nodes[i][concept_index])
             
-            for j, weight in enumerate(weights):
-                processes[j].append(weight)
+            for state, weight in enumerate(concept2states_weights):
+                processes[state].append(weight)
                 # if weight > 0:
                 #     print(j, weight)
 
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
-        predicted_outputs = [i for i, x in enumerate(predicted_outputs) if x >= m and m > 0]
+        predicted_outputs = [state for state, x in enumerate(predicted_outputs) if x >= m and m > 0]
         
-        self.last_states = states.copy()                
+        self.last_concepts = concepts.copy()                
         return predicted_outputs, m, processes
 
 '''
