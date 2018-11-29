@@ -144,6 +144,9 @@ class Processor:
         # add data to context
         self.addToContext(data)
         
+        # used to model
+        transformations_used = []
+
         # the process instance
         processes = [[] for _ in range(self.CONCEPT_SIZE)]
 
@@ -202,12 +205,14 @@ class Processor:
                                     print(transformation, 'to', concept_transform)
                                     print('ddddd=>', state, weight)
                                 processes[state].append(factor * weight)
-                        
+                                transformations_used[state].append(transformation_)
+
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
         predicted_outputs = [state for state, x in enumerate(predicted_outputs) if x >= m and m > 0]
         
-        self.last_concepts = concepts.copy()                
+        self.last_concepts = concepts.copy()
+        self.transformations_used = transformations_used.copy()                
         return predicted_outputs, m, processes
 
     def solveTransformation(self, transformation, concept):
@@ -250,14 +255,17 @@ class Processor:
                             
                             if index not in self.transformations[i]:
                                 self.transformations[i][index] = {}
+                                self.transformation_weights[i][index] = {}
 
                             if j not in self.transformations[i][index]:
                                 self.transformations[i][index][j] = {}
+                                self.transformation_weights[i][index][j] = {}
 
                             for transformation in transformations:
                                 transformation_ = (transformation, li)
                                 if transformation_ not in self.transformations[i][index][j]:
                                     self.transformations[i][index][j][transformation_] = 0
+                                    self.transformation_weights[i][index][j][transformation_] = 0
                                 
                                 self.transformations[i][index][j][transformation_] = (1 + self.transformations[i][index][j][transformation_])/2
         return
