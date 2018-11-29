@@ -180,10 +180,30 @@ class Processor:
 
                 transformations = self.transformations[i][concept_index]
 
-                for ti in transformations:
-                    for transformation in transformations[ti]:
-                        state = self.solveTransformation(transformation, concepts[ti])
+                # ti is the level of concept it connected with, in bin form it show the part of the concept that matters to it
+                for concept_level in transformations:
+                    for transformation_ in transformations[concept_level]:
+                        factor = transformations[concept_level][transformation_]
+                        transformation, level =  transformation_
 
+                        concept_transform = self.solveTransformation(transformation, concepts[concept_level])
+                        if concept_transform not in self.register[level]:
+                            print(concept_transform)
+                            continue
+
+                        concept_transform_index = self.register[level][concept_transform]
+
+                        # probability distribution of concept to states
+                        concept2states_weights = self.normalize(self.nodes[level][concept_transform_index])
+                        
+                        max_concept2states_weights = max(concept2states_weights)
+                        for state, weight in enumerate(concept2states_weights):
+                            if weight == max_concept2states_weights:
+                                if len(self.context) > 2 and self.context[-1] != 96 and self.context[-2] != 57:
+                                    print(transformation, 'to', concept_transform)
+                                    print('ddddd=>', state, weight)
+                                processes[state].append(weight)
+                        
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
         predicted_outputs = [state for state, x in enumerate(predicted_outputs) if x >= m and m > 0]
@@ -199,9 +219,7 @@ class Processor:
 
             index = int(t)
             transform[i] = concept[index]
-        print(transformation, 'to', transform)
-                
-        return transform
+        return tuple(transform)
 
     def update(self, data):
         for i, concept in enumerate(self.last_concepts):
@@ -238,10 +256,11 @@ class Processor:
                                 self.transformations[i][index][j] = {}
 
                             for transformation in transformations:
-                                if transformation not in self.transformations[i][index][j]:
-                                    self.transformations[i][index][j][transformation] = 0
+                                transformation_ = (transformation, li)
+                                if transformation_ not in self.transformations[i][index][j]:
+                                    self.transformations[i][index][j][transformation_] = 0
                                 
-                                self.transformations[i][index][j][transformation] += 1
+                                self.transformations[i][index][j][transformation_] += 1
         return
 '''
 Author: Joshua, Christian r0b0tx
