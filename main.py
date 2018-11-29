@@ -171,9 +171,6 @@ class Processor:
                 # if weight > 0:
                 #     print(j, weight)
 
-            if len(self.context) > 2 and self.context[-1] != 96 and self.context[-2] != 57:
-                continue
-
             for j, concept_ in enumerate(concepts):
                 if concept_index not in self.transformations[i]:
                     continue
@@ -188,7 +185,6 @@ class Processor:
 
                         concept_transform = self.solveTransformation(transformation, concepts[concept_level])
                         if concept_transform not in self.register[level]:
-                            print(concept_transform)
                             continue
 
                         concept_transform_index = self.register[level][concept_transform]
@@ -197,12 +193,15 @@ class Processor:
                         concept2states_weights = self.normalize(self.nodes[level][concept_transform_index])
                         
                         max_concept2states_weights = max(concept2states_weights)
+                        if max_concept2states_weights == 0:
+                            continue
+
                         for state, weight in enumerate(concept2states_weights):
                             if weight == max_concept2states_weights:
-                                if len(self.context) > 2 and self.context[-1] != 96 and self.context[-2] != 57:
+                                if len(self.context) > 2 and self.context[-3] == 96 and self.context[-2] == 57 and self.context[-1] == 52:
                                     print(transformation, 'to', concept_transform)
                                     print('ddddd=>', state, weight)
-                                processes[state].append(weight)
+                                processes[state].append(factor * weight)
                         
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
@@ -260,7 +259,7 @@ class Processor:
                                 if transformation_ not in self.transformations[i][index][j]:
                                     self.transformations[i][index][j][transformation_] = 0
                                 
-                                self.transformations[i][index][j][transformation_] += 1
+                                self.transformations[i][index][j][transformation_] = (1 + self.transformations[i][index][j][transformation_])/2
         return
 '''
 Author: Joshua, Christian r0b0tx
