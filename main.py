@@ -26,7 +26,7 @@ def train(filepath):
                 yield s
             yield '`'
 
-def learn_counting(n=51, n_iter=1):
+def learn_counting(n=51, n_iter=3):
     for _ in range(n_iter):
         for i in range(n):
             data = str(i)
@@ -59,7 +59,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, state_size=8, size=3):
+    def __init__(self, state_size=8, size=4):
         # if to show output
         self.log_state = True
 
@@ -84,6 +84,10 @@ class Processor:
 
         # holds the hidden relation between states and concepts
         self.transformations = [{} for _ in range(self.MEMORY_SIZE)]
+        self.transformation_weights = [{} for _ in range(self.MEMORY_SIZE)]
+
+        # holds the transformations_used
+        self.transformations_used = [[] for _ in range(self.CONCEPT_SIZE)]
 
     def addToContext(self, data):
         if len(self.context) == self.SIZE:
@@ -130,12 +134,20 @@ class Processor:
         return
 
     def normalize(self, li):
-        s = sum(li)
+        s = sum(li) if type(li) != dict else sum(li.values())
         if s > 0:
-            return [x/s for x in li]
+            if type(li) == dict:
+                return {x:li[x]/s for x in li}
+
+            else:
+                return [x/s for x in li]
 
         else:
-            return [0 for _ in li]
+            if type(li) == dict:
+                return {x:0 for x in li}
+
+            else:
+                return [0 for _ in li]
 
     def process(self, data):
         # update the node network
@@ -145,7 +157,7 @@ class Processor:
         self.addToContext(data)
         
         # used to model
-        transformations_used = []
+        transformations_used = [[] for _ in range(self.CONCEPT_SIZE)]
 
         # the process instance
         processes = [[] for _ in range(self.CONCEPT_SIZE)]
@@ -175,15 +187,18 @@ class Processor:
                 #     print(j, weight)
 
             for j, concept_ in enumerate(concepts):
-                if concept_index not in self.transformations[i]:
+                if concept_index not in self.transformation_weights[i]:
                     continue
 
-                transformations = self.transformations[i][concept_index]
+                # transformations_ = self.transformations[i][concept_index]
+                transformation_weights = self.transformation_weights[i][concept_index]
+                total_transformation_weights = sum([transformation_weights[cl][transf] for cl in transformation_weights for transf in transformation_weights[cl]])
 
-                # ti is the level of concept it connected with, in bin form it show the part of the concept that matters to it
-                for concept_level in transformations:
-                    for transformation_ in transformations[concept_level]:
-                        factor = transformations[concept_level][transformation_]
+                # the level of concept it connected with, in bin form it show the part of the concept that matters to it
+                for concept_level in transformation_weights:
+                    for transformation_ in transformation_weights[concept_level]:
+                        # use the relative weight
+                        transformation_weight = transformation_weights[concept_level][transformation_]/total_transformation_weights if total_transformation_weights > 0 else 0
                         transformation, level =  transformation_
 
                         concept_transform = self.solveTransformation(transformation, concepts[concept_level])
@@ -201,11 +216,12 @@ class Processor:
 
                         for state, weight in enumerate(concept2states_weights):
                             if weight == max_concept2states_weights:
-                                if len(self.context) > 2 and self.context[-3] == 96 and self.context[-2] == 57 and self.context[-1] == 52:
-                                    print(transformation, 'to', concept_transform)
-                                    print('ddddd=>', state, weight)
-                                processes[state].append(factor * weight)
-                                transformations_used[state].append(transformation_)
+                                # if len(self.context) > 2 and self.context[-3] == 96 and self.context[-2] == 57 and self.context[-1] == 52:
+                                #     print(transformation, 'to', concept_transform)
+                                #     print('ddddd=>', state, weight)
+                                processes[state].append(transformation_weight * weight)
+                                model = (i, concept_index, concept_level, transformation_)
+                                transformations_used[state].append(model)
 
         predicted_outputs = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
         m = max(predicted_outputs)
@@ -226,6 +242,11 @@ class Processor:
         return tuple(transform)
 
     def update(self, data):
+        # this update the weights of the transformations used to affect the transformations
+        for model in self.transformations_used[data]:
+            level, concept_index, concept_level, transformation_ = model
+            self.transformation_weights[level][concept_index][concept_level][transformation_] = (1 + self.transformation_weights[level][concept_index][concept_level][transformation_])/2
+
         for i, concept in enumerate(self.last_concepts):
             index = self.register[i][concept]
             self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
