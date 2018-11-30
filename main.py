@@ -26,8 +26,9 @@ def train(filepath):
                 yield s
             yield '`'
 
-def learn_counting(n=51, n_iter=3):
+def learn_counting(n=21, n_iter=5):
     for _ in range(n_iter):
+        print('\nthis is the {} iteration\n'.format(_))
         for i in range(n):
             data = str(i)
             for c in list(data):
@@ -59,7 +60,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, state_size=8, size=4):
+    def __init__(self, state_size=8, size=5):
         # if to show output
         self.log_state = True
 
@@ -219,7 +220,7 @@ class Processor:
                                 # if len(self.context) > 2 and self.context[-3] == 96 and self.context[-2] == 57 and self.context[-1] == 52:
                                 #     print(transformation, 'to', concept_transform)
                                 #     print('ddddd=>', state, weight)
-                                processes[state].append(transformation_weight * weight)
+                                processes[state].append(transformation_weight)
                                 model = (i, concept_index, concept_level, transformation_)
                                 transformations_used[state].append(model)
 
@@ -243,20 +244,24 @@ class Processor:
 
     def update(self, data):
         # this update the weights of the transformations used to affect the transformations
-        for model in self.transformations_used[data]:
-            level, concept_index, concept_level, transformation_ = model
-            self.transformation_weights[level][concept_index][concept_level][transformation_] = (1 + self.transformation_weights[level][concept_index][concept_level][transformation_])/2
+        for state, models in enumerate(self.transformations_used):
+            inc = 1 if state == data else 0
+            for model in models:
+                level, concept_index, concept_level, transformation_ = model
+                self.transformation_weights[level][concept_index][concept_level][transformation_] = (inc + self.transformation_weights[level][concept_index][concept_level][transformation_])/2
 
         for i, concept in enumerate(self.last_concepts):
             index = self.register[i][concept]
             self.nodes[i][index][data] = (1 + self.nodes[i][index][data])/2
-            # if concept == (96,57) and i+1 == 3:
-            #     pass
-
-            # else:
-            #     continue
+            
+            if index not in self.transformation_weights[i]:
+                self.transformation_weights[i][index] = {}
 
             for j, concept_ in enumerate(self.last_concepts):
+
+                if j not in self.transformation_weights[i][index]:
+                    self.transformation_weights[i][index][j] = {}
+
                 for li, concepts in enumerate(self.nodes):
                     for ci, states in enumerate(concepts):
                         other_concept = self.registry[li][ci]
@@ -274,21 +279,10 @@ class Processor:
                             # print('   concept = {}-{}, level = {}, max_vals = {}, max_prob = {}'.format(ci, other_concept, toBin(li+1), max_probability_states, max_probability))
                             transformations = self.getTransformations(concept_, other_concept)
                             
-                            if index not in self.transformations[i]:
-                                self.transformations[i][index] = {}
-                                self.transformation_weights[i][index] = {}
-
-                            if j not in self.transformations[i][index]:
-                                self.transformations[i][index][j] = {}
-                                self.transformation_weights[i][index][j] = {}
-
                             for transformation in transformations:
                                 transformation_ = (transformation, li)
-                                if transformation_ not in self.transformations[i][index][j]:
-                                    self.transformations[i][index][j][transformation_] = 0
+                                if transformation_ not in self.transformation_weights[i][index][j]:
                                     self.transformation_weights[i][index][j][transformation_] = 0
-                                
-                                self.transformations[i][index][j][transformation_] = (1 + self.transformations[i][index][j][transformation_])/2
         return
 '''
 Author: Joshua, Christian r0b0tx
