@@ -104,18 +104,22 @@ class Processor:
         return
 
     def createTransformations(self, i, data, index, concept):
-        if index not in self.transformation_weights[i]:
+        if index not in self.transformations[i]:
+            self.transformations[i][index] = {}
             self.transformation_weights[i][index] = {}
 
         for j, concept_ in enumerate(self.last_concepts):
 
-            if j not in self.transformation_weights[i][index]:
+            if j not in self.transformations[i][index]:
+                self.transformations[i][index][j] = {}
                 self.transformation_weights[i][index][j] = {}
     
             max_probability_states = self.getMaxProbabilityStates(data)
+            
             for x in max_probability_states:
                 level, concept_index = x
                 max_prob_states = max_probability_states[x]
+                factor = len(max_prob_states)**-1
 
                 other_concept = self.registry[level][concept_index]
                 
@@ -125,8 +129,12 @@ class Processor:
                     for transformation in transformations:
                         transformation_ = (transformation, level)
 
-                        if transformation_ not in self.transformation_weights[i][index][j]:
-                            self.transformation_weights[i][index][j][transformation_] = 0
+                        if transformation_ not in self.transformations[i][index][j]:
+                            self.transformations[i][index][j][transformation_] = 0
+                            self.transformation_weights[i][index][j][transformation_] = factor
+
+                        if self.transformation_weights[i][index][j][transformation_] != factor:
+                            self.transformation_weights[i][index][j][transformation_] = factor
         return
 
     def getMaxProbabilityStates(self, data):
@@ -239,31 +247,32 @@ class Processor:
                         
             if concept_index == len(self.nodes[i]):
                 self.nodes[i].append([0.0 for _ in range(self.CONCEPT_SIZE)])
-            
+
             # probability distribution of concept to states
             concept2states_weights = self.normalize(self.nodes[i][concept_index])
             
             for state, weight in enumerate(concept2states_weights):
                 processes[state].append(weight)
 
-            for j, concept_ in enumerate(concepts):
-                if concept_index not in self.transformation_weights[i]:
+            # processing the transformations
+            if concept_index not in self.transformations[i]:
                     continue
 
-                # transformations_ = self.transformations[i][concept_index]
-                transformation_weights = self.transformation_weights[i][concept_index]
-                total_transformation_weights = sum([transformation_weights[cl][transf] for cl in transformation_weights for transf in transformation_weights[cl]])
+            transformations = self.transformations[i][concept_index]
+            total_transformations = sum([transformations[cl][transf] for cl in transformations for transf in transformations[cl]])
 
+            for j, concept_ in enumerate(concepts):
                 # the level of concept it connected with, in bin form it show the part of the concept that matters to it
-                for concept_level in transformation_weights:
-                    for transformation_ in transformation_weights[concept_level]:
+                for concept_level in transformations:
+                    for transformation_ in transformations[concept_level]:
                         # use the relative weight
-                        transformation_weight = transformation_weights[concept_level][transformation_]/total_transformation_weights if total_transformation_weights > 0 else 0
-                        # transformation_weight = transformation_weights[concept_level][transformation_]
+                        factor = self.transformation_weights[i][concept_index][concept_level][transformation_] #influence of the transformation
+                        transformation_probability = transformations[concept_level][transformation_]/total_transformations if total_transformations > 0 else 0
+                        # transformation_probability = transformations[concept_level][transformation_]
                         transformation, level =  transformation_
 
                         concept_transform = self.solveTransformation(transformation, concepts[concept_level])
-
+                        
                         if concept_transform not in self.register[level]:
                             continue
 
@@ -274,16 +283,19 @@ class Processor:
                         
                         max_concept2states_weights = max(concept2states_weights)
                         for state, weight in enumerate(concept2states_weights):
-                            w = transformation_weight if weight > 0 and weight == max_concept2states_weights else 0
-                            transformation_processes[state].append(w)
+                            # w = transformation_probability if weight > 0 and weight == max_concept2states_weights else 0
+                            # transformation_processes[state].append(factor*w)
 
                             if max_concept2states_weights > 0 and weight == max_concept2states_weights:
-                                # transformation_processes[state].append(transformation_weight)
+                                # if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
+                                #     if transformation == (49, '0', '1') or transformation == ('0', '1', 96):
+                                #         print(transformation, concepts[concept_level], concept_transform)
+                                transformation_processes[state].append(factor*transformation_probability)
                                 model = (i, concept_index, concept_level, transformation_)
                                 transformations_used[state].append(model)
 
-        processes = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
-        # processes = [0 if len(x) > 0 else 0 for x in processes]
+        # processes = [sum(x)/len(x) if len(x) > 0 else 0 for x in processes]
+        processes = [0 if len(x) > 0 else 0 for x in processes]
         # transformation_processes = [0 if len(x) > 0 else 0 for x in transformation_processes]
         transformation_processes = [sum(x)/len(x) if len(x) > 0 else 0 for x in transformation_processes]
 
@@ -328,15 +340,16 @@ class Processor:
             # create transformation weights
             self.createTransformations(i, data, index, concept)          
 
-        # if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
-        #     if  (96, 57) in self.register[2]:
-        #         n = self.register[2][(96, 57)]
-        #         li = self.transformation_weights[2][n] if n in self.transformation_weights[2] else []
-        #         for x in li:
-        #             print(x)
-        #             for y in li[x]:
-        #                 print('   ', y, li[x][y])
-        #         input()
+        if len(self.context) > 2 and self.context[-2] == 48 and self.context[-3] == 96:
+            if  (96, 57) in self.register[2]:
+                n = self.register[2][(96, 57)]
+                li = self.transformation_weights[2][n] if n in self.transformation_weights[2] else []
+                lix = self.transformations[2][n] if n in self.transformations[2] else []
+                for x in li:
+                    print(x, sep=" => ")
+                    for y in li[x]:
+                        print('   ', y, li[x][y], lix[x][y], sep=" => ")
+                input()
 
         return
 
@@ -358,8 +371,8 @@ class Processor:
             inc = 1 if state == data else 0
             for model in models:
                 level, concept_index, concept_level, transformation_ = model
-                # self.transformation_weights[level][concept_index][concept_level][transformation_] += inc
-                self.transformation_weights[level][concept_index][concept_level][transformation_] = (self.transformation_weights[level][concept_index][concept_level][transformation_] + inc)/2
+                self.transformations[level][concept_index][concept_level][transformation_] += inc
+                # self.transformations[level][concept_index][concept_level][transformation_] = (self.transformations[level][concept_index][concept_level][transformation_] + inc)/2
         return
 '''
 Author: Joshua, Christian r0b0tx
@@ -372,13 +385,9 @@ Project: GHOST
 PROCESSOR = Processor()
 
 def main():
-    # start the sensor
-    # input_data = '''hello`hi`i live in nigeria, it is a very big place`hello`hi`what is 1+4?`hello`hi`my name is jack`hi`i am james, i come from the north.`do you speak latin?`no`good morning`hi`how are you doing?`i am great thank you`hello, my name is uri`hi, i'm emma.`hey`hey`can you come today?`no`see me tommorow`hi janet`hello kareem`hello`hi`'''
-    # input_data = "hello`hi`two`hello`hi`"
-    # input_data = 'hi`hello`1+1 is 2`1+4 is 5`2+3 is 5`5+2 is 7`3+1 is 4`3+4 is 7`2+1 is 3`4+4 is 8`what is 2+3?`5`what is 2+1?`4`what is 3+4?`7`what is 5+2?`7`what is 1+1?`2`hi`'
-    
-    # input_data = train('train.txt')
-    input_data = learn_counting()
+    # td = [learn_counting(11), learn_counting(21), learn_counting(21), learn_counting(51), learn_counting(31), learn_counting(35), learn_counting(51), learn_counting(61), learn_counting(101)]
+
+    td = [learn_counting(101)]
 
     # initialize
     last_outputs = None
@@ -386,16 +395,17 @@ def main():
     weight = None
     po = None
     
-    for c in input_data:
-        print('x = {}, y = {}, y_pred = {}, weight = {}, '.format(last_input_data, c, last_outputs, weight, po))
+    for training_data in td:
+        for c in training_data:
+            print('x = {}, y = {}, y_pred = {}, weight = {}, '.format(last_input_data, c, last_outputs, weight))
 
-        data = ord(c)
+            data = ord(c)
 
-        outputs, weight, po = PROCESSOR.process(data)
-        outputs = [chr(x) for x in outputs]
-        
-        last_outputs = outputs.copy()
-        last_input_data = c
+            outputs, weight, po = PROCESSOR.process(data)
+            outputs = [chr(x) for x in outputs]
+            
+            last_outputs = outputs.copy()
+            last_input_data = c
 if __name__ == '__main__':
     main()
 
