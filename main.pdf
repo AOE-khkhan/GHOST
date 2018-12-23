@@ -239,100 +239,43 @@ class Processor:
             if concept_model not in self.nodes:
                 self.nodes.append(concept_model)
                 self.node_state_freq.append([0.0 for _ in range(self.STATE_SIZE)])
-                self.node_state_total_freq.append(0.0)
+                self.node_state_total_freq.append([0.0 for _ in range(self.STATE_SIZE)])
 
             # the id of the concept
             concept_node_index = self.nodes.index(concept_model)
 
             concept2states_freq = self.node_state_freq[concept_node_index]
+            # concept2states_freq = self.normalize(self.node_state_freq[concept_node_index])
             
-            # pdf weight for relative value
-            node_state_total_freq = self.node_state_total_freq[concept_node_index]
 # ---------------------------------------------------------------probability density function--------------
             for state, state_freq in enumerate(concept2states_freq):
+                # pdf weight for relative value
+                node_state_total_freq = self.node_state_total_freq[concept_node_index][state]
+            
                 state_weight = state_freq/node_state_total_freq if node_state_total_freq > 0 else 0
-                pdf_processes[state].append(state_weight * self.trustFactor(node_state_total_freq) * len(concept) / self.SIZE)
+                pdf_processes[state].append(state_weight * self.trustFactor(state_freq))
 
                 # increment the node
-                self.node_state_total_freq[concept_node_index] += 1
+                self.node_state_total_freq[concept_node_index][state] += 1
+                self.pdf_models_used[state].append(concept_node_index)
 # --------------------------------------------------transformations---------------------------------------------------
-            if len(concepts) < self.CONCEPT_SIZE:
-                continue
-
-            transformation_other_id = (concept_index, concepts[concept_index])
-            transformation_id = (concept_index, concepts[concept_index], reverse_concepts[concept_index])
-            used_transformation = False
-            td = False
-
-            if transformation_id in self.transformation_nodes and 1==2:
-                transformation_nodes_index = self.transformation_nodes.index(transformation_id)
-                transformations = self.transformations[transformation_nodes_index]
-                transformation_freq = self.transformation_freq[transformation_nodes_index]
-                transformation_total_freq = self.transformation_total_freq[transformation_nodes_index]
-                td = (0, transformation_nodes_index)
-
-            elif transformation_other_id in self.transformation_other_nodes:
-                transformation_other_index = self.transformation_other_nodes.index(transformation_other_id)
-                transformations = self.transformation_other[transformation_other_index]
-                transformation_freq = self.transformation_other_freq[transformation_other_index]
-                transformation_total_freq = self.transformation_other_total_freq[transformation_other_index]
-                td = (1, transformation_other_index)
             
-            else:
-                continue
-
-            for transformation_index, transformation_model in enumerate(transformations):
-                concept_x_index, transformation, concept_y_index = transformation_model
-
-                tf = transformation_freq[transformation_index]      #transformation freq
-                ttf = transformation_total_freq[transformation_index]       #transformation total freq
-                transformation_weight = tf/ttf if ttf > 0 else 0
-
-                concept_transform = self.solveTransformation(transformation, concepts[concept_x_index])
-
-                concept_transform_model = (concept_y_index, concept_transform)
-                if concept_transform_model not in self.nodes:
-                    continue
-
-                concept_transform_node_index = self.nodes.index(concept_transform_model)
-
-                # probability distribution of concept to states
-                concept2states_freq = self.node_state_freq[concept_transform_node_index]
-                max_concept2states_freq = max(concept2states_freq)
-
-                # increment the no of times the transformation model has been used
-                transformation_total_freq[transformation_index] += 1
-
-                for state, freq in enumerate(concept2states_freq):
-                    if max_concept2states_freq != freq:
-                        continue
-                    
-                    # if len(self.context) > 1 and self.context[-2] == 57 and self.context[-3] == 96 and concepts[concept_index] == (57, 96):
-                    #     print('id = {}, concept_index = {}, concept = {}, rev_concept = {}, tf = {}, ttf = {}, concept_transform = {}, t_weight = {}, state = {}'.format(td, concept_index, concepts[concept_index], reverse_concepts[concept_index], tf, ttf, concept_transform_model, transformation_weight, state))
-                    
-                    transformation_processes[state].append(transformation_weight * self.trustFactor(ttf) * len(concept) / self.SIZE)
-                    model = (td, transformation_index)
-                    self.transformation_models_used[state].append(model)
         
-        pdf_processes = [sum(x) for x in pdf_processes]
-        pdf_processes = self.normalize(pdf_processes)
-        
-        # transformation_processes = [self.mean([xx for xx in x if xx > self.mean(x)]) for x in transformation_processes]
-        # processes = [sum(x) for x in transformation_processes]
-        transformation_processes = [max(x) if len(x) > 0 else 0 for x in transformation_processes]
-        # transformation_processes = self.normalize(transformation_processes)
-        
-        # processes = [self.mean([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
-        processes = transformation_processes.copy()
-        # processes = [max([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
+        # processes = [max(x) for x in pdf_processes]
+        # processes = self.normalize(pdf_processes_sum)
+        # processes = [(self.mean(x)+pdf_processes_norm[i])/2 for i, x in enumerate(pdf_processes)]
+
+        # processes = [self.mean(x) for x in pdf_processes]
+        # transformation_processes = [self.mean([xx for xx in x if xx >= self.mean(x)]) for x in transformation_processes]
+        processes = [max(x) for x in pdf_processes]
+        self.pdf_models_used = [[self.pdf_models_used[state][i] for i, xx in enumerate(x) if xx == processes[state]] for state, x in enumerate(pdf_processes)]
         # processes = self.normalize(processes)
+        # processes = [self.mean([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
 
         predicted_outputs, max_weight = self.getPredictedOutputs(processes, True)
         
         self.last_concepts = concepts.copy()
-        po = [(format(transformation_processes[i], '.2f'), format(pdf_processes[i], '.2f'), chr(i)) for i, x in enumerate(processes) if chr(i) in [str(x) for x in range(4, 7)]+['`']]
-        # po = []
-        return predicted_outputs, max_weight, po
+        return predicted_outputs, max_weight, processes
 
     def resetMemoized(self, function_name):
         if function_name not in self.memoized:
@@ -361,76 +304,9 @@ class Processor:
 
     # @jit(nopython=True) # Set "nopython" mode for best performance, equivalent to @njit
     def update(self, data):
-        self.resetMemoized('getMaxProbabilityStates')
-        max_probability_states = self.getMaxProbabilityStates(data)    
-        reverse_concepts = self.getConcepts(True)
-        pdf_models_used = self.pdf_models_used[data]
-
-        # update transformation weights
-        for model in self.transformation_models_used[data]:
-            td, transformation_index = model
-            if td[0] == 0:
-                self.transformation_freq[td[1]][transformation_index] += 1
-
-            else:
-                self.transformation_other_freq[td[1]][transformation_index] += 1
-
-        new_transformations = []
-        for concept_index, concept in enumerate(self.last_concepts):
-            concept_model = (concept_index, concept)
-            concept_node_index = self.nodes.index(concept_model)
-            
-            # update the concepts that connected with the data
+        for concept_node_index in self.pdf_models_used[data]:
             self.node_state_freq[concept_node_index][data] += 1
-
-            # create transformation weights
-            for concept_model in max_probability_states:
-                level, other_concept = concept_model
-                factor = len(max_probability_states[concept_model])**-1
-
-                if not all([x in other_concept for x in concept]):
-                    continue
-
-                transformations = self.getTransformations(concept, other_concept)
-                for transformation in transformations:
-                    transformation_model = (concept_index, transformation, level)
-
-                    if transformation_model not in new_transformations:
-                        new_transformations.append(transformation_model)
-
-        for concept_index in range(self.CONCEPT_SIZE):
-            if len(self.last_concepts) < self.CONCEPT_SIZE:
-                continue
-
-            transformation_other_id = (concept_index, self.last_concepts[concept_index])
-            transformation_id = (concept_index, self.last_concepts[concept_index], reverse_concepts[concept_index])
-
-            if transformation_other_id not in self.transformation_other_nodes:
-                self.transformation_other_nodes.append(transformation_other_id)
-                self.transformation_other.append([])
-                self.transformation_other_freq.append([])
-                self.transformation_other_total_freq.append([])
-
-            transformation_other_index = self.transformation_other_nodes.index(transformation_other_id)
-            
-            if transformation_id not in self.transformation_nodes:
-                self.transformation_nodes.append(transformation_id)
-                self.transformations.append([])
-                self.transformation_freq.append([])
-                self.transformation_total_freq.append([])
-
-            transformation_nodes_index = self.transformation_nodes.index(transformation_id)
-            
-            for transformation in new_transformations:
-                if transformation not in self.transformation_other[transformation_other_index]:
-                    self.transformation_other[transformation_other_index].append(transformation)
-                    self.transformation_other_freq[transformation_other_index].append(0)
-                    self.transformation_other_total_freq[transformation_other_index].append(0)
-
-                if transformation not in self.transformations[transformation_nodes_index]:
-                    self.transformations[transformation_nodes_index].append(transformation)
-                    self.transformation_freq[transformation_nodes_index].append(0)
-                    self.transformation_total_freq[transformation_nodes_index].append(0)
+        
         return
 
     def updateMemoized(self, function_name, arguments, value):
@@ -457,7 +333,7 @@ PROCESSOR = Processor()
 
 def main():
     # td = [learn_counting(101)]
-    td = [learn_counting(11, 10), learn_counting(21, 3), learn_counting(31, 2), learn_counting(41, 1), learn_counting(61, 1)]
+    td = [learn_counting(11, 10), learn_counting(21, 3), learn_counting(31, 2), learn_counting(51, 1), learn_counting(101, 1)]
     # td = [learn_counting(11, 3), learn_counting(21, 3), learn_counting(31, 2), learn_counting(51, 2), learn_counting(61), learn_counting(101)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
@@ -471,7 +347,7 @@ def main():
         for c in training_data:
             if weight == 0 or len(last_outputs) > 9:
                 last_outputs = ['a lot']
-            print('x = {}, y = {}, y_pred = {}, weight = {}-{}, '.format(last_input_data, c, last_outputs, weight, po))
+            print('x = {}, y = {}, y_pred = {}, weight = {}, '.format(last_input_data, c, last_outputs, weight))
 
             data = ord(c)
 
