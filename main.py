@@ -95,7 +95,10 @@ class Processor:
         self.transformation_freq = []
 
         # used to model
-        self.transformations_used = [[] for _ in range(self.STATE_SIZE)]
+        self.transformations_used = [[[] for __ in range(self.CONCEPT_SIZE)] for _ in range(self.STATE_SIZE)]
+
+        #used pdf
+        self.pdf_used = [[0 for __ in range(self.CONCEPT_SIZE)] for _ in range(self.STATE_SIZE)]
 
         # for dynamic programming
         self.memoized = {}
@@ -142,6 +145,10 @@ class Processor:
             concept = tuple(concept)
             concepts.append(concept)
         return concepts
+
+    def getConceptScoreWeight(self, scores):
+        concept_ranks = self.getRanks(scores)
+        return [rank/self.CONCEPT_SIZE for rank in concept_ranks]
 
     def getDataIndices(self, data, dataList):
         return [index+1 for index, value in enumerate(dataList) if value == data]
@@ -245,15 +252,18 @@ class Processor:
         transformation_processes = [[] for _ in range(self.STATE_SIZE)]
         
         # transformation models used
-        transformations_used = [{} for _ in range(self.STATE_SIZE)]
-        self.transformations_used = [{} for _ in range(self.STATE_SIZE)]
+        self.transformations_used = [[[] for __ in range(self.CONCEPT_SIZE)] for _ in range(self.STATE_SIZE)]
+
+        #pdf models used
+        self.pdf_used = [[0 for __ in range(self.CONCEPT_SIZE)] for _ in range(self.STATE_SIZE)]
 
         # get the states at this instance
         concepts = self.getConcepts()
         reverse_concepts = self.getConcepts(True)
         
         # holds the score which will decide the rank of the concept
-        scores = [0 for _ in range(self.CONCEPT_SIZE)]
+        pdf_concept_scores = [0 for _ in range(self.CONCEPT_SIZE)]
+        transformation_concept_scores = [0 for _ in range(self.CONCEPT_SIZE)]
 
         for concept_index, concept in enumerate(concepts):
             concept_model = (concept_index, concept)
@@ -278,10 +288,14 @@ class Processor:
                     n2n = (concept_node_index, cni)
                     if n2n not in self.node2node:
                         self.node2node.append(n2n)
-                        self.node2node_score.append(0)
+                        self.node2node_score.append([0 for _ in  range(2)])
 
-                    score = self.node2node_score[self.node2node.index(n2n)]
-                    scores[concept_index] += score
+                    # get the scores
+                    pdf_concept_score, transformation_concept_score = self.node2node_score[self.node2node.index(n2n)]
+
+                    # increment the scores for the ranks
+                    pdf_concept_scores[concept_index] += pdf_concept_score
+                    transformation_concept_scores[concept_index] += transformation_concept_score
 
             # the max states:Purpose is to avoid noise
             concept2states_freq, state_weight = self.getPredictedOutputs(self.normalize(self.node_state_freq[concept_node_index]), True)
@@ -290,6 +304,7 @@ class Processor:
             for state in concept2states_freq:
             # for state, state_weight in enumerate(concept2states_freq):
                 pdf_processes[state].append(state_weight)
+                self.pdf_used[state][concept_index] = 1
 
 # --------------------------------------------------transformations---------------------------------------------------
             if len(concepts) < self.CONCEPT_SIZE:
@@ -325,58 +340,43 @@ class Processor:
                     #         )
                     #     )
                     
+                    # save the weights
                     transformation_processes[state].append(state_weight)
 
-                    # save the transformation models used          
                     # to hold the transformation indices of the transformations used
-                    if concept_node_index not in transformations_used[state]:
-                        transformations_used[state][concept_node_index] = []   
-                    self.transformations_used[state][concept_node_index].append(transformation_index)
+                    self.transformations_used[state][concept_index].append(transformation_index)
+
+                # increment the total no of outcomes of transformation used
                 transformation_freq[transformation_index][1] += 1
-        # processes = [self.mean(x) for x in pdf_processes]
-        # processes = [self.mean([xx for xx in x if xx > self.mean(x)]) for x in pdf_processes]
+        
+        scores = transformation_concept_scores
+        # scores = transformation_concept_scores
+
+        # get concept score influence
+        pdf_concept_weights = self.getConceptScoreWeight(pdf_concept_scores)
+        transformation_concept_weights = self.getConceptScoreWeight(transformation_concept_scores)
+
+        # the process final decision the max influencial concept
+        # pdf_processes = [max(x) if len(x) > 0 else 0 for x in pdf_processes]
+        # transformation_processes = [[xx for xx in x if  len(x) > 0 and x == max(x)] for x in transformation_processes]
+
+        # influence the pdf and transformations with the concept weights
+        for concept_index in range(self.CONCEPT_SIZE):
+            pdf_processes = [[weight * pdf_concept_weights[concept_index] for weight in weights] for weights in pdf_processes]
+            transformation_processes = [[weight * transformation_concept_weights[concept_index] for weight in weights] for weights in transformation_processes]
+        
+        # the process final decision the max influencial concept
         pdf_processes = [max(x) if len(x) > 0 else 0 for x in pdf_processes]
-        # self.pdf_models_used = [[model for i, model in enumerate(models_used) if pdf_processes[state][i] == processes[state]] for state, models_used in enumerate(self.pdf_models_used)]
-        
-        # transformation_processes = [[xx for xx in x if xx > 0] for x in transformation_processes]
-        # processes = [max(x) for x in transformation_processes]
-        # processes = [self.mean(x) for x in transformation_processes]
-        processes = [max(x) if len(x) > 0 else 0 for x in transformation_processes]
-        
-        # print(self.getPredictedOutputs(processes, True))
-        if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
-            print(concepts)
-            print(scores)
-            concept_ranks = self.getRanks(scores)
-            print(concept_ranks)
-            print(self.normalize(concept_ranks))
+        transformation_processes = [max(x) if len(x) > 0 else 0 for x in transformation_processes]
+        # processes = [max(x) if len(x) > 0 else 0 for x in transformation_processes]
 
-        self.transformations_used = transformations_used
-        # for state, models_used in enumerate(transformations_used):
-        #     c = 0
-        #     for concept_node_index in models_used:
-        #         if transformation_processes[state][c] == processes[state]:
-        #             self.transformations_used[state][concept_node_index] = models_used[concept_node_index].copy()
-        #             for transformation_index in models_used[concept_node_index]:
-        #                 self.transformation_freq[concept_node_index][transformation_index][1] += 1
-        #         c += 1
-        # processes = [self.mean([xx for xx in x if xx >= self.mean(x)]) for x in transformation_processes]
+        processes = [max([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
 
-        # transformation_processes = self.normalize(transformation_processes)
-        
-        # processes = [self.mean([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
-        # processes = transformation_processes.copy()
-        # processes = [max([pdf_processes[i], transformation_processes[i]]) for i in range(self.STATE_SIZE)]
-        # processes = self.normalize(processes)
-
+        # get the max vals
         predicted_outputs, max_weight = self.getPredictedOutputs(processes, True)
         
         self.last_concepts = concepts.copy()
         po = []
-        # po = [{x:format(pdf_concept_weights[x], '.3f') for x in pdf_concept_weights if pdf_concept_weights[x] > 0}]
-        # po = [{x:format(pdf_concept_weights[x], '.3f') for x in pdf_concept_weights if pdf_concept_weights[x] > 0}]
-        # po = [(format(processes[i], '.2f'), chr(i)) for i, x in enumerate(processes) if chr(i) in [str(x) for x in range(2, 6)]+['`']]
-        # po = [(state, [self.pdf_concept_weight[model] for model in self.pdf_models_used[state]]) for state in predicted_outputs]
         return predicted_outputs, max_weight, po
 
     def resetMemoized(self, function_name):
@@ -408,6 +408,7 @@ class Processor:
         max_probability_states = self.getMaxProbabilityStates(data)    
         reverse_concepts = self.getConcepts(True)
         transformations_used = self.transformations_used[data]
+        pdf_used = self.pdf_used[data]
 
         for concept_index, concept in enumerate(self.last_concepts):
             concept_model = (concept_index, concept)
@@ -417,12 +418,8 @@ class Processor:
             self.node_state_freq[concept_node_index][data] += 1
 
 # ======================================increment the transformations================================
-            if concept_node_index in transformations_used:
-                if len(self.context) > 1 and self.context[-1] == 57 and self.context[-2] == 96:
-                    print(concept_model)
-
-                for transformation_index in transformations_used[concept_node_index]:                    
-                    self.transformation_freq[concept_node_index][transformation_index][0] += 1
+            for transformation_index in transformations_used[concept_index]:                    
+                self.transformation_freq[concept_node_index][transformation_index][0] += 1
 
 # ======================================create transformation weights=========================================
             for ci, c in enumerate(self.last_concepts):
@@ -433,11 +430,15 @@ class Processor:
                     n2n = (concept_node_index, cni)
                     if n2n not in self.node2node:
                         self.node2node.append(n2n)
-                        self.node2node_score.append(0)
+                        self.node2node_score.append([0 for _ in range(2)])
 
-                    value = 1 if concept_node_index in transformations_used else 0
+                    # check pdf models used
+                    value = 1 if pdf_used[concept_index] == 1 else 0
+                    self.node2node_score[self.node2node.index(n2n)][0] += value
 
-                    self.node2node_score[self.node2node.index(n2n)] += value
+                    # check transformation models
+                    value = 1 if len(transformations_used[concept_index]) > 0 else 0
+                    self.node2node_score[self.node2node.index(n2n)][1] += value
 
                 for concept_model in max_probability_states:
                     level, other_concept = concept_model
@@ -482,7 +483,7 @@ PROCESSOR = Processor()
 
 def main():
     # td = [learn_counting(11, 3), learn_counting(14, 1)]
-    td = [learn_counting(11, 3), learn_counting(21, 2), learn_counting(31, 1)]#, learn_counting(41, 2), learn_counting(61, 1)]
+    td = [learn_counting(11, 3), learn_counting(21, 2), learn_counting(31, 2), learn_counting(41, 1), learn_counting(51, 2), learn_counting(61, 2), learn_counting(71, 1), learn_counting(101, 1)]
     # td = [learn_counting(11, 3), learn_counting(21, 3), learn_counting(31, 2), learn_counting(51, 2), learn_counting(61), learn_counting(101)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
