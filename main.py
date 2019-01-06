@@ -64,7 +64,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=1, state_size=8, size=4):
+    def __init__(self, n_sensors=1, state_size=8, size=3):
         # if to show output
         self.log_state = True
 
@@ -231,12 +231,11 @@ class Processor:
 
 # -------------------------------------------the process instance-------------------------------------
         # the variables
-        pdf_processes, transformation_processes, echo_processes = [], [], []
+        pdf_processes, transformation_processes = [], []
 
         for _ in range(self.STATE_SIZE):
             # track the processesing
             pdf_processes.append(0)
-            echo_processes.append(0)
             transformation_processes.append(0)
 
         # get the states at this instance
@@ -307,6 +306,9 @@ class Processor:
             # teh influence of the concept to transformation: decides the best transf for a concept
             transformation_weights = self.normalize(tf)
 
+            ttf = sum(tf)
+            transformation_weights = [tw * self.trustFactor(ttf) for tw in transformation_weights]
+
             max_transformation_weight_ids, max_transformation_weight = self.getMaxValueIndices(transformation_weights, True)
 
             # for transformation_index in range(len(transformations)):
@@ -322,21 +324,6 @@ class Processor:
 
                 # the ids for the transformations
                 transformation, concept_y_index = transformation_model
-
-                if transformation == '[echo]':
-                    concept_transform_model = state = concepts[-1][concept_y_index]
-
-                    concept2states_freq = [state]
-                    state_weight = 1
-
-                    if transformation_weight > echo_processes[state]:
-                        echo_processes[state] = transformation_weight
-
-                        # if self.context[-3] == 96 and self.context[-2] == 48:
-                        #     print(concept2states_freq, transformation_weights[transformation_index])
-                    
-                    # skip the rest of transfromation process
-                    continue
 
                 # transform the transformation
                 concept_transform = self.solveTransformation(transformation, concepts[-1])
@@ -366,11 +353,11 @@ class Processor:
                         transformation_processes[state] = weight
 
                         # if self.context[-3] == 96 and self.context[-2] == 48:
-                        # # if self.context[-2] == 57 and self.context[-3] == 96:
-                        #     print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
-                        #         concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
-                        #         )
-                        #     )
+                        if self.context[-2] == 57 and self.context[-3] == 96:
+                            print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
+                                concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
+                                )
+                            )
                         
         # if all the concepts are found then teh pdf solvable does not matter
         all_concepts_found = True if len(concepts_node_indicies_not_found) == 0 else False
@@ -378,7 +365,6 @@ class Processor:
 
         # get the max vals
         pdf_predicted_outputs, pdf_max_weight = self.getMaxValueIndices(pdf_processes, True)
-        echo_predicted_outputs, echo_max_weight = self.getMaxValueIndices(echo_processes, True)
         transformation_predicted_outputs, transformation_max_weight = self.getMaxValueIndices(transformation_processes, True)
         
         # decide the algorithm value to use
@@ -387,9 +373,7 @@ class Processor:
         
         else:
             predicted_outputs, max_weight = (transformation_predicted_outputs.copy(), transformation_max_weight)
-            if max_weight == 0:
-                predicted_outputs, max_weight = (echo_predicted_outputs.copy(), echo_max_weight)
-
+        
         po = [pdf_solvable]
 
         self.last_concepts = concepts.copy()
@@ -441,10 +425,6 @@ class Processor:
             concept_model = (concept_index, concept)
             concept_node_index = self.nodes.index(concept_model)
 
-            if data in self.context:
-                index = self.context.index(data)
-                transformation_model = ('[echo]', index)
-                updateTransformation(concept_node_index, transformation_model)
 # =====================================increment the node for pdf===============================
             self.node_state_freq[concept_node_index][data] += 1
 
