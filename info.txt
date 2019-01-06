@@ -1,1 +1,4 @@
-now i am trying to create transformations and generate a probability func for the trensformation in relation to the states
+the problem is that 
+
+number-pause-x gets a high score from the previous comparisons made as the new tens id being counted
+this makes x-9-pause become lower on the score / rank table
