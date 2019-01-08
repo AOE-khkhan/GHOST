@@ -64,7 +64,7 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=1, state_size=8, size=3):
+    def __init__(self, n_sensors=1, state_size=8, size=4):
         # if to show output
         self.log_state = True
 
@@ -94,14 +94,12 @@ class Processor:
 
         # used to model
         self.last_pdf_predictions = []
-        self.last_transformations_match = []
-        self.last_transformation_concept_used = []
+        self.last_transformation_models = []
 
         # the concept nodes index that are not found in the nodes list
         self.last_concepts_node_indicies_not_found = []
         for _ in range(self.STATE_SIZE):
-            self.last_transformation_concept_used.append([])
-            self.last_transformations_match.append([])
+            self.last_transformation_models.append([])
         
         # for dynamic programming
         self.memoized = {}
@@ -139,9 +137,36 @@ class Processor:
         return mps
 
     def getConcepts(self, context=None, size=None, reverse=False):
-        if context == None:
-            context = self.context.copy()
-            size = self.SIZE
+        normal_concepts = self.generateConcepts(context, size, reverse)
+
+        # avoid repeating elements of concept consideration
+        return normal_concepts
+
+        context = self.context.copy()
+        context_set = list(set(context))
+
+        if len(context_set) == len(context):
+            return normal_concepts
+
+        for i, c in enumerate(context_set):
+            if context.count(c) < 2:
+                continue
+
+            while c in context:
+                context[context.index(c)] = str(i)
+
+        other_concepts = self.generateConcepts(context, size, reverse)
+        
+        concepts = [] + normal_concepts
+        for concept in other_concepts:
+            if concept not in concepts:
+                concepts.append(concept)
+
+        return concepts
+
+    def generateConcepts(self, context=None, size=None, reverse=False):
+        if context == None: context = self.context.copy()
+        if size == None: size = self.SIZE
 
         if reverse and len(context) < size:
             return []
@@ -232,11 +257,14 @@ class Processor:
 # -------------------------------------------the process instance-------------------------------------
         # the variables
         pdf_processes, transformation_processes = [], []
+        transformation_models = []
 
         for _ in range(self.STATE_SIZE):
             # track the processesing
             pdf_processes.append(0)
             transformation_processes.append(0)
+
+            transformation_models.append([])
 
         # get the states at this instance
         concepts = self.getConcepts()
@@ -311,8 +339,8 @@ class Processor:
 
             max_transformation_weight_ids, max_transformation_weight = self.getMaxValueIndices(transformation_weights, True)
 
-            # for transformation_index in range(len(transformations)):
-            for transformation_index in max_transformation_weight_ids:
+            for transformation_index in range(len(transformations)):
+            # for transformation_index in max_transformation_weight_ids:
                 # transformation influence
                 transformation_weight = transformation_weights[transformation_index]
 
@@ -347,13 +375,15 @@ class Processor:
                 for state in concept2states_freq:
                     # weight = max_transformation_weight * state_weight
                     weight = transformation_weights[transformation_index] * state_weight
+                    transformation_models[state].append((concept_node_index, transformation_index))
 
                     if weight > transformation_processes[state]:
                         # track the transforation process
                         transformation_processes[state] = weight
 
                         # if self.context[-3] == 96 and self.context[-2] == 48:
-                        if self.context[-2] == 57 and self.context[-3] == 96:
+                        # if self.context[-2] == 57 and self.context[-3] == 96:
+                        if self.context[-1] == 57 and self.context[-2] == 49 and self.context[-3] == 96:
                             print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
                                 concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
                                 )
@@ -380,7 +410,7 @@ class Processor:
         self.last_concept_indices = concept_node_indices.copy()
         self.last_pdf_predictions = pdf_predicted_outputs.copy()
         self.last_concepts_node_indicies_not_found = concepts_node_indicies_not_found.copy()
-
+        self.last_transformation_models = transformation_models.copy()
         return predicted_outputs, max_weight, po
 
     def solveTransformation(self, transformation, concept):
@@ -399,17 +429,6 @@ class Processor:
         return x / (1 + x) 
 
     def update(self, data):
-        def updateTransformation(cni, transformation_model):
-            if transformation_model not in self.node_transformations[cni]:
-                # if self.context[-3] == 96 and self.context[-2] == 48:
-                #     print(transformation_model, concept, other_concept)
-                self.node_transformations[cni].append(transformation_model)
-                self.node_transformation_freq[cni].append(0)
-            
-            # increment the value
-            transformation_index = self.node_transformations[cni].index(transformation_model)
-            self.node_transformation_freq[cni][transformation_index] += 1
-
         # get the nodes that match the reply in pdf
         max_probability_states = self.getMaxProbabilityStates(data)    
 
@@ -420,6 +439,7 @@ class Processor:
         last_concepts_node_indicies_found = [cni for cni in self.last_concept_indices if cni not in lcinf]
         all_concepts_found = True if len(last_concepts_node_indicies_not_found) == 0 else False
 
+        last_transformation_models = self.last_transformation_models[data]
 # ======================================updating pdf, pdf_concept and creating transformations===============        
         for concept_index, concept in enumerate(self.last_concepts):
             concept_model = (concept_index, concept)
@@ -453,7 +473,16 @@ class Processor:
                     for transformation in transformations:
                         transformation_model = (transformation, level)
 
-                        updateTransformation(cni, transformation_model)
+                        if transformation_model not in self.node_transformations[cni]:
+                            # if self.context[-3] == 96 and self.context[-2] == 48:
+                            #     print(transformation_model, concept, other_concept)
+                            self.node_transformations[cni].append(transformation_model)
+                            self.node_transformation_freq[cni].append(0)
+                        
+                        # increment the value
+                        transformation_index = self.node_transformations[cni].index(transformation_model)
+                        if (cni, transformation_index) in last_transformation_models:
+                            self.node_transformation_freq[cni][transformation_index] += 1
 
         return
 
@@ -468,7 +497,7 @@ Project: GHOST
 PROCESSOR = Processor()
 
 def main():
-    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 2), learn_counting(45,1)]
+    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 2), learn_counting(45, 1)]
     td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
