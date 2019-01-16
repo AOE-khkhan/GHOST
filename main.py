@@ -24,20 +24,52 @@ def train(filepath):
         lines = f.readlines()
         for line in lines:
             for s in list(line.strip()):
-                yield s
-            yield '`'
+                yield s, [s]
+            yield '`', ['`']
+
+def learn_movement(n_iter=10, actions=None, size=3, start=[0,0]):
+    # define the position in world
+    position = start
+
+    # get the size of the world
+    size = [size, size] if type(size) == int else size
+    world = [['_' for __ in range(size[0])] for _ in range(size[0])]
+
+    # place the agent in the begining of the world
+    world[start[0]][start[1]] = 'A'
+
+    # get the actions in world
+    actions = 'RLUD' if actions == None else actions
+    actions = list(actions)
+
+    # define conditions in world
+    conditions = {'R':[0, 1], 'L':[0, -1], 'U':[1, 1], 'D':[1, -1]}
+    for _ in range(n_iter):
+        for action in actions:
+            index, inc = conditions[action]
+            pos_temp = position[index] + inc
+
+            if pos_temp in list(range(0, size[index], 1)):
+                # update the position in world
+                world[position[0]][position[1]] = '_'
+
+                position[index] = pos_temp
+
+                world[position[0]][position[1]] = 'A'
+
+            yield action, [str(x) for x in position]#[x for xx in world for x in xx]
 
 def learn_counting(n=101, n_iter=1):
     for i in range(5):
-        yield '`'
+        yield '`', ['`']
 
     for _ in range(n_iter):
         print('\nthis is iteration {} of {} iteration(s): counting to {}\n'.format(_+1, n_iter, n))
         for i in range(n):
             data = str(i)
             for c in list(data):
-                yield c
-            yield '`'
+                yield c, [c]
+            yield '`', ['`']
 
 def log(output='', title=None):
     if type(output) in [str, int, type(None)]:
@@ -64,9 +96,15 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=1, state_size=8, size=4):
+    def __init__(self, n_sensors=1, n_output=1, state_size=8, size=3, no_transformation=True):
+        self.no_transformation = no_transformation
+
         # if to show output
         self.log_state = True
+
+        # number of sensors
+        self.number_of_sensors = n_sensors
+        self.number_of_output = n_output
 
         # processor size in bits
         self.SIZE = n_sensors * size
@@ -118,11 +156,14 @@ class Processor:
         self.node_transformation_freq.append([])
         self.node_transformation_total_freq.append([]) # using this cos transformations are not necessarily mutually exclusive
 
-    def addToContext(self, data):
+    def addToContext(self, input_data):
         if len(self.context) == self.SIZE:
-            self.context.pop()
+            for _ in range(len(input_data)):
+                self.context.pop()
         
-        self.context.insert(0, data)
+        for data in input_data:
+            self.context.insert(0, data)
+
         return
 
     def getMaxProbabilityStates(self, data):
@@ -243,16 +284,16 @@ class Processor:
             else:
                 return [0 for _ in li]
 
-    def process(self, data):
+    def process(self, states, data):
         if len(self.context) < self.SIZE:
-            self.addToContext(data)
+            self.addToContext(states)
             return
 
         # update the node network
         self.update(data)
 
         # add data to context
-        self.addToContext(data)
+        self.addToContext(states)
 
 # -------------------------------------------the process instance-------------------------------------
         # the variables
@@ -268,7 +309,8 @@ class Processor:
 
         # get the states at this instance
         concepts = self.getConcepts()
-
+        print(len(concepts))
+        
         # index of the concepts
         concept_node_indices = []
         concepts_node_indicies_not_found = []
@@ -279,7 +321,6 @@ class Processor:
         for concept_index, concept in enumerate(concepts):
             concept_model = (concept_index, concept)
             compute_pdf = True
-
             if concept_model not in self.nodes:
                 self.addNode(concept_model)
 
@@ -325,7 +366,8 @@ class Processor:
 
                         # if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
                         #     print('cm = {}, state = {}, concept_weight = {} * {} = {}'.format(concept_model, state, state_weight, factor, weight))
-            
+            if self.no_transformation:
+                continue
 # ==============================================transformations================================================
             transformations = self.node_transformations[concept_node_index]
 
@@ -383,11 +425,11 @@ class Processor:
 
                         # if self.context[-3] == 96 and self.context[-2] == 48:
                         # if self.context[-2] == 57 and self.context[-3] == 96:
-                        if self.context[-1] == 57 and self.context[-2] == 49 and self.context[-3] == 96:
-                            print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
-                                concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
-                                )
-                            )
+                        # if self.context[-1] == 57 and self.context[-2] == 48 and self.context[-3] == 96:
+                        #     print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
+                        #         concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
+                        #         )
+                        #     )
                         
         # if all the concepts are found then teh pdf solvable does not matter
         all_concepts_found = True if len(concepts_node_indicies_not_found) == 0 else False
@@ -411,7 +453,7 @@ class Processor:
         self.last_pdf_predictions = pdf_predicted_outputs.copy()
         self.last_concepts_node_indicies_not_found = concepts_node_indicies_not_found.copy()
         self.last_transformation_models = transformation_models.copy()
-        return predicted_outputs, max_weight, po
+        return predicted_outputs, format(max_weight, '.4f'), po
 
     def solveTransformation(self, transformation, concept):
         transform = list(transformation)
@@ -453,6 +495,8 @@ class Processor:
                 self.node_npdf_freq[concept_node_index][0] += 1 if data not in last_pdf_predictions else 0
                 self.node_npdf_freq[concept_node_index][1] += 1
             
+            if self.no_transformation:
+                continue
 # ========================create transformation and update transf weights=========================================
             # at transformation is only fromed when there are missing concepts
             if all_concepts_found:
@@ -494,11 +538,11 @@ Project: GHOST
 '''
 
 # initialize objects
-PROCESSOR = Processor()
+PROCESSOR = Processor(n_sensors=2, n_output=1, state_size=8, size=3)
 
 def main():
-    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 2), learn_counting(45, 1)]
-    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
+    td = [learn_movement(10, size=3)]
+    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
     # initialize
@@ -508,14 +552,15 @@ def main():
     po = None
     
     for training_data in td:
-        for c in training_data:
+        for data, state in training_data:
             if weight == 0 or len(last_outputs) > 9:
                 last_outputs = ['a lot']
-            print('x = {}, y = {}, y_pred = {}, weight = {}-{}, '.format(last_input_data, c, last_outputs, weight, po))
+            print('input_data = {}, x = {}, y = {}, y_pred = {}, weight = {}-{}, '.format(state, last_input_data, data, last_outputs, weight, po))
 
-            data = ord(c)
+            state = map(ord, state)
+            data = ord(data)
 
-            result = PROCESSOR.process(data)
+            result = PROCESSOR.process(state, data)
             if result == None:
                 outputs, weight, po = None, None, None
 
@@ -524,7 +569,7 @@ def main():
                 outputs = [str(chr(x)).encode('utf-8') for x in outputs]
             
                 last_outputs = outputs.copy()
-            last_input_data = c
+            last_input_data = chr(data)
 if __name__ == '__main__':
     main()
 
