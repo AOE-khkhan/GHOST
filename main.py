@@ -25,7 +25,7 @@ def train(filepath):
         for line in lines:
             for s in list(line.strip()):
                 yield s, [s]
-            yield '`', ['`']
+            yield ['`'], ['`']
 
 def learn_movement(n_iter=10, actions=None, size=3, start=[0,0]):
     # define the position in world
@@ -57,19 +57,20 @@ def learn_movement(n_iter=10, actions=None, size=3, start=[0,0]):
 
                 world[position[0]][position[1]] = 'A'
 
-            yield action, [str(x) for x in position]#[x for xx in world for x in xx]
+            ret = [action] + [str(x) for x in position]
+            yield ret, ret#[x for xx in world for x in xx]
 
 def learn_counting(n=101, n_iter=1):
     for i in range(5):
-        yield '`', ['`']
+        yield ['`'], ['`']
 
     for _ in range(n_iter):
         print('\nthis is iteration {} of {} iteration(s): counting to {}\n'.format(_+1, n_iter, n))
         for i in range(n):
             data = str(i)
             for c in list(data):
-                yield c, [c]
-            yield '`', ['`']
+                yield [c], [c]
+            yield ['`'], ['`']
 
 def log(output='', title=None):
     if type(output) in [str, int, type(None)]:
@@ -96,15 +97,11 @@ from itertools import combinations
 class Processor:
     """docstring for Processor"""    
     
-    def __init__(self, n_sensors=1, n_output=1, state_size=8, size=3, no_transformation=True):
+    def __init__(self, n_sensors=1, state_size=8, size=3, no_transformation=False):
         self.no_transformation = no_transformation
 
         # if to show output
         self.log_state = True
-
-        # number of sensors
-        self.number_of_sensors = n_sensors
-        self.number_of_output = n_output
 
         # processor size in bits
         self.SIZE = n_sensors * size
@@ -127,7 +124,6 @@ class Processor:
 
         # holds the hidden relation between states and concepts
         self.node_transformations = []
-        self.node_transformation_total_freq = []
         self.node_transformation_freq = []
 
         # used to model
@@ -136,25 +132,11 @@ class Processor:
 
         # the concept nodes index that are not found in the nodes list
         self.last_concepts_node_indicies_not_found = []
-        for _ in range(self.STATE_SIZE):
-            self.last_transformation_models.append([])
         
         # for dynamic programming
         self.memoized = {}
         self.MEMOIZED_SIZE = 256
 
-    def addNode(self, concept_model):
-        # add concepts
-        self.nodes.append(concept_model)
-
-        # matrix of concpts to states
-        self.node_state_freq.append([0.0 for _ in range(self.STATE_SIZE)])
-        self.node_npdf_freq.append([0.0 for _ in range(2)])
-        
-        # matrix of concepts to transformations        
-        self.node_transformations.append([])
-        self.node_transformation_freq.append([])
-        self.node_transformation_total_freq.append([]) # using this cos transformations are not necessarily mutually exclusive
 
     def addToContext(self, input_data):
         if len(self.context) == self.SIZE:
@@ -166,10 +148,10 @@ class Processor:
 
         return
 
-    def getMaxProbabilityStates(self, data):
+    def getMaxProbabilityStates(self, output_index, data):
         mps = {}
         for concept_index, concept in enumerate(self.nodes):
-            states = self.node_state_freq[concept_index]
+            states = self.node_state_freq[concept_index][output_index]
             max_probability = max(states)
             max_probability_states = [ix for ix, x in enumerate(states) if x == max_probability]
             if data in max_probability_states:
@@ -284,45 +266,56 @@ class Processor:
             else:
                 return [0 for _ in li]
 
-    def process(self, states, data):
+    def process(self, states, input_data):
         if len(self.context) < self.SIZE:
             self.addToContext(states)
             return
 
+         # the variables
+        pdf_processes, transformation_processes = [], []
+        transformation_models, pdf_solvable = [], []
+        transformation_predicted_outputs, pdf_predicted_outputs, predicted_outputs = [], [], []
+        pdf_max_weight, transformation_max_weight, max_weight = [], [], []
+
         # update the node network
-        self.update(data)
+        for output_index, data in enumerate(input_data):
+            self.update(output_index, data)
+
+            pdf_processes.append([])
+            transformation_processes.append([])
+            transformation_models.append([])
+
+            # check if pdf can compute solution
+            pdf_solvable.append(True)
+
+            # variables to perform result computation
+            transformation_predicted_outputs.append([]), pdf_predicted_outputs.append([]), predicted_outputs.append([])
+            pdf_max_weight.append(0), transformation_max_weight.append(0), max_weight.append(0)
+
+# -------------------------------------------the process instance-------------------------------------
+            for _ in range(self.STATE_SIZE):
+                # track the processesing
+                pdf_processes[output_index].append(0)
+                transformation_processes[output_index].append(0)
+
+                transformation_models[output_index].append([])
 
         # add data to context
         self.addToContext(states)
 
-# -------------------------------------------the process instance-------------------------------------
-        # the variables
-        pdf_processes, transformation_processes = [], []
-        transformation_models = []
-
-        for _ in range(self.STATE_SIZE):
-            # track the processesing
-            pdf_processes.append(0)
-            transformation_processes.append(0)
-
-            transformation_models.append([])
-
         # get the states at this instance
         concepts = self.getConcepts()
-        print(len(concepts))
-        
+
         # index of the concepts
         concept_node_indices = []
         concepts_node_indicies_not_found = []
-
-        # check if pdf can compute solution
-        pdf_solvable = True
 
         for concept_index, concept in enumerate(concepts):
             concept_model = (concept_index, concept)
             compute_pdf = True
             if concept_model not in self.nodes:
-                self.addNode(concept_model)
+                # add concepts
+                self.nodes.append(concept_model)
 
                 # the id of the concept
                 concept_node_index = self.nodes.index(concept_model)
@@ -333,127 +326,144 @@ class Processor:
 
                 compute_pdf = False
 
+                 # matrix of concpts to states
+                self.node_state_freq.append([]), self.node_npdf_freq.append([])
+                
+                # matrix of concepts to transformations        
+                self.node_transformations.append([]), self.node_transformation_freq.append([])
+
+                for output_index, data in enumerate(input_data):
+                    # matrix of concpts to states
+                    self.node_state_freq[concept_node_index].append([0.0 for _ in range(self.STATE_SIZE)])
+                    self.node_npdf_freq[concept_node_index].append([0.0 for _ in range(2)])
+                    
+                    # matrix of concepts to transformations        
+                    self.node_transformations[concept_node_index].append([])
+                    self.node_transformation_freq[concept_node_index].append([])
+
+            for output_index, data in enumerate(input_data):
 # ===============================================probability prediction===============================
-            if compute_pdf:
+                if compute_pdf:
 
-                # the id of the concept
-                concept_node_index = self.nodes.index(concept_model)
+                    # the id of the concept
+                    concept_node_index = self.nodes.index(concept_model)
+                    
+                    # save indices
+                    concept_node_indices.append(concept_node_index)
+
+                    # check the no pdf weight to see if the concept can not be solved by the pdf
+                    a, b = self.node_npdf_freq[concept_node_index][output_index]
+                    c = a / b if b > 0 else 0
+
+                    # if self.context[-2] == 57 and self.context[-3] == 96:
+                    #     print(concept_model, c)
+
+                    # check if it is pdf solvable
+                    pdf_solvable[output_index] = True if c <= 0.5 and pdf_solvable[output_index] == True else False
                 
-                # save indices
-                concept_node_indices.append(concept_node_index)
+                    # the max states:Purpose is to avoid noise
+                    concept2states_freq, state_weight = self.getMaxValueIndices(self.normalize(self.node_state_freq[concept_node_index][output_index]), True)
+                    
+                    factor = len(concept2states_freq)**-1
 
-                # check the no pdf weight to see if the concept can not be solved by the pdf
-                a, b = self.node_npdf_freq[concept_node_index]
-                c = a / b if b > 0 else 0
+                    for state in concept2states_freq:
+                        weight = state_weight * factor
 
-                # if self.context[-2] == 57 and self.context[-3] == 96:
-                #     print(concept_model, c)
+                        # include the weight in the processes
+                        if weight > pdf_processes[output_index][state]:
+                            pdf_processes[output_index][state] = weight
 
-                # check if it is pdf solvable
-                pdf_solvable = True if c <= 0.5 and pdf_solvable == True else False
+                            # if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
+                            #     print('cm = {}, state = {}, concept_weight = {} * {} = {}'.format(concept_model, state, state_weight, factor, weight))
+                if self.no_transformation:
+                    continue
+    # ==============================================transformations================================================
+                transformations = self.node_transformations[concept_node_index][output_index]
+
+                tf = self.node_transformation_freq[concept_node_index][output_index]      #transformation freq
+
+                # teh influence of the concept to transformation: decides the best transf for a concept
+                transformation_weights = self.normalize(tf)
+
+                ttf = sum(tf)
+                transformation_weights = [tw * self.trustFactor(ttf) for tw in transformation_weights]
+
+                max_transformation_weight_ids, max_transformation_weight = self.getMaxValueIndices(transformation_weights, True)
+
+                for transformation_index in range(len(transformations)):
+                # for transformation_index in max_transformation_weight_ids:
+                    # transformation influence
+                    transformation_weight = transformation_weights[transformation_index]
+
+                    # the transformation model
+                    transformation_model = transformations[transformation_index]
+
+                    # the tarsnformation model index
+                    transformation_model_id = (concept_node_index, transformation_index)
+
+                    # the ids for the transformations
+                    transformation, concept_y_index = transformation_model
+
+                    # transform the transformation
+                    concept_transform = self.solveTransformation(transformation, concepts[-1])
+
+                    concept_transform_model = (concept_y_index, concept_transform)
+                    if concept_transform_model not in self.nodes:
+                        continue
+
+                    # concept transf index
+                    concept_transform_node_index = self.nodes.index(concept_transform_model)
+
+                    # the max states:Purpose is to avoid noise
+                    concept2states_freq, state_weight = self.getMaxValueIndices(self.normalize(self.node_state_freq[concept_transform_node_index][output_index]), True)
+                    
+                    factor = len(concept2states_freq)**-1
+                    
+                    # avoid noise of un influencial dataset
+                    if state_weight == 0:
+                        continue
+
+                    for state in concept2states_freq:
+                        # weight = max_transformation_weight * state_weight
+                        weight = transformation_weights[transformation_index] * state_weight
+                        transformation_models[output_index][state].append((concept_node_index, transformation_index))
+
+                        if weight > transformation_processes[output_index][state]:
+                            # track the transforation process
+                            transformation_processes[output_index][state] = weight
+
+                            # if self.context[-3] == 96 and self.context[-2] == 48:
+                            # if self.context[-2] == 57 and self.context[-3] == 96:
+                            # if self.context[-1] == 57 and self.context[-2] == 48 and self.context[-3] == 96:
+                            #     print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
+                            #         concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
+                            #         )
+                            #     )
+
+        for output_index, data in enumerate(input_data):
+            # if all the concepts are found then teh pdf solvable does not matter
+            all_concepts_found = True if len(concepts_node_indicies_not_found) == 0 else False
+            pdf_solvable[output_index] = True if all_concepts_found else pdf_solvable[output_index]
+
+            # get the max vals
+            pdf_predicted_outputs[output_index], pdf_max_weight[output_index] = self.getMaxValueIndices(pdf_processes[output_index], True)
+            transformation_predicted_outputs[output_index], transformation_max_weight[output_index] = self.getMaxValueIndices(transformation_processes[output_index], True)
             
-                # the max states:Purpose is to avoid noise
-                concept2states_freq, state_weight = self.getMaxValueIndices(self.normalize(self.node_state_freq[concept_node_index]), True)
-                
-                factor = len(concept2states_freq)**-1
-
-                for state in concept2states_freq:
-                    weight = state_weight * factor
-
-                    # include the weight in the processes
-                    if weight > pdf_processes[state]:
-                        pdf_processes[state] = weight
-
-                        # if len(self.context) > 2 and self.context[-2] == 57 and self.context[-3] == 96:
-                        #     print('cm = {}, state = {}, concept_weight = {} * {} = {}'.format(concept_model, state, state_weight, factor, weight))
-            if self.no_transformation:
-                continue
-# ==============================================transformations================================================
-            transformations = self.node_transformations[concept_node_index]
-
-            tf = self.node_transformation_freq[concept_node_index]      #transformation freq
-
-            # teh influence of the concept to transformation: decides the best transf for a concept
-            transformation_weights = self.normalize(tf)
-
-            ttf = sum(tf)
-            transformation_weights = [tw * self.trustFactor(ttf) for tw in transformation_weights]
-
-            max_transformation_weight_ids, max_transformation_weight = self.getMaxValueIndices(transformation_weights, True)
-
-            for transformation_index in range(len(transformations)):
-            # for transformation_index in max_transformation_weight_ids:
-                # transformation influence
-                transformation_weight = transformation_weights[transformation_index]
-
-                # the transformation model
-                transformation_model = transformations[transformation_index]
-
-                # the tarsnformation model index
-                transformation_model_id = (concept_node_index, transformation_index)
-
-                # the ids for the transformations
-                transformation, concept_y_index = transformation_model
-
-                # transform the transformation
-                concept_transform = self.solveTransformation(transformation, concepts[-1])
-
-                concept_transform_model = (concept_y_index, concept_transform)
-                if concept_transform_model not in self.nodes:
-                    continue
-
-                # concept transf index
-                concept_transform_node_index = self.nodes.index(concept_transform_model)
-
-                # the max states:Purpose is to avoid noise
-                concept2states_freq, state_weight = self.getMaxValueIndices(self.normalize(self.node_state_freq[concept_transform_node_index]), True)
-                
-                factor = len(concept2states_freq)**-1
-                
-                # avoid noise of un influencial dataset
-                if state_weight == 0:
-                    continue
-
-                for state in concept2states_freq:
-                    # weight = max_transformation_weight * state_weight
-                    weight = transformation_weights[transformation_index] * state_weight
-                    transformation_models[state].append((concept_node_index, transformation_index))
-
-                    if weight > transformation_processes[state]:
-                        # track the transforation process
-                        transformation_processes[state] = weight
-
-                        # if self.context[-3] == 96 and self.context[-2] == 48:
-                        # if self.context[-2] == 57 and self.context[-3] == 96:
-                        # if self.context[-1] == 57 and self.context[-2] == 48 and self.context[-3] == 96:
-                        #     print('concept = {}-{}, transf_weight => {} / {} = {} * {} = {}-{}, ct = {}, s= {}-{}'.format(
-                        #         concept_index, concepts[concept_index], format(tf[transformation_index], '.3f'), format(sum(tf), '.3f'), format(transformation_weight, '.3f'), format(state_weight, '.3f'), format(weight, '.3f'), format(factor, '.3f'), concept_transform_model, transformation_model, state
-                        #         )
-                        #     )
-                        
-        # if all the concepts are found then teh pdf solvable does not matter
-        all_concepts_found = True if len(concepts_node_indicies_not_found) == 0 else False
-        pdf_solvable = True if all_concepts_found else pdf_solvable
-
-        # get the max vals
-        pdf_predicted_outputs, pdf_max_weight = self.getMaxValueIndices(pdf_processes, True)
-        transformation_predicted_outputs, transformation_max_weight = self.getMaxValueIndices(transformation_processes, True)
-        
-        # decide the algorithm value to use
-        if pdf_solvable:
-            predicted_outputs, max_weight = (pdf_predicted_outputs.copy(), pdf_max_weight)
-        
-        else:
-            predicted_outputs, max_weight = (transformation_predicted_outputs.copy(), transformation_max_weight)
-        
-        po = [pdf_solvable]
+            # decide the algorithm value to use
+            if pdf_solvable[output_index]:
+                predicted_outputs[output_index], max_weight[output_index] = (pdf_predicted_outputs[output_index].copy(), pdf_max_weight[output_index])
+            
+            else:
+                predicted_outputs[output_index], max_weight[output_index] = (transformation_predicted_outputs[output_index].copy(), transformation_max_weight[output_index])
+            
+            po = [pdf_solvable[output_index]]
 
         self.last_concepts = concepts.copy()
         self.last_concept_indices = concept_node_indices.copy()
         self.last_pdf_predictions = pdf_predicted_outputs.copy()
         self.last_concepts_node_indicies_not_found = concepts_node_indicies_not_found.copy()
         self.last_transformation_models = transformation_models.copy()
-        return predicted_outputs, format(max_weight, '.4f'), po
+        return predicted_outputs, [format(mw, '.4f') for mw in max_weight], po
 
     def solveTransformation(self, transformation, concept):
         transform = list(transformation)
@@ -470,33 +480,34 @@ class Processor:
             x = len(x)
         return x / (1 + x) 
 
-    def update(self, data):
+    def update(self, output_index, data):
         # get the nodes that match the reply in pdf
-        max_probability_states = self.getMaxProbabilityStates(data)    
+        max_probability_states = self.getMaxProbabilityStates(output_index, data)    
 
         # get the prvious values
-        last_pdf_predictions = self.last_pdf_predictions
+        last_pdf_predictions = self.last_pdf_predictions[output_index] if output_index in self.last_pdf_predictions else []
         last_concepts_node_indicies_not_found = lcinf = self.last_concepts_node_indicies_not_found
 
         last_concepts_node_indicies_found = [cni for cni in self.last_concept_indices if cni not in lcinf]
         all_concepts_found = True if len(last_concepts_node_indicies_not_found) == 0 else False
 
-        last_transformation_models = self.last_transformation_models[data]
+        last_transformation_models = self.last_transformation_models[output_index][data] if len(self.last_transformation_models) > 0 else []
 # ======================================updating pdf, pdf_concept and creating transformations===============        
         for concept_index, concept in enumerate(self.last_concepts):
             concept_model = (concept_index, concept)
             concept_node_index = self.nodes.index(concept_model)
 
 # =====================================increment the node for pdf===============================
-            self.node_state_freq[concept_node_index][data] += 1
+            self.node_state_freq[concept_node_index][output_index][data] += 1
 
 # =========================================increment the node for not pdf solvable==============================
             if not all_concepts_found:
-                self.node_npdf_freq[concept_node_index][0] += 1 if data not in last_pdf_predictions else 0
-                self.node_npdf_freq[concept_node_index][1] += 1
+                self.node_npdf_freq[concept_node_index][output_index][0] += 1 if data not in last_pdf_predictions else 0
+                self.node_npdf_freq[concept_node_index][output_index][1] += 1
             
             if self.no_transformation:
                 continue
+
 # ========================create transformation and update transf weights=========================================
             # at transformation is only fromed when there are missing concepts
             if all_concepts_found:
@@ -517,16 +528,16 @@ class Processor:
                     for transformation in transformations:
                         transformation_model = (transformation, level)
 
-                        if transformation_model not in self.node_transformations[cni]:
+                        if transformation_model not in self.node_transformations[cni][output_index]:
                             # if self.context[-3] == 96 and self.context[-2] == 48:
                             #     print(transformation_model, concept, other_concept)
-                            self.node_transformations[cni].append(transformation_model)
-                            self.node_transformation_freq[cni].append(0)
+                            self.node_transformations[cni][output_index].append(transformation_model)
+                            self.node_transformation_freq[cni][output_index].append(0)
                         
                         # increment the value
-                        transformation_index = self.node_transformations[cni].index(transformation_model)
+                        transformation_index = self.node_transformations[cni][output_index].index(transformation_model)
                         if (cni, transformation_index) in last_transformation_models:
-                            self.node_transformation_freq[cni][transformation_index] += 1
+                            self.node_transformation_freq[cni][output_index][transformation_index] += 1
 
         return
 
@@ -538,11 +549,11 @@ Project: GHOST
 '''
 
 # initialize objects
-PROCESSOR = Processor(n_sensors=2, n_output=1, state_size=8, size=3)
+PROCESSOR = Processor(n_sensors=1, state_size=8, size=3)
 
 def main():
-    td = [learn_movement(10, size=3)]
-    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
+    # td = [learn_movement(25, size=9, actions='R')]
+    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
     # initialize
@@ -552,24 +563,23 @@ def main():
     po = None
     
     for training_data in td:
-        for data, state in training_data:
-            if weight == 0 or len(last_outputs) > 9:
-                last_outputs = ['a lot']
-            print('input_data = {}, x = {}, y = {}, y_pred = {}, weight = {}-{}, '.format(state, last_input_data, data, last_outputs, weight, po))
+        for input_data, state in training_data:
+            last_outputs = ['a lot' if weight[i] == 0 or len(x) > 9 else x for i, x in enumerate(last_outputs)]
+            print('states = {}, x = {}, y = {}, y_pred = {}, weight = {}-{}, '.format(state, last_input_data, input_data, last_outputs, weight, po))
 
-            state = map(ord, state)
-            data = ord(data)
+            state = list(map(ord, state))
+            input_data = list(map(ord, input_data))
 
-            result = PROCESSOR.process(state, data)
+            result = PROCESSOR.process(state, input_data)
             if result == None:
                 outputs, weight, po = None, None, None
 
             else:
                 outputs, weight, po = result
-                outputs = [str(chr(x)).encode('utf-8') for x in outputs]
+                outputs = [[str(chr(x)).encode('utf-8') for x in outputs[i]] for i in range(len(input_data))]
             
                 last_outputs = outputs.copy()
-            last_input_data = chr(data)
+            last_input_data = list(map(chr, input_data))
 if __name__ == '__main__':
     main()
 
