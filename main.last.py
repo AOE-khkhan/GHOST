@@ -550,20 +550,30 @@ class Processor:
                 continue
 
             for cni in last_concepts_node_indicies_found:
-                transformations = self.getTransformations(self.last_concepts[-1], other_concept)
-                for transformation in transformations:
-                    transformation_model = (transformation, level)
+                for concept_model in max_probability_states:
+                    level, other_concept = concept_model
+                    factor = len(max_probability_states[concept_model])**-1
 
-                    if transformation_model not in self.node_transformations[cni]:
-                        # if self.context[-3] == 96 and self.context[-2] == 48:
-                        #     print(transformation_model, concept, other_concept)
-                        self.node_transformations[cni].append(transformation_model)
-                        self.node_transformation_freq[cni].append(0)
-                    
-                    # increment the value
-                    transformation_index = self.node_transformations[cni].index(transformation_model)
-                    if (cni, transformation_index) in last_transformation_models:
-                        self.node_transformation_freq[cni][transformation_index] += 1
+                    if factor < 1:
+                        continue
+
+                    if not all([x in other_concept for x in concept]):
+                        continue
+
+                    transformations = self.getTransformations(self.last_concepts[-1], other_concept)
+                    for transformation in transformations:
+                        transformation_model = (transformation, level)
+
+                        if transformation_model not in self.node_transformations[cni]:
+                            # if self.context[-3] == 96 and self.context[-2] == 48:
+                            #     print(transformation_model, concept, other_concept)
+                            self.node_transformations[cni].append(transformation_model)
+                            self.node_transformation_freq[cni].append(0)
+                        
+                        # increment the value
+                        transformation_index = self.node_transformations[cni].index(transformation_model)
+                        if (cni, transformation_index) in last_transformation_models:
+                            self.node_transformation_freq[cni][transformation_index] += 1
 
         return
 
@@ -575,16 +585,16 @@ Project: GHOST
 '''
 
 # initialize objects for motion
-N, S, T = 1, 3, False
-# N, S, T = 10, 1, True
+# N, S, T = 1, 3, False
+N, S, T = 10, 1, True
 
 # initialize for counting
 PROCESSOR = [Processor(n_sensors=N, state_size=8, size=S, no_transformation=T) for _ in range(N)]
 
 def main():
     global N;
-    # td = [learn_movement2D(25, size=N-1)]
-    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 2), learn_counting(45, 1)]
+    td = [learn_movement2D(25, size=N-1)]
+    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 2), learn_counting(45, 1)]
     # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 

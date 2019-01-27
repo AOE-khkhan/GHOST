@@ -1,4 +1,4 @@
 @echo off
 cls
-python main.py
+python nn.py
 rem C:\Python34\python.exe main.py
