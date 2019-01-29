@@ -112,7 +112,7 @@ class Network:
 		# Activations are also initiated by index. For the example we will have activations[2] and activations[3]
 		self.activations = {}
 		for i in range(len(dimensions) - 1):
-			self.w[i + 1] = np.random.rand(dimensions[i], dimensions[i + 1]) / np.sqrt(dimensions[i])
+			self.w[i + 1] = np.random.randn(dimensions[i], dimensions[i + 1]) / np.sqrt(dimensions[i])
 			self.b[i + 1] = np.zeros(dimensions[i + 1])
 			self.activations[i + 2] = activations[i]
 
@@ -251,9 +251,10 @@ if __name__ == "__main__":
 	N = 100
 	for i, xi in enumerate(list(range(1, N))):
 		x = np.array([[xi]])
+		# x = np.array([[xx] for xx in range(N)])
 		y = x + 7
 
-		NN.fit(x, y, loss=MSE, epochs=.1, batch_size=1, learning_rate=1e-1)
+		NN.fit(x, y, loss=MSE, epochs=1, batch_size=1, learning_rate=1e-1)
 
 		prediction = NN.predict(x)
 
@@ -264,4 +265,4 @@ if __name__ == "__main__":
 			y_true.append(np.argmax(y[index]))
 
 			print('iteration = {}, x = {}, pred = {}, y = {}'.format(i+1, x[index], prediction[index], y[index]))
-
+	print('a', NN.predict(np.array([[7]])))
