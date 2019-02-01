@@ -9,7 +9,7 @@ from train import *
 from processor import Processor
 
 # initialize objects for motion
-N, S, T = 1, 3, False
+N, S, T = 1, 5, False
 # N, S, T = 10, 1, True
 
 # initialize for counting
@@ -18,8 +18,8 @@ PROCESSOR = [Processor(n_sensors=N, state_size=8, size=S, no_transformation=T) f
 def main():
     global N;
     # td = [learn_movement2D(25, size=N-1)]
-    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1)]
-    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1)]
+    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1)]
+    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1), learn_counting(150, 1)]
     # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
 
     # initialize
