@@ -1,56 +1,39 @@
-'''
-Author: Joshua, Christian r0b0tx
-Date: 1 Nov 2018
-File: main.py
-Project: GHOST
-'''
+# from python std lib
+import os
 
-from train import *
-from processor import Processor
-
-# initialize objects for motion
-N, S, T = 1, 5, False
-# N, S, T = 10, 1, True
-
-# initialize for counting
-PROCESSOR = [Processor(n_sensors=N, state_size=8, size=S, no_transformation=T) for _ in range(N)]
+# from the lib code
+from image_processor import ImageProcessor
+from console import Console
 
 def main():
-    global N;
-    # td = [learn_movement2D(25, size=N-1)]
-    td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1)]
-    # td = [learn_counting(15, 3), learn_counting(25, 2), learn_counting(35, 1), learn_counting(55, 1),learn_counting(75, 1), learn_counting(105, 1), learn_counting(150, 1)]
-    # td = [learn_counting(21), learn_counting(11), train('train.old.txt'), learn_counting(11), train('train.old.txt')]
+	# initializations
+	#console for logging
+	console = Console()
 
-    # initialize
-    last_outputs, last_input_data, last_weights, last_po, last_sensory_data = [[] for _ in range(N)], [], [None for _ in range(N)], [None for _ in range(N)], [None for _ in range(N)]
+	# the image image_processor
+	size = 24
+	img_processor = ImageProcessor(size=size)
 
-    for training_data in td:
-        for sensory_data, input_data in training_data:
-            weights, po, outputs = [], [], []
-            for i, d in enumerate(input_data):
-                weights.append([]), po.append([]), outputs.append([]) 
+	# memory strip
+	# mms = MagneticMemoryStrip()
 
-                last_outputs[i] = ['a lot'] if last_weights[i] == 0 or len(last_outputs[i]) > 9 else last_outputs[i]
-                print('x = {}-{}, y = {}, y_pred = {}, weight = {}-{},'.format(last_sensory_data[i], last_input_data, input_data, last_outputs[i], last_weights[i], last_po[i]))
+	# test the MagneticMemoryStrip
+	# mms.runTests()
 
-                data = ord(d)
-                sense_data = list(map(ord, sensory_data))
+	img_dir = 'test/images'
 
-                result = PROCESSOR[i].process(sense_data, data) 
-                if result == None:
-                    outputs[i], weights[i], po[i] = [], None, None
+	# the image paths
+	image_names = os.listdir(img_dir)
+	
+	for image_name in image_names:
+		# load the images
+		image = img_processor.load_image('{}/{}'.format(img_dir, image_name))
 
-                else:
-                    outputs[i], weights[i], po[i] = result
-                    outputs[i] = [str(chr(x)).encode('utf-8') for x in outputs[i]]
-            
-            last_weights = weights.copy()
-            last_po = po.copy()
-            last_outputs = outputs.copy()
-            last_sensory_data = sensory_data.copy()
-            last_input_data = input_data.copy()
-            print()
+		w, h, d = image.shape
+		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
+
+		img_processor.register(image)
+	
 
 if __name__ == '__main__':
-    main()
+	main()

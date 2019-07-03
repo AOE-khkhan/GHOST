@@ -1,0 +1,3 @@
+info
+
+make sure image difference is absolute
