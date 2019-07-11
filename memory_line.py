@@ -1,8 +1,12 @@
+# from std lib
+from console import Console
+
 # import from third party libraries
 import cv2
 import numpy as np
 
-# import pandas as pd
+# import lib code
+from utils import getKernels, load_image
 
 class SortedList:
 	def __init__(self, *args):
@@ -17,19 +21,32 @@ class SortedList:
 	def __repr__(self):
 		return str(self.elements)
 
+	def __iter__(self):
+		for x in self.elements:
+			yield x
+
 class MemoryLine:
 	def __init__(self):
+		# initialize console
+		self.console = Console()
+		self.log = self.console.log
+
+		self.console.setLogState(True)
+
 		# get list that sorts itself everytime
 		self.indices = SortedList()
 
-		# get the memory that holds data
-		self.memory = None
+		# get the data that holds data
+		self.data = None
 
 		# the mean common diff
 		self.meancd = None
 
 		# standard dev of common difference
 		self.stdcd = None
+
+		# the clusters of indices
+		self.classes = []
 
 	def computeIndex(self, data):
 		'''
@@ -41,27 +58,25 @@ class MemoryLine:
 
 		d = data.copy()
 		s = np.sum(data)
-		return s
-
-	def getData(self, start, end=None):
-		if end == None:
-			yield self.memory[self.indices.elements[start]]
-
-		else:
-			for x in range(start, end):
-				yield self.memory[self.indices.elements[x]]
+		return round(s, 4)
 
 	def updateCommonDifference(self):
 		'''
 		get the mean cmmon difference if the indices list was a sequence
 		'''
-		diff = np.diff(np.array(self.indices.elements))
+		self.diff = np.diff(np.array(self.indices.elements))
 		
-		if len(diff) < 1:
+		if len(self.diff) < 1:
 			return
 
-		self.meancd = diff.mean()
-		self.stdcd = diff.std()
+		# teh stats
+		self.meancd = self.diff.mean()
+		self.stdcd = self.diff.std()
+
+		# the sets that all the kernels cluster into
+		self.classes = self.getClasses()
+
+		self.getFeatures()
 
 	# define the function for closest index using binary search
 	def binarySearch(self, needle, sorted_list=None, head=0):
@@ -75,7 +90,7 @@ class MemoryLine:
 		'''
 
 		if sorted_list == None:
-			sorted_list = self.memory.elements
+			sorted_list = self.data.indices
 
 		# get the length of the sorted list
 		length_of_list = len(sorted_list)
@@ -109,73 +124,56 @@ class MemoryLine:
 		else:
 			return
 
-	def getCloseIndex(self, idx, padd=-1):
-		def validate(a, b):
-			if a < 0:
-				a = 0
+	def getClass(self, data_index):
+		for cls in self.classes:
+			a, b = cls
 
-			if b >= length:
-				b = length - 1
+			if a <= data_index and data_index < b:
+				return cls
 
-			return a, b
-
-		# if data not established
-		if self.meancd == None or self.meancd == 0.0:
-			return 
-
-		# data type is array instead of int
-		if type(idx) != int:
-			idx = self.computeIndex(idx)
-
-		# the data index
-		n = self.binarySearch(idx)
+	def getClasses(self):
+		classes = []
 		
-		# the search range		
-		limit = self.meancd
+		a = 0
+		for i in range(self.indices.length - 1):
+			if self.diff[i] > self.meancd or i == self.indices.length - 2:
+				b = i+1
 
-		# initial values
-		a, li, state = None, [True, True], [n, n+1]
+				classes.append((a, b))
+				a = 0
+		# self.console.log('{} class(es) detected in memeory of length {}'.format(len(classes), self.indices.length))
+		return classes
 
-		while True:
-			if state[0] == state[1] == False:
-				break
+	def getData(self, index):
+		for image_ref, i, j in self.data[self.indices.elements[index]]:
+			yield getKernels(load_image(image_ref), (3, 3))[i, j]
 
-			for i in range(2):
-				if state[i]:
-					if i == 0:
-						if li[i] > 0 and abs(self.indices.elements[li[i] - 1] - self.indices.elements[li[i]]) <= limit:
-							li[i] -= 1
-						
-						else:
-							state[i] = False
+	def getFeatures(self):
+		self.getFeatures = []
+		for clx in self.classes:
+			start, end = clx
 
-					if i == 1:
-						if li[i] < self.indices.length-1 and abs(self.indices.elements[li[i] + 1] - self.indices.elements[li[i]]) <= limit:
-							li[i] += 1
+			dx = []
+			for i in range(start, end):
+				for x in self.getData(i):
+					dx.append(x)
 
-						else:
-							state[i] = False
-
-			a, b = li
-
-		if a == None:
-			return
-
-		else:
-			return a, b
-
-
+			dx = np.array(dx)
+			m, s = dx.mean(axis=0), dx.std(axis=0)
+			ms = s.mean()
+			
+	
 	def add(self, data, data_index=None):
 		'''
 		data: [m x 3] 2 dimensional numpy array
-		Goal: add new data to memory
+		Goal: add new data to data
 		Description: and index is created to label the data saved
 		'''
 
-		# initialize memory
-		if type(self.memory) == type(None):
-			# self.memory = pd.DataFrame({477436715895.2334:np.array([[1, 2, 3]])})
-			self.memory = {}
+		# initialize data
+		if type(self.data) == type(None):
+			# self.data = pd.DataFrame({477436715895.2334:np.array([[1, 2, 3]])})
+			self.data = {}
 
 		# if data index not available
 		if type(data_index) == type(None):
@@ -186,15 +184,16 @@ class MemoryLine:
 			
 		# if data already exists
 		if data_index not in self.indices.elements:
-			self.indices.elements.append(data_index)
-			self.memory[data_index] = [data]
+			self.indices.append(data_index)
+			self.data[data_index] = [data]
 
 		else:
-			self.memory[data_index].append(data)
+			self.data[data_index].append(data)
 			
 		# update the mean value
 		self.updateCommonDifference()
 
+		return data_index
 
 	def runTests(self):
 		'''
@@ -220,7 +219,7 @@ class MemoryLine:
 		data = np.ones((1, 3))
 		orderTest(data)
 
-		print(self.memory)
+		print(self.data)
 		
 		print('testing for MMS search\n' + '='*20)
 		import random

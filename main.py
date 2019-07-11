@@ -1,9 +1,13 @@
 # from python std lib
 import os
 
+# from third party
+import cv2
+
 # from the lib code
 from image_processor import ImageProcessor
 from console import Console
+from utils import load_image
 
 def main():
 	# initializations
@@ -26,7 +30,7 @@ def main():
 	
 	for image_name in image_names:
 		# load the images
-		image = img_processor.load_image('{}/{}'.format(img_dir, image_name))
+		image = load_image('{}/{}'.format(img_dir, image_name))
 
 		w, h, d = image.shape
 		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
