@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 # import lib code
-from utils import getKernels, load_image
+from utils import getKernels, load_image, resultant
 
 class SortedList:
 	def __init__(self, *args):
@@ -25,13 +25,22 @@ class SortedList:
 		for x in self.elements:
 			yield x
 
+	def __len__(self):
+		return self.length
+
 class MemoryLine:
-	def __init__(self):
+	def __init__(self, kernel_size=3, active=False):
 		# initialize console
 		self.console = Console()
 		self.log = self.console.log
 
 		self.console.setLogState(True)
+
+		# for fetching kernels
+		self.kernel_size = (kernel_size, kernel_size)
+
+		# if the data will be preprocessed within
+		self.active = active
 
 		# get list that sorts itself everytime
 		self.indices = SortedList()
@@ -46,19 +55,15 @@ class MemoryLine:
 		self.stdcd = None
 
 		# the clusters of indices
-		self.classes = []
+		self.clusters = []
 
 	def computeIndex(self, data):
 		'''
 		data: a 2 dimensional numpy matrix
 		'''
-		DIM = 3 #length of the info collected from each pixel - x, y, color
 		if type(data) == list:
 			data = np.array(data)
-
-		d = data.copy()
-		s = np.sum(data)
-		return round(s, 4)
+		return resultant(data)
 
 	def updateCommonDifference(self):
 		'''
@@ -74,14 +79,12 @@ class MemoryLine:
 		self.stdcd = self.diff.std()
 
 		# the sets that all the kernels cluster into
-		self.classes = self.getClasses()
-
-		self.getFeatures()
+		self.clusters = self.getClusters()
 
 	# define the function for closest index using binary search
 	def binarySearch(self, needle, sorted_list=None, head=0):
 		'''
-		binary_search(sorted_list:list, needle:int, head:int)
+		binarySearch(sorted_list:list, needle:int, head:int)
 			takes in a sorted list and returns the index of an element being serched for
 		
 		sorted_list: a sorted list of elemets to be searched
@@ -90,7 +93,7 @@ class MemoryLine:
 		'''
 
 		if sorted_list == None:
-			sorted_list = self.data.indices
+			sorted_list = self.indices.elements
 
 		# get the length of the sorted list
 		length_of_list = len(sorted_list)
@@ -114,54 +117,44 @@ class MemoryLine:
 
 		# when middle element is greater than the needle
 		elif mid_element > needle:
-			return binary_search(sorted_list[:index_of_center_element], needle, head)
+			return self.binarySearch(needle, sorted_list[:index_of_center_element], head)
 
 		# when middle element is less than the needle
 		elif mid_element < needle:
-			return binary_search(sorted_list[index_of_center_element+1:], needle, index_of_center_element+head+1)
+			return self.binarySearch(needle, sorted_list[index_of_center_element+1:], index_of_center_element+head+1)
 
 		#in unforseen circumstances return no index
 		else:
 			return
 
+	def getRelated(self, needle):
+		indx = self.binarySearch(needle)
+		if indx != None:
+			return self.indices.elements[indx]
+
 	def getClass(self, data_index):
-		for cls in self.classes:
+		for cls in self.clusters:
 			a, b = cls
 
 			if a <= data_index and data_index < b:
 				return cls
 
-	def getClasses(self):
-		classes = []
+	def getClusters(self):
+		clusters = []
 		
 		a = 0
 		for i in range(self.indices.length - 1):
 			if self.diff[i] > self.meancd or i == self.indices.length - 2:
 				b = i+1
 
-				classes.append((a, b))
+				clusters.append((a, b))
 				a = 0
-		# self.console.log('{} class(es) detected in memeory of length {}'.format(len(classes), self.indices.length))
-		return classes
+		# self.console.log('{} class(es) detected in memeory of length {}'.format(len(clusters), self.indices.length))
+		return clusters
 
 	def getData(self, index):
 		for image_ref, i, j in self.data[self.indices.elements[index]]:
-			yield getKernels(load_image(image_ref), (3, 3))[i, j]
-
-	def getFeatures(self):
-		self.getFeatures = []
-		for clx in self.classes:
-			start, end = clx
-
-			dx = []
-			for i in range(start, end):
-				for x in self.getData(i):
-					dx.append(x)
-
-			dx = np.array(dx)
-			m, s = dx.mean(axis=0), dx.std(axis=0)
-			ms = s.mean()
-			
+			yield getKernels(load_image(image_ref), self.kernel_size)[i, j]			
 	
 	def add(self, data, data_index=None):
 		'''
@@ -189,49 +182,9 @@ class MemoryLine:
 
 		else:
 			self.data[data_index].append(data)
-			
-		# update the mean value
-		self.updateCommonDifference()
+		
+		if self.active:
+			# update the mean value
+			self.updateCommonDifference()
 
 		return data_index
-
-	def runTests(self):
-		'''
-		run test on the module
-		OrderTest: To see if the sorting list sorts the indices
-		SearchTest: To find a most related values
-		'''
-		def orderTest(data):
-			# get the data index
-			di = self.computeIndex(data)
-			print('saving data of index =', di, end='\n\n')
-
-			# add data to strip
-			self.add(data)
-			print('MMS =', self.indices, end='\n\n')
-
-		print('testing for MMS order\n' + '='*20)
-			
-		# initialize data
-		data = np.ones((3, 3))
-		orderTest(data)
-
-		data = np.ones((1, 3))
-		orderTest(data)
-
-		print(self.data)
-		
-		print('testing for MMS search\n' + '='*20)
-		import random
-
-		for i in range(1000):
-			data = np.random.randint(256, size=(random.randint(1, 10), 3))
-			self.add(data)
-		
-		a, b = int(self.indices.elements[0]), int(self.indices.elements[-1])
-		r_idx = 7728#random.randint(a, b)
-
-		print('min = {}, max = {}, length = {}, random id = {}'.format(a, b, self.indices.length, r_idx))
-		
-		ids = self.getCloseIndex(r_idx)
-		print('random id = {}, index of random id = {}'.format(r_idx, ids))

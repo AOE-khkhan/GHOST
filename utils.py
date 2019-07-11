@@ -1,5 +1,6 @@
 # from thrid party lib
 import cv2
+import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
 
@@ -24,4 +25,8 @@ def getKernels(img, kernel_size):
 def load_image(image_path):
 	image = cv2.imread(image_path)
 	# image = image[...,::-1]
+	image = np.array(image, dtype='float32')
 	return image
+
+def resultant(matrix):
+	return round(np.sqrt(np.sum(matrix**2)), 4) 

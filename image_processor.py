@@ -9,7 +9,7 @@ import numpy as np
 # import lib code
 from console import Console
 from memory_line import MemoryLine
-from utils import getKernels
+from utils import getKernels, resultant
 
 # the image processor class
 class ImageProcessor:
@@ -26,7 +26,9 @@ class ImageProcessor:
 		self.console.setLogState(True)
 
 		# initialize magnetic_memory_strip
-		self.MemoryLine = MemoryLine()
+		self.MemoryLine = MemoryLine(kernel_size, active=True)
+		self.MemoryLineForMinDatonIndex = MemoryLine(kernel_size)
+		self.MemoryLineForMaxDatonIndex = MemoryLine(kernel_size)
 
 		# the history
 		self.context = []
@@ -41,12 +43,53 @@ class ImageProcessor:
 		for folder_path in [self.MEMORY_PATH, self.IMAGE_MEMORY_PATH]:
 			self.validateFolderPath(folder_path)
 
+	def getFeatures(self):
+		self.features = []
+		for clx in self.MemoryLine.clusters:
+			start, end = clx
+
+			dx = []
+			for i in range(start, end):
+				for x in self.MemoryLine.getData(i):
+					dx.append(x)
+
+			dx = np.array(dx)
+			m, s = dx.mean(axis=0), dx.std(axis=0)
+			ms = s.mean()
+
+			daton_index = len(self.features)
+			self.features.append(m)
+
+			min_daton = np.zeros((self.kernel_size, self.kernel_size))
+			min_daton[s <= ms] = m[s <= ms]
+			
+			min_daton -= s
+			min_daton[min_daton < 0] = 0
+			
+			max_daton = 255 + np.zeros((self.kernel_size, self.kernel_size))
+			max_daton[s <= ms] = m[s <= ms]
+			
+			max_daton += s
+			max_daton[max_daton > 255] = 255
+			
+			# print(min_daton)
+			# print(max_daton)
+
+			min_euclidean_distance = resultant(min_daton)
+			max_euclidean_distance = resultant(max_daton)
+			# print(min_euclidean_distance, max_euclidean_distance)
+
+			# save the starting and ending index of possible letter representation
+			self.MemoryLineForMinDatonIndex.add(daton_index, min_euclidean_distance)
+			self.MemoryLineForMaxDatonIndex.add(daton_index, max_euclidean_distance)
+			
+
 	def validateFolderPath(self, folder_path):
 		if not os.path.exists(folder_path):
 			os.mkdir(folder_path)
 
 	def toGrey(self, img, r=0.299, g=0.587, b=0.114):
-		return cv2.add(b*img[:, :, 0], g*img[:, :, 1], r*img[:, :, 2])
+		return np.add(b*img[:, :, 0], g*img[:, :, 1], r*img[:, :, 2])
 
 	def register(self, image):
 		# get the grey version of image
@@ -59,6 +102,9 @@ class ImageProcessor:
 		features = self.getKernels(grey)
 		a, b, c, d = features.shape
 
+		# the alphabet
+		self.getFeatures()
+
 		# get and register all kernels
 		for i in range(a):
 			for j in range(b):
@@ -68,9 +114,15 @@ class ImageProcessor:
 				# save property
 				feature_index = self.MemoryLine.add([image_ref, i, j], feature)
 				
+				related = self.MemoryLineForMaxDatonIndex.getRelated(feature_index)
+
+				if related == None:
+					continue
+
+				print(feature_index, related)
 
 		# register in memory
-		self.addToContext(image_name)
+		self.addToContext(image_ref)
 		return
 
 	def addToContext(self, image_path):

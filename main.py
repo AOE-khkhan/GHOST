@@ -28,15 +28,19 @@ def main():
 	# the image paths
 	image_names = os.listdir(img_dir)
 	
+	c = 0
 	for image_name in image_names:
 		# load the images
 		image = load_image('{}/{}'.format(img_dir, image_name))
 
-		w, h, d = image.shape
-		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
+		# w, h, d = image.shape
+		# console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
 
 		img_processor.register(image)
-		break
+		c += 1
+
+		if c == 2:
+			break
 
 if __name__ == '__main__':
 	main()
