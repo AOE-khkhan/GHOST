@@ -17,7 +17,7 @@ class SortedList:
 	def __repr__(self):
 		return str(self.elements)
 
-class MagneticMemoryStrip:
+class MemoryLine:
 	def __init__(self):
 		# get list that sorts itself everytime
 		self.indices = SortedList()
@@ -63,68 +63,107 @@ class MagneticMemoryStrip:
 		self.meancd = diff.mean()
 		self.stdcd = diff.std()
 
-	def getCloseIndex(self, idx, padd=-1):
-		def validate(a, b):
-			if b < a: a, b = b, a
-			if a < 0: a = 0
-			if b > self.indices.length - 1: b = self.indices.length - 1
-			return a, b
+	# define the function for closest index using binary search
+	def binarySearch(self, needle, sorted_list=None, head=0):
+		'''
+		binary_search(sorted_list:list, needle:int, head:int)
+			takes in a sorted list and returns the index of an element being serched for
+		
+		sorted_list: a sorted list of elemets to be searched
+		needle: the element that is being looked for
+		head: head start index for tracking the right index
+		'''
 
-		if self.meancd == None or self.meancd == 0.0:
+		if sorted_list == None:
+			sorted_list = self.memory.elements
+
+		# get the length of the sorted list
+		length_of_list = len(sorted_list)
+
+		# check if the list is empty
+		if length_of_list == 0:
+			return	# return no index
+
+		if length_of_list == 1:
+			return head
+
+		# get the middle index of the list
+		index_of_center_element = length_of_list // 2
+
+		# get the center element
+		mid_element = sorted_list[index_of_center_element]
+
+		# if the needle is the middle element
+		if mid_element == needle:
+			return head + index_of_center_element
+
+		# when middle element is greater than the needle
+		elif mid_element > needle:
+			return binary_search(sorted_list[:index_of_center_element], needle, head)
+
+		# when middle element is less than the needle
+		elif mid_element < needle:
+			return binary_search(sorted_list[index_of_center_element+1:], needle, index_of_center_element+head+1)
+
+		#in unforseen circumstances return no index
+		else:
 			return
 
+	def getCloseIndex(self, idx, padd=-1):
+		def validate(a, b):
+			if a < 0:
+				a = 0
+
+			if b >= length:
+				b = length - 1
+
+			return a, b
+
+		# if data not established
+		if self.meancd == None or self.meancd == 0.0:
+			return 
+
+		# data type is array instead of int
 		if type(idx) != int:
 			idx = self.computeIndex(idx)
 
-
-		i, a, b = 0, 0, int((idx - self.indices.elements[0]) / self.meancd)
-		a, b = validate(a, b)
+		# the data index
+		n = self.binarySearch(idx)
 		
-		while b != self.indices.length - 1 and self.indices.elements[b] < idx:
-			a = b
-			b += int(i*self.stdcd)
-			
-			# make sure a, b are index-able			
-			a, b = validate(a, b)
-
-			i += 1
-
-		x = abs(idx - np.array(self.indices.elements[a:b]))
-		n = a + np.argmin(x)
-		
+		# the search range		
 		limit = self.meancd
 
-		if padd > 0:
-			a, b  = n - padd, n + padd + 1
-			a, b = validate(a, b)
-		
-		else:
-			state = [True, True]
-			li = [n, n+1]
+		# initial values
+		a, li, state = None, [True, True], [n, n+1]
 
-			while True:
-				if state[0] == state[1] == False:
-					break
+		while True:
+			if state[0] == state[1] == False:
+				break
 
-				for i in range(2):
-					if state[i]:
-						if i == 0:
-							if li[i] > 0 and abs(self.indices.elements[li[i] - 1] - self.indices.elements[li[i]]) <= limit:
-								li[i] -= 1
-							
-							else:
-								state[i] = False
+			for i in range(2):
+				if state[i]:
+					if i == 0:
+						if li[i] > 0 and abs(self.indices.elements[li[i] - 1] - self.indices.elements[li[i]]) <= limit:
+							li[i] -= 1
+						
+						else:
+							state[i] = False
 
-						if i == 1:
-							if li[i] < self.indices.length-1 and abs(self.indices.elements[li[i] + 1] - self.indices.elements[li[i]]) <= limit:
-								li[i] += 1
+					if i == 1:
+						if li[i] < self.indices.length-1 and abs(self.indices.elements[li[i] + 1] - self.indices.elements[li[i]]) <= limit:
+							li[i] += 1
 
-							else:
-								state[i] = False
+						else:
+							state[i] = False
 
 			a, b = li
 
-		return a, b
+		if a == None:
+			return
+
+		else:
+			return a, b
+
 
 	def add(self, data, data_index=None):
 		'''

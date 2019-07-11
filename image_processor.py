@@ -1,5 +1,5 @@
 # import from std lib
-import time
+import time, os
 from itertools import combinations
 
 # import from third party lib
@@ -9,14 +9,16 @@ from numpy.lib.stride_tricks import as_strided
 
 # import lib code
 from console import Console
-from magnetic_memory_strip import MagneticMemoryStrip
+from memory_line import MemoryLine
 
 # the image processor class
 class ImageProcessor:
-	def __init__(self, size=24):
+	def __init__(self, refid, kernel_size=3):
 		'''
-		size:image size square matrix
+		refid: reference id
+		kernel size: kernel size 
 		'''
+
 		# initialize console
 		self.console = Console()
 		self.log = self.console.log
@@ -24,25 +26,26 @@ class ImageProcessor:
 		self.setLogState(True)
 
 		# initialize magnetic_memory_strip
-		self.MagneticMemoryStrip = []
+		self.MemoryLine = MemoryLine()
 
 		# the history
 		self.context = []
 		self.context_length = 10
 
-		n = size
-		for _ in range(n+1):
-			self.MagneticMemoryStrip.append(MagneticMemoryStrip())
-
-		# the size
-		if type(size) == int:
-			self.SIZE = (size, size)
+		self.kernel_size = kernel_size
 
 		# constants
 		self.MEMORY_PATH = 'memory'
-		self.IMAGE_MEMORY_PATH = '{}/images'.format(self.MEMORY_PATH)
+		self.IMAGE_MEMORY_PATH = '{}/images/{}'.format(self.MEMORY_PATH, refid)
+
+		for folder_path in [self.MEMORY_PATH, self.IMAGE_MEMORY_PATH]:
+			self.validateFolderPath(folder_path)
 
 		self.dummy_counter = 0
+
+	def validateFolderPath(self, folder_path):
+		if not os.path.exists(folder_path):
+			os.mkdir(folder_path)
 
 	def setLogState(self, state):
 		return self.console.setLogState(state)
@@ -67,54 +70,21 @@ class ImageProcessor:
 		# save image in memory
 		image_name = self.saveImage(image)
 
-		n = self.SIZE[0]
-		if self.SIZE[-1] > n:
-			n = self.SIZE[-1]
+		# get the image features from kernels
+		features = self.getKernels(grey)
+		a, b, c, d = features.shape
 
-		inference = []
+		# get and register all kernels
+		for i in range(a):
+			for j in range(b):
+				# extract feature
+				feature = features[i, j]
 
-		# kernel size
-		for kernel_size in range(3, n+1):
-			# the memorystyrip object
-			mms = self.MagneticMemoryStrip[kernel_size]
-
-			inference.append({})
-
-			if kernel_size > 3:
-				continue
-
-			# get the image features from kernels
-			features = self.getKernels(grey, kernel_size)
-			a, b, c, d = features.shape
-
-			# get and register all kernels
-			for i in range(a):
-				for j in range(b):
-					# extract feature
-					feature = features[i, j]
-
-					if self.dummy_counter == 15:
-						# compare to see related properties indices
-						start, end = mms.getCloseIndex(feature)
-
-						for x in mms.getData(start, end):
-							for xx in x:
-								xd = xx[0]
-								if xd in inference[-1]:
-									inference[-1][xd] += 1
-
-								else:
-									inference[-1][xd] = 1
-
-					# save property
-					mms.add([image_name, i, j], feature)
+				# save property
+				self.MemoryLine.add([image_name, i, j], feature)
 		
 		if self.dummy_counter == 15:
-			for ki, kk in enumerate(inference):
-				print(ki + 3)
-
-				for x in kk:
-					print('  {}: {}'.format(x, kk[x]))
+			pass
 
 		# register in memory
 		self.addToContext(image_name)
@@ -127,13 +97,23 @@ class ImageProcessor:
 		return
 
 	def saveImage(self, image):
+		'''
+		saveImage: saves images in the memory directory
+			image: matrix of rgb values
+		'''
+		# the image reference
 		image_name = str(time.time())
 		image_path = '{}/{}.jpg'.format(self.IMAGE_MEMORY_PATH, image_name)
-		self.console.log('  registering {}'.format(image_path))
+		
+		self.console.log('  registering {}\n'.format(image_path))
+
 		cv2.imwrite(image_path, image)
 		return image_name
 
-	def getKernels(self, img, kernel_size):
+	def getKernels(self, img, kernel_size=None):
+		if type(kernel_size) == type(None):
+			kernel_size = (self.kernel_size, self.kernel_size)
+
 		if type(kernel_size) == int:
 			kernel_size = (kernel_size, kernel_size)
 

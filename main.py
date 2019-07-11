@@ -11,8 +11,7 @@ def main():
 	console = Console()
 
 	# the image image_processor
-	size = 24
-	img_processor = ImageProcessor(size=size)
+	img_processor = ImageProcessor(refid=3)
 
 	# memory strip
 	# mms = MagneticMemoryStrip()
@@ -33,7 +32,7 @@ def main():
 		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
 
 		img_processor.register(image)
-	
+		break
 
 if __name__ == '__main__':
 	main()
