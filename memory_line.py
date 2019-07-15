@@ -127,7 +127,12 @@ class MemoryLine:
 		else:
 			return
 
-	def getRelated(self, needle):
+	def getRelatedData(self, needle):
+		indx = self.binarySearch(needle)
+		if indx != None:
+			return self.data[self.indices.elements[indx]]
+
+	def getRelatedIndex(self, needle):
 		indx = self.binarySearch(needle)
 		if indx != None:
 			return self.indices.elements[indx]

@@ -27,8 +27,7 @@ class ImageProcessor:
 
 		# initialize magnetic_memory_strip
 		self.MemoryLine = MemoryLine(kernel_size, active=True)
-		self.MemoryLineForMinDatonIndex = MemoryLine(kernel_size)
-		self.MemoryLineForMaxDatonIndex = MemoryLine(kernel_size)
+		
 
 		# the history
 		self.context = []
@@ -45,6 +44,9 @@ class ImageProcessor:
 
 	def getFeatures(self):
 		self.features = []
+		self.MemoryLineForMinDatonIndex = MemoryLine(kernel_size)
+		self.MemoryLineForMaxDatonIndex = MemoryLine(kernel_size)
+
 		for clx in self.MemoryLine.clusters:
 			start, end = clx
 
@@ -57,8 +59,9 @@ class ImageProcessor:
 			m, s = dx.mean(axis=0), dx.std(axis=0)
 			ms = s.mean()
 
-			daton_index = len(self.features)
-			self.features.append(m)
+			di = len(self.features)
+			daton_index = resultant(m)
+			self.features.append(daton_index)
 
 			min_daton = np.zeros((self.kernel_size, self.kernel_size))
 			min_daton[s <= ms] = m[s <= ms]
@@ -80,8 +83,8 @@ class ImageProcessor:
 			# print(min_euclidean_distance, max_euclidean_distance)
 
 			# save the starting and ending index of possible letter representation
-			self.MemoryLineForMinDatonIndex.add(daton_index, min_euclidean_distance)
-			self.MemoryLineForMaxDatonIndex.add(daton_index, max_euclidean_distance)
+			self.MemoryLineForMinDatonIndex.add(di, min_euclidean_distance)
+			self.MemoryLineForMaxDatonIndex.add(di, max_euclidean_distance)
 			
 
 	def validateFolderPath(self, folder_path):
@@ -114,12 +117,18 @@ class ImageProcessor:
 				# save property
 				feature_index = self.MemoryLine.add([image_ref, i, j], feature)
 				
-				related = self.MemoryLineForMaxDatonIndex.getRelated(feature_index)
+				min_related = self.MemoryLineForMinDatonIndex.getRelatedData(feature_index)
+				max_related = self.MemoryLineForMaxDatonIndex.getRelatedData(feature_index)
 
-				if related == None:
+				if min_related == max_related == None:
 					continue
 
-				print(feature_index, related)
+				related = set(min_related).intersection(set(max_related))
+				print(feature)
+
+				for r in related:
+					print(self.features[r])
+				print()
 
 		# register in memory
 		self.addToContext(image_ref)
