@@ -46,10 +46,10 @@ class ImageProcessor:
 		self.features = []
 
 		# the sets that all the kernels cluster into
-		self.MemoryLine.clusters = self.getClusters()
+		self.MemoryLine.clusters = self.MemoryLine.getClusters()
 
-		self.MemoryLineForMinDatonIndex = MemoryLine(kernel_size)
-		self.MemoryLineForMaxDatonIndex = MemoryLine(kernel_size)
+		self.MemoryLineForMinDatonIndex = MemoryLine(self.kernel_size)
+		self.MemoryLineForMaxDatonIndex = MemoryLine(self.kernel_size)
 
 		for clx in self.MemoryLine.clusters:
 			start, end = clx
@@ -94,12 +94,11 @@ class ImageProcessor:
 		min_related = self.MemoryLineForMinDatonIndex.getRelatedData(feature_index)
 		max_related = self.MemoryLineForMaxDatonIndex.getRelatedData(feature_index)
 
-		if min_related == max_related == None:
+		if min_related == None or max_related == None:
 			return
 
 		# the features related
 		related = set(min_related).intersection(set(max_related))
-		print(feature)
 
 		# show the related
 		for r in related:
@@ -134,6 +133,8 @@ class ImageProcessor:
 			for j in range(b):
 				# extract feature
 				feature = features[i, j]
+
+				# print(feature)
 
 				# save property
 				feature_index = self.MemoryLine.add([image_ref, i, j], feature)

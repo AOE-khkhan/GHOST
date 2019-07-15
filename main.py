@@ -40,12 +40,12 @@ def main():
 
 		# run against timer
 		def image_processor_register():
-			img_processor.register(image)
+			img_processor.register(image, 1)
 
 		result = timer.run(image_processor_register)
 
 		c += 1
-		if c == 2:
+		if c == -2:
 			break
 
 if __name__ == '__main__':
