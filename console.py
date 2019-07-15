@@ -2,19 +2,11 @@ def do_nothing(*args):
 	pass
 
 class Console:
-	def __init__(self):
-		self.log = print
+	def __init__(self, state=True):
+		self.log_state = state
+		self.logState()
 
-	def logState(self, state=None):
-		if state == None:
-			if self.log_state == False:
-				self.log_state = True
-
-			else:
-				self.log_state = False
-		else:
-			self.log_state = state
-
+	def logState(self):
 		if self.log_state:
 			self.log = print
 
@@ -24,7 +16,13 @@ class Console:
 		return
 
 	def setLogState(self, state):
-		return self.logState(state)
+		self.log_state = state
+		self.logState()
 
 	def toggleLogState(self):
-		return self.logState(None)
+		if self.log_state == False:
+			self.log_state = True
+
+		else:
+			self.log_state = False
+		self.logState()

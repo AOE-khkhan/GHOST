@@ -76,10 +76,7 @@ class MemoryLine:
 
 		# teh stats
 		self.meancd = self.diff.mean()
-		self.stdcd = self.diff.std()
-
-		# the sets that all the kernels cluster into
-		self.clusters = self.getClusters()
+	
 
 	# define the function for closest index using binary search
 	def binarySearch(self, needle, sorted_list=None, head=0):
@@ -145,6 +142,9 @@ class MemoryLine:
 				return cls
 
 	def getClusters(self):
+		# update the mean value
+		self.updateCommonDifference()
+
 		clusters = []
 		
 		a = 0
@@ -187,9 +187,5 @@ class MemoryLine:
 
 		else:
 			self.data[data_index].append(data)
-		
-		if self.active:
-			# update the mean value
-			self.updateCommonDifference()
 
 		return data_index

@@ -7,38 +7,44 @@ import cv2
 # from the lib code
 from image_processor import ImageProcessor
 from console import Console
+from timer import Timer
 from utils import load_image
+
+def simulate_experience(img_dir=None):
+	# the image paths
+	image_names = os.listdir(img_dir)
+
+	for image_name in image_names:
+		yield image_name
 
 def main():
 	# initializations
-	#console for logging
-	console = Console()
+	console = Console()	#console for logging
+	timer = Timer()	#timer for timing
 
 	# the image image_processor
 	img_processor = ImageProcessor(refid=3)
 
-	# memory strip
-	# mms = MagneticMemoryStrip()
-
-	# test the MagneticMemoryStrip
-	# mms.runTests()
-
+	# the data to simulate experience
 	img_dir = 'test/images'
+	image_names = simulate_experience(img_dir)
 
-	# the image paths
-	image_names = os.listdir(img_dir)
-	
-	c = 0
+	c = 0	#counter
+
 	for image_name in image_names:
 		# load the images
 		image = load_image('{}/{}'.format(img_dir, image_name))
 
-		# w, h, d = image.shape
-		# console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
+		w, h, d = image.shape
+		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
 
-		img_processor.register(image)
+		# run against timer
+		def image_processor_register():
+			img_processor.register(image)
+
+		result = timer.run(image_processor_register)
+
 		c += 1
-
 		if c == 2:
 			break
 

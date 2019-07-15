@@ -1,3 +1,4 @@
-info
+thoughts dump
+================
 
-make sure image difference is absolute
+check out b+ trees as an alternative for memory_line

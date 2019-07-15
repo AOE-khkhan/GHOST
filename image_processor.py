@@ -44,6 +44,10 @@ class ImageProcessor:
 
 	def getFeatures(self):
 		self.features = []
+
+		# the sets that all the kernels cluster into
+		self.MemoryLine.clusters = self.getClusters()
+
 		self.MemoryLineForMinDatonIndex = MemoryLine(kernel_size)
 		self.MemoryLineForMaxDatonIndex = MemoryLine(kernel_size)
 
@@ -85,7 +89,24 @@ class ImageProcessor:
 			# save the starting and ending index of possible letter representation
 			self.MemoryLineForMinDatonIndex.add(di, min_euclidean_distance)
 			self.MemoryLineForMaxDatonIndex.add(di, max_euclidean_distance)
-			
+	
+	def findRelated(self, feature_index):
+		min_related = self.MemoryLineForMinDatonIndex.getRelatedData(feature_index)
+		max_related = self.MemoryLineForMaxDatonIndex.getRelatedData(feature_index)
+
+		if min_related == max_related == None:
+			return
+
+		# the features related
+		related = set(min_related).intersection(set(max_related))
+		print(feature)
+
+		# show the related
+		for r in related:
+			print(self.features[r])
+		print()
+		
+		return	
 
 	def validateFolderPath(self, folder_path):
 		if not os.path.exists(folder_path):
@@ -94,7 +115,7 @@ class ImageProcessor:
 	def toGrey(self, img, r=0.299, g=0.587, b=0.114):
 		return np.add(b*img[:, :, 0], g*img[:, :, 1], r*img[:, :, 2])
 
-	def register(self, image):
+	def register(self, image, verbose=0):
 		# get the grey version of image
 		grey = self.toGrey(image, 1/3, 1/3, 1/3)
 
@@ -106,7 +127,7 @@ class ImageProcessor:
 		a, b, c, d = features.shape
 
 		# the alphabet
-		self.getFeatures()
+		if verbose: self.getFeatures()
 
 		# get and register all kernels
 		for i in range(a):
@@ -117,18 +138,8 @@ class ImageProcessor:
 				# save property
 				feature_index = self.MemoryLine.add([image_ref, i, j], feature)
 				
-				min_related = self.MemoryLineForMinDatonIndex.getRelatedData(feature_index)
-				max_related = self.MemoryLineForMaxDatonIndex.getRelatedData(feature_index)
-
-				if min_related == max_related == None:
-					continue
-
-				related = set(min_related).intersection(set(max_related))
-				print(feature)
-
-				for r in related:
-					print(self.features[r])
-				print()
+				# find similar data
+				if verbose: self.findRelated(feature_index)
 
 		# register in memory
 		self.addToContext(image_ref)
