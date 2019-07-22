@@ -12,7 +12,7 @@ def active_timer(func):
 	time_taken = round(time.time() - start, 4)
 
 	# the time result
-	print('{:>8}sec(s) for {}'.format(time_taken, func.__qualname__), end="\n\n")
+	print('{:>8}sec(s) for {}'.format(time_taken, func.__qualname__), end="\n")
 
 	# the return:result form function call
 	return result

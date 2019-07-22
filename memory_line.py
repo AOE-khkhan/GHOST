@@ -8,28 +8,8 @@ import numpy as np
 # import lib code
 from utils import getKernels, load_image, resultant
 
-class SortedList:
-	def __init__(self, *args):
-		self.elements = list(args)
-		self.length = 0
-
-	def append(self, element):
-		self.elements.append(element)
-		self.elements = sorted(self.elements)
-		self.length += 1
-
-	def __repr__(self):
-		return str(self.elements)
-
-	def __iter__(self):
-		for x in self.elements:
-			yield x
-
-	def __len__(self):
-		return self.length
-
 class MemoryLine:
-	def __init__(self, kernel_size=3, active=False):
+	def __init__(self, data_size=None, kernel_size=3):
 		# initialize console
 		self.console = Console()
 		self.log = self.console.log
@@ -39,14 +19,21 @@ class MemoryLine:
 		# for fetching kernels
 		self.kernel_size = (kernel_size, kernel_size)
 
-		# if the data will be preprocessed within
-		self.active = active
-
 		# get list that sorts itself everytime
-		self.indices = SortedList()
+		self.indices = np.array([0.0])
 
 		# get the data that holds data
-		self.data = None
+		if type(data_size) == int and data_size != 1:
+			data_size = (data_size, data_size)
+
+		if data_size == None:
+			data_size = (kernel_size, kernel_size)
+		
+		if  data_size == 1:
+			self.data = np.array([0.0])
+
+		else:
+			self.data = np.expand_dims(np.zeros(data_size), axis=0)
 
 		# the mean common diff
 		self.meancd = None
@@ -55,7 +42,7 @@ class MemoryLine:
 		self.stdcd = None
 
 		# the clusters of indices
-		self.clusters = []
+		self.clusters = np.array([])
 
 	def computeIndex(self, data):
 		'''
@@ -64,19 +51,6 @@ class MemoryLine:
 		if type(data) == list:
 			data = np.array(data)
 		return resultant(data)
-
-	def updateCommonDifference(self):
-		'''
-		get the mean cmmon difference if the indices list was a sequence
-		'''
-		self.diff = np.diff(np.array(self.indices.elements))
-		
-		if len(self.diff) < 1:
-			return
-
-		# teh stats
-		self.meancd = self.diff.mean()
-	
 
 	# define the function for closest index using binary search
 	def binarySearch(self, needle, sorted_list=None, head=0):
@@ -89,8 +63,8 @@ class MemoryLine:
 		head: head start index for tracking the right index
 		'''
 
-		if sorted_list == None:
-			sorted_list = self.indices.elements
+		if type(sorted_list) == type(None):
+			sorted_list = self.indices
 
 		# get the length of the sorted list
 		length_of_list = len(sorted_list)
@@ -125,14 +99,16 @@ class MemoryLine:
 			return
 
 	def getRelatedData(self, needle):
-		indx = self.binarySearch(needle)
-		if indx != None:
-			return self.data[self.indices.elements[indx]]
+		# sort First!
+		self.sortIndices()
+		
+		# get the closet index
+		return self.binarySearch(needle)
 
 	def getRelatedIndex(self, needle):
 		indx = self.binarySearch(needle)
 		if indx != None:
-			return self.indices.elements[indx]
+			return self.indices[indx]
 
 	def getClass(self, data_index):
 		for cls in self.clusters:
@@ -141,24 +117,43 @@ class MemoryLine:
 			if a <= data_index and data_index < b:
 				return cls
 
-	def getClusters(self):
-		# update the mean value
-		self.updateCommonDifference()
+	def sortIndices(self):
+		# sort the ids
+		self.sort_indices = self.indices.argsort()
 
-		clusters = []
+		# get the sorted ids
+		self.indices = self.indices[self.sort_indices]
+		return
+
+	def sortAndCluster(self):
+		# sort the ids
+		self.sortIndices()
+
+		# get the common differences
+		self.diff = np.diff(np.array(self.indices))
+		
+		if len(self.diff) < 1:
+			return
+
+		# teh stats
+		self.meancd = self.diff.mean()
+
+		# the clusters
+		self.clusters = []
 		
 		a = 0
-		for i in range(self.indices.length - 1):
-			if self.diff[i] > self.meancd or i == self.indices.length - 2:
+		for i in range(len(self.indices) - 1):
+			if self.diff[i] > self.meancd or i == len(self.indices) - 2:
 				b = i+1
 
-				clusters.append((a, b))
-				a = 0
-		# self.console.log('{} class(es) detected in memeory of length {}'.format(len(clusters), self.indices.length))
-		return clusters
+				self.clusters.append((a, b))
+				a = b
+		self.console.log('{} class(es) detected in memeory of length {}'.format(len(self.clusters), len(self.indices)))
+		return
 
 	def getData(self, index):
-		for image_ref, i, j in self.data[self.indices.elements[index]]:
+		for image_ref, i, j in self.data[self.indices[index]]:
+			i, j = map(int, [i, j])
 			yield getKernels(load_image(image_ref), self.kernel_size)[i, j]			
 	
 	def add(self, data, data_index=None):
@@ -168,11 +163,6 @@ class MemoryLine:
 		Description: and index is created to label the data saved
 		'''
 
-		# initialize data
-		if type(self.data) == type(None):
-			# self.data = pd.DataFrame({477436715895.2334:np.array([[1, 2, 3]])})
-			self.data = {}
-
 		# if data index not available
 		if type(data_index) == type(None):
 			data_index = self.computeIndex(data)
@@ -181,11 +171,10 @@ class MemoryLine:
 			data_index = self.computeIndex(data_index)
 			
 		# if data already exists
-		if data_index not in self.indices.elements:
-			self.indices.append(data_index)
-			self.data[data_index] = [data]
+		if data in self.data:
+			return self.indices[np.where(self.data == data)[0][0]]
 
-		else:
-			self.data[data_index].append(data)
-
+		self.indices = np.append(self.indices, [data_index])
+		self.data = np.concatenate((self.data, [data]))
+		
 		return data_index

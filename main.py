@@ -31,19 +31,27 @@ def main():
 
 	c = 0	#counter
 
-	for image_name in image_names:
+	for i, image_name in enumerate(image_names):
 		# load the images
 		image = load_image('{}/{}'.format(img_dir, image_name))
 
 		w, h, d = image.shape
 		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
 
+		verbose = 1 if i == 14 else 0
+
+		# run against timer
+		def image_processor_getSimilar():
+			img_processor.getSimilar(image)
+
 		# run against timer
 		def image_processor_register():
-			img_processor.register(image, 1)
+			img_processor.register(image, verbose)
 
+		similar_images = timer.run(image_processor_getSimilar)
 		result = timer.run(image_processor_register)
 
+		print()
 		c += 1
 		if c == -2:
 			break

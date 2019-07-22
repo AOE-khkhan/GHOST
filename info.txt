@@ -1,4 +1,22 @@
-thoughts dump
-================
+The Convention
+===============
+Variable names: lowercase_separated by underscores
+Functions and methods: camelCase
+Constants: UPPERCASE seperated by underscore
+Class name: Capitalize each word
 
-check out b+ trees as an alternative for memory_line
+
+P(M)
+C(M)
+
+ed: f(C(M)) < P(M)
+metric: f(P(M)) == p(M)
+
+1^1 2^2 3^3 = [1, 2, 3]
+9^1 2^2 1^3 = [9, 2, 1]
+
+001002003
+009002001
+
+1*1 2*2 3*3
+4*1 5*2 0*3
