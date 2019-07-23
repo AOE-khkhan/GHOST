@@ -129,7 +129,7 @@ class ImageProcessor:
 		self.max_daton_indices = self.max_daton_indices[self.min_daton_indices_memory_line.sort_indices]
 
 		if min_related_index == None:
-			return
+			return []
 
 		# use this starting point index to get the ending index slice
 		if self.max_daton_indices[min_related_index] <= feature_index:
@@ -139,7 +139,7 @@ class ImageProcessor:
 			max_related_indices = self.max_daton_indices[:min_related_index]
 
 		if len(max_related_indices) == 0:
-			return
+			return []
 
 		# the features related
 		rang = np.where(max_related_indices >= feature_index)
@@ -199,16 +199,21 @@ class ImageProcessor:
 				if type(related_classes) == type(None) or len(related_classes) == 0:
 					continue
 
+				# print(len(related_classes), related_classes)
+				
+				if len(related_classes) == 1:
+					feature_maps[:, i, j] = related_classes[0]
+					continue
+
+
 				# the last state of the feature maps
 				fm = feature_maps.copy()
 				feature_maps = []
-
-				print(len(related_classes))
 				
 				# effect the change accordingly for every posibility
 				for rep in related_classes:
 					fmx = fm.copy()
-					print(rep, i, j, fmx.shape)
+					# print(rep, i, j, fmx.shape)
 
 					fmx[:, i, j] = rep
 					feature_maps.extend(fmx)

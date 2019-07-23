@@ -38,7 +38,7 @@ def main():
 		w, h, d = image.shape
 		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
 
-		verbose = 1 if i == 14 else 0
+		verbose = 1 if i > -1 else 0
 
 		# run against timer
 		def image_processor_getSimilar():
