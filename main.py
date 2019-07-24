@@ -3,6 +3,7 @@ import os
 
 # from third party
 import cv2
+import numpy as np
 
 # from the lib code
 from image_processor import ImageProcessor
@@ -26,14 +27,14 @@ def main():
 	img_processor = ImageProcessor(refid=3)
 
 	# the data to simulate experience
-	img_dir = 'test/images'
+	img_dir = 'test/images2'
 	image_names = simulate_experience(img_dir)
 
 	c = 0	#counter
 
 	for i, image_name in enumerate(image_names):
 		# load the images
-		image = load_image('{}/{}'.format(img_dir, image_name))
+		image = load_image('{}/{}'.format(img_dir, image_name))[:28, :28]
 
 		w, h, d = image.shape
 		console.log('loading image: {:>11}, initial dimension: width = {}, height = {}, depth = {}'.format(image_name, w, h, d))
@@ -55,6 +56,8 @@ def main():
 		c += 1
 		if c == -2:
 			break
+	
+	# np.savetxt('indices.txt', img_processor.kernel_memory_line.indices)
 
 if __name__ == '__main__':
 	main()

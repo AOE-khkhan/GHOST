@@ -30,3 +30,6 @@ def load_image(image_path):
 
 def resultant(matrix):
 	return round(np.sqrt(np.sum(matrix**2)), 4) 
+
+def is_row_in_array(row , arr):
+	return np.where((row == arr).all(tuple(range(len(arr.shape)))[1:]) == True)[0]

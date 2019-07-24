@@ -199,12 +199,15 @@ class ImageProcessor:
 
 		return related_features[ddi.argmin()]
 
-	def getSimilar(self, image):
+	def getSimilar(self, image, threshold=0.9):
 		if type(self.image_memory_line.data) == type(None):
 			return
 
 		grey = self.toGrey(image)
 		image_index = resultant(grey)
+
+		base = resultant(np.full(grey.shape, 255))
+
 		most_related_index = self.image_memory_line.getRelatedData(image_index)
 		if most_related_index == None:
 			return
@@ -253,10 +256,9 @@ class ImageProcessor:
 				# extract feature
 				kernel = kernels[i, j]
 
-
 				# save property
 				kernel_index = self.kernel_memory_line.add(kernel)
-				
+
 				# find similar data
 				if not verbose:
 					continue
@@ -264,7 +266,9 @@ class ImageProcessor:
 				# print(kernel)
 
 				feature = self.findRelatedFeature(kernel, kernel_index)
-				
+				# print(kernel_index, feature, kernel)
+				# print()
+								
 				if type(feature) == type(None):
 					continue
 				

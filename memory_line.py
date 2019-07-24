@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 # import lib code
-from utils import getKernels, load_image, resultant
+from utils import getKernels, load_image, resultant, is_row_in_array
 
 class MemoryLine:
 	def __init__(self, kernel_size=3):
@@ -43,8 +43,6 @@ class MemoryLine:
 		'''
 		data: a 2 dimensional numpy matrix
 		'''
-		if type(data) == list:
-			data = np.array(data)
 		return resultant(data)
 
 	# define the function for closest index using binary search
@@ -126,6 +124,7 @@ class MemoryLine:
 
 		# get the sorted ids
 		self.indices = self.indices[self.sort_indices]
+		self.data = self.data[self.sort_indices]
 		return
 
 	def sortAndCluster(self):
@@ -134,20 +133,20 @@ class MemoryLine:
 
 		# get the common differences
 		self.diff = np.diff(np.array(self.indices))
-		# self.diff = self.diff[self.diff > 0]
-		
+
 		if len(self.diff) < 1:
 			return
 
 		# teh stats
-		self.meancd = self.diff.mean()
+		# self.meancd = self.diff.mean()
+		self.meancd = self.diff[self.diff > 0].mean()
 
 		# the clusters
 		self.clusters = []
 		
 		a = 0
 		for i in range(len(self.indices) - 1):
-			if self.diff[i] > self.meancd or i == len(self.indices) - 2:
+			if self.diff[i] >= self.meancd or i == len(self.indices) - 2:
 				b = i+1
 
 				self.clusters.append((a, b))
@@ -169,20 +168,22 @@ class MemoryLine:
 
 		# if data index not available
 		if type(data_index) == type(None):
-			data_index = self.computeIndex(data)
+			data_index = resultant(data)
 
-		elif type(data_index) != int and type(data_index) != float:
-			data_index = self.computeIndex(data_index)
+		elif type(data_index) == np.ndarray:
+			data_index = resultant(data_index)
+
 		
 		if type(self.data) == type(None):
 			self.initializeMemory(data, data_index)
 			return data_index
 
 		# if data already exists
-		if not force_add and data in self.data:
-			return self.indices[np.where(self.data == data)[0][0]]
+		if not force_add:
+			indices = is_row_in_array(data, self.data)
+			if len(indices) == 1:
+				return indices[0]
 
 		self.indices = np.append(self.indices, [data_index])
 		self.data = np.concatenate((self.data, [data]))
-		
 		return data_index
