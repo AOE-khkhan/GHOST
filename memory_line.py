@@ -9,7 +9,7 @@ import numpy as np
 from utils import getKernels, load_image, resultant
 
 class MemoryLine:
-	def __init__(self, data_size=None, kernel_size=3):
+	def __init__(self, kernel_size=3):
 		# initialize console
 		self.console = Console()
 		self.log = self.console.log
@@ -19,21 +19,8 @@ class MemoryLine:
 		# for fetching kernels
 		self.kernel_size = (kernel_size, kernel_size)
 
-		# get list that sorts itself everytime
-		self.indices = np.array([0.0])
-
-		# get the data that holds data
-		if type(data_size) == int and data_size != 1:
-			data_size = (data_size, data_size)
-
-		if data_size == None:
-			data_size = (kernel_size, kernel_size)
-		
-		if  data_size == 1:
-			self.data = np.array([0.0])
-
-		else:
-			self.data = np.expand_dims(np.zeros(data_size), axis=0)
+		# the memory is none form start
+		self.data = self.indices = None
 
 		# the mean common diff
 		self.meancd = None
@@ -43,6 +30,14 @@ class MemoryLine:
 
 		# the clusters of indices
 		self.clusters = np.array([])
+
+	def initializeMemory(self, data, data_index):
+		# get the data that holds data
+		self.data = np.array([data])
+
+		# initializer the pegs
+		self.indices = np.array([data_index])
+		return
 
 	def computeIndex(self, data):
 		'''
@@ -88,11 +83,19 @@ class MemoryLine:
 
 		# when middle element is greater than the needle
 		elif mid_element > needle:
-			return self.binarySearch(needle, sorted_list[:index_of_center_element], head)
+			li = sorted_list[:index_of_center_element]
+			if len(li) == 0:
+				return head + index_of_center_element
+			else:
+				return self.binarySearch(needle, li, head)
 
 		# when middle element is less than the needle
 		elif mid_element < needle:
-			return self.binarySearch(needle, sorted_list[index_of_center_element+1:], index_of_center_element+head+1)
+			li = sorted_list[index_of_center_element+1:]
+			if len(li) == 0:
+				return head + index_of_center_element
+			else:
+				return self.binarySearch(needle, li, index_of_center_element+head+1)
 
 		#in unforseen circumstances return no index
 		else:
@@ -131,6 +134,7 @@ class MemoryLine:
 
 		# get the common differences
 		self.diff = np.diff(np.array(self.indices))
+		# self.diff = self.diff[self.diff > 0]
 		
 		if len(self.diff) < 1:
 			return
@@ -156,7 +160,7 @@ class MemoryLine:
 			i, j = map(int, [i, j])
 			yield getKernels(load_image(image_ref), self.kernel_size)[i, j]			
 	
-	def add(self, data, data_index=None):
+	def add(self, data, data_index=None, force_add=False):
 		'''
 		data: [m x 3] 2 dimensional numpy array
 		Goal: add new data to data
@@ -169,9 +173,13 @@ class MemoryLine:
 
 		elif type(data_index) != int and type(data_index) != float:
 			data_index = self.computeIndex(data_index)
-			
+		
+		if type(self.data) == type(None):
+			self.initializeMemory(data, data_index)
+			return data_index
+
 		# if data already exists
-		if data in self.data:
+		if not force_add and data in self.data:
 			return self.indices[np.where(self.data == data)[0][0]]
 
 		self.indices = np.append(self.indices, [data_index])

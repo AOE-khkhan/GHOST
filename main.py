@@ -12,7 +12,7 @@ from utils import load_image
 
 def simulate_experience(img_dir=None):
 	# the image paths
-	image_names = os.listdir(img_dir)
+	image_names = sorted(os.listdir(img_dir))
 
 	for image_name in image_names:
 		yield image_name
@@ -46,10 +46,10 @@ def main():
 
 		# run against timer
 		def image_processor_register():
-			img_processor.register(image, verbose)
+			img_processor.register(image, idx=image_name.split('.')[0], verbose=verbose)
 
 		similar_images = timer.run(image_processor_getSimilar)
-		result = timer.run(image_processor_register)
+		feature_map = timer.run(image_processor_register)
 
 		print()
 		c += 1
