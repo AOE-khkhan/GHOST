@@ -29,6 +29,7 @@ def load_image(image_path):
 	return image
 
 def resultant(matrix):
+	# return np.sum(matrix)
 	return round(np.sqrt(np.sum(matrix**2)), 4) 
 
 def is_row_in_array(row , arr):

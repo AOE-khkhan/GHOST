@@ -1,5 +1,5 @@
 # from python std lib
-import os
+import os, random
 
 # from third party
 import cv2
@@ -13,7 +13,8 @@ from utils import load_image
 
 def simulate_experience(img_dir=None):
 	# the image paths
-	image_names = sorted(os.listdir(img_dir))
+	image_names = os.listdir(img_dir)
+	# random.shuffle(image_names)
 
 	for image_name in image_names:
 		yield image_name
@@ -24,10 +25,10 @@ def main():
 	timer = Timer()	#timer for timing
 
 	# the image image_processor
-	img_processor = ImageProcessor(refid=3)
+	img_processor = ImageProcessor(refid=3, kernel_size=2)
 
 	# the data to simulate experience
-	img_dir = 'test/images2'
+	img_dir = 'test/digits'
 	image_names = simulate_experience(img_dir)
 
 	c = 0	#counter
@@ -54,10 +55,16 @@ def main():
 
 		print()
 		c += 1
-		if c == -2:
+		if c == -1:
 			break
 	
 	# np.savetxt('indices.txt', img_processor.kernel_memory_line.indices)
+	console.log('{} data loaded into memory\n{} kernel(s) extracted\n{} cluster(s) discoverd'.format(
+		len(img_processor.image_memory_line.indices),
+		len(img_processor.kernel_memory_line.indices),
+		len(img_processor.kernel_memory_line.clusters)
+		)
+	)
 
 if __name__ == '__main__':
 	main()

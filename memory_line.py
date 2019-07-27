@@ -29,14 +29,15 @@ class MemoryLine:
 		self.stdcd = None
 
 		# the clusters of indices
-		self.clusters = np.array([])
+		self.clusters = np.array([], dtype=np.int64)
 
 	def initializeMemory(self, data, data_index):
 		# get the data that holds data
-		self.data = np.array([data])
+		dtp = np.float64 if type(data) != str else str
+		self.data = np.array([data], dtype=dtp)
 
 		# initializer the pegs
-		self.indices = np.array([data_index])
+		self.indices = np.array([data_index], dtype=np.float64)
 		return
 
 	def computeIndex(self, data):
@@ -101,7 +102,7 @@ class MemoryLine:
 
 	def getRelatedData(self, needle):
 		# sort First!
-		self.sortIndices()
+		self.sortIndices(by_indices=True)
 		
 		# get the closet index
 		return self.binarySearch(needle)
@@ -118,10 +119,13 @@ class MemoryLine:
 			if a <= data_index and data_index < b:
 				return cls
 
-	def sortIndices(self):
+	def sortIndices(self, by_indices=True):
 		# sort the ids
-		self.sort_indices = self.indices.argsort()
-
+		if not by_indices:
+			self.sort_indices = self.data.argsort(0).mean(tuple(range(len(self.data.shape)))[1:]).argsort()
+		else:
+			self.sort_indices = self.indices.argsort()
+			
 		# get the sorted ids
 		self.indices = self.indices[self.sort_indices]
 		self.data = self.data[self.sort_indices]
@@ -132,26 +136,31 @@ class MemoryLine:
 		self.sortIndices()
 
 		# get the common differences
-		self.diff = np.diff(np.array(self.indices))
+		self.diff = np.diff(np.array(self.indices, dtype=np.float64))
 
 		if len(self.diff) < 1:
 			return
 
-		# teh stats
-		# self.meancd = self.diff.mean()
-		self.meancd = self.diff[self.diff > 0].mean()
+		# the stats
+		# self.meancd = self.diff.mean() + self.diff.std()
+		
+		x = self.diff[self.diff > 0]
+		self.meancd = x.mean() + x.std()
 
 		# the clusters
 		self.clusters = []
 		
 		a = 0
 		for i in range(len(self.indices) - 1):
+			# print("class {}: {}\n{}".format(len(self.clusters), self.indices[i], self.data[i]))
 			if self.diff[i] >= self.meancd or i == len(self.indices) - 2:
 				b = i+1
 
 				self.clusters.append((a, b))
 				a = b
+			# print()
 		self.console.log('{} class(es) detected in memeory of length {}'.format(len(self.clusters), len(self.indices)))
+		# print(self.meancd)
 		return
 
 	def getData(self, index):
@@ -182,7 +191,7 @@ class MemoryLine:
 		if not force_add:
 			indices = is_row_in_array(data, self.data)
 			if len(indices) == 1:
-				return indices[0]
+				return self.indices[indices[0]]
 
 		self.indices = np.append(self.indices, [data_index])
 		self.data = np.concatenate((self.data, [data]))

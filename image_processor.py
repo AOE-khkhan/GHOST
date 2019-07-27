@@ -54,14 +54,14 @@ class ImageProcessor:
 		if type(self.kernel_memory_line.data) == type(None):
 			return
 
-		self.datons = np.array([])
+		self.datons = np.array([], dtype=np.float64)
 
 		# the sets that all the kernels cluster into
 		self.kernel_memory_line.sortAndCluster()
 
 		# save the max and min of a daton possibility
-		self.min_daton_indices_memory_line = MemoryLine()
-		self.max_daton_indices = np.array([]) #initialize with zero cos of the memoryline of the start indices
+		self.min_daton_indices_memory_line = MemoryLine(1)
+		self.max_daton_indices = np.array([], dtype=np.float64) #initialize with zero cos of the memoryline of the start indices
 
 		# function to get the daton( for the sake of threads)
 		def collectDaton(start, end):
@@ -87,7 +87,7 @@ class ImageProcessor:
 
 			# the position of the daton in daton memory
 			if len(self.datons) == 0:
-				self.datons = np.array([dx])
+				self.datons = np.array([dx], dtype=np.float64)
 
 			else:
 				self.datons = np.concatenate((self.datons, [dx]))
@@ -100,6 +100,7 @@ class ImageProcessor:
 			
 			min_euclidean_distance = resultant(min_daton)
 			max_euclidean_distance = resultant(max_daton)
+
 
 			ls = self.console.log_state
 			self.console.setLogState(False)
@@ -172,7 +173,7 @@ class ImageProcessor:
 		related_features = self.min_daton_indices_memory_line.data[rang]
 
 		if len(related_features) < 1:
-			# print(4)
+			# print(4, kernel_index, kernel)
 			return
 
 		if len(related_features) == 1:
@@ -200,6 +201,7 @@ class ImageProcessor:
 		return related_features[ddi.argmin()]
 
 	def getSimilar(self, image, threshold=0.9):
+		return
 		if type(self.image_memory_line.data) == type(None):
 			return
 
@@ -266,7 +268,7 @@ class ImageProcessor:
 				# print(kernel)
 
 				feature = self.findRelatedFeature(kernel, kernel_index)
-				# print(kernel_index, feature, kernel)
+				# print(kernel_index, kernel)
 				# print()
 								
 				if type(feature) == type(None):

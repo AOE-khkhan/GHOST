@@ -5,18 +5,14 @@ Functions and methods: camelCase
 Constants: UPPERCASE seperated by underscore
 Class name: Capitalize each word
 
+Note
+=====
+-for the clustering: mean of all or mean of non-zeros can be used[
+	this change can be effected in the sortIndices method in memory_line.py
+	mean+stdev can also be considered
+]
 
-P(M)
-C(M)
-
-ed: f(C(M)) < P(M)
-metric: f(P(M)) == p(M)
-
-1^1 2^2 3^3 = [1, 2, 3]
-9^1 2^2 1^3 = [9, 2, 1]
-
-001002003
-009002001
-
-1*1 2*2 3*3
-4*1 5*2 0*3
+-for the indices: euclidean distance is used but is not unique and concides with matrices that not similar(bad for clustering)[
+	the change can be effected in the util.py resultant function
+	also change the deafult argument by_indices to True in sortIndices method in memory_line.py
+]
