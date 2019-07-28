@@ -142,10 +142,11 @@ class MemoryLine:
 			return
 
 		# the stats
-		# self.meancd = self.diff.mean() + self.diff.std()
-		
 		x = self.diff[self.diff > 0]
-		self.meancd = x.mean() + x.std()
+
+		# adding a full std is known to not converge well
+		self.meancd = x.mean() + (1. * x.std())
+		# self.meancd = x.mean()
 
 		# the clusters
 		self.clusters = []

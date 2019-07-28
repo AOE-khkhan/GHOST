@@ -10,6 +10,7 @@ Note
 -for the clustering: mean of all or mean of non-zeros can be used[
 	this change can be effected in the sortIndices method in memory_line.py
 	mean+stdev can also be considered
+	*mean of nonzero is being used as it seem to converge than the rest
 ]
 
 -for the indices: euclidean distance is used but is not unique and concides with matrices that not similar(bad for clustering)[

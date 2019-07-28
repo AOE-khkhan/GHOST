@@ -25,10 +25,10 @@ def main():
 	timer = Timer()	#timer for timing
 
 	# the image image_processor
-	img_processor = ImageProcessor(refid=3, kernel_size=2)
+	img_processor = ImageProcessor(refid=3, kernel_size=3)
 
 	# the data to simulate experience
-	img_dir = 'test/digits'
+	img_dir = 'test/images'
 	image_names = simulate_experience(img_dir)
 
 	c = 0	#counter
