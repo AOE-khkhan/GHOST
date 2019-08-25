@@ -1,0 +1,5163 @@
+LOADING IMAGE_1:  img_16, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0480sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0370sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0373sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0320sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0137sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0110sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0057sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2:  img_59, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.8291): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+217 class(es) detected in memeory of length 597
+1.1954sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9787): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0360sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+0.0240sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0280sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.8078
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3:  img_40, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.8900): 3
+  img_59    (0.8803): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+355 class(es) detected in memeory of length 1117
+2.1762sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8748): 2
+  img_16    (0.8726): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+120 class(es) detected in memeory of length 450
+0.8351sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9765): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0360sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0216sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0143sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0127sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.7391
+img_59(2) : 1.7551
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4:  img_55, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8670): 2
+  img_40    (0.8608): 6
+  img_16    (0.8587): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+564 class(es) detected in memeory of length 1660
+3.1961sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8555): 2
+  img_16    (0.8512): 3
+  img_40    (0.8499): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+301 class(es) detected in memeory of length 979
+1.8963sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.8507): 6
+  img_16    (0.8445): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+150 class(es) detected in memeory of length 368
+1.3177sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9811): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0320sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0138sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.5355
+img_40(6) : 2.5614
+img_59(2) : 1.7225
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5:  img_51, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.9036): 6
+  img_59    (0.8890): 2
+  img_55    (0.8835): 8
+  img_16    (0.8303): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+738 class(es) detected in memeory of length 2187
+3.7376sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.8940): 6
+  img_59    (0.8740): 2
+  img_55    (0.8722): 8
+  img_16    (0.8648): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+490 class(es) detected in memeory of length 1497
+h 
+LOADING IMAGE_1:  img_16, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0604sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0255sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0250sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0200sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0200sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0089sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: None
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2:  img_59, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.8291): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+217 class(es) detected in memeory of length 597
+1.5061sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9787): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0400sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0286sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0224sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0200sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+0.0058sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0118sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0098sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0076sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0087sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.8078
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3:  img_40, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.8900): 3
+  img_59    (0.8803): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+355 class(es) detected in memeory of length 1117
+2.2129sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8748): 2
+  img_16    (0.8726): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+120 class(es) detected in memeory of length 450
+0.8663sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9765): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0330sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0251sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0179sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.7391
+img_59(2) : 1.7551
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4:  img_55, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8670): 2
+  img_40    (0.8608): 6
+  img_16    (0.8587): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+564 class(es) detected in memeory of length 1660
+3.2317sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.8555): 2
+  img_16    (0.8512): 3
+  img_40    (0.8499): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+301 class(es) detected in memeory of length 979
+2.0103sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.8507): 6
+  img_16    (0.8445): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+150 class(es) detected in memeory of length 368
+1.2356sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9811): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0360sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.5355
+img_40(6) : 2.5614
+img_59(2) : 1.7225
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5:  img_51, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.9036): 6
+  img_59    (0.8890): 2
+  img_55    (0.8835): 8
+  img_16    (0.8303): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+738 class(es) detected in memeory of length 2187
+3.3578sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.8940): 6
+  img_59    (0.8740): 2
+  img_55    (0.8722): 8
+  img_16    (0.8648): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+490 class(es) detected in memeory of length 1497
+2.6785sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.8615): 8
+  img_40    (0.8592): 6
+  img_16    (0.8465): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+235 class(es) detected in memeory of length 810
+1.4285sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.8367): 8
+  img_16    (0.8261): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+142 class(es) detected in memeory of length 300
+1.1218sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9759): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0257sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0120sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0125sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0053sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.3436
+img_55(8) : 3.4539
+img_40(6) : 2.6568
+img_59(2) : 1.7630
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_6:  img_30, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9002): 2
+  img_55    (0.8960): 8
+  img_51    (0.8930): 6
+  img_40    (0.8608): 6
+  img_16    (0.8550): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+890 class(es) detected in memeory of length 2591
+4.0554sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9023): 3
+  img_59    (0.8982): 2
+  img_55    (0.8862): 8
+  img_51    (0.8853): 6
+  img_40    (0.8462): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+647 class(es) detected in memeory of length 1938
+3.6708sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_40    (0.8971): 6
+  img_16    (0.8964): 3
+  img_55    (0.8773): 8
+  img_51    (0.8730): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+380 class(es) detected in memeory of length 1224
+1.6799sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.8853): 8
+  img_16    (0.8792): 3
+  img_51    (0.8584): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+144 class(es) detected in memeory of length 584
+0.6760sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_51    (0.8728): 6
+  img_16    (0.8612): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+109 class(es) detected in memeory of length 227
+0.8588sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9784): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0119sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0062sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0053sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.3726
+img_51(6) : 4.3825
+img_55(8) : 3.5448
+img_40(6) : 2.6042
+img_59(2) : 1.7984
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_7:  img_13, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9023): 7
+  img_59    (0.8993): 2
+  img_55    (0.8827): 8
+  img_51    (0.8804): 6
+  img_40    (0.8740): 6
+  img_16    (0.8546): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1026 class(es) detected in memeory of length 3002
+4.4387sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9122): 3
+  img_59    (0.9087): 2
+  img_30    (0.8977): 7
+  img_55    (0.8780): 8
+  img_51    (0.8748): 6
+  img_40    (0.8655): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+781 class(es) detected in memeory of length 2365
+4.3078sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9072): 3
+  img_40    (0.9046): 6
+  img_30    (0.8910): 7
+  img_55    (0.8688): 8
+  img_51    (0.8644): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+507 class(es) detected in memeory of length 1636
+2.5860sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9019): 8
+  img_16    (0.8945): 3
+  img_30    (0.8797): 7
+  img_51    (0.8568): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+261 class(es) detected in memeory of length 815
+1.1166sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_51    (0.8985): 6
+  img_16    (0.8903): 3
+  img_30    (0.8667): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+114 class(es) detected in memeory of length 413
+0.5839sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.8875): 7
+  img_16    (0.8736): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+84 class(es) detected in memeory of length 191
+0.6924sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9736): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0088sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0045sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.3061
+img_30(7) : 5.3251
+img_51(6) : 4.3748
+img_55(8) : 3.5315
+img_40(6) : 2.6441
+img_59(2) : 1.8080
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_8:  img_23, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9209): 2
+  img_13    (0.9003): 4
+  img_30    (0.8929): 7
+  img_55    (0.8828): 8
+  img_51    (0.8790): 6
+  img_40    (0.8620): 6
+  img_16    (0.8452): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1183 class(es) detected in memeory of length 3479
+4.3160sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9284): 3
+  img_59    (0.9272): 2
+  img_13    (0.8952): 4
+  img_30    (0.8866): 7
+  img_55    (0.8736): 8
+  img_51    (0.8633): 6
+  img_40    (0.8488): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+933 class(es) detected in memeory of length 2838
+4.6352sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9219): 3
+  img_40    (0.9178): 6
+  img_13    (0.8874): 4
+  img_30    (0.8770): 7
+  img_55    (0.8680): 8
+  img_51    (0.8523): 6
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+664 class(es) detected in memeory of length 2086
+2.7505sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9127): 8
+  img_16    (0.9103): 3
+  img_13    (0.8743): 4
+  img_30    (0.8632): 7
+  img_51    (0.8319): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+372 class(es) detected in memeory of length 1083
+1.5515sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_51    (0.9018): 6
+  img_16    (0.8982): 3
+  img_13    (0.8677): 4
+  img_30    (0.8432): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+209 class(es) detected in memeory of length 634
+0.9389sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.8930): 7
+  img_16    (0.8859): 3
+  img_13    (0.8603): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+107 class(es) detected in memeory of length 391
+0.3107sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_13    (0.8608): 4
+  img_16    (0.8435): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+82 class(es) detected in memeory of length 172
+0.7064sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9739): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0098sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.2073
+img_13(4) : 6.1460
+img_30(7) : 5.2559
+img_51(6) : 4.3283
+img_55(8) : 3.5371
+img_40(6) : 2.6286
+img_59(2) : 1.8481
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_9:  img_31, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9201): 7
+  img_23    (0.9102): 1
+  img_59    (0.9069): 2
+  img_55    (0.8846): 8
+  img_13    (0.8826): 4
+  img_51    (0.8703): 6
+  img_40    (0.8508): 6
+  img_16    (0.8390): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1279 class(es) detected in memeory of length 3864
+5.4254sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9232): 3
+  img_30    (0.9167): 7
+  img_59    (0.9157): 2
+  img_23    (0.9080): 1
+  img_13    (0.8821): 4
+  img_55    (0.8780): 8
+  img_51    (0.8629): 6
+  img_40    (0.8436): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1056 class(es) detected in memeory of length 3236
+5.3486sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9209): 3
+  img_40    (0.9181): 6
+  img_30    (0.9124): 7
+  img_23    (0.9055): 1
+  img_13    (0.8747): 4
+  img_55    (0.8671): 8
+  img_51    (0.8537): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+778 class(es) detected in memeory of length 2477
+3.7252sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9260): 8
+  img_16    (0.9229): 3
+  img_23    (0.8993): 1
+  img_30    (0.8989): 7
+  img_13    (0.8714): 4
+  img_51    (0.8432): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+457 class(es) detected in memeory of length 1297
+2.0319sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_51    (0.9269): 6
+  img_16    (0.9220): 3
+  img_23    (0.8959): 1
+  img_30    (0.8908): 7
+  img_13    (0.8753): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+285 class(es) detected in memeory of length 843
+1.4132sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9460): 7
+  img_16    (0.9348): 3
+  img_23    (0.8866): 1
+  img_13    (0.8751): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+175 class(es) detected in memeory of length 529
+0.5609sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_13    (0.9496): 4
+  img_16    (0.9372): 3
+  img_23    (0.8602): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+58 class(es) detected in memeory of length 279
+0.1393sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.9610): 1
+  img_16    (0.9379): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+47 class(es) detected in memeory of length 110
+0.4302sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9727): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0100sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0050sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0050sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0050sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.3107
+img_23(1) : 7.2266
+img_13(4) : 6.2108
+img_30(7) : 5.4850
+img_51(6) : 4.3569
+img_55(8) : 3.5557
+img_40(6) : 2.6125
+img_59(2) : 1.8227
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_10:  img_44, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9124): 7
+  img_59    (0.9099): 2
+  img_13    (0.8974): 4
+  img_23    (0.8935): 1
+  img_31    (0.8902): 7
+  img_55    (0.8888): 8
+  img_51    (0.8822): 6
+  img_40    (0.8682): 6
+  img_16    (0.8392): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1436 class(es) detected in memeory of length 4409
+5.4708sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9058): 7
+  img_59    (0.9022): 2
+  img_13    (0.8963): 4
+  img_16    (0.8958): 3
+  img_31    (0.8795): 7
+  img_23    (0.8791): 1
+  img_55    (0.8764): 8
+  img_51    (0.8763): 6
+  img_40    (0.8564): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1225 class(es) detected in memeory of length 3779
+4.3877sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9022): 7
+  img_13    (0.8912): 4
+  img_40    (0.8856): 6
+  img_16    (0.8849): 3
+  img_31    (0.8709): 7
+  img_23    (0.8696): 1
+  img_55    (0.8671): 8
+  img_51    (0.8628): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+927 class(es) detected in memeory of length 2955
+4.3876sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.8950): 7
+  img_13    (0.8837): 4
+  img_55    (0.8824): 8
+  img_16    (0.8753): 3
+  img_31    (0.8612): 7
+  img_23    (0.8557): 1
+  img_51    (0.8514): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+584 class(es) detected in memeory of length 1655
+2.5663sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.8818): 7
+  img_13    (0.8806): 4
+  img_51    (0.8780): 6
+  img_16    (0.8660): 3
+  img_31    (0.8540): 7
+  img_23    (0.8407): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+384 class(es) detected in memeory of length 1055
+2.1362sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_13    (0.8823): 4
+  img_30    (0.8804): 7
+  img_16    (0.8678): 3
+  img_31    (0.8639): 7
+  img_23    (0.8355): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+250 class(es) detected in memeory of length 710
+0.9636sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_13    (0.8785): 4
+  img_31    (0.8748): 7
+  img_16    (0.8570): 3
+  img_23    (0.8279): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+111 class(es) detected in memeory of length 432
+0.4444sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_31    (0.8884): 7
+  img_23    (0.8810): 1
+  img_16    (0.8590): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+40 class(es) detected in memeory of length 167
+0.2037sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_31    (0.9749): 7
+  img_16    (0.9494): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+22 class(es) detected in memeory of length 49
+0.1502sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9713): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0050sec(s) for main.<locals>.image_processor_register
+img_16(3) : 10.8656
+img_31(7) : 7.9579
+img_23(1) : 6.8830
+img_13(4) : 6.2101
+img_30(7) : 5.3777
+img_51(6) : 4.3505
+img_55(8) : 3.5147
+img_40(6) : 2.6102
+img_59(2) : 1.8120
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_11:  img_25, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9378): 7
+  img_13    (0.9222): 4
+  img_44    (0.9014): 9
+  img_31    (0.9013): 7
+  img_55    (0.8926): 8
+  img_59    (0.8904): 2
+  img_51    (0.8735): 6
+  img_23    (0.8710): 1
+  img_40    (0.8544): 6
+  img_16    (0.8424): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1608 class(es) detected in memeory of length 4931
+6.0148sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9354): 7
+  img_13    (0.9203): 4
+  img_44    (0.8999): 9
+  img_16    (0.8986): 3
+  img_31    (0.8959): 7
+  img_59    (0.8922): 2
+  img_55    (0.8814): 8
+  img_51    (0.8639): 6
+  img_23    (0.8629): 1
+  img_40    (0.8459): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1399 class(es) detected in memeory of length 4304
+4.4774sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9310): 7
+  img_13    (0.9141): 4
+  img_44    (0.8929): 9
+  img_40    (0.8841): 6
+  img_16    (0.8828): 3
+  img_31    (0.8818): 7
+  img_55    (0.8739): 8
+  img_51    (0.8516): 6
+  img_23    (0.8479): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1093 class(es) detected in memeory of length 3431
+4.2280sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9275): 7
+  img_13    (0.9034): 4
+  img_44    (0.8830): 9
+  img_55    (0.8754): 8
+  img_16    (0.8701): 3
+  img_31    (0.8666): 7
+  img_23    (0.8328): 1
+  img_51    (0.8324): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+753 class(es) detected in memeory of length 2051
+2.8019sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9134): 7
+  img_13    (0.8952): 4
+  img_44    (0.8791): 9
+  img_51    (0.8697): 6
+  img_16    (0.8641): 3
+  img_31    (0.8637): 7
+  img_23    (0.8207): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+522 class(es) detected in memeory of length 1319
+1.8578sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.8816): 9
+  img_30    (0.8750): 7
+  img_13    (0.8689): 4
+  img_31    (0.8605): 7
+  img_16    (0.8581): 3
+  img_23    (0.8182): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+368 class(es) detected in memeory of length 932
+1.2735sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.8926): 9
+  img_31    (0.8644): 7
+  img_13    (0.8588): 4
+  img_16    (0.8397): 3
+  img_23    (0.8019): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+212 class(es) detected in memeory of length 616
+0.6692sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.8885): 9
+  img_31    (0.8594): 7
+  img_23    (0.8428): 1
+  img_16    (0.8184): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+91 class(es) detected in memeory of length 307
+0.3808sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.8551): 9
+  img_31    (0.8519): 7
+  img_16    (0.8247): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+34 class(es) detected in memeory of length 135
+0.1998sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.9831): 9
+  img_16    (0.9630): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+23 class(es) detected in memeory of length 64
+0.1056sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9721): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (1.0000): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0080sec(s) for main.<locals>.image_processor_register
+img_16(3) : 10.6341
+img_44(9) : 8.9571
+img_31(7) : 7.8455
+img_23(1) : 6.6982
+img_13(4) : 6.2829
+img_30(7) : 5.5201
+img_51(6) : 4.2912
+img_55(8) : 3.5233
+img_40(6) : 2.5844
+img_59(2) : 1.7826
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_12:  img_24, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9240): 2
+  img_31    (0.9173): 7
+  img_23    (0.9155): 1
+  img_30    (0.9047): 7
+  img_25    (0.8847): 7
+  img_13    (0.8845): 4
+  img_44    (0.8767): 9
+  img_55    (0.8688): 8
+  img_51    (0.8681): 6
+  img_40    (0.8576): 6
+  img_16    (0.8458): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1743 class(es) detected in memeory of length 5455
+5.8800sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9475): 3
+  img_59    (0.9403): 2
+  img_23    (0.9151): 1
+  img_31    (0.9123): 7
+  img_30    (0.8974): 7
+  img_13    (0.8834): 4
+  img_25    (0.8809): 7
+  img_44    (0.8673): 9
+  img_55    (0.8579): 8
+  img_40    (0.8528): 6
+  img_51    (0.8514): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1551 class(es) detected in memeory of length 4810
+4.2442sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9509): 3
+  img_40    (0.9426): 6
+  img_31    (0.9125): 7
+  img_23    (0.9100): 1
+  img_30    (0.8894): 7
+  img_13    (0.8836): 4
+  img_25    (0.8678): 7
+  img_44    (0.8631): 9
+  img_55    (0.8479): 8
+  img_51    (0.8338): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1229 class(es) detected in memeory of length 3900
+4.4920sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9664): 3
+  img_55    (0.9659): 8
+  img_31    (0.9196): 7
+  img_23    (0.9048): 1
+  img_13    (0.8838): 4
+  img_30    (0.8775): 7
+  img_44    (0.8635): 9
+  img_25    (0.8626): 7
+  img_51    (0.8220): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+873 class(es) detected in memeory of length 2439
+2.9162sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9822): 3
+  img_51    (0.9754): 6
+  img_31    (0.9267): 7
+  img_23    (0.9006): 1
+  img_13    (0.8905): 4
+  img_30    (0.8698): 7
+  img_44    (0.8679): 9
+  img_25    (0.8670): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+612 class(es) detected in memeory of length 1562
+1.5801sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9884): 3
+  img_30    (0.9860): 7
+  img_31    (0.9426): 7
+  img_23    (0.8935): 1
+  img_13    (0.8822): 4
+  img_44    (0.8744): 9
+  img_25    (0.8658): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+451 class(es) detected in memeory of length 1099
+0.9090sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9899): 3
+  img_13    (0.9820): 4
+  img_31    (0.9467): 7
+  img_44    (0.8669): 9
+  img_23    (0.8535): 1
+  img_25    (0.8495): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+290 class(es) detected in memeory of length 771
+0.4715sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.9911): 1
+  img_16    (0.9699): 3
+  img_31    (0.9680): 7
+  img_44    (0.8853): 9
+  img_25    (0.8475): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+166 class(es) detected in memeory of length 434
+0.3996sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_31    (0.9954): 7
+  img_44    (0.9774): 9
+  img_16    (0.9696): 3
+  img_25    (0.8544): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+74 class(es) detected in memeory of length 223
+0.1388sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_44    (0.9957): 9
+  img_25    (0.9845): 7
+  img_16    (0.9682): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+29 class(es) detected in memeory of length 120
+0.1030sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_25    (0.9943): 7
+  img_16    (0.9664): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+5 class(es) detected in memeory of length 37
+0.0371sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9711): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+0.0040sec(s) for main.<locals>.image_processor_register
+img_16(3) : 11.5163
+img_25(7) : 9.7590
+img_44(9) : 8.9384
+img_31(7) : 8.4412
+img_23(1) : 7.2842
+img_13(4) : 6.2900
+img_30(7) : 5.4247
+img_51(6) : 4.3506
+img_55(8) : 3.5405
+img_40(6) : 2.6530
+img_59(2) : 1.8643
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_13:  img_26, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9290): 2
+  img_13    (0.9221): 4
+  img_30    (0.9165): 7
+  img_25    (0.9163): 7
+  img_23    (0.9151): 1
+  img_24    (0.9103): 5
+  img_55    (0.9019): 8
+  img_51    (0.9002): 6
+  img_44    (0.8978): 9
+  img_31    (0.8976): 7
+  img_40    (0.8852): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1904 class(es) detected in memeory of length 5891
+6.2290sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9426): 3
+  img_59    (0.9423): 2
+  img_13    (0.9259): 4
+  img_24    (0.9180): 5
+  img_23    (0.9124): 1
+  img_25    (0.9113): 7
+  img_30    (0.9083): 7
+  img_31    (0.8998): 7
+  img_44    (0.8944): 9
+  img_55    (0.8912): 8
+  img_51    (0.8907): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1697 class(es) detected in memeory of length 5232
+5.3097sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9482): 3
+  img_40    (0.9435): 6
+  img_24    (0.9249): 5
+  img_13    (0.9236): 4
+  img_23    (0.9120): 1
+  img_31    (0.9033): 7
+  img_30    (0.9018): 7
+  img_25    (0.8917): 7
+  img_44    (0.8850): 9
+  img_51    (0.8760): 6
+  img_55    (0.8757): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1364 class(es) detected in memeory of length 4312
+4.1569sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9547): 8
+  img_16    (0.9524): 3
+  img_24    (0.9411): 5
+  img_13    (0.9151): 4
+  img_31    (0.9110): 7
+  img_23    (0.9091): 1
+  img_30    (0.8827): 7
+  img_44    (0.8774): 9
+  img_25    (0.8707): 7
+  img_51    (0.8609): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+979 class(es) detected in memeory of length 2804
+3.3230sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9557): 3
+  img_24    (0.9548): 5
+  img_51    (0.9547): 6
+  img_31    (0.9131): 7
+  img_13    (0.9074): 4
+  img_23    (0.9047): 1
+  img_44    (0.8729): 9
+  img_30    (0.8661): 7
+  img_25    (0.8599): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+690 class(es) detected in memeory of length 1872
+2.2501sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9649): 5
+  img_16    (0.9600): 3
+  img_30    (0.9598): 7
+  img_31    (0.9282): 7
+  img_13    (0.8989): 4
+  img_23    (0.8982): 1
+  img_44    (0.8768): 9
+  img_25    (0.8578): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+477 class(es) detected in memeory of length 1230
+1.3325sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9724): 5
+  img_13    (0.9668): 4
+  img_16    (0.9649): 3
+  img_31    (0.9372): 7
+  img_44    (0.8760): 9
+  img_23    (0.8683): 1
+  img_25    (0.8459): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+302 class(es) detected in memeory of length 820
+0.6215sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9837): 5
+  img_23    (0.9792): 1
+  img_31    (0.9622): 7
+  img_16    (0.9568): 3
+  img_44    (0.8877): 9
+  img_25    (0.8447): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+166 class(es) detected in memeory of length 439
+0.3953sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9892): 5
+  img_31    (0.9854): 7
+  img_44    (0.9694): 9
+  img_16    (0.9590): 3
+  img_25    (0.8497): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+75 class(es) detected in memeory of length 224
+0.1631sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9976): 5
+  img_44    (0.9936): 9
+  img_25    (0.9849): 7
+  img_16    (0.9658): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+29 class(es) detected in memeory of length 121
+0.1990sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9996): 5
+  img_25    (0.9946): 7
+  img_16    (0.9668): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4 class(es) detected in memeory of length 38
+0.0451sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9994): 5
+  img_16    (0.9718): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1 class(es) detected in memeory of length 2
+0.0080sec(s) for main.<locals>.image_processor_register
+img_24(5) : 11.5556
+img_16(3) : 10.5440
+img_25(7) : 9.8275
+img_44(9) : 9.0309
+img_31(7) : 8.3378
+img_23(1) : 7.2990
+img_13(4) : 6.4597
+img_30(7) : 5.4352
+img_51(6) : 4.4824
+img_55(8) : 3.6236
+img_59(2) : 1.8713
+img_40(6) : 1.8287
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_14:  img_37, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9295): 2
+  img_24    (0.9295): 5
+  img_26    (0.9270): 4
+  img_31    (0.9149): 7
+  img_23    (0.9109): 1
+  img_55    (0.9065): 8
+  img_30    (0.9002): 7
+  img_44    (0.8957): 9
+  img_25    (0.8935): 7
+  img_13    (0.8920): 4
+  img_51    (0.8869): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2040 class(es) detected in memeory of length 6305
+6.9625sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9441): 3
+  img_59    (0.9362): 2
+  img_26    (0.9288): 4
+  img_24    (0.9266): 5
+  img_31    (0.9103): 7
+  img_23    (0.9077): 1
+  img_55    (0.8996): 8
+  img_30    (0.8908): 7
+  img_44    (0.8900): 9
+  img_13    (0.8888): 4
+  img_25    (0.8858): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+1846 class(es) detected in memeory of length 5694
+6.9281sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9487): 3
+  img_40    (0.9453): 6
+  img_24    (0.9328): 5
+  img_26    (0.9287): 4
+  img_31    (0.9069): 7
+  img_23    (0.9056): 1
+  img_55    (0.8884): 8
+  img_30    (0.8875): 7
+  img_13    (0.8848): 4
+  img_44    (0.8757): 9
+  img_25    (0.8747): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1489 class(es) detected in memeory of length 4730
+4.7494sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9633): 8
+  img_16    (0.9632): 3
+  img_24    (0.9515): 5
+  img_26    (0.9416): 4
+  img_31    (0.9104): 7
+  img_23    (0.9024): 1
+  img_13    (0.8812): 4
+  img_30    (0.8766): 7
+  img_44    (0.8709): 9
+  img_25    (0.8636): 7
+  img_51    (0.8461): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1082 class(es) detected in memeory of length 3177
+3.3050sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9775): 3
+  img_24    (0.9749): 5
+  img_51    (0.9731): 6
+  img_26    (0.9540): 4
+  img_31    (0.9213): 7
+  img_23    (0.9026): 1
+  img_13    (0.8846): 4
+  img_44    (0.8683): 9
+  img_30    (0.8663): 7
+  img_25    (0.8603): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+753 class(es) detected in memeory of length 2114
+2.0880sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9880): 5
+  img_16    (0.9828): 3
+  img_30    (0.9796): 7
+  img_26    (0.9615): 4
+  img_31    (0.9366): 7
+  img_23    (0.8963): 1
+  img_13    (0.8763): 4
+  img_44    (0.8731): 9
+  img_25    (0.8591): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+530 class(es) detected in memeory of length 1406
+1.1097sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9958): 5
+  img_16    (0.9882): 3
+  img_13    (0.9823): 4
+  img_26    (0.9732): 4
+  img_31    (0.9459): 7
+  img_44    (0.8676): 9
+  img_23    (0.8548): 1
+  img_25    (0.8487): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+341 class(es) detected in memeory of length 937
+0.5266sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9962): 5
+  img_23    (0.9915): 1
+  img_26    (0.9832): 4
+  img_16    (0.9725): 3
+  img_31    (0.9642): 7
+  img_44    (0.8836): 9
+  img_25    (0.8446): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+190 class(es) detected in memeory of length 531
+0.3726sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9996): 5
+  img_31    (0.9955): 7
+  img_26    (0.9891): 4
+  img_44    (0.9773): 9
+  img_16    (0.9696): 3
+  img_25    (0.8542): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+91 class(es) detected in memeory of length 312
+0.1539sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9990): 5
+  img_26    (0.9971): 4
+  img_44    (0.9950): 9
+  img_25    (0.9847): 7
+  img_16    (0.9672): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+39 class(es) detected in memeory of length 171
+0.1180sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9990): 5
+  img_26    (0.9988): 4
+  img_25    (0.9953): 7
+  img_16    (0.9674): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+11 class(es) detected in memeory of length 51
+0.0490sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9952): 5
+  img_26    (0.9946): 4
+  img_16    (0.9664): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 3
+0.0100sec(s) for main.<locals>.image_processor_register
+img_24(5) : 11.6881
+img_26(4) : 11.5776
+img_16(3) : 10.6476
+img_25(7) : 9.7644
+img_44(9) : 8.9971
+img_31(7) : 8.4060
+img_23(1) : 7.2720
+img_13(4) : 6.2900
+img_30(7) : 5.4010
+img_55(8) : 3.6578
+img_51(6) : 2.7060
+img_59(2) : 1.8657
+img_40(6) : 0.9453
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_15:   img_9, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.8776): 5
+  img_24    (0.8765): 5
+  img_16    (0.8753): 3
+  img_31    (0.8718): 7
+  img_55    (0.8709): 8
+  img_44    (0.8650): 9
+  img_59    (0.8621): 2
+  img_40    (0.8611): 6
+  img_30    (0.8601): 7
+  img_25    (0.8573): 7
+  img_26    (0.8566): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2168 class(es) detected in memeory of length 6738
+6.9585sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.8632): 5
+  img_24    (0.8627): 5
+  img_31    (0.8595): 7
+  img_16    (0.8586): 3
+  img_55    (0.8578): 8
+  img_59    (0.8527): 2
+  img_40    (0.8495): 6
+  img_44    (0.8442): 9
+  img_30    (0.8403): 7
+  img_26    (0.8402): 4
+  img_25    (0.8397): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1993 class(es) detected in memeory of length 6163
+6.1096sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8504): 5
+  img_40    (0.8444): 6
+  img_55    (0.8443): 8
+  img_37    (0.8440): 5
+  img_31    (0.8419): 7
+  img_16    (0.8405): 3
+  img_44    (0.8247): 9
+  img_30    (0.8235): 7
+  img_25    (0.8204): 7
+  img_23    (0.8191): 1
+  img_26    (0.8172): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1621 class(es) detected in memeory of length 5148
+4.8709sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8298): 5
+  img_55    (0.8279): 8
+  img_16    (0.8236): 3
+  img_37    (0.8223): 5
+  img_31    (0.8180): 7
+  img_44    (0.8006): 9
+  img_25    (0.8003): 7
+  img_30    (0.8000): 7
+  img_26    (0.7972): 4
+  img_23    (0.7957): 1
+  img_13    (0.7820): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1186 class(es) detected in memeory of length 3512
+3.7108sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8102): 5
+  img_51    (0.8066): 6
+  img_16    (0.8028): 3
+  img_37    (0.8002): 5
+  img_31    (0.7978): 7
+  img_25    (0.7840): 7
+  img_30    (0.7828): 7
+  img_44    (0.7810): 9
+  img_26    (0.7760): 4
+  img_23    (0.7688): 1
+  img_13    (0.7611): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+821 class(es) detected in memeory of length 2385
+3.4432sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8195): 5
+  img_30    (0.8191): 7
+  img_37    (0.8106): 5
+  img_16    (0.8097): 3
+  img_31    (0.8045): 7
+  img_26    (0.7869): 4
+  img_25    (0.7825): 7
+  img_44    (0.7766): 9
+  img_23    (0.7656): 1
+  img_13    (0.7568): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+569 class(es) detected in memeory of length 1575
+1.9555sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8352): 5
+  img_13    (0.8327): 4
+  img_37    (0.8326): 5
+  img_16    (0.8259): 3
+  img_31    (0.8190): 7
+  img_26    (0.8094): 4
+  img_44    (0.7891): 9
+  img_25    (0.7873): 7
+  img_23    (0.7540): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+353 class(es) detected in memeory of length 1014
+0.8330sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8922): 5
+  img_37    (0.8910): 5
+  img_23    (0.8874): 1
+  img_26    (0.8771): 4
+  img_31    (0.8676): 7
+  img_16    (0.8663): 3
+  img_44    (0.8152): 9
+  img_25    (0.8092): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+197 class(es) detected in memeory of length 588
+0.4857sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9677): 5
+  img_37    (0.9676): 5
+  img_31    (0.9641): 7
+  img_44    (0.9586): 9
+  img_26    (0.9570): 4
+  img_16    (0.9382): 3
+  img_25    (0.8498): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+94 class(es) detected in memeory of length 340
+0.2062sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9941): 5
+  img_37    (0.9936): 5
+  img_26    (0.9918): 4
+  img_44    (0.9909): 9
+  img_25    (0.9802): 7
+  img_16    (0.9631): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+43 class(es) detected in memeory of length 190
+0.1311sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9996): 5
+  img_24    (0.9991): 5
+  img_26    (0.9989): 4
+  img_25    (0.9949): 7
+  img_16    (0.9670): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+11 class(es) detected in memeory of length 52
+0.0480sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_37    (1.0000): 5
+  img_24    (0.9952): 5
+  img_26    (0.9946): 4
+  img_16    (0.9664): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 4
+0.0120sec(s) for main.<locals>.image_processor_register
+img_24(5) : 10.7326
+img_37(5) : 10.7025
+img_16(3) : 10.5375
+img_26(4) : 10.5029
+img_25(7) : 9.3056
+img_44(9) : 8.4460
+img_31(7) : 7.6442
+img_30(7) : 4.9258
+img_23(1) : 4.7906
+img_55(8) : 3.4009
+img_13(4) : 3.1326
+img_40(6) : 2.5550
+img_59(2) : 1.7148
+img_51(6) : 0.8066
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_16:  img_22, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_59    (0.9387): 2
+  img_24    (0.9296): 5
+  img_37    (0.9273): 5
+  img_26    (0.9264): 4
+  img_30    (0.9227): 7
+  img_23    (0.9225): 1
+  img_31    (0.9090): 7
+  img_13    (0.9011): 4
+  img_25    (0.9010): 7
+  img_44    (0.8954): 9
+  img_51    (0.8875): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2344 class(es) detected in memeory of length 7258
+6.1756sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9547): 3
+  img_59    (0.9482): 2
+  img_26    (0.9306): 4
+  img_24    (0.9286): 5
+  img_37    (0.9256): 5
+  img_23    (0.9166): 1
+  img_30    (0.9149): 7
+  img_31    (0.9046): 7
+  img_25    (0.8980): 7
+  img_13    (0.8976): 4
+  img_44    (0.8898): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2200 class(es) detected in memeory of length 6683
+5.2691sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9479): 3
+  img_40    (0.9435): 6
+  img_26    (0.9328): 4
+  img_37    (0.9296): 5
+  img_24    (0.9295): 5
+  img_30    (0.9098): 7
+  img_23    (0.9070): 1
+  img_31    (0.9019): 7
+  img_13    (0.8929): 4
+  img_25    (0.8887): 7
+  img_44    (0.8793): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1817 class(es) detected in memeory of length 5622
+6.2556sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9584): 3
+  img_55    (0.9567): 8
+  img_24    (0.9484): 5
+  img_37    (0.9450): 5
+  img_26    (0.9416): 4
+  img_31    (0.9092): 7
+  img_23    (0.9006): 1
+  img_30    (0.8971): 7
+  img_13    (0.8861): 4
+  img_25    (0.8767): 7
+  img_44    (0.8757): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1360 class(es) detected in memeory of length 3904
+3.9702sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9647): 5
+  img_16    (0.9642): 3
+  img_51    (0.9598): 6
+  img_37    (0.9589): 5
+  img_26    (0.9433): 4
+  img_31    (0.9070): 7
+  img_23    (0.8920): 1
+  img_13    (0.8832): 4
+  img_30    (0.8772): 7
+  img_25    (0.8728): 7
+  img_44    (0.8711): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+950 class(es) detected in memeory of length 2695
+2.4281sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9756): 5
+  img_30    (0.9708): 7
+  img_37    (0.9694): 5
+  img_16    (0.9691): 3
+  img_26    (0.9506): 4
+  img_31    (0.9244): 7
+  img_44    (0.8810): 9
+  img_23    (0.8809): 1
+  img_25    (0.8769): 7
+  img_13    (0.8707): 4
+  img_9     (0.8132): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+680 class(es) detected in memeory of length 1788
+1.5418sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9872): 5
+  img_37    (0.9854): 5
+  img_16    (0.9788): 3
+  img_13    (0.9744): 4
+  img_26    (0.9646): 4
+  img_31    (0.9384): 7
+  img_44    (0.8764): 9
+  img_25    (0.8599): 7
+  img_23    (0.8487): 1
+  img_9     (0.8335): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+429 class(es) detected in memeory of length 1165
+0.8403sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9952): 5
+  img_24    (0.9931): 5
+  img_23    (0.9898): 1
+  img_26    (0.9806): 4
+  img_16    (0.9727): 3
+  img_31    (0.9612): 7
+  img_9     (0.8899): 0
+  img_44    (0.8844): 9
+  img_25    (0.8455): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+238 class(es) detected in memeory of length 690
+0.5539sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9966): 5
+  img_24    (0.9965): 5
+  img_31    (0.9959): 7
+  img_26    (0.9862): 4
+  img_44    (0.9764): 9
+  img_16    (0.9713): 3
+  img_9     (0.9656): 0
+  img_25    (0.8534): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+116 class(es) detected in memeory of length 403
+0.2239sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9992): 5
+  img_37    (0.9983): 5
+  img_26    (0.9969): 4
+  img_44    (0.9957): 9
+  img_9     (0.9941): 0
+  img_25    (0.9841): 7
+  img_16    (0.9682): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+50 class(es) detected in memeory of length 212
+0.1381sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9999): 5
+  img_9     (0.9995): 0
+  img_24    (0.9990): 5
+  img_26    (0.9988): 4
+  img_25    (0.9951): 7
+  img_16    (0.9672): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+12 class(es) detected in memeory of length 57
+0.1018sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9996): 5
+  img_24    (0.9957): 5
+  img_26    (0.9951): 4
+  img_16    (0.9668): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 4
+0.0120sec(s) for main.<locals>.image_processor_register
+img_24(5) : 11.6472
+img_37(5) : 11.6306
+img_26(4) : 11.5473
+img_16(3) : 10.6193
+img_25(7) : 9.8520
+img_44(9) : 9.0253
+img_31(7) : 8.3515
+img_23(1) : 7.2580
+img_13(4) : 6.3061
+img_9(0)  : 5.4959
+img_30(7) : 5.4926
+img_59(2) : 1.8869
+img_51(6) : 1.8473
+img_55(8) : 0.9567
+img_40(6) : 0.9435
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_17:  img_60, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.9098): 0
+  img_24    (0.9038): 5
+  img_59    (0.8997): 2
+  img_22    (0.8997): 1
+  img_37    (0.8994): 5
+  img_26    (0.8915): 4
+  img_31    (0.8907): 7
+  img_23    (0.8869): 1
+  img_13    (0.8816): 4
+  img_25    (0.8788): 7
+  img_40    (0.8765): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2447 class(es) detected in memeory of length 7572
+6.6892sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9258): 3
+  img_59    (0.9160): 2
+  img_24    (0.9105): 5
+  img_22    (0.9046): 1
+  img_37    (0.9017): 5
+  img_26    (0.9013): 4
+  img_9     (0.8977): 0
+  img_31    (0.8893): 7
+  img_23    (0.8866): 1
+  img_13    (0.8857): 4
+  img_25    (0.8775): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2302 class(es) detected in memeory of length 7050
+6.0021sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9447): 3
+  img_40    (0.9405): 6
+  img_24    (0.9275): 5
+  img_22    (0.9172): 1
+  img_37    (0.9166): 5
+  img_26    (0.9165): 4
+  img_31    (0.8952): 7
+  img_13    (0.8945): 4
+  img_23    (0.8919): 1
+  img_44    (0.8757): 9
+  img_25    (0.8730): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1925 class(es) detected in memeory of length 5996
+5.6536sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9648): 3
+  img_55    (0.9642): 8
+  img_24    (0.9508): 5
+  img_37    (0.9440): 5
+  img_22    (0.9384): 1
+  img_26    (0.9363): 4
+  img_31    (0.9078): 7
+  img_13    (0.8978): 4
+  img_23    (0.8941): 1
+  img_25    (0.8764): 7
+  img_44    (0.8761): 9
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+1448 class(es) detected in memeory of length 4238
+4.4953sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9777): 3
+  img_24    (0.9737): 5
+  img_51    (0.9710): 6
+  img_37    (0.9688): 5
+  img_22    (0.9551): 1
+  img_26    (0.9479): 4
+  img_31    (0.9172): 7
+  img_13    (0.8928): 4
+  img_23    (0.8904): 1
+  img_25    (0.8745): 7
+  img_44    (0.8723): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1018 class(es) detected in memeory of length 2970
+2.8087sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9851): 5
+  img_16    (0.9811): 3
+  img_37    (0.9794): 5
+  img_30    (0.9769): 7
+  img_22    (0.9657): 1
+  img_26    (0.9572): 4
+  img_31    (0.9346): 7
+  img_13    (0.8837): 4
+  img_23    (0.8827): 1
+  img_44    (0.8747): 9
+  img_25    (0.8716): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+717 class(es) detected in memeory of length 1949
+3.5418sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9913): 5
+  img_37    (0.9896): 5
+  img_16    (0.9845): 3
+  img_22    (0.9804): 1
+  img_13    (0.9783): 4
+  img_26    (0.9668): 4
+  img_31    (0.9421): 7
+  img_44    (0.8658): 9
+  img_25    (0.8547): 7
+  img_23    (0.8480): 1
+  img_9     (0.8354): 0
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+448 class(es) detected in memeory of length 1249
+1.3367sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9944): 5
+  img_22    (0.9941): 1
+  img_24    (0.9922): 5
+  img_23    (0.9895): 1
+  img_26    (0.9792): 4
+  img_16    (0.9730): 3
+  img_31    (0.9602): 7
+  img_9     (0.8892): 0
+  img_44    (0.8813): 9
+  img_25    (0.8443): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+244 class(es) detected in memeory of length 751
+0.5814sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9980): 1
+  img_37    (0.9968): 5
+  img_24    (0.9968): 5
+  img_31    (0.9962): 7
+  img_26    (0.9862): 4
+  img_44    (0.9759): 9
+  img_16    (0.9716): 3
+  img_9     (0.9660): 0
+  img_25    (0.8526): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+119 class(es) detected in memeory of length 436
+0.3696sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9993): 5
+  img_22    (0.9992): 1
+  img_37    (0.9985): 5
+  img_26    (0.9970): 4
+  img_44    (0.9958): 9
+  img_9     (0.9944): 0
+  img_25    (0.9843): 7
+  img_16    (0.9683): 3
+0.0050sec(s) for main.<locals>.image_processor_getSimilar
+52 class(es) detected in memeory of length 232
+0.1330sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9998): 5
+  img_22    (0.9997): 1
+  img_9     (0.9996): 0
+  img_24    (0.9989): 5
+  img_26    (0.9987): 4
+  img_25    (0.9953): 7
+  img_16    (0.9674): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+16 class(es) detected in memeory of length 67
+0.0838sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9994): 1
+  img_37    (0.9990): 5
+  img_24    (0.9962): 5
+  img_26    (0.9956): 4
+  img_16    (0.9674): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 5
+0.0086sec(s) for main.<locals>.image_processor_register
+img_24(5) : 11.6261
+img_37(5) : 11.5881
+img_22(1) : 11.5515
+img_26(4) : 11.4741
+img_16(3) : 10.6264
+img_25(7) : 9.7830
+img_31(7) : 8.3334
+img_44(9) : 7.2176
+img_23(1) : 7.1701
+img_9(0)  : 6.4922
+img_13(4) : 6.3142
+img_40(6) : 1.8170
+img_59(2) : 1.8157
+img_30(7) : 0.9769
+img_51(6) : 0.9710
+img_55(8) : 0.9642
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_18:   img_3, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9379): 4
+  img_22    (0.9328): 1
+  img_59    (0.9312): 2
+  img_37    (0.9306): 5
+  img_24    (0.9253): 5
+  img_23    (0.9228): 1
+  img_30    (0.9207): 7
+  img_31    (0.9169): 7
+  img_13    (0.9052): 4
+  img_60    (0.8997): 0
+  img_51    (0.8974): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2657 class(es) detected in memeory of length 8099
+6.6851sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9566): 3
+  img_59    (0.9494): 2
+  img_26    (0.9475): 4
+  img_22    (0.9391): 1
+  img_24    (0.9373): 5
+  img_37    (0.9319): 5
+  img_31    (0.9255): 7
+  img_23    (0.9241): 1
+  img_30    (0.9183): 7
+  img_60    (0.9132): 0
+  img_13    (0.9122): 4
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+2512 class(es) detected in memeory of length 7560
+5.4370sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9653): 3
+  img_40    (0.9594): 6
+  img_26    (0.9501): 4
+  img_24    (0.9454): 5
+  img_22    (0.9424): 1
+  img_60    (0.9361): 0
+  img_37    (0.9354): 5
+  img_31    (0.9215): 7
+  img_23    (0.9196): 1
+  img_13    (0.9093): 4
+  img_30    (0.9030): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2088 class(es) detected in memeory of length 6471
+5.9995sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9832): 3
+  img_55    (0.9810): 8
+  img_24    (0.9676): 5
+  img_60    (0.9642): 0
+  img_22    (0.9603): 1
+  img_37    (0.9601): 5
+  img_26    (0.9561): 4
+  img_31    (0.9269): 7
+  img_23    (0.9129): 1
+  img_13    (0.9005): 4
+  img_30    (0.8869): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1542 class(es) detected in memeory of length 4637
+4.3615sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_16    (0.9891): 3
+  img_24    (0.9858): 5
+  img_51    (0.9815): 6
+  img_60    (0.9804): 0
+  img_37    (0.9800): 5
+  img_22    (0.9675): 1
+  img_26    (0.9603): 4
+  img_31    (0.9267): 7
+  img_23    (0.9033): 1
+  img_13    (0.8960): 4
+  img_44    (0.8720): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1085 class(es) detected in memeory of length 3280
+2.5138sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9949): 5
+  img_16    (0.9912): 3
+  img_37    (0.9893): 5
+  img_60    (0.9875): 0
+  img_30    (0.9855): 7
+  img_22    (0.9758): 1
+  img_26    (0.9669): 4
+  img_31    (0.9419): 7
+  img_23    (0.8929): 1
+  img_13    (0.8825): 4
+  img_44    (0.8753): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+756 class(es) detected in memeory of length 2118
+1.5982sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9983): 5
+  img_37    (0.9965): 5
+  img_60    (0.9928): 0
+  img_16    (0.9916): 3
+  img_22    (0.9872): 1
+  img_13    (0.9816): 4
+  img_26    (0.9733): 4
+  img_31    (0.9456): 7
+  img_44    (0.8654): 9
+  img_23    (0.8519): 1
+  img_25    (0.8481): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+480 class(es) detected in memeory of length 1395
+0.6629sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9948): 0
+  img_22    (0.9944): 1
+  img_37    (0.9943): 5
+  img_24    (0.9917): 5
+  img_23    (0.9909): 1
+  img_26    (0.9785): 4
+  img_16    (0.9782): 3
+  img_31    (0.9597): 7
+  img_9     (0.8881): 0
+  img_44    (0.8808): 9
+  img_25    (0.8401): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+250 class(es) detected in memeory of length 792
+0.6046sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9987): 5
+  img_24    (0.9986): 5
+  img_60    (0.9979): 0
+  img_22    (0.9976): 1
+  img_31    (0.9965): 7
+  img_26    (0.9881): 4
+  img_44    (0.9769): 9
+  img_16    (0.9709): 3
+  img_9     (0.9672): 0
+  img_25    (0.8538): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+121 class(es) detected in memeory of length 455
+0.3871sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9995): 0
+  img_22    (0.9994): 1
+  img_24    (0.9994): 5
+  img_37    (0.9984): 5
+  img_26    (0.9970): 4
+  img_44    (0.9962): 9
+  img_9     (0.9943): 0
+  img_25    (0.9843): 7
+  img_16    (0.9688): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+54 class(es) detected in memeory of length 243
+0.1767sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9992): 5
+  img_60    (0.9992): 0
+  img_22    (0.9991): 1
+  img_9     (0.9988): 0
+  img_24    (0.9982): 5
+  img_26    (0.9981): 4
+  img_25    (0.9961): 7
+  img_16    (0.9682): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+21 class(es) detected in memeory of length 72
+0.0720sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9999): 0
+  img_22    (0.9994): 1
+  img_37    (0.9989): 5
+  img_24    (0.9963): 5
+  img_26    (0.9957): 4
+  img_16    (0.9674): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 8
+0.0120sec(s) for main.<locals>.image_processor_register
+img_24(5) : 11.7388
+img_37(5) : 11.7133
+img_22(1) : 11.6950
+img_60(0) : 11.6653
+img_26(4) : 11.6494
+img_16(3) : 10.7307
+img_31(7) : 8.4612
+img_23(1) : 7.3184
+img_13(4) : 6.3872
+img_44(9) : 5.4665
+img_30(7) : 4.6144
+img_25(7) : 4.5225
+img_9(0)  : 3.8485
+img_59(2) : 1.8807
+img_51(6) : 1.8789
+img_55(8) : 0.9810
+img_40(6) : 0.9594
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_19:   img_7, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.9063): 0
+  img_40    (0.8851): 6
+  img_51    (0.8801): 6
+  img_16    (0.8771): 3
+  img_60    (0.8727): 0
+  img_37    (0.8701): 5
+  img_24    (0.8689): 5
+  img_3     (0.8621): 9
+  img_55    (0.8605): 8
+  img_26    (0.8558): 4
+  img_31    (0.8530): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+2806 class(es) detected in memeory of length 8521
+7.0483sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.9026): 0
+  img_40    (0.8694): 6
+  img_60    (0.8645): 0
+  img_51    (0.8601): 6
+  img_37    (0.8589): 5
+  img_24    (0.8552): 5
+  img_55    (0.8496): 8
+  img_3     (0.8485): 9
+  img_26    (0.8433): 4
+  img_31    (0.8422): 7
+  img_16    (0.8416): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2667 class(es) detected in memeory of length 7973
+5.9706sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8863): 0
+  img_60    (0.8353): 0
+  img_37    (0.8349): 5
+  img_51    (0.8348): 6
+  img_55    (0.8342): 8
+  img_24    (0.8337): 5
+  img_40    (0.8243): 6
+  img_31    (0.8209): 7
+  img_3     (0.8196): 9
+  img_16    (0.8161): 3
+  img_22    (0.8132): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2213 class(es) detected in memeory of length 6878
+5.8761sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8857): 0
+  img_60    (0.8164): 0
+  img_24    (0.8144): 5
+  img_37    (0.8128): 5
+  img_51    (0.8103): 6
+  img_55    (0.8093): 8
+  img_3     (0.8053): 9
+  img_16    (0.8028): 3
+  img_22    (0.8023): 1
+  img_31    (0.8014): 7
+  img_26    (0.7943): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1599 class(es) detected in memeory of length 4998
+4.1508sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8698): 0
+  img_60    (0.7963): 0
+  img_24    (0.7942): 5
+  img_51    (0.7923): 6
+  img_3     (0.7889): 9
+  img_37    (0.7872): 5
+  img_22    (0.7863): 1
+  img_16    (0.7846): 3
+  img_31    (0.7832): 7
+  img_26    (0.7734): 4
+  img_23    (0.7701): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1130 class(es) detected in memeory of length 3577
+3.6708sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8602): 0
+  img_60    (0.7848): 0
+  img_24    (0.7833): 5
+  img_30    (0.7829): 7
+  img_3     (0.7806): 9
+  img_22    (0.7770): 1
+  img_37    (0.7767): 5
+  img_31    (0.7748): 7
+  img_16    (0.7738): 3
+  img_26    (0.7605): 4
+  img_23    (0.7488): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+773 class(es) detected in memeory of length 2259
+2.4083sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8593): 0
+  img_60    (0.7920): 0
+  img_24    (0.7898): 5
+  img_3     (0.7892): 9
+  img_37    (0.7889): 5
+  img_22    (0.7878): 1
+  img_13    (0.7865): 4
+  img_16    (0.7810): 3
+  img_31    (0.7788): 7
+  img_26    (0.7676): 4
+  img_25    (0.7381): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+489 class(es) detected in memeory of length 1517
+1.2651sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.8728): 0
+  img_60    (0.8224): 0
+  img_24    (0.8213): 5
+  img_37    (0.8204): 5
+  img_22    (0.8199): 1
+  img_3     (0.8196): 9
+  img_23    (0.8180): 1
+  img_26    (0.8083): 4
+  img_16    (0.8000): 3
+  img_31    (0.7982): 7
+  img_44    (0.7588): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+250 class(es) detected in memeory of length 793
+0.6446sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_9     (0.9234): 0
+  img_24    (0.9208): 5
+  img_37    (0.9208): 5
+  img_3     (0.9204): 9
+  img_60    (0.9196): 0
+  img_22    (0.9185): 1
+  img_31    (0.9171): 7
+  img_44    (0.9130): 9
+  img_26    (0.9120): 4
+  img_16    (0.8913): 3
+  img_25    (0.8057): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+120 class(es) detected in memeory of length 456
+0.2979sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9907): 0
+  img_37    (0.9905): 5
+  img_24    (0.9905): 5
+  img_3     (0.9905): 9
+  img_22    (0.9901): 1
+  img_26    (0.9886): 4
+  img_9     (0.9884): 0
+  img_44    (0.9872): 9
+  img_25    (0.9786): 7
+  img_16    (0.9593): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+54 class(es) detected in memeory of length 244
+0.1657sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9989): 9
+  img_60    (0.9987): 0
+  img_9     (0.9986): 0
+  img_37    (0.9986): 5
+  img_22    (0.9985): 1
+  img_24    (0.9980): 5
+  img_26    (0.9980): 4
+  img_25    (0.9956): 7
+  img_16    (0.9677): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+22 class(es) detected in memeory of length 73
+0.0850sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9999): 9
+  img_60    (0.9999): 0
+  img_22    (0.9994): 1
+  img_37    (0.9990): 5
+  img_24    (0.9963): 5
+  img_26    (0.9956): 4
+  img_16    (0.9674): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2 class(es) detected in memeory of length 9
+0.0150sec(s) for main.<locals>.image_processor_register
+img_60(0) : 10.4934
+img_24(5) : 10.4666
+img_37(5) : 10.4588
+img_3(9)  : 10.4234
+img_16(3) : 10.2628
+img_9(0)  : 9.9535
+img_26(4) : 9.4973
+img_22(1) : 8.6930
+img_31(7) : 7.3695
+img_51(6) : 4.1776
+img_25(7) : 3.5180
+img_55(8) : 3.3536
+img_44(9) : 2.6590
+img_40(6) : 2.5788
+img_23(1) : 2.3369
+img_13(4) : 0.7865
+img_30(7) : 0.7829
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_20:  img_47, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9345): 4
+  img_22    (0.9330): 1
+  img_3     (0.9180): 9
+  img_30    (0.9176): 7
+  img_13    (0.9166): 4
+  img_59    (0.9165): 2
+  img_37    (0.9163): 5
+  img_23    (0.9149): 1
+  img_24    (0.9121): 5
+  img_44    (0.9056): 9
+  img_25    (0.9051): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2968 class(es) detected in memeory of length 9023
+7.2040sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9399): 1
+  img_26    (0.9386): 4
+  img_16    (0.9333): 3
+  img_3     (0.9300): 9
+  img_59    (0.9286): 2
+  img_37    (0.9170): 5
+  img_24    (0.9153): 5
+  img_23    (0.9137): 1
+  img_13    (0.9137): 4
+  img_30    (0.9136): 7
+  img_25    (0.9034): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2867 class(es) detected in memeory of length 8462
+5.7955sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9427): 4
+  img_16    (0.9424): 3
+  img_22    (0.9397): 1
+  img_40    (0.9390): 6
+  img_3     (0.9357): 9
+  img_37    (0.9249): 5
+  img_60    (0.9238): 0
+  img_24    (0.9206): 5
+  img_23    (0.9129): 1
+  img_13    (0.9085): 4
+  img_30    (0.9051): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2386 class(es) detected in memeory of length 7351
+6.8389sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_55    (0.9637): 8
+  img_16    (0.9632): 3
+  img_3     (0.9609): 9
+  img_26    (0.9554): 4
+  img_22    (0.9534): 1
+  img_60    (0.9494): 0
+  img_24    (0.9457): 5
+  img_37    (0.9436): 5
+  img_23    (0.9160): 1
+  img_31    (0.9147): 7
+  img_13    (0.9044): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1767 class(es) detected in memeory of length 5397
+4.8147sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9805): 9
+  img_16    (0.9783): 3
+  img_24    (0.9741): 5
+  img_51    (0.9724): 6
+  img_60    (0.9706): 0
+  img_37    (0.9694): 5
+  img_22    (0.9658): 1
+  img_26    (0.9628): 4
+  img_31    (0.9187): 7
+  img_23    (0.9094): 1
+  img_13    (0.9066): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1269 class(es) detected in memeory of length 3898
+3.1353sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9882): 9
+  img_24    (0.9858): 5
+  img_16    (0.9826): 3
+  img_37    (0.9803): 5
+  img_60    (0.9785): 0
+  img_30    (0.9779): 7
+  img_22    (0.9712): 1
+  img_26    (0.9697): 4
+  img_31    (0.9332): 7
+  img_23    (0.8978): 1
+  img_13    (0.8909): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+904 class(es) detected in memeory of length 2473
+1.9642sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9969): 9
+  img_24    (0.9954): 5
+  img_37    (0.9937): 5
+  img_60    (0.9899): 0
+  img_16    (0.9889): 3
+  img_22    (0.9865): 1
+  img_13    (0.9811): 4
+  img_26    (0.9753): 4
+  img_31    (0.9441): 7
+  img_44    (0.8668): 9
+  img_23    (0.8545): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+592 class(es) detected in memeory of length 1696
+1.6885sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9893): 9
+  img_16    (0.9884): 3
+  img_23    (0.9850): 1
+  img_60    (0.9843): 0
+  img_22    (0.9840): 1
+  img_37    (0.9839): 5
+  img_24    (0.9814): 5
+  img_26    (0.9684): 4
+  img_31    (0.9494): 7
+  img_9     (0.8776): 0
+  img_44    (0.8704): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+321 class(es) detected in memeory of length 923
+0.4293sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9994): 9
+  img_37    (0.9987): 5
+  img_24    (0.9986): 5
+  img_60    (0.9978): 0
+  img_22    (0.9973): 1
+  img_31    (0.9962): 7
+  img_26    (0.9880): 4
+  img_44    (0.9769): 9
+  img_16    (0.9710): 3
+  img_9     (0.9672): 0
+  img_7     (0.9202): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+159 class(es) detected in memeory of length 548
+0.2972sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9999): 9
+  img_60    (0.9996): 0
+  img_22    (0.9995): 1
+  img_24    (0.9995): 5
+  img_37    (0.9985): 5
+  img_26    (0.9971): 4
+  img_44    (0.9961): 9
+  img_9     (0.9944): 0
+  img_7     (0.9905): 0
+  img_25    (0.9844): 7
+  img_16    (0.9687): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+59 class(es) detected in memeory of length 295
+0.1492sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9991): 9
+  img_7     (0.9986): 0
+  img_37    (0.9983): 5
+  img_60    (0.9983): 0
+  img_22    (0.9981): 1
+  img_9     (0.9979): 0
+  img_26    (0.9974): 4
+  img_24    (0.9973): 5
+  img_25    (0.9970): 7
+  img_16    (0.9691): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+36 class(es) detected in memeory of length 107
+0.1293sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9987): 9
+  img_7     (0.9986): 0
+  img_60    (0.9986): 0
+  img_22    (0.9981): 1
+  img_24    (0.9976): 5
+  img_37    (0.9976): 5
+  img_26    (0.9970): 4
+  img_16    (0.9688): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3 class(es) detected in memeory of length 25
+0.0120sec(s) for main.<locals>.image_processor_register
+img_3(9)  : 11.6966
+img_22(1) : 11.6664
+img_26(4) : 11.6268
+img_24(5) : 11.6232
+img_37(5) : 11.6222
+img_16(3) : 10.6546
+img_60(0) : 9.7908
+img_23(1) : 7.3042
+img_13(4) : 6.4217
+img_31(7) : 5.6562
+img_44(9) : 4.6158
+img_7(0)  : 3.9080
+img_9(0)  : 3.8371
+img_25(7) : 3.7898
+img_30(7) : 3.7141
+img_59(2) : 1.8451
+img_51(6) : 0.9724
+img_55(8) : 0.9637
+img_40(6) : 0.9390
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_21:  img_27, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.9008): 1
+  img_44    (0.8803): 9
+  img_51    (0.8789): 6
+  img_59    (0.8742): 2
+  img_3     (0.8718): 9
+  img_26    (0.8682): 4
+  img_47    (0.8675): 8
+  img_37    (0.8611): 5
+  img_55    (0.8606): 8
+  img_22    (0.8604): 1
+  img_30    (0.8543): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3131 class(es) detected in memeory of length 9432
+7.5803sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.8960): 1
+  img_51    (0.8737): 6
+  img_44    (0.8724): 9
+  img_59    (0.8723): 2
+  img_3     (0.8650): 9
+  img_47    (0.8620): 8
+  img_16    (0.8610): 3
+  img_26    (0.8601): 4
+  img_37    (0.8565): 5
+  img_22    (0.8553): 1
+  img_31    (0.8491): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+3022 class(es) detected in memeory of length 8883
+6.9304sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.8845): 1
+  img_51    (0.8591): 6
+  img_44    (0.8533): 9
+  img_26    (0.8501): 4
+  img_40    (0.8454): 6
+  img_3     (0.8444): 9
+  img_47    (0.8435): 8
+  img_16    (0.8414): 3
+  img_37    (0.8393): 5
+  img_31    (0.8353): 7
+  img_13    (0.8351): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2532 class(es) detected in memeory of length 7754
+6.3328sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.8780): 1
+  img_26    (0.8461): 4
+  img_51    (0.8371): 6
+  img_47    (0.8355): 8
+  img_44    (0.8352): 9
+  img_55    (0.8342): 8
+  img_3     (0.8322): 9
+  img_37    (0.8304): 5
+  img_16    (0.8277): 3
+  img_31    (0.8255): 7
+  img_13    (0.8229): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1853 class(es) detected in memeory of length 5719
+4.9011sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.8712): 1
+  img_26    (0.8520): 4
+  img_37    (0.8391): 5
+  img_47    (0.8391): 8
+  img_51    (0.8355): 6
+  img_3     (0.8342): 9
+  img_16    (0.8288): 3
+  img_24    (0.8281): 5
+  img_13    (0.8256): 4
+  img_44    (0.8237): 9
+  img_31    (0.8228): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1315 class(es) detected in memeory of length 4157
+3.2277sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_23    (0.8643): 1
+  img_26    (0.8567): 4
+  img_37    (0.8442): 5
+  img_47    (0.8428): 8
+  img_3     (0.8396): 9
+  img_24    (0.8367): 5
+  img_30    (0.8365): 7
+  img_16    (0.8323): 3
+  img_13    (0.8322): 4
+  img_44    (0.8297): 9
+  img_60    (0.8288): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+940 class(es) detected in memeory of length 2660
+2.3817sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8537): 4
+  img_23    (0.8403): 1
+  img_47    (0.8334): 8
+  img_37    (0.8333): 5
+  img_3     (0.8315): 9
+  img_31    (0.8307): 7
+  img_24    (0.8305): 5
+  img_13    (0.8299): 4
+  img_60    (0.8243): 0
+  img_22    (0.8234): 1
+  img_16    (0.8232): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+618 class(es) detected in memeory of length 1842
+1.4193sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_31    (0.8506): 7
+  img_26    (0.8500): 4
+  img_37    (0.8380): 5
+  img_3     (0.8368): 9
+  img_24    (0.8368): 5
+  img_22    (0.8361): 1
+  img_23    (0.8354): 1
+  img_47    (0.8353): 8
+  img_60    (0.8344): 0
+  img_44    (0.8305): 9
+  img_16    (0.8238): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+324 class(es) detected in memeory of length 970
+0.7183sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8256): 4
+  img_37    (0.8168): 5
+  img_3     (0.8166): 9
+  img_24    (0.8166): 5
+  img_47    (0.8165): 8
+  img_22    (0.8154): 1
+  img_60    (0.8151): 0
+  img_31    (0.8151): 7
+  img_44    (0.8088): 9
+  img_9     (0.7903): 0
+  img_16    (0.7884): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+162 class(es) detected in memeory of length 603
+0.3361sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9271): 4
+  img_37    (0.9266): 5
+  img_24    (0.9262): 5
+  img_47    (0.9261): 8
+  img_3     (0.9260): 9
+  img_22    (0.9260): 1
+  img_60    (0.9258): 0
+  img_44    (0.9231): 9
+  img_7     (0.9222): 0
+  img_25    (0.9220): 7
+  img_9     (0.9209): 0
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+62 class(es) detected in memeory of length 329
+0.1467sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9988): 5
+  img_26    (0.9984): 4
+  img_22    (0.9982): 1
+  img_9     (0.9981): 0
+  img_37    (0.9981): 5
+  img_60    (0.9980): 0
+  img_3     (0.9975): 9
+  img_7     (0.9973): 0
+  img_47    (0.9968): 8
+  img_25    (0.9938): 7
+  img_16    (0.9660): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+37 class(es) detected in memeory of length 107
+0.1280sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9998): 5
+  img_22    (0.9996): 1
+  img_60    (0.9991): 0
+  img_7     (0.9991): 0
+  img_3     (0.9990): 9
+  img_47    (0.9977): 8
+  img_24    (0.9954): 5
+  img_26    (0.9947): 4
+  img_16    (0.9665): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3 class(es) detected in memeory of length 26
+0.0080sec(s) for main.<locals>.image_processor_register
+img_26(4) : 10.5828
+img_47(8) : 10.4963
+img_3(9)  : 10.4947
+img_37(5) : 10.4832
+img_16(3) : 8.5592
+img_44(9) : 7.6571
+img_22(1) : 7.1144
+img_24(5) : 7.0691
+img_23(1) : 6.9706
+img_60(0) : 6.2256
+img_31(7) : 5.8290
+img_51(6) : 4.2843
+img_13(4) : 4.1457
+img_7(0)  : 2.9185
+img_9(0)  : 2.7094
+img_25(7) : 1.9158
+img_59(2) : 1.7465
+img_55(8) : 1.6948
+img_30(7) : 1.6909
+img_40(6) : 0.8454
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_22:  img_11, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9159): 9
+  img_47    (0.9142): 8
+  img_26    (0.9116): 4
+  img_37    (0.9061): 5
+  img_22    (0.9002): 1
+  img_55    (0.8986): 8
+  img_59    (0.8975): 2
+  img_13    (0.8972): 4
+  img_24    (0.8930): 5
+  img_30    (0.8923): 7
+  img_44    (0.8877): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3314 class(es) detected in memeory of length 9931
+8.6737sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9174): 9
+  img_47    (0.9125): 8
+  img_26    (0.9113): 4
+  img_16    (0.9066): 3
+  img_37    (0.9034): 5
+  img_59    (0.9023): 2
+  img_24    (0.9001): 5
+  img_22    (0.8998): 1
+  img_13    (0.8982): 4
+  img_60    (0.8920): 0
+  img_55    (0.8861): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3207 class(es) detected in memeory of length 9407
+6.8476sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9137): 8
+  img_26    (0.9112): 4
+  img_3     (0.9099): 9
+  img_16    (0.9063): 3
+  img_37    (0.9042): 5
+  img_24    (0.9032): 5
+  img_40    (0.8994): 6
+  img_22    (0.8968): 1
+  img_60    (0.8967): 0
+  img_13    (0.8941): 4
+  img_55    (0.8779): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2696 class(es) detected in memeory of length 8228
+6.6689sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9206): 5
+  img_55    (0.9205): 8
+  img_26    (0.9203): 4
+  img_3     (0.9183): 9
+  img_47    (0.9174): 8
+  img_16    (0.9160): 3
+  img_60    (0.9158): 0
+  img_37    (0.9131): 5
+  img_22    (0.9059): 1
+  img_13    (0.8861): 4
+  img_31    (0.8721): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1978 class(es) detected in memeory of length 6107
+5.0005sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9349): 5
+  img_60    (0.9342): 0
+  img_47    (0.9339): 8
+  img_3     (0.9336): 9
+  img_16    (0.9302): 3
+  img_26    (0.9286): 4
+  img_51    (0.9274): 6
+  img_37    (0.9265): 5
+  img_22    (0.9227): 1
+  img_13    (0.8846): 4
+  img_31    (0.8800): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1446 class(es) detected in memeory of length 4452
+3.1789sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9615): 9
+  img_24    (0.9614): 5
+  img_60    (0.9604): 0
+  img_47    (0.9592): 8
+  img_30    (0.9574): 7
+  img_16    (0.9557): 3
+  img_37    (0.9549): 5
+  img_26    (0.9489): 4
+  img_22    (0.9436): 1
+  img_31    (0.9130): 7
+  img_13    (0.8835): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1030 class(es) detected in memeory of length 2887
+2.7263sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9814): 9
+  img_24    (0.9810): 5
+  img_47    (0.9801): 8
+  img_37    (0.9791): 5
+  img_60    (0.9785): 0
+  img_16    (0.9733): 3
+  img_22    (0.9713): 1
+  img_13    (0.9713): 4
+  img_26    (0.9617): 4
+  img_31    (0.9338): 7
+  img_44    (0.8579): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+695 class(es) detected in memeory of length 2021
+1.2345sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9862): 8
+  img_3     (0.9799): 9
+  img_60    (0.9786): 0
+  img_23    (0.9758): 1
+  img_16    (0.9757): 3
+  img_37    (0.9751): 5
+  img_22    (0.9749): 1
+  img_24    (0.9730): 5
+  img_26    (0.9609): 4
+  img_31    (0.9410): 7
+  img_9     (0.8693): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+376 class(es) detected in memeory of length 1093
+0.6613sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9962): 0
+  img_22    (0.9957): 1
+  img_3     (0.9957): 9
+  img_47    (0.9956): 8
+  img_31    (0.9952): 7
+  img_37    (0.9945): 5
+  img_24    (0.9945): 5
+  img_26    (0.9843): 4
+  img_44    (0.9739): 9
+  img_16    (0.9731): 3
+  img_9     (0.9633): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+206 class(es) detected in memeory of length 702
+0.3385sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9997): 5
+  img_47    (0.9994): 8
+  img_3     (0.9993): 9
+  img_60    (0.9993): 0
+  img_22    (0.9991): 1
+  img_37    (0.9987): 5
+  img_26    (0.9974): 4
+  img_44    (0.9956): 9
+  img_9     (0.9940): 0
+  img_7     (0.9903): 0
+  img_25    (0.9843): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+75 class(es) detected in memeory of length 393
+0.1380sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9996): 8
+  img_3     (0.9993): 9
+  img_7     (0.9988): 0
+  img_37    (0.9986): 5
+  img_60    (0.9986): 0
+  img_22    (0.9985): 1
+  img_9     (0.9983): 0
+  img_26    (0.9977): 4
+  img_24    (0.9977): 5
+  img_27    (0.9972): 2
+  img_25    (0.9965): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+57 class(es) detected in memeory of length 143
+0.1635sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9996): 8
+  img_3     (0.9985): 9
+  img_7     (0.9985): 0
+  img_60    (0.9984): 0
+  img_22    (0.9979): 1
+  img_24    (0.9978): 5
+  img_27    (0.9976): 2
+  img_37    (0.9975): 5
+  img_26    (0.9972): 4
+  img_16    (0.9689): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4 class(es) detected in memeory of length 42
+0.0280sec(s) for main.<locals>.image_processor_register
+img_47(8) : 11.5113
+img_3(9)  : 11.5106
+img_24(5) : 11.4568
+img_37(5) : 11.4517
+img_26(4) : 11.4312
+img_22(1) : 11.4064
+img_60(0) : 10.5488
+img_16(3) : 8.5058
+img_13(4) : 6.3150
+img_31(7) : 5.5352
+img_9(0)  : 3.8249
+img_44(9) : 3.7151
+img_55(8) : 3.5832
+img_7(0)  : 2.9876
+img_27(2) : 1.9948
+img_25(7) : 1.9808
+img_30(7) : 1.8497
+img_59(2) : 1.7998
+img_23(1) : 0.9758
+img_51(6) : 0.9274
+img_40(6) : 0.8994
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_23:  img_58, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9241): 7
+  img_3     (0.9166): 9
+  img_23    (0.9125): 1
+  img_22    (0.9085): 1
+  img_31    (0.9083): 7
+  img_26    (0.9060): 4
+  img_37    (0.9047): 5
+  img_25    (0.9040): 7
+  img_47    (0.9039): 8
+  img_59    (0.9002): 2
+  img_51    (0.8973): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3467 class(es) detected in memeory of length 10364
+8.4752sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9227): 7
+  img_3     (0.9210): 9
+  img_31    (0.9141): 7
+  img_16    (0.9137): 3
+  img_59    (0.9060): 2
+  img_37    (0.9055): 5
+  img_23    (0.9053): 1
+  img_25    (0.9048): 7
+  img_22    (0.9037): 1
+  img_26    (0.9036): 4
+  img_47    (0.9021): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3389 class(es) detected in memeory of length 9849
+7.4067sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_30    (0.9185): 7
+  img_31    (0.9174): 7
+  img_16    (0.9166): 3
+  img_3     (0.9164): 9
+  img_40    (0.9164): 6
+  img_37    (0.9094): 5
+  img_22    (0.9025): 1
+  img_47    (0.9016): 8
+  img_26    (0.9007): 4
+  img_24    (0.8994): 5
+  img_25    (0.8987): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2855 class(es) detected in memeory of length 8646
+6.3447sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9326): 9
+  img_55    (0.9314): 8
+  img_16    (0.9312): 3
+  img_31    (0.9286): 7
+  img_37    (0.9256): 5
+  img_24    (0.9210): 5
+  img_22    (0.9184): 1
+  img_47    (0.9178): 8
+  img_60    (0.9172): 0
+  img_30    (0.9127): 7
+  img_26    (0.9116): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2119 class(es) detected in memeory of length 6471
+4.9521sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9521): 9
+  img_16    (0.9496): 3
+  img_51    (0.9479): 6
+  img_24    (0.9463): 5
+  img_37    (0.9447): 5
+  img_47    (0.9412): 8
+  img_60    (0.9407): 0
+  img_31    (0.9329): 7
+  img_22    (0.9320): 1
+  img_26    (0.9285): 4
+  img_11    (0.8985): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1541 class(es) detected in memeory of length 4746
+3.7149sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9609): 9
+  img_24    (0.9592): 5
+  img_30    (0.9571): 7
+  img_16    (0.9552): 3
+  img_37    (0.9535): 5
+  img_47    (0.9523): 8
+  img_60    (0.9512): 0
+  img_31    (0.9420): 7
+  img_22    (0.9418): 1
+  img_26    (0.9381): 4
+  img_11    (0.9282): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1086 class(es) detected in memeory of length 3111
+2.6222sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9740): 9
+  img_24    (0.9728): 5
+  img_37    (0.9714): 5
+  img_47    (0.9712): 8
+  img_60    (0.9672): 0
+  img_16    (0.9657): 3
+  img_22    (0.9627): 1
+  img_13    (0.9614): 4
+  img_11    (0.9565): 5
+  img_26    (0.9515): 4
+  img_31    (0.9491): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+737 class(es) detected in memeory of length 2187
+1.3148sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9842): 8
+  img_3     (0.9783): 9
+  img_16    (0.9744): 3
+  img_23    (0.9740): 1
+  img_37    (0.9738): 5
+  img_60    (0.9737): 0
+  img_22    (0.9735): 1
+  img_11    (0.9718): 5
+  img_24    (0.9716): 5
+  img_26    (0.9586): 4
+  img_31    (0.9531): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+394 class(es) detected in memeory of length 1178
+0.8144sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.9924): 5
+  img_60    (0.9913): 0
+  img_31    (0.9912): 7
+  img_22    (0.9910): 1
+  img_47    (0.9908): 8
+  img_3     (0.9908): 9
+  img_37    (0.9895): 5
+  img_24    (0.9895): 5
+  img_26    (0.9789): 4
+  img_16    (0.9775): 3
+  img_44    (0.9692): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+210 class(es) detected in memeory of length 760
+0.4026sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9994): 9
+  img_47    (0.9994): 8
+  img_60    (0.9990): 0
+  img_24    (0.9989): 5
+  img_22    (0.9988): 1
+  img_11    (0.9988): 5
+  img_37    (0.9980): 5
+  img_26    (0.9965): 4
+  img_44    (0.9957): 9
+  img_9     (0.9940): 0
+  img_7     (0.9902): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+77 class(es) detected in memeory of length 450
+0.1416sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.9994): 5
+  img_3     (0.9993): 9
+  img_47    (0.9993): 8
+  img_7     (0.9986): 0
+  img_37    (0.9986): 5
+  img_60    (0.9986): 0
+  img_22    (0.9984): 1
+  img_9     (0.9982): 0
+  img_24    (0.9977): 5
+  img_26    (0.9976): 4
+  img_27    (0.9972): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+65 class(es) detected in memeory of length 156
+0.2000sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9999): 8
+  img_11    (0.9996): 5
+  img_3     (0.9986): 9
+  img_7     (0.9986): 0
+  img_60    (0.9985): 0
+  img_22    (0.9980): 1
+  img_24    (0.9977): 5
+  img_27    (0.9977): 2
+  img_37    (0.9976): 5
+  img_26    (0.9971): 4
+  img_16    (0.9688): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4 class(es) detected in memeory of length 49
+0.0257sec(s) for main.<locals>.image_processor_register
+img_3(9)  : 11.5400
+img_37(5) : 11.4722
+img_47(8) : 11.4638
+img_22(1) : 11.4294
+img_26(4) : 11.3687
+img_24(5) : 9.6542
+img_60(0) : 8.7374
+img_16(3) : 8.5528
+img_31(7) : 8.4368
+img_11(5) : 7.7453
+img_30(7) : 4.6351
+img_7(0)  : 2.9874
+img_23(1) : 2.7918
+img_25(7) : 2.7075
+img_27(2) : 1.9949
+img_9(0)  : 1.9922
+img_44(9) : 1.9649
+img_51(6) : 1.8452
+img_59(2) : 1.8063
+img_13(4) : 0.9614
+img_55(8) : 0.9314
+img_40(6) : 0.9164
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_24:  img_49, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9237): 1
+  img_26    (0.9222): 4
+  img_47    (0.9194): 8
+  img_59    (0.9189): 2
+  img_51    (0.9170): 6
+  img_3     (0.9168): 9
+  img_30    (0.9115): 7
+  img_37    (0.9110): 5
+  img_24    (0.9100): 5
+  img_13    (0.9070): 4
+  img_58    (0.9054): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3649 class(es) detected in memeory of length 10811
+9.1725sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9247): 4
+  img_59    (0.9226): 2
+  img_47    (0.9224): 8
+  img_22    (0.9222): 1
+  img_16    (0.9212): 3
+  img_3     (0.9202): 9
+  img_37    (0.9113): 5
+  img_24    (0.9111): 5
+  img_51    (0.9067): 6
+  img_58    (0.9029): 2
+  img_13    (0.9019): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3553 class(es) detected in memeory of length 10332
+8.2464sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9235): 4
+  img_22    (0.9185): 1
+  img_16    (0.9172): 3
+  img_47    (0.9165): 8
+  img_40    (0.9164): 6
+  img_3     (0.9158): 9
+  img_37    (0.9077): 5
+  img_24    (0.9043): 5
+  img_60    (0.9005): 0
+  img_13    (0.9004): 4
+  img_58    (0.9004): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3027 class(es) detected in memeory of length 9088
+6.5599sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9277): 4
+  img_22    (0.9218): 1
+  img_47    (0.9217): 8
+  img_3     (0.9204): 9
+  img_55    (0.9190): 8
+  img_16    (0.9171): 3
+  img_37    (0.9139): 5
+  img_60    (0.9133): 0
+  img_24    (0.9102): 5
+  img_58    (0.9079): 2
+  img_13    (0.8928): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2250 class(es) detected in memeory of length 6855
+6.1752sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9326): 8
+  img_26    (0.9296): 4
+  img_37    (0.9240): 5
+  img_51    (0.9236): 6
+  img_22    (0.9235): 1
+  img_3     (0.9235): 9
+  img_16    (0.9201): 3
+  img_24    (0.9185): 5
+  img_60    (0.9183): 0
+  img_58    (0.9182): 2
+  img_31    (0.8977): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1627 class(es) detected in memeory of length 5038
+3.9279sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9355): 8
+  img_26    (0.9330): 4
+  img_3     (0.9259): 9
+  img_37    (0.9255): 5
+  img_30    (0.9235): 7
+  img_24    (0.9233): 5
+  img_22    (0.9209): 1
+  img_58    (0.9209): 2
+  img_16    (0.9200): 3
+  img_60    (0.9180): 0
+  img_11    (0.9109): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1131 class(es) detected in memeory of length 3330
+2.6061sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9389): 4
+  img_47    (0.9381): 8
+  img_3     (0.9358): 9
+  img_37    (0.9348): 5
+  img_24    (0.9345): 5
+  img_60    (0.9293): 0
+  img_13    (0.9287): 4
+  img_22    (0.9283): 1
+  img_58    (0.9278): 2
+  img_11    (0.9275): 5
+  img_16    (0.9274): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+774 class(es) detected in memeory of length 2340
+1.5593sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9489): 8
+  img_3     (0.9450): 9
+  img_26    (0.9439): 4
+  img_37    (0.9424): 5
+  img_23    (0.9422): 1
+  img_22    (0.9422): 1
+  img_11    (0.9413): 5
+  img_60    (0.9413): 0
+  img_24    (0.9409): 5
+  img_58    (0.9391): 2
+  img_16    (0.9374): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+411 class(es) detected in memeory of length 1238
+0.8563sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9637): 2
+  img_11    (0.9632): 5
+  img_31    (0.9622): 7
+  img_60    (0.9612): 0
+  img_3     (0.9611): 9
+  img_22    (0.9610): 1
+  img_47    (0.9609): 8
+  img_37    (0.9603): 5
+  img_24    (0.9602): 5
+  img_26    (0.9559): 4
+  img_16    (0.9491): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+210 class(es) detected in memeory of length 802
+0.3387sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9763): 8
+  img_3     (0.9763): 9
+  img_24    (0.9762): 5
+  img_22    (0.9761): 1
+  img_11    (0.9760): 5
+  img_60    (0.9760): 0
+  img_37    (0.9758): 5
+  img_58    (0.9757): 2
+  img_26    (0.9751): 4
+  img_44    (0.9732): 9
+  img_9     (0.9707): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+77 class(es) detected in memeory of length 469
+0.1984sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9965): 9
+  img_22    (0.9964): 1
+  img_37    (0.9963): 5
+  img_58    (0.9963): 2
+  img_60    (0.9963): 0
+  img_11    (0.9963): 5
+  img_47    (0.9962): 8
+  img_9     (0.9961): 0
+  img_24    (0.9958): 5
+  img_26    (0.9957): 4
+  img_7     (0.9955): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+63 class(es) detected in memeory of length 161
+0.2002sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_60    (0.9989): 0
+  img_3     (0.9989): 9
+  img_7     (0.9988): 0
+  img_22    (0.9988): 1
+  img_27    (0.9986): 2
+  img_37    (0.9986): 5
+  img_47    (0.9984): 8
+  img_58    (0.9984): 2
+  img_11    (0.9981): 5
+  img_24    (0.9963): 5
+  img_26    (0.9957): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4 class(es) detected in memeory of length 54
+0.0200sec(s) for main.<locals>.image_processor_register
+img_47(8) : 11.3670
+img_26(4) : 11.3657
+img_3(9)  : 11.3362
+img_22(1) : 11.3332
+img_37(5) : 11.3016
+img_24(5) : 11.2814
+img_58(2) : 11.2567
+img_60(0) : 9.4530
+img_16(3) : 7.4096
+img_11(5) : 6.7133
+img_13(4) : 4.5309
+img_51(6) : 2.7472
+img_7(0)  : 1.9944
+img_9(0)  : 1.9669
+img_31(7) : 1.8598
+img_59(2) : 1.8415
+img_30(7) : 1.8350
+img_27(2) : 0.9986
+img_44(9) : 0.9732
+img_23(1) : 0.9422
+img_55(8) : 0.9190
+img_40(6) : 0.9164
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_25:  img_19, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9329): 4
+  img_47    (0.9178): 8
+  img_55    (0.9178): 8
+  img_25    (0.9166): 7
+  img_44    (0.9133): 9
+  img_30    (0.9122): 7
+  img_49    (0.9119): 6
+  img_37    (0.9114): 5
+  img_11    (0.9090): 5
+  img_13    (0.9085): 4
+  img_22    (0.9050): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3775 class(es) detected in memeory of length 11187
+8.6426sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9321): 4
+  img_47    (0.9138): 8
+  img_25    (0.9115): 7
+  img_44    (0.9098): 9
+  img_11    (0.9087): 5
+  img_49    (0.9083): 6
+  img_55    (0.9076): 8
+  img_13    (0.9075): 4
+  img_37    (0.9035): 5
+  img_3     (0.9021): 9
+  img_22    (0.9001): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3710 class(es) detected in memeory of length 10780
+7.8842sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9162): 4
+  img_47    (0.9077): 8
+  img_49    (0.9001): 6
+  img_25    (0.9001): 7
+  img_13    (0.8988): 4
+  img_11    (0.8988): 5
+  img_44    (0.8953): 9
+  img_55    (0.8940): 8
+  img_30    (0.8924): 7
+  img_22    (0.8891): 1
+  img_37    (0.8874): 5
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+3155 class(es) detected in memeory of length 9491
+6.2630sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9024): 4
+  img_11    (0.8932): 5
+  img_47    (0.8909): 8
+  img_49    (0.8909): 6
+  img_25    (0.8884): 7
+  img_13    (0.8854): 4
+  img_44    (0.8804): 9
+  img_22    (0.8800): 1
+  img_30    (0.8776): 7
+  img_60    (0.8738): 0
+  img_55    (0.8704): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2391 class(es) detected in memeory of length 7224
+6.1851sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8882): 4
+  img_49    (0.8838): 6
+  img_11    (0.8835): 5
+  img_25    (0.8829): 7
+  img_22    (0.8735): 1
+  img_13    (0.8720): 4
+  img_47    (0.8697): 8
+  img_44    (0.8672): 9
+  img_60    (0.8654): 0
+  img_30    (0.8612): 7
+  img_51    (0.8550): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1732 class(es) detected in memeory of length 5362
+4.1238sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_25    (0.8705): 7
+  img_49    (0.8684): 6
+  img_26    (0.8664): 4
+  img_11    (0.8617): 5
+  img_22    (0.8559): 1
+  img_13    (0.8549): 4
+  img_44    (0.8487): 9
+  img_47    (0.8478): 8
+  img_60    (0.8467): 0
+  img_30    (0.8395): 7
+  img_3     (0.8366): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1220 class(es) detected in memeory of length 3509
+2.7240sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_49    (0.8509): 6
+  img_25    (0.8452): 7
+  img_26    (0.8405): 4
+  img_11    (0.8357): 5
+  img_22    (0.8305): 1
+  img_44    (0.8284): 9
+  img_60    (0.8260): 0
+  img_47    (0.8227): 8
+  img_13    (0.8210): 4
+  img_58    (0.8209): 2
+  img_3     (0.8198): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+835 class(es) detected in memeory of length 2483
+1.7841sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_49    (0.8413): 6
+  img_25    (0.8237): 7
+  img_26    (0.8160): 4
+  img_11    (0.8160): 5
+  img_60    (0.8062): 0
+  img_22    (0.8061): 1
+  img_44    (0.8046): 9
+  img_31    (0.8046): 7
+  img_47    (0.8038): 8
+  img_3     (0.8037): 9
+  img_24    (0.8030): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+453 class(es) detected in memeory of length 1344
+0.9682sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_25    (0.8158): 7
+  img_49    (0.8120): 6
+  img_26    (0.7975): 4
+  img_22    (0.7889): 1
+  img_60    (0.7885): 0
+  img_11    (0.7884): 5
+  img_24    (0.7882): 5
+  img_37    (0.7881): 5
+  img_3     (0.7881): 9
+  img_47    (0.7877): 8
+  img_31    (0.7871): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+235 class(es) detected in memeory of length 889
+0.3777sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_49    (0.7932): 6
+  img_26    (0.7716): 4
+  img_22    (0.7706): 1
+  img_58    (0.7706): 2
+  img_11    (0.7705): 5
+  img_37    (0.7705): 5
+  img_60    (0.7704): 0
+  img_24    (0.7703): 5
+  img_47    (0.7702): 8
+  img_3     (0.7702): 9
+  img_9     (0.7688): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+94 class(es) detected in memeory of length 532
+0.1403sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9854): 9
+  img_58    (0.9854): 2
+  img_47    (0.9853): 8
+  img_11    (0.9853): 5
+  img_37    (0.9853): 5
+  img_22    (0.9852): 1
+  img_60    (0.9852): 0
+  img_9     (0.9850): 0
+  img_24    (0.9849): 5
+  img_7     (0.9848): 0
+  img_26    (0.9847): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+28 class(es) detected in memeory of length 197
+0.0869sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9934): 2
+  img_47    (0.9934): 8
+  img_11    (0.9933): 5
+  img_24    (0.9932): 5
+  img_26    (0.9931): 4
+  img_3     (0.9929): 9
+  img_7     (0.9928): 0
+  img_60    (0.9928): 0
+  img_49    (0.9928): 6
+  img_22    (0.9924): 1
+  img_27    (0.9921): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+11 class(es) detected in memeory of length 70
+0.0300sec(s) for main.<locals>.image_processor_register
+img_26(4) : 10.6416
+img_11(5) : 10.5439
+img_47(8) : 10.5109
+img_22(1) : 10.4773
+img_49(6) : 9.6535
+img_25(7) : 7.8548
+img_60(0) : 7.7550
+img_44(9) : 6.9477
+img_3(9)  : 6.8988
+img_13(4) : 6.1482
+img_37(5) : 5.2461
+img_30(7) : 4.3829
+img_24(5) : 4.3396
+img_55(8) : 3.5897
+img_58(2) : 3.5703
+img_7(0)  : 1.9776
+img_9(0)  : 1.7539
+img_31(7) : 1.5917
+img_27(2) : 0.9921
+img_51(6) : 0.8550
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_26:  img_57, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9530): 1
+  img_23    (0.9521): 1
+  img_59    (0.9350): 2
+  img_47    (0.9348): 8
+  img_26    (0.9295): 4
+  img_24    (0.9276): 5
+  img_3     (0.9265): 9
+  img_37    (0.9236): 5
+  img_49    (0.9136): 6
+  img_31    (0.9124): 7
+  img_58    (0.9062): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3902 class(es) detected in memeory of length 11655
+9.6307sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9527): 1
+  img_16    (0.9518): 3
+  img_23    (0.9477): 1
+  img_59    (0.9464): 2
+  img_47    (0.9386): 8
+  img_3     (0.9325): 9
+  img_26    (0.9306): 4
+  img_24    (0.9268): 5
+  img_37    (0.9222): 5
+  img_49    (0.9131): 6
+  img_31    (0.9047): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3871 class(es) detected in memeory of length 11279
+6.9079sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9486): 1
+  img_16    (0.9484): 3
+  img_47    (0.9442): 8
+  img_40    (0.9410): 6
+  img_23    (0.9398): 1
+  img_3     (0.9343): 9
+  img_26    (0.9318): 4
+  img_37    (0.9304): 5
+  img_24    (0.9255): 5
+  img_60    (0.9163): 0
+  img_49    (0.9089): 6
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+3296 class(es) detected in memeory of length 9951
+7.0704sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9574): 8
+  img_22    (0.9515): 1
+  img_16    (0.9510): 3
+  img_3     (0.9465): 9
+  img_55    (0.9464): 8
+  img_37    (0.9411): 5
+  img_24    (0.9368): 5
+  img_26    (0.9341): 4
+  img_60    (0.9306): 0
+  img_23    (0.9302): 1
+  img_49    (0.9164): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2519 class(es) detected in memeory of length 7620
+6.1136sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9665): 8
+  img_3     (0.9602): 9
+  img_16    (0.9590): 3
+  img_24    (0.9572): 5
+  img_37    (0.9565): 5
+  img_22    (0.9564): 1
+  img_51    (0.9517): 6
+  img_60    (0.9493): 0
+  img_26    (0.9397): 4
+  img_49    (0.9246): 6
+  img_58    (0.9240): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1844 class(es) detected in memeory of length 5680
+4.2923sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9748): 8
+  img_3     (0.9704): 9
+  img_24    (0.9691): 5
+  img_37    (0.9688): 5
+  img_16    (0.9658): 3
+  img_22    (0.9631): 1
+  img_30    (0.9628): 7
+  img_60    (0.9603): 0
+  img_26    (0.9513): 4
+  img_11    (0.9391): 5
+  img_58    (0.9357): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1304 class(es) detected in memeory of length 3741
+2.6275sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9892): 9
+  img_47    (0.9891): 8
+  img_24    (0.9877): 5
+  img_37    (0.9863): 5
+  img_16    (0.9839): 3
+  img_60    (0.9820): 0
+  img_22    (0.9811): 1
+  img_13    (0.9730): 4
+  img_11    (0.9714): 5
+  img_26    (0.9672): 4
+  img_58    (0.9637): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+901 class(es) detected in memeory of length 2639
+1.4427sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_47    (0.9970): 8
+  img_3     (0.9884): 9
+  img_16    (0.9879): 3
+  img_11    (0.9838): 5
+  img_22    (0.9838): 1
+  img_60    (0.9836): 0
+  img_37    (0.9834): 5
+  img_23    (0.9832): 1
+  img_58    (0.9822): 2
+  img_24    (0.9808): 5
+  img_26    (0.9687): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+498 class(es) detected in memeory of length 1465
+0.9601sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9957): 2
+  img_11    (0.9952): 5
+  img_31    (0.9943): 7
+  img_60    (0.9939): 0
+  img_22    (0.9936): 1
+  img_47    (0.9933): 8
+  img_3     (0.9933): 9
+  img_37    (0.9921): 5
+  img_24    (0.9920): 5
+  img_26    (0.9815): 4
+  img_16    (0.9774): 3
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+280 class(es) detected in memeory of length 977
+0.6673sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9988): 9
+  img_47    (0.9987): 8
+  img_60    (0.9984): 0
+  img_24    (0.9982): 5
+  img_58    (0.9982): 2
+  img_22    (0.9982): 1
+  img_11    (0.9982): 5
+  img_37    (0.9972): 5
+  img_44    (0.9969): 9
+  img_26    (0.9958): 4
+  img_9     (0.9931): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+123 class(es) detected in memeory of length 592
+0.2890sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9996): 5
+  img_60    (0.9996): 0
+  img_3     (0.9996): 9
+  img_22    (0.9995): 1
+  img_9     (0.9993): 0
+  img_11    (0.9989): 5
+  img_58    (0.9989): 2
+  img_7     (0.9988): 0
+  img_47    (0.9987): 8
+  img_24    (0.9986): 5
+  img_26    (0.9985): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+43 class(es) detected in memeory of length 232
+0.1176sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_3     (1.0000): 9
+  img_60    (1.0000): 0
+  img_7     (0.9999): 0
+  img_22    (0.9994): 1
+  img_27    (0.9991): 2
+  img_37    (0.9990): 5
+  img_49    (0.9989): 6
+  img_47    (0.9987): 8
+  img_58    (0.9986): 2
+  img_11    (0.9985): 5
+  img_24    (0.9963): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+19 class(es) detected in memeory of length 86
+0.0350sec(s) for main.<locals>.image_processor_register
+img_47(8) : 11.6919
+img_22(1) : 11.6809
+img_3(9)  : 11.6397
+img_37(5) : 11.6002
+img_24(5) : 11.5969
+img_26(4) : 10.5286
+img_60(0) : 9.7141
+img_58(2) : 8.7033
+img_16(3) : 7.7251
+img_11(5) : 6.8851
+img_49(6) : 5.5755
+img_23(1) : 4.7530
+img_31(7) : 2.8115
+img_7(0)  : 1.9987
+img_9(0)  : 1.9924
+img_59(2) : 1.8814
+img_27(2) : 0.9991
+img_44(9) : 0.9969
+img_13(4) : 0.9730
+img_30(7) : 0.9628
+img_51(6) : 0.9517
+img_55(8) : 0.9464
+img_40(6) : 0.9410
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_27:  img_52, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.9240): 5
+  img_55    (0.9057): 8
+  img_23    (0.8887): 1
+  img_13    (0.8883): 4
+  img_58    (0.8871): 2
+  img_3     (0.8869): 9
+  img_19    (0.8860): 9
+  img_47    (0.8849): 8
+  img_26    (0.8837): 4
+  img_44    (0.8832): 9
+  img_59    (0.8745): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4017 class(es) detected in memeory of length 11939
+10.0300sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.9115): 5
+  img_55    (0.8992): 8
+  img_13    (0.8848): 4
+  img_23    (0.8797): 1
+  img_3     (0.8775): 9
+  img_58    (0.8767): 2
+  img_47    (0.8760): 8
+  img_26    (0.8751): 4
+  img_19    (0.8729): 9
+  img_44    (0.8724): 9
+  img_27    (0.8678): 2
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+3956 class(es) detected in memeory of length 11607
+9.5507sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.9016): 5
+  img_55    (0.8827): 8
+  img_13    (0.8733): 4
+  img_23    (0.8657): 1
+  img_26    (0.8649): 4
+  img_47    (0.8633): 8
+  img_58    (0.8614): 2
+  img_19    (0.8574): 9
+  img_44    (0.8542): 9
+  img_37    (0.8519): 5
+  img_3     (0.8518): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3398 class(es) detected in memeory of length 10311
+7.5677sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_11    (0.8768): 5
+  img_13    (0.8610): 4
+  img_26    (0.8589): 4
+  img_23    (0.8516): 1
+  img_47    (0.8450): 8
+  img_31    (0.8397): 7
+  img_58    (0.8390): 2
+  img_55    (0.8375): 8
+  img_37    (0.8367): 5
+  img_49    (0.8357): 6
+  img_51    (0.8354): 6
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+2605 class(es) detected in memeory of length 7959
+5.5098sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8555): 4
+  img_11    (0.8542): 5
+  img_13    (0.8526): 4
+  img_47    (0.8392): 8
+  img_23    (0.8384): 1
+  img_37    (0.8308): 5
+  img_51    (0.8305): 6
+  img_31    (0.8300): 7
+  img_24    (0.8292): 5
+  img_3     (0.8263): 9
+  img_60    (0.8262): 0
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+1919 class(es) detected in memeory of length 5977
+4.0145sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8584): 4
+  img_13    (0.8550): 4
+  img_11    (0.8436): 5
+  img_47    (0.8382): 8
+  img_60    (0.8319): 0
+  img_30    (0.8317): 7
+  img_37    (0.8315): 5
+  img_31    (0.8315): 7
+  img_24    (0.8299): 5
+  img_3     (0.8289): 9
+  img_49    (0.8287): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1354 class(es) detected in memeory of length 3881
+2.8021sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8738): 4
+  img_11    (0.8599): 5
+  img_47    (0.8541): 8
+  img_60    (0.8538): 0
+  img_13    (0.8534): 4
+  img_37    (0.8530): 5
+  img_3     (0.8520): 9
+  img_24    (0.8519): 5
+  img_57    (0.8503): 1
+  img_31    (0.8480): 7
+  img_49    (0.8473): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+929 class(es) detected in memeory of length 2730
+2.2705sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8780): 4
+  img_49    (0.8750): 6
+  img_11    (0.8720): 5
+  img_60    (0.8679): 0
+  img_3     (0.8670): 9
+  img_47    (0.8667): 8
+  img_57    (0.8664): 1
+  img_23    (0.8662): 1
+  img_37    (0.8660): 5
+  img_24    (0.8651): 5
+  img_22    (0.8649): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+507 class(es) detected in memeory of length 1532
+1.2885sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.8698): 4
+  img_49    (0.8682): 6
+  img_27    (0.8630): 2
+  img_11    (0.8608): 5
+  img_60    (0.8603): 0
+  img_3     (0.8596): 9
+  img_47    (0.8595): 8
+  img_24    (0.8595): 5
+  img_37    (0.8594): 5
+  img_22    (0.8592): 1
+  img_57    (0.8589): 1
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+283 class(es) detected in memeory of length 1026
+0.6140sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_49    (0.8589): 6
+  img_27    (0.8513): 2
+  img_26    (0.8457): 4
+  img_11    (0.8438): 5
+  img_37    (0.8437): 5
+  img_60    (0.8436): 0
+  img_24    (0.8436): 5
+  img_47    (0.8434): 8
+  img_3     (0.8434): 9
+  img_22    (0.8431): 1
+  img_58    (0.8428): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+126 class(es) detected in memeory of length 632
+0.2033sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.8414): 5
+  img_27    (0.8414): 2
+  img_9     (0.8412): 0
+  img_22    (0.8411): 1
+  img_37    (0.8411): 5
+  img_26    (0.8411): 4
+  img_60    (0.8411): 0
+  img_57    (0.8409): 1
+  img_3     (0.8407): 9
+  img_7     (0.8406): 0
+  img_58    (0.8402): 2
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+43 class(es) detected in memeory of length 233
+0.0926sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9987): 1
+  img_27    (0.9987): 2
+  img_37    (0.9987): 5
+  img_7     (0.9987): 0
+  img_60    (0.9986): 0
+  img_57    (0.9986): 1
+  img_3     (0.9986): 9
+  img_11    (0.9984): 5
+  img_47    (0.9984): 8
+  img_58    (0.9984): 2
+  img_49    (0.9983): 6
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+19 class(es) detected in memeory of length 87
+0.0437sec(s) for main.<locals>.image_processor_register
+img_11(5) : 9.7465
+img_47(8) : 9.5687
+img_3(9)  : 9.5326
+img_26(4) : 9.5049
+img_37(5) : 8.6128
+img_60(0) : 6.9234
+img_58(2) : 6.1457
+img_49(6) : 6.1122
+img_13(4) : 6.0683
+img_24(5) : 5.9205
+img_23(1) : 5.1904
+img_27(2) : 4.4222
+img_57(1) : 4.4153
+img_22(1) : 4.4071
+img_55(8) : 3.5251
+img_31(7) : 3.3491
+img_19(9) : 2.6163
+img_44(9) : 2.6098
+img_7(0)  : 1.8393
+img_51(6) : 1.6658
+img_59(2) : 0.8745
+img_9(0)  : 0.8412
+img_30(7) : 0.8317
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_28:   img_5, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9264): 1
+  img_49    (0.9238): 6
+  img_23    (0.9164): 1
+  img_22    (0.9158): 1
+  img_47    (0.9155): 8
+  img_58    (0.9137): 2
+  img_26    (0.9094): 4
+  img_13    (0.9071): 4
+  img_30    (0.9001): 7
+  img_3     (0.9000): 9
+  img_59    (0.8954): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4204 class(es) detected in memeory of length 12439
+10.6776sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9222): 1
+  img_49    (0.9170): 6
+  img_47    (0.9143): 8
+  img_16    (0.9124): 3
+  img_22    (0.9121): 1
+  img_23    (0.9114): 1
+  img_58    (0.9110): 2
+  img_13    (0.9089): 4
+  img_3     (0.9087): 9
+  img_26    (0.9085): 4
+  img_59    (0.9046): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4193 class(es) detected in memeory of length 12108
+8.4351sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9174): 1
+  img_49    (0.9133): 6
+  img_40    (0.9104): 6
+  img_58    (0.9095): 2
+  img_22    (0.9080): 1
+  img_16    (0.9079): 3
+  img_26    (0.9068): 4
+  img_47    (0.9061): 8
+  img_13    (0.9041): 4
+  img_3     (0.9030): 9
+  img_23    (0.8997): 1
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+3594 class(es) detected in memeory of length 10766
+7.6069sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9177): 1
+  img_58    (0.9169): 2
+  img_47    (0.9116): 8
+  img_3     (0.9092): 9
+  img_16    (0.9083): 3
+  img_55    (0.9082): 8
+  img_49    (0.9075): 6
+  img_22    (0.9067): 1
+  img_26    (0.9039): 4
+  img_37    (0.8978): 5
+  img_24    (0.8952): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2785 class(es) detected in memeory of length 8333
+5.4962sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9362): 2
+  img_3     (0.9186): 9
+  img_47    (0.9175): 8
+  img_16    (0.9156): 3
+  img_51    (0.9154): 6
+  img_24    (0.9142): 5
+  img_57    (0.9141): 1
+  img_26    (0.9093): 4
+  img_37    (0.9088): 5
+  img_22    (0.9086): 1
+  img_60    (0.9083): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2073 class(es) detected in memeory of length 6298
+4.6618sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9355): 2
+  img_3     (0.9231): 9
+  img_47    (0.9231): 8
+  img_24    (0.9221): 5
+  img_30    (0.9220): 7
+  img_16    (0.9180): 3
+  img_57    (0.9160): 1
+  img_37    (0.9154): 5
+  img_26    (0.9150): 4
+  img_60    (0.9137): 0
+  img_22    (0.9097): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1479 class(es) detected in memeory of length 4133
+2.8278sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9430): 2
+  img_3     (0.9405): 9
+  img_24    (0.9393): 5
+  img_47    (0.9390): 8
+  img_37    (0.9373): 5
+  img_57    (0.9355): 1
+  img_16    (0.9341): 3
+  img_60    (0.9335): 0
+  img_22    (0.9308): 1
+  img_13    (0.9300): 4
+  img_26    (0.9286): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1014 class(es) detected in memeory of length 2920
+2.2804sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9538): 2
+  img_47    (0.9481): 8
+  img_57    (0.9478): 1
+  img_3     (0.9433): 9
+  img_23    (0.9407): 1
+  img_16    (0.9403): 3
+  img_22    (0.9403): 1
+  img_37    (0.9399): 5
+  img_60    (0.9392): 0
+  img_24    (0.9386): 5
+  img_11    (0.9356): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+564 class(es) detected in memeory of length 1672
+1.3037sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_58    (0.9766): 2
+  img_57    (0.9746): 1
+  img_11    (0.9722): 5
+  img_22    (0.9722): 1
+  img_3     (0.9720): 9
+  img_47    (0.9720): 8
+  img_60    (0.9720): 0
+  img_31    (0.9715): 7
+  img_24    (0.9713): 5
+  img_37    (0.9713): 5
+  img_26    (0.9617): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+337 class(es) detected in memeory of length 1122
+0.5446sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9916): 1
+  img_58    (0.9914): 2
+  img_3     (0.9914): 9
+  img_47    (0.9913): 8
+  img_22    (0.9912): 1
+  img_24    (0.9912): 5
+  img_11    (0.9910): 5
+  img_60    (0.9910): 0
+  img_37    (0.9909): 5
+  img_44    (0.9909): 9
+  img_26    (0.9904): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+151 class(es) detected in memeory of length 696
+0.2348sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.9978): 1
+  img_37    (0.9977): 5
+  img_57    (0.9977): 1
+  img_24    (0.9977): 5
+  img_60    (0.9976): 0
+  img_9     (0.9976): 0
+  img_3     (0.9974): 9
+  img_27    (0.9974): 2
+  img_26    (0.9973): 4
+  img_58    (0.9972): 2
+  img_7     (0.9968): 0
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+34 class(es) detected in memeory of length 269
+0.1198sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9998): 9
+  img_57    (0.9998): 1
+  img_60    (0.9998): 0
+  img_7     (0.9997): 0
+  img_22    (0.9993): 1
+  img_27    (0.9989): 2
+  img_49    (0.9988): 6
+  img_37    (0.9988): 5
+  img_47    (0.9988): 8
+  img_58    (0.9987): 2
+  img_11    (0.9986): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+22 class(es) detected in memeory of length 103
+0.0714sec(s) for main.<locals>.image_processor_register
+img_58(2) : 11.3835
+img_57(1) : 11.3609
+img_3(9)  : 11.3070
+img_22(1) : 11.2925
+img_47(8) : 10.3373
+img_26(4) : 9.3309
+img_37(5) : 8.5580
+img_60(0) : 7.6550
+img_24(5) : 7.5696
+img_16(3) : 6.4366
+img_49(6) : 4.6604
+img_11(5) : 3.8974
+img_23(1) : 3.6682
+img_13(4) : 3.6501
+img_7(0)  : 1.9965
+img_27(2) : 1.9963
+img_30(7) : 1.8222
+img_59(2) : 1.8000
+img_9(0)  : 0.9976
+img_44(9) : 0.9909
+img_31(7) : 0.9715
+img_51(6) : 0.9154
+img_40(6) : 0.9104
+img_55(8) : 0.9082
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_29:   img_8, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9332): 3
+  img_26    (0.9071): 4
+  img_49    (0.9055): 6
+  img_13    (0.9054): 4
+  img_47    (0.9027): 8
+  img_57    (0.9023): 1
+  img_22    (0.8982): 1
+  img_58    (0.8964): 2
+  img_11    (0.8963): 5
+  img_30    (0.8947): 7
+  img_24    (0.8911): 5
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4394 class(es) detected in memeory of length 12874
+10.8890sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9346): 3
+  img_13    (0.9080): 4
+  img_26    (0.9043): 4
+  img_49    (0.9010): 6
+  img_47    (0.9002): 8
+  img_22    (0.8954): 1
+  img_57    (0.8943): 1
+  img_11    (0.8925): 5
+  img_3     (0.8924): 9
+  img_58    (0.8922): 2
+  img_30    (0.8883): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4373 class(es) detected in memeory of length 12576
+9.0958sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9272): 3
+  img_13    (0.9074): 4
+  img_49    (0.8957): 6
+  img_26    (0.8955): 4
+  img_47    (0.8927): 8
+  img_11    (0.8857): 5
+  img_57    (0.8851): 1
+  img_22    (0.8839): 1
+  img_58    (0.8837): 2
+  img_30    (0.8829): 7
+  img_3     (0.8820): 9
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3739 class(es) detected in memeory of length 11207
+7.3855sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9141): 3
+  img_13    (0.8992): 4
+  img_26    (0.8824): 4
+  img_49    (0.8791): 6
+  img_47    (0.8789): 8
+  img_11    (0.8781): 5
+  img_58    (0.8776): 2
+  img_22    (0.8750): 1
+  img_24    (0.8744): 5
+  img_57    (0.8741): 1
+  img_30    (0.8721): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2912 class(es) detected in memeory of length 8707
+5.6653sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9073): 3
+  img_13    (0.8982): 4
+  img_47    (0.8795): 8
+  img_57    (0.8772): 1
+  img_58    (0.8754): 2
+  img_3     (0.8742): 9
+  img_24    (0.8741): 5
+  img_26    (0.8739): 4
+  img_22    (0.8739): 1
+  img_51    (0.8733): 6
+  img_16    (0.8707): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2173 class(es) detected in memeory of length 6613
+4.9364sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9028): 3
+  img_13    (0.8973): 4
+  img_57    (0.8833): 1
+  img_47    (0.8830): 8
+  img_30    (0.8826): 7
+  img_24    (0.8803): 5
+  img_3     (0.8797): 9
+  img_26    (0.8779): 4
+  img_22    (0.8775): 1
+  img_11    (0.8762): 5
+  img_16    (0.8743): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1568 class(es) detected in memeory of length 4359
+2.9296sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.8952): 3
+  img_57    (0.8888): 1
+  img_47    (0.8888): 8
+  img_3     (0.8875): 9
+  img_24    (0.8870): 5
+  img_22    (0.8859): 1
+  img_37    (0.8846): 5
+  img_11    (0.8837): 5
+  img_26    (0.8829): 4
+  img_13    (0.8813): 4
+  img_16    (0.8808): 3
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1069 class(es) detected in memeory of length 3071
+2.2600sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.8989): 1
+  img_47    (0.8985): 8
+  img_22    (0.8962): 1
+  img_49    (0.8954): 6
+  img_3     (0.8953): 9
+  img_37    (0.8929): 5
+  img_23    (0.8927): 1
+  img_24    (0.8924): 5
+  img_11    (0.8921): 5
+  img_60    (0.8918): 0
+  img_58    (0.8914): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+605 class(es) detected in memeory of length 1778
+1.3443sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_49    (0.8934): 6
+  img_22    (0.8905): 1
+  img_57    (0.8896): 1
+  img_11    (0.8892): 5
+  img_3     (0.8891): 9
+  img_24    (0.8889): 5
+  img_47    (0.8889): 8
+  img_37    (0.8888): 5
+  img_60    (0.8885): 0
+  img_58    (0.8878): 2
+  img_31    (0.8875): 7
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+358 class(es) detected in memeory of length 1195
+0.5739sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_22    (0.8830): 1
+  img_37    (0.8827): 5
+  img_44    (0.8826): 9
+  img_26    (0.8826): 4
+  img_24    (0.8826): 5
+  img_47    (0.8825): 8
+  img_3     (0.8825): 9
+  img_57    (0.8825): 1
+  img_11    (0.8824): 5
+  img_58    (0.8823): 2
+  img_60    (0.8823): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+159 class(es) detected in memeory of length 744
+0.2351sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.8803): 3
+  img_24    (0.8802): 5
+  img_27    (0.8800): 2
+  img_22    (0.8800): 1
+  img_9     (0.8799): 0
+  img_26    (0.8799): 4
+  img_37    (0.8798): 5
+  img_60    (0.8797): 0
+  img_57    (0.8796): 1
+  img_3     (0.8792): 9
+  img_7     (0.8791): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+39 class(es) detected in memeory of length 301
+0.0917sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9290): 3
+  img_37    (0.9290): 5
+  img_22    (0.9290): 1
+  img_7     (0.9290): 0
+  img_60    (0.9290): 0
+  img_57    (0.9290): 1
+  img_3     (0.9290): 9
+  img_27    (0.9289): 2
+  img_49    (0.9288): 6
+  img_52    (0.9284): 8
+  img_47    (0.9278): 8
+  img_58    (0.9278): 2
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+27 class(es) detected in memeory of length 117
+0.0482sec(s) for main.<locals>.image_processor_register
+img_57(1) : 10.6846
+img_22(1) : 10.6686
+img_47(8) : 9.8235
+img_3(9)  : 8.8908
+img_5(3)  : 8.2238
+img_58(2) : 8.0145
+img_26(4) : 7.9865
+img_11(5) : 7.9761
+img_24(5) : 7.9509
+img_49(6) : 6.2988
+img_13(4) : 6.2967
+img_37(5) : 5.3577
+img_60(0) : 4.4713
+img_30(7) : 4.4206
+img_16(3) : 2.6257
+img_27(2) : 1.8089
+img_7(0)  : 1.8081
+img_52(8) : 0.9284
+img_23(1) : 0.8927
+img_31(7) : 0.8875
+img_44(9) : 0.8826
+img_9(0)  : 0.8799
+img_51(6) : 0.8733
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_30:  img_43, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9202): 4
+  img_58    (0.9200): 2
+  img_3     (0.9172): 9
+  img_59    (0.9165): 2
+  img_44    (0.9148): 9
+  img_30    (0.9137): 7
+  img_23    (0.9088): 1
+  img_22    (0.9088): 1
+  img_37    (0.9087): 5
+  img_25    (0.9024): 7
+  img_55    (0.9023): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+4544 class(es) detected in memeory of length 13323
+11.3770sec(s) for main.<locals>.image_processor_register
+PROCESSOR 2: --------->
+ SIMILAR IMAGES: 
+  img_3     (0.9254): 9
+  img_26    (0.9210): 4
+  img_59    (0.9203): 2
+  img_16    (0.9176): 3
+  img_58    (0.9137): 2
+  img_37    (0.9093): 5
+  img_44    (0.9061): 9
+  img_22    (0.9058): 1
+  img_23    (0.9057): 1
+  img_30    (0.9049): 7
+  img_31    (0.9018): 7
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+4546 class(es) detected in memeory of length 13053
+9.2282sec(s) for main.<locals>.image_processor_register
+PROCESSOR 3: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9246): 4
+  img_3     (0.9239): 9
+  img_16    (0.9209): 3
+  img_40    (0.9178): 6
+  img_37    (0.9165): 5
+  img_58    (0.9138): 2
+  img_31    (0.9038): 7
+  img_23    (0.9023): 1
+  img_22    (0.9016): 1
+  img_24    (0.8979): 5
+  img_47    (0.8974): 8
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3918 class(es) detected in memeory of length 11656
+7.6097sec(s) for main.<locals>.image_processor_register
+PROCESSOR 4: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9325): 4
+  img_3     (0.9308): 9
+  img_37    (0.9297): 5
+  img_55    (0.9261): 8
+  img_16    (0.9257): 3
+  img_47    (0.9150): 8
+  img_24    (0.9123): 5
+  img_31    (0.9120): 7
+  img_58    (0.9114): 2
+  img_22    (0.9099): 1
+  img_60    (0.9096): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+3071 class(es) detected in memeory of length 9093
+5.7285sec(s) for main.<locals>.image_processor_register
+PROCESSOR 5: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9473): 5
+  img_26    (0.9404): 4
+  img_3     (0.9399): 9
+  img_51    (0.9361): 6
+  img_16    (0.9357): 3
+  img_47    (0.9335): 8
+  img_24    (0.9323): 5
+  img_60    (0.9273): 0
+  img_58    (0.9272): 2
+  img_57    (0.9190): 1
+  img_22    (0.9178): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+2287 class(es) detected in memeory of length 6927
+5.1037sec(s) for main.<locals>.image_processor_register
+PROCESSOR 6: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9522): 5
+  img_3     (0.9461): 9
+  img_26    (0.9433): 4
+  img_24    (0.9433): 5
+  img_16    (0.9413): 3
+  img_47    (0.9390): 8
+  img_30    (0.9384): 7
+  img_60    (0.9357): 0
+  img_57    (0.9319): 1
+  img_22    (0.9264): 1
+  img_58    (0.9263): 2
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+1657 class(es) detected in memeory of length 4594
+3.2619sec(s) for main.<locals>.image_processor_register
+PROCESSOR 7: --------->
+ SIMILAR IMAGES: 
+  img_37    (0.9505): 5
+  img_3     (0.9495): 9
+  img_24    (0.9480): 5
+  img_47    (0.9468): 8
+  img_57    (0.9464): 1
+  img_26    (0.9458): 4
+  img_16    (0.9434): 3
+  img_60    (0.9425): 0
+  img_22    (0.9381): 1
+  img_13    (0.9380): 4
+  img_58    (0.9348): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+1133 class(es) detected in memeory of length 3222
+2.5261sec(s) for main.<locals>.image_processor_register
+PROCESSOR 8: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9517): 1
+  img_47    (0.9515): 8
+  img_3     (0.9452): 9
+  img_16    (0.9442): 3
+  img_23    (0.9425): 1
+  img_37    (0.9421): 5
+  img_22    (0.9410): 1
+  img_60    (0.9409): 0
+  img_26    (0.9401): 4
+  img_24    (0.9397): 5
+  img_11    (0.9387): 5
+0.0040sec(s) for main.<locals>.image_processor_getSimilar
+660 class(es) detected in memeory of length 1894
+1.3840sec(s) for main.<locals>.image_processor_register
+PROCESSOR 9: --------->
+ SIMILAR IMAGES: 
+  img_57    (0.9597): 1
+  img_31    (0.9582): 7
+  img_58    (0.9574): 2
+  img_11    (0.9567): 5
+  img_3     (0.9563): 9
+  img_47    (0.9563): 8
+  img_60    (0.9563): 0
+  img_22    (0.9560): 1
+  img_37    (0.9557): 5
+  img_24    (0.9555): 5
+  img_26    (0.9533): 4
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+393 class(es) detected in memeory of length 1281
+0.8326sec(s) for main.<locals>.image_processor_register
+PROCESSOR 10: --------->
+ SIMILAR IMAGES: 
+  img_26    (0.9751): 4
+  img_57    (0.9750): 1
+  img_3     (0.9748): 9
+  img_47    (0.9748): 8
+  img_58    (0.9747): 2
+  img_24    (0.9747): 5
+  img_11    (0.9745): 5
+  img_60    (0.9745): 0
+  img_37    (0.9744): 5
+  img_44    (0.9744): 9
+  img_22    (0.9743): 1
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+188 class(es) detected in memeory of length 801
+0.3580sec(s) for main.<locals>.image_processor_register
+PROCESSOR 11: --------->
+ SIMILAR IMAGES: 
+  img_24    (0.9946): 5
+  img_37    (0.9946): 5
+  img_22    (0.9945): 1
+  img_60    (0.9945): 0
+  img_9     (0.9944): 0
+  img_57    (0.9943): 1
+  img_27    (0.9943): 2
+  img_26    (0.9942): 4
+  img_3     (0.9939): 9
+  img_58    (0.9935): 2
+  img_7     (0.9935): 0
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+43 class(es) detected in memeory of length 336
+0.0794sec(s) for main.<locals>.image_processor_register
+PROCESSOR 12: --------->
+ SIMILAR IMAGES: 
+  img_5     (0.9986): 3
+  img_7     (0.9986): 0
+  img_3     (0.9986): 9
+  img_57    (0.9986): 1
+  img_60    (0.9985): 0
+  img_22    (0.9983): 1
+  img_47    (0.9983): 8
+  img_58    (0.9983): 2
+  img_11    (0.9982): 5
+  img_52    (0.9982): 8
+  img_27    (0.9982): 2
+0.0000sec(s) for main.<locals>.image_processor_getSimilar
+15 class(es) detected in memeory of length 131
+0.0320sec(s) for main.<locals>.image_processor_register
+img_3(9)  : 11.4017
+img_22(1) : 11.2727
+img_26(4) : 10.3905
+img_37(5) : 10.3811
+img_58(2) : 10.3712
+img_60(0) : 8.5797
+img_47(8) : 8.5125
+img_24(5) : 8.4983
+img_57(1) : 7.6765
+img_16(3) : 6.5286
+img_11(5) : 3.8681
+img_31(7) : 3.6758
+img_23(1) : 3.6593
+img_44(9) : 2.7952
+img_30(7) : 2.7569
+img_27(2) : 1.9925
+img_7(0)  : 1.9920
+img_59(2) : 1.8368
+img_55(8) : 1.8284
+img_5(3)  : 0.9986
+img_52(8) : 0.9982
+img_9(0)  : 0.9944
+img_13(4) : 0.9380
+img_51(6) : 0.9361
+img_40(6) : 0.9178
+img_25(7) : 0.9024
+---------------------------------------------------------------------------------------------------- 
+
+PROCESSOR 1: --------->
+ 30 data loaded into memory
+ 13813 kernel(s) extracted
+ 4544 cluster(s) discoverd
+PROCESSOR 2: --------->
+ 30 data loaded into memory
+ 13555 kernel(s) extracted
+ 4546 cluster(s) discoverd
+PROCESSOR 3: --------->
+ 29 data loaded into memory
+ 12112 kernel(s) extracted
+ 3918 cluster(s) discoverd
+PROCESSOR 4: --------->
+ 28 data loaded into memory
+ 9489 kernel(s) extracted
+ 3071 cluster(s) discoverd
+PROCESSOR 5: --------->
+ 27 data loaded into memory
+ 7250 kernel(s) extracted
+ 2287 cluster(s) discoverd
+PROCESSOR 6: --------->
+ 26 data loaded into memory
+ 4839 kernel(s) extracted
+ 1657 cluster(s) discoverd
+PROCESSOR 7: --------->
+ 25 data loaded into memory
+ 3379 kernel(s) extracted
+ 1133 cluster(s) discoverd
+PROCESSOR 8: --------->
+ 24 data loaded into memory
+ 1985 kernel(s) extracted
+ 660 cluster(s) discoverd
+PROCESSOR 9: --------->
+ 23 data loaded into memory
+ 1365 kernel(s) extracted
+ 393 cluster(s) discoverd
+PROCESSOR 10: --------->
+ 22 data loaded into memory
+ 857 kernel(s) extracted
+ 188 cluster(s) discoverd
+PROCESSOR 11: --------->
+ 21 data loaded into memory
+ 370 kernel(s) extracted
+ 43 cluster(s) discoverd
+PROCESSOR 12: --------->
+ 19 data loaded into memory
+ 147 kernel(s) extracted
+ 15 cluster(s) discoverd

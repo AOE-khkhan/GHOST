@@ -15,9 +15,12 @@ class MemoryLine:
 		self.log = self.console.log
 
 		self.console.setLogState(True)
-
+		
 		# for fetching kernels
 		self.kernel_size = (kernel_size, kernel_size)
+
+		# uneven weight on the diff in values
+		self.position_weight = np.arange(1, (kernel_size**2) + 1, dtype=np.float64).reshape(self.kernel_size)
 
 		# the memory is none form start
 		self.data = self.indices = None
@@ -37,7 +40,8 @@ class MemoryLine:
 		self.data = np.array([data], dtype=dtp)
 
 		# initializer the pegs
-		self.indices = np.array([data_index], dtype=np.float64)
+		dtp = np.float64 if type(data_index) != str else str
+		self.indices = np.array([data_index], dtype=dtp)
 		return
 
 	def computeIndex(self, data):
@@ -47,7 +51,7 @@ class MemoryLine:
 		return resultant(data)
 
 	# define the function for closest index using binary search
-	def binarySearch(self, needle, sorted_list=None, head=0):
+	def binarySearch(self, needle, sorted_list, head=0):
 		'''
 		binarySearch(sorted_list:list, needle:int, head:int)
 			takes in a sorted list and returns the index of an element being serched for
@@ -56,9 +60,6 @@ class MemoryLine:
 		needle: the element that is being looked for
 		head: head start index for tracking the right index
 		'''
-
-		if type(sorted_list) == type(None):
-			sorted_list = self.indices
 
 		# get the length of the sorted list
 		length_of_list = len(sorted_list)
@@ -100,12 +101,25 @@ class MemoryLine:
 		else:
 			return
 
-	def getRelatedData(self, needle):
+	def getRelatedData(self, needle, by_indices=True):
 		# sort First!
-		self.sortIndices(by_indices=True)
+		self.sortIndices(by_indices)
 		
 		# get the closet index
-		return self.binarySearch(needle)
+		indx = self.binarySearch(needle, self.indices)
+
+		# make sure the highest index of the most related is picked
+		if indx == None:
+			return
+
+		# all positions that correspond to closest value:
+		pos = np.where(self.indices == self.indices[indx])[0]
+
+		# if pos is empty
+		if len(pos) == 0:
+			return
+
+		return pos[-1]
 
 	def getRelatedIndex(self, needle):
 		indx = self.binarySearch(needle)
@@ -121,11 +135,16 @@ class MemoryLine:
 
 	def sortIndices(self, by_indices=True):
 		# sort the ids
-		if not by_indices:
-			self.sort_indices = self.data.argsort(0).mean(tuple(range(len(self.data.shape)))[1:]).argsort()
+		if self.data is not None and not by_indices:
+			self.sort_indices = self.data.mean(tuple(range(len(self.data.shape)))[1:]).argsort()
+
 		else:
-			self.sort_indices = self.indices.argsort()
+			if self.indices is not None:
+				self.sort_indices = self.indices.argsort()
 			
+			else:
+				return
+
 		# get the sorted ids
 		self.indices = self.indices[self.sort_indices]
 		self.data = self.data[self.sort_indices]
@@ -133,35 +152,35 @@ class MemoryLine:
 
 	def sortAndCluster(self):
 		# sort the ids
-		self.sortIndices()
-
-		# get the common differences
-		self.diff = np.diff(np.array(self.indices, dtype=np.float64))
+		self.sortIndices(by_indices=False)
+		
+		# get the common differences and weight the position to know truly cloe ones
+		self.diff = (abs(np.diff(np.array(self.data, dtype=np.float64), axis=0)) * self.position_weight).mean(axis=tuple(range(len(self.data.shape)))[1:])
 
 		if len(self.diff) < 1:
 			return
 
-		# the stats
-		x = self.diff[self.diff > 0]
-
 		# adding a full std is known to not converge well
-		self.meancd = x.mean() + (1. * x.std())
-		# self.meancd = x.mean()
+		# self.meancd = self.diff.mean()
+		self.meancd = self.diff[self.diff > 0].mean()
 
 		# the clusters
 		self.clusters = []
 		
 		a = 0
-		for i in range(len(self.indices) - 1):
-			# print("class {}: {}\n{}".format(len(self.clusters), self.indices[i], self.data[i]))
+		for i in range(len(self.diff)):
+			# print("class {}: index = {}, diff = {}, m =[{}, {}]\n{}".format(len(self.clusters), self.indices[i+1], self.diff[i], self.diff[self.diff>0].mean(), self.meancd, self.data[i+1]))
 			if self.diff[i] >= self.meancd or i == len(self.indices) - 2:
 				b = i+1
 
+				# save a cluster
 				self.clusters.append((a, b))
+				# self.console.log('  class {}: {} element(s)'.format(len(self.clusters), b-a))
+
 				a = b
 			# print()
 		self.console.log('{} class(es) detected in memeory of length {}'.format(len(self.clusters), len(self.indices)))
-		# print(self.meancd)
+		# print(self.meancd, 'mean')
 		return
 
 	def getData(self, index):
@@ -177,14 +196,14 @@ class MemoryLine:
 		'''
 
 		# if data index not available
-		if type(data_index) == type(None):
+		if data_index is None:
 			data_index = resultant(data)
 
 		elif type(data_index) == np.ndarray:
 			data_index = resultant(data_index)
 
 		
-		if type(self.data) == type(None):
+		if self.data is None:
 			self.initializeMemory(data, data_index)
 			return data_index
 

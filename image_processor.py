@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 # import lib code
 from console import Console
 from memory_line import MemoryLine
-from utils import getKernels, resultant
+from utils import getKernels, resultant, validateFolderPath
 
 # the image processor class
 class ImageProcessor:
@@ -46,12 +46,12 @@ class ImageProcessor:
 		self.IMAGE_MEMORY_PATH = '{}/images/{}'.format(self.MEMORY_PATH, refid)
 
 		for folder_path in [self.MEMORY_PATH, self.IMAGE_MEMORY_PATH]:
-			self.validateFolderPath(folder_path)
+			validateFolderPath(folder_path)
 
 	def getFeatures(self):
 		self.datons = None
 
-		if type(self.kernel_memory_line.data) == type(None):
+		if self.kernel_memory_line.data is None:
 			return
 
 		self.datons = np.array([], dtype=np.float64)
@@ -71,15 +71,16 @@ class ImageProcessor:
 			mean, standard_deviation = data.mean(axis=0), data.std(axis=0)
 			mean_of_sd = standard_deviation.mean()
 
-			daton_indices = np.where(standard_deviation <= mean_of_sd)
+			# daton_indices = np.where(standard_deviation <= mean_of_sd)
+			daton_indices = np.where(standard_deviation == standard_deviation)
 
 			# the representation of the data in number line space
 			daton = mean[daton_indices]
 			
 			# the resultant of the daton
-			daton_id = (resultant(daton) * 255) / resultant(np.full(daton.shape, 255))
+			daton_id = daton.mean()
 
-			min_daton = np.zeros((self.kernel_size, self.kernel_size)) 
+			min_daton = np.zeros((self.kernel_size, self.kernel_size), dtype=np.float64) 
 			max_daton = 255 + min_daton
 
 			dx = min_daton - 1
@@ -114,6 +115,7 @@ class ImageProcessor:
 			# print(daton_id)
 			# print(self.min_daton_indices_memory_line.indices, min_euclidean_distance)
 			# print(self.min_daton_indices_memory_line.data, daton_id)
+			# print(dx, len(daton_indices[0]), daton.mean())
 
 
 			# save the starting and ending index of possible letter representation
@@ -136,7 +138,7 @@ class ImageProcessor:
 			# threads[i].start()
 
 	def findRelatedFeature(self, kernel, kernel_index):
-		if type(self.datons) == type(None):
+		if self.datons is None or self.min_daton_indices_memory_line.indices is None:
 			return
 
 		# get the closest index to start, these three lines must stick as the sorting must affect all
@@ -177,16 +179,26 @@ class ImageProcessor:
 			return
 
 		if len(related_features) == 1:
-			# print(5, kernel_index, self.min_daton_indices_memory_line.indices[:mri], self.max_daton_indices, min_related_index, mri, related_features)
+			# print(5, kernel_index, self.min_daton_indices_memory_line.indices[:mri], self.max_daton_indices, rang, related_features, self.min_daton_indices_memory_line.data)
 			return related_features[0]
 
 		daton_indices = self.datons[rang]
+		dix = daton_indices.copy()
+
+		# the number of non negative values in each daton
+		n = (self.kernel_size**2)  - (np.count_nonzero(daton_indices == -1, axis=tuple(range(len(daton_indices.shape)))[1:]))
 
 		x = np.where(daton_indices == -1)
 		daton_indices[x] = kernel[x[1:]]
 
+		# difference between daton and kernel
 		ddi = abs(daton_indices - kernel)
-		ddi = np.sqrt(np.sum(ddi**2, axis=tuple(range(self.kernel_size))[1:]))
+
+		# checking the deviations
+		ddi_dev = np.sum(ddi, axis=tuple(range(len(ddi.shape)))[1:]) / n
+			
+		# getting the size of the daton
+		val_index = np.where(ddi_dev == ddi_dev.min())
 
 		ls = self.console.log_state
 		self.console.setLogState(False)
@@ -195,55 +207,51 @@ class ImageProcessor:
 				related_features, ddi
 			)
 		)
+		
 		self.console.setLogState(ls)
+		# comment to check the kerenel representation value
+		# print(kernel_index, related_features[val_index][0])
+		# print(dix[val_index][0])
 		# print(kernel)
+		# print()
 
-		return related_features[ddi.argmin()]
+		return related_features[val_index][0]
 
-	def getSimilar(self, image, threshold=0.9):
-		return
-		if type(self.image_memory_line.data) == type(None):
-			return
+	def getSimilar(self, image, threshold=10, verbose=0):
+		# if not verbose:
+		# 	return
 
-		grey = self.toGrey(image)
-		image_index = resultant(grey)
+		if self.image_memory_line.data is None:
+			return [], []
 
-		base = resultant(np.full(grey.shape, 255))
+		# the deviations
+		dev = abs(image - self.image_memory_line.data).mean(axis=tuple(range(len(self.image_memory_line.data.shape)))[1:])
+		udev = np.unique(dev)
 
-		most_related_index = self.image_memory_line.getRelatedData(image_index)
-		if most_related_index == None:
-			return
+		if type(threshold) == float:
+			threshold = int(threshold * len(udev)) - 1
 
-		a = most_related_index - 1 if most_related_index > 0 else 0
-		b = most_related_index + 2
+		if threshold > len(udev)-1:
+			threshold = len(udev) - 1
 
-		most_related_index = a + abs(image_index - self.image_memory_line.indices[a:b]).argmin()
+		# the limit of recall
+		limit = udev[threshold]
 
-		most_related = self.image_memory_line.data[most_related_index]
-		print(image_index, self.image_memory_line.indices[most_related_index], most_related, self.image_memory_line.indices)
+		# the similar images
+		similar = self.image_memory_line.indices[dev <= limit][dev[dev <= limit].argsort()]
+		similar_ratio = (255 - dev[dev <= limit][dev[dev <= limit].argsort()])/255
 
-		return most_related
+		return similar, similar_ratio
 
-	def validateFolderPath(self, folder_path):
-		if not os.path.exists(folder_path):
-			os.mkdir(folder_path)
-
-	def toGrey(self, img, r=0.299, g=0.587, b=0.114):
-		s = img.shape
-		if len(s) == 2 or (len(s) == 3 and s[-1] < 3):
-			return img
-		return np.add(b*img[:, :, 0], g*img[:, :, 1], r*img[:, :, 2])
-
-	def register(self, image, idx, verbose=0):
-		# get the grey version of image
-		grey = self.toGrey(image, 1/3, 1/3, 1/3)
-
+	def register(self, image, image_name, verbose=0):
 		# save image in memory
-		image_ref = self.saveImage(image, idx)
-		self.image_memory_line.add(image_ref, resultant(grey))
-
+		# image_ref = self.saveImage(image, image_name)
+		
+		# self.image_memory_line.add(image_name, resultant(image))
+		image_index = self.image_memory_line.add(image, image_name)
+		
 		# get the image features from kernels
-		kernels = self.getKernels(grey)
+		kernels = self.getKernels(image)
 		a, b, c, d = kernels.shape
 
 		# the alphabet
@@ -268,20 +276,16 @@ class ImageProcessor:
 				# print(kernel)
 
 				feature = self.findRelatedFeature(kernel, kernel_index)
-				# print(kernel_index, kernel)
+				# print(kernel_index, feature, kernel)
 				# print()
 								
-				if type(feature) == type(None):
+				if feature is None:
 					continue
 				
 				feature_map[i, j] = feature
-		
-		if verbose:
-			np.savetxt('results/feature_maps/feature_map_{}.txt'.format(idx), feature_map)
-			np.savetxt('results/images/image_{}.txt'.format(idx), grey)
-		
+
 		# register in memory
-		self.addToContext(image_ref)
+		self.addToContext(image_name)
 		return feature_map
 
 	def addToContext(self, image_path):
@@ -290,22 +294,22 @@ class ImageProcessor:
 			self.context.pop(0)
 		return
 
-	def saveImage(self, image, idx):
+	def saveImage(self, image, image_name=None):
 		'''
 		saveImage: saves images in the memory directory
 			image: matrix of rgb values
 		'''
 		# the image reference
-		image_name = str(time.time())
-		image_path = '{}/{}_{}.jpg'.format(self.IMAGE_MEMORY_PATH, idx, image_name)
+		image_name = str(time.time()) if image_name is None else image_name
+		image_path = '{}/{}.jpg'.format(self.IMAGE_MEMORY_PATH, image_name)
 		
-		self.console.log('registering {}'.format(image_path))
+		self.console.log('REGISTERING {}'.format(image_path))
 
 		cv2.imwrite(image_path, image)
-		return image_path
+		return image_name
 
 	def getKernels(self, img, kernel_size=None):
-		if type(kernel_size) == type(None):
+		if kernel_size is None:
 			kernel_size = (self.kernel_size, self.kernel_size)
 
 		if type(kernel_size) == int:

@@ -17,3 +17,12 @@ Note
 	the change can be effected in the util.py resultant function
 	also change the deafult argument by_indices to True in sortIndices method in memory_line.py
 ]
+
+
+-for the daton, there is  the choice to use subset of the mean of class kernels or mean of class kernels as it is[
+	right now it is mean of class kernels
+]
+
+TESTs
+======
+when i used 2x2 kernels i got a convergence of 0.009 to 0.012
