@@ -1,4 +1,4 @@
 @echo off
 cls
-rem python main.py
-python main.py >> result.txt
+python main.py
+REM python main.py >> result.txt

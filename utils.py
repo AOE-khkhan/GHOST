@@ -27,8 +27,8 @@ def getKernels(img, kernel_size):
 
 def load_image(image_path):
 	image = cv2.imread(image_path)
-	# image = image[...,::-1]
-	image = np.array(image, dtype='float64')
+	image = image[...,::-1]
+	image = np.array(image, dtype=np.float64)
 	return image
 
 def resultant(matrix):
@@ -37,16 +37,31 @@ def resultant(matrix):
 def get_similarity_ratio(a, b):
 	return (255**-1) - abs(a - b).mean()
 
-def toGrey(img, r=1/3, g=1/3, b=1/3):
-# def toGrey(img, r=0.299, g=0.587, b=0.114):
-	s = img.shape
-	if len(s) == 2 or (len(s) == 3 and s[-1] < 3):
-		return img
-	return np.add(b*img[:, :, 0], g*img[:, :, 1], r*img[:, :, 2])
+def toGrey(image):
+    return image.mean(2)
 
-def is_row_in_array(row , arr):
+def index_row_in_array(row, arr):
 	return np.where((row == arr).all(tuple(range(len(arr.shape)))[1:]) == True)[0]
+
+def is_row_in_array(row, arr):
+	return len(index_row_in_array(row, arr)) != 0
+
 
 def validateFolderPath(folder_path):
 	if not os.path.exists(folder_path):
 		os.mkdir(folder_path)
+
+
+def imshow_components(labels):
+    # Map component labels to hue val
+    label_hue = np.uint8(179*labels/np.max(labels))
+    blank_ch = 255*np.ones_like(label_hue)
+    labeled_img = cv2.merge([label_hue, blank_ch, blank_ch])
+
+    # cvt to BGR for display
+    labeled_img = cv2.cvtColor(labeled_img, cv2.COLOR_HSV2BGR)
+
+    # set bg label to black
+    labeled_img[label_hue == 0] = 0
+
+    return labeled_img

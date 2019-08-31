@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 # import lib code
-from utils import getKernels, load_image, resultant, is_row_in_array
+from utils import getKernels, load_image, resultant, is_row_in_array, index_row_in_array
 
 class MemoryLine:
 	def __init__(self, kernel_size=3):
@@ -209,7 +209,7 @@ class MemoryLine:
 
 		# if data already exists
 		if not force_add:
-			indices = is_row_in_array(data, self.data)
+			indices = index_row_in_array(data, self.data)
 			if len(indices) == 1:
 				return self.indices[indices[0]]
 
