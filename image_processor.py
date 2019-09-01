@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 # import lib code
 from console import Console
 from memory_line import MemoryLine
-from utils import getKernels, resultant, validateFolderPath
+from utils import getKernels, resultant, validateFolderPath, is_row_in_array
 
 # the image processor class
 class ImageProcessor:
@@ -225,7 +225,7 @@ class ImageProcessor:
 			return [], []
 
 		# the deviations
-		dev = abs(image - self.image_memory_line.data).mean(axis=tuple(range(len(self.image_memory_line.data.shape)))[1:])
+		dev = np.array([self.compare(image, img) for img in self.image_memory_line.data], dtype=np.float64)
 		udev = np.unique(dev)
 
 		if type(threshold) == float:
@@ -238,12 +238,140 @@ class ImageProcessor:
 		limit = udev[threshold]
 
 		# the similar images
-		similar = self.image_memory_line.indices[dev <= limit][dev[dev <= limit].argsort()]
-		similar_ratio = (255 - dev[dev <= limit][dev[dev <= limit].argsort()])/255
+		similar = self.image_memory_line.indices[dev <= limit][dev[dev <= limit].argsort()[::-1]]
+		similar_ratio = dev[dev <= limit][dev[dev <= limit].argsort()[::-1]]
 
 		return similar, similar_ratio
 
-	def register(self, image, image_name, verbose=0):
+	def run(self, image, image_name, verbose=0):
+		cls = []
+		image_unique = np.unique(image)
+
+		# self.image_memory_line.add(image_name, resultant(image))
+		_ = self.image_memory_line.add(image, image_name)
+
+		# get the objects
+		yield self.getSimilar(image)
+
+		# for i in image_unique:
+		# 	m = np.sort(abs(i - image_unique).flatten()).mean()
+
+		# 	a = 0 if i - m < 0 else i - m
+		# 	b = 255 if i + m > 255 else i + m
+
+		# 	img = ((image >= a) & (image <= b)).astype(np.uint8)
+
+		# 	valid = False
+		# 	if len(cls) == 0:
+		# 		cls = np.array([img], dtype=np.uint8)
+		# 		prev = img.copy()
+		# 		valid = True
+
+		# 	else:
+		# 		diff = abs(prev - img.astype(np.int8)).mean()
+		# #         print(diff)
+		# 		if diff > 0.075 and (not is_row_in_array(img, cls)):
+		# 			cls = np.concatenate((cls, [img]))
+		# 			prev = img.astype(np.int64).copy()
+		# 			valid = True
+
+		# 	if valid:
+		# 		ret, labels = cv2.connectedComponents(img)
+		# 		# labeled_img = imshow_components(labels)
+
+		# # register in memory
+		# self.addToContext(image_name)
+
+		# for label in range(1, ret):
+		# 	pos = np.where(labels == label)
+		# 	arx, ary = pos
+		# 	w, h = labels.shape
+
+		# 	arxs, arxe = min(arx), max(arx)
+		# 	arys, arye = min(ary), max(ary)
+
+		# 	xspan = abs(arxs - arxe)
+		# 	yspan = abs(arys - arye)
+
+		# 	xcenter, ycenter = (0.5 * abs(arxs + arxe)), (0.5 * abs(arys + arye))
+
+		# 	x1, x2 = xcenter - (0.5*xspan), xcenter + (0.5*xspan)
+		# 	y1, y2 = ycenter - (0.5*yspan), ycenter + (0.5*yspan)
+
+		# 	x1, x2, y1, y2 = list(map(int, [x1, x2, y1, y2]))
+			
+		# 	x1 = 0 if x1 - 1 < 0 else x1 - 1
+		# 	y1 = 0 if y1 - 1 < 0 else y1 - 1
+
+		# 	x2 = w if x2 + 2 > w else x2 + 2
+		# 	y2 = h if y2 + 2 > h else y2 + 2
+			
+		# 	img_objx = img[x1:x2, y1:y2]
+		# 	x, y = img_objx.shape
+
+		# 	img_obj = np.zeros((24, 24))
+		# 	img_obj[0:x, 0:y] = img_objx
+
+		# 	# self.image_memory_line.add(image_name, resultant(image))
+		# 	_ = self.image_memory_line.add(img_obj, image_name)
+			
+		# 	# get the objects
+		# 	yield self.getSimilar(img_obj)
+
+	def compare(self, img_1, img_2):
+		img_1a, img_1b = np.where(img_1 == 1)
+		img_1a, img_1b = int(img_1a.mean()), int(img_1b.mean())
+
+		img_2a, img_2b = np.where(img_2 == 1)
+		img_2a, img_2b = int(img_2a.mean()), int(img_2b.mean())
+
+		d, f = img_1.shape
+		g, h = img_2.shape
+
+		if img_1a <= img_2a:
+			img_1x1 = img_2a - img_1a
+			img_1x2 = img_1x1 + d
+
+			img_2x1, img_2x2 = 0, g
+
+		else:
+			img_2x1 = img_1a - img_2a
+			img_2x2 = img_2x1 + g
+
+			img_1x1, img_1x2 = 0, d
+
+
+		if img_1b <= img_2b:
+			img_1y1 = img_2b - img_1b
+			img_1y2 = img_1y1 + f
+
+			img_2y1, img_2y2 = 0, h
+
+		else:
+			img_2y1 = img_1b - img_2b
+			img_2y2 = img_2y1 + h
+
+			img_1y1, img_1y2 = 0, f
+
+		r = max((img_1x2, img_2x2))
+		c = max((img_1y2, img_2y2))
+
+		# print(
+		# 	img_1x1, img_1x2, img_1y1, img_1y2, '=>', img_2x1, img_2x2, img_2y1, img_2y2, '=>', d,g, f,h, [r, c],
+		# 	[img_1a, img_1b], [img_2a, img_2b]
+		# )
+
+		# the new images
+		img_n1, img_n2 = np.zeros((r, c)), np.zeros((r, c))
+
+		# the new images
+		img_n1[img_1x1:img_1x2, img_1y1:img_1y2] = img_1
+		img_n2[img_2x1:img_2x2, img_2y1:img_2y2] = img_2
+
+		m = 255 if np.amax(img_n2) > 1 else 1
+		return (m - cv2.absdiff(img_n2, img_n1).mean())/m
+
+	def register2(self, image, image_name, verbose=0):
 		# save image in memory
 		# image_ref = self.saveImage(image, image_name)
 		

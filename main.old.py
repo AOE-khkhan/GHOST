@@ -20,7 +20,6 @@ def simulate_experience(img_dir):
 		yield image_name, load_image('{}/{}'.format(img_dir, image_name))[:28, :28], 'metadata'
 
 def getMnistData():
-	# with open('test/mnist_data/dat.json') as f:
 	with open('test/mnist_data/mnist_data_index.json') as f:
 		mnist_data = json.load(f)
 		for image_name in mnist_data:
@@ -63,7 +62,7 @@ def main():
 	# initializations
 	console = Console()	#console for logging
 	timer = Timer()	#timer for timing
-	depth = 1 #depth of processors, thought
+	depth = 12 #depth of processors, thought
 
 	# the image image_processor
 	img_processor = [ImageProcessor(refid=i, kernel_size=3) for i in range(depth)]
@@ -72,7 +71,7 @@ def main():
 	images = getTrainingData('mnist')
 	data = {} #to hold all the data trained with
 
-	c, limit = -1, 60	#counter
+	c, limit = -1, 30	#counter
 
 	ct = {str(i):0 for i in range(10)}
 	for i, (image_name, image, metadata) in enumerate(images):
@@ -87,7 +86,7 @@ def main():
 			break
 
 		# get the grey version of image
-		image = toGrey(image)
+		image = toGrey(image, 1/3, 1/3, 1/3)
 
 		# the dimensions
 		if len(image.shape) == 3:
@@ -106,28 +105,43 @@ def main():
 		verbose = 1 if i == -1 or 1 else 0
 
 		# run against timer
-		def image_processor_run():
-			process = img_processor[processor_index].run(image, image_name, verbose=verbose)
-			console.log(' SIMILAR IMAGES:')
-			for similar, similar_ratio in process:
-				for xi, x in enumerate(similar):
-					console.log('  {:<10s}({:<0.4f}): {}'.format(x, similar_ratio[xi], data[x]))
-					xx = '{}({})'.format(x, data[x])
-					if xx not in sim:
-						sim[xx] = similar_ratio[xi]
+		def image_processor_getSimilar():
+			similar, similar_ratio = img_processor[processor_index].getSimilar(image, verbose=verbose)
+			console.log(' SIMILAR IMAGES: {}'.format('None' if len(similar) == 0 else ''))
+			for xi, x in enumerate(similar):
+				console.log('  {:<10s}({:<0.4f}): {}'.format(x, similar_ratio[xi], data[x]))
+				xx = '{}({})'.format(x, data[x])
+				if xx not in sim:
+					sim[xx] = similar_ratio[xi]
 
-					else:
-						sim[xx] += similar_ratio[xi]
-				print()
-			else:
-				console.log(' SIMILAR IMAGES: None')
+				else:
+					sim[xx] += similar_ratio[xi]
 
 			return similar, similar_ratio
+
+		# run against timer
+		def image_processor_register():
+			feature_map = img_processor[processor_index].register(image, image_name, verbose=verbose)
+			if verbose:
+				# ref path
+				fmap_path = 'results/feature_maps/{}/{}.txt'.format(processor_index, image_name)
+				img_path = 'results/images/{}/{}.txt'.format(processor_index, image_name)
+				
+				# validate the folders
+				validateFolderPath(os.path.dirname(fmap_path))
+				validateFolderPath(os.path.dirname(img_path))
+				
+				# save the maps				
+				np.savetxt(fmap_path, feature_map)
+				np.savetxt(img_path, image)
+
+			return feature_map
 
 		sim = {}
 		for processor_index in range(depth):
 			console.log('PROCESSOR {}: --------->'.format(processor_index+1))
-			similar_images, similarity_ratio = timer.run(image_processor_run)
+			similar_images = timer.run(image_processor_getSimilar)
+			image = timer.run(image_processor_register)
 
 		sim = sorted(sim.items(), key=lambda x: x[1], reverse=True)
 		for sm, smr in sim:
@@ -140,10 +154,12 @@ def main():
 		console.log('PROCESSOR {}: --------->'.format(processor_index+1))
 		if img_processor[processor_index].image_memory_line.indices is not None:
 			# np.savetxt('indices.txt', img_processor[i].kernel_memory_line.indices)
-			console.log(' {} data loaded into memory\n'.format(len(img_processor[processor_index].image_memory_line.indices)))
-		
-	for metadata in ct:
-		print('{}: {}'.format(metadata, ct[metadata]))
+			console.log(' {} data loaded into memory\n {} kernel(s) extracted\n {} cluster(s) discoverd'.format(
+				len(img_processor[processor_index].image_memory_line.indices),
+				len(img_processor[processor_index].kernel_memory_line.indices),
+				len(img_processor[processor_index].kernel_memory_line.clusters)
+				)
+			)
 
 	with open('train.json', 'w') as f:
 		json.dump(data, f)
