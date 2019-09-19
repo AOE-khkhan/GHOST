@@ -9977,3 +9977,2489 @@ PROCESSOR 12: --------->
  19 data loaded into memory
  274 kernel(s) extracted
  115 cluster(s) discoverd
+LOADING IMAGE_1:  img_16, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_16    (1.0000): 3
+
+0.0201sec(s) for main.<locals>.image_processor_run
+img_16(3) : 1.0000
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2:  img_59, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0096sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3:  img_40, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_40    (1.0000): 6
+  img_16    (0.9947): 3
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_40(6) : 1.0000
+img_16(3) : 0.9947
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4:  img_55, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_55    (1.0000): 8
+  img_16    (0.9922): 3
+  img_40    (0.9886): 6
+
+0.0116sec(s) for main.<locals>.image_processor_run
+img_55(8) : 1.0000
+img_16(3) : 0.9922
+img_40(6) : 0.9886
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5:  img_51, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_51    (1.0000): 6
+  img_40    (0.9949): 6
+  img_55    (0.9919): 8
+  img_16    (0.9844): 3
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_51(6) : 1.0000
+img_40(6) : 0.9949
+img_55(8) : 0.9919
+img_16(3) : 0.9844
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_6:  img_30, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_30    (1.0000): 7
+  img_55    (0.9963): 8
+  img_51    (0.9957): 6
+  img_16    (0.9951): 3
+  img_40    (0.9934): 6
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_30(7) : 1.0000
+img_55(8) : 0.9963
+img_51(6) : 0.9957
+img_16(3) : 0.9951
+img_40(6) : 0.9934
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_7:  img_13, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_13    (1.0000): 4
+  img_30    (0.9957): 7
+  img_51    (0.9938): 6
+  img_40    (0.9933): 6
+  img_55    (0.9932): 8
+  img_16    (0.9929): 3
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_13(4) : 1.0000
+img_30(7) : 0.9957
+img_51(6) : 0.9938
+img_40(6) : 0.9933
+img_55(8) : 0.9932
+img_16(3) : 0.9929
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_8:  img_23, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_23    (1.0000): 1
+  img_30    (0.9964): 7
+  img_16    (0.9958): 3
+  img_55    (0.9949): 8
+  img_13    (0.9948): 4
+  img_51    (0.9926): 6
+  img_40    (0.9918): 6
+
+0.0080sec(s) for main.<locals>.image_processor_run
+img_23(1) : 1.0000
+img_30(7) : 0.9964
+img_16(3) : 0.9958
+img_55(8) : 0.9949
+img_13(4) : 0.9948
+img_51(6) : 0.9926
+img_40(6) : 0.9918
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_9:  img_31, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_10:  img_44, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_44    (1.0000): 9
+  img_30    (0.9962): 7
+  img_55    (0.9942): 8
+  img_51    (0.9942): 6
+  img_13    (0.9941): 4
+  img_23    (0.9939): 1
+  img_40    (0.9919): 6
+  img_16    (0.9891): 3
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_44(9) : 1.0000
+img_30(7) : 0.9962
+img_55(8) : 0.9942
+img_51(6) : 0.9942
+img_13(4) : 0.9941
+img_23(1) : 0.9939
+img_40(6) : 0.9919
+img_16(3) : 0.9891
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_11:  img_25, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_25    (1.0000): 7
+  img_13    (0.9971): 4
+  img_30    (0.9963): 7
+  img_44    (0.9950): 9
+  img_55    (0.9941): 8
+  img_23    (0.9923): 1
+  img_51    (0.9914): 6
+  img_40    (0.9894): 6
+  img_16    (0.9893): 3
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_25(7) : 1.0000
+img_13(4) : 0.9971
+img_30(7) : 0.9963
+img_44(9) : 0.9950
+img_55(8) : 0.9941
+img_23(1) : 0.9923
+img_51(6) : 0.9914
+img_40(6) : 0.9894
+img_16(3) : 0.9893
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_12:  img_24, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_24    (1.0000): 5
+  img_30    (0.9971): 7
+  img_23    (0.9962): 1
+  img_16    (0.9950): 3
+  img_55    (0.9936): 8
+  img_13    (0.9930): 4
+  img_25    (0.9930): 7
+  img_44    (0.9927): 9
+  img_51    (0.9920): 6
+  img_40    (0.9903): 6
+
+0.0123sec(s) for main.<locals>.image_processor_run
+img_24(5) : 1.0000
+img_30(7) : 0.9971
+img_23(1) : 0.9962
+img_16(3) : 0.9950
+img_55(8) : 0.9936
+img_13(4) : 0.9930
+img_25(7) : 0.9930
+img_44(9) : 0.9927
+img_51(6) : 0.9920
+img_40(6) : 0.9903
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_13:  img_26, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_26    (1.0000): 4
+  img_55    (0.9976): 8
+  img_25    (0.9974): 7
+  img_30    (0.9974): 7
+  img_23    (0.9973): 1
+  img_13    (0.9972): 4
+  img_24    (0.9965): 5
+  img_51    (0.9962): 6
+  img_44    (0.9940): 9
+  img_16    (0.9936): 3
+  img_40    (0.9934): 6
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_26(4) : 1.0000
+img_55(8) : 0.9976
+img_25(7) : 0.9974
+img_30(7) : 0.9974
+img_23(1) : 0.9973
+img_13(4) : 0.9972
+img_24(5) : 0.9965
+img_51(6) : 0.9962
+img_44(9) : 0.9940
+img_16(3) : 0.9936
+img_40(6) : 0.9934
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_14:  img_42, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_42    (1.0000): 7
+  img_25    (0.9990): 7
+  img_13    (0.9971): 4
+  img_30    (0.9964): 7
+  img_26    (0.9958): 4
+  img_44    (0.9948): 9
+  img_24    (0.9932): 5
+  img_23    (0.9930): 1
+  img_55    (0.9913): 8
+  img_51    (0.9913): 6
+  img_40    (0.9892): 6
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_42(7) : 1.0000
+img_25(7) : 0.9990
+img_13(4) : 0.9971
+img_30(7) : 0.9964
+img_26(4) : 0.9958
+img_44(9) : 0.9948
+img_24(5) : 0.9932
+img_23(1) : 0.9930
+img_55(8) : 0.9913
+img_51(6) : 0.9913
+img_40(6) : 0.9892
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_15:  img_37, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0120sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_16:   img_9, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_9     (1.0000): 0
+  img_30    (0.9932): 7
+  img_24    (0.9931): 5
+  img_40    (0.9924): 6
+  img_55    (0.9922): 8
+  img_23    (0.9904): 1
+  img_26    (0.9903): 4
+  img_44    (0.9897): 9
+  img_16    (0.9889): 3
+  img_25    (0.9886): 7
+  img_42    (0.9879): 7
+
+0.0200sec(s) for main.<locals>.image_processor_run
+img_9(0)  : 1.0000
+img_30(7) : 0.9932
+img_24(5) : 0.9931
+img_40(6) : 0.9924
+img_55(8) : 0.9922
+img_23(1) : 0.9904
+img_26(4) : 0.9903
+img_44(9) : 0.9897
+img_16(3) : 0.9889
+img_25(7) : 0.9886
+img_42(7) : 0.9879
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_17:  img_22, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0040sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_18:  img_60, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0120sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_19:   img_3, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0120sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_20:   img_7, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_7     (1.0000): 0
+  img_9     (0.9953): 0
+  img_51    (0.9951): 6
+  img_40    (0.9934): 6
+  img_26    (0.9932): 4
+  img_24    (0.9927): 5
+  img_30    (0.9921): 7
+  img_44    (0.9913): 9
+  img_23    (0.9910): 1
+  img_13    (0.9904): 4
+  img_42    (0.9898): 7
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_7(0)  : 1.0000
+img_9(0)  : 0.9953
+img_51(6) : 0.9951
+img_40(6) : 0.9934
+img_26(4) : 0.9932
+img_24(5) : 0.9927
+img_30(7) : 0.9921
+img_44(9) : 0.9913
+img_23(1) : 0.9910
+img_13(4) : 0.9904
+img_42(7) : 0.9898
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_21:  img_47, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_47    (1.0000): 8
+  img_30    (0.9976): 7
+  img_26    (0.9973): 4
+  img_55    (0.9970): 8
+  img_23    (0.9965): 1
+  img_13    (0.9963): 4
+  img_24    (0.9960): 5
+  img_51    (0.9956): 6
+  img_44    (0.9954): 9
+  img_25    (0.9954): 7
+  img_42    (0.9948): 7
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_47(8) : 1.0000
+img_30(7) : 0.9976
+img_26(4) : 0.9973
+img_55(8) : 0.9970
+img_23(1) : 0.9965
+img_13(4) : 0.9963
+img_24(5) : 0.9960
+img_51(6) : 0.9956
+img_44(9) : 0.9954
+img_25(7) : 0.9954
+img_42(7) : 0.9948
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_22:  img_27, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_27    (1.0000): 2
+  img_23    (0.9963): 1
+  img_30    (0.9949): 7
+  img_26    (0.9932): 4
+  img_44    (0.9927): 9
+  img_47    (0.9927): 8
+  img_24    (0.9914): 5
+  img_51    (0.9913): 6
+  img_7     (0.9894): 0
+  img_55    (0.9887): 8
+  img_13    (0.9886): 4
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_27(2) : 1.0000
+img_23(1) : 0.9963
+img_30(7) : 0.9949
+img_26(4) : 0.9932
+img_44(9) : 0.9927
+img_47(8) : 0.9927
+img_24(5) : 0.9914
+img_51(6) : 0.9913
+img_7(0)  : 0.9894
+img_55(8) : 0.9887
+img_13(4) : 0.9886
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_23:  img_28, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_28    (1.0000): 7
+  img_42    (0.9981): 7
+  img_25    (0.9974): 7
+  img_13    (0.9963): 4
+  img_26    (0.9954): 4
+  img_44    (0.9944): 9
+  img_30    (0.9938): 7
+  img_47    (0.9935): 8
+  img_24    (0.9919): 5
+  img_23    (0.9904): 1
+  img_7     (0.9889): 0
+
+0.0086sec(s) for main.<locals>.image_processor_run
+img_28(7) : 1.0000
+img_42(7) : 0.9981
+img_25(7) : 0.9974
+img_13(4) : 0.9963
+img_26(4) : 0.9954
+img_44(9) : 0.9944
+img_30(7) : 0.9938
+img_47(8) : 0.9935
+img_24(5) : 0.9919
+img_23(1) : 0.9904
+img_7(0)  : 0.9889
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_24:   img_4, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_25:  img_11, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_11    (1.0000): 5
+  img_13    (0.9961): 4
+  img_47    (0.9960): 8
+  img_16    (0.9956): 3
+  img_40    (0.9955): 6
+  img_26    (0.9944): 4
+  img_30    (0.9943): 7
+  img_44    (0.9936): 9
+  img_55    (0.9934): 8
+  img_24    (0.9931): 5
+  img_9     (0.9931): 0
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_11(5) : 1.0000
+img_13(4) : 0.9961
+img_47(8) : 0.9960
+img_16(3) : 0.9956
+img_40(6) : 0.9955
+img_26(4) : 0.9944
+img_30(7) : 0.9943
+img_44(9) : 0.9936
+img_55(8) : 0.9934
+img_24(5) : 0.9931
+img_9(0)  : 0.9931
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_26:  img_58, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_58    (1.0000): 2
+  img_30    (0.9980): 7
+  img_47    (0.9965): 8
+  img_7     (0.9964): 0
+  img_26    (0.9963): 4
+  img_23    (0.9963): 1
+  img_24    (0.9960): 5
+  img_44    (0.9959): 9
+  img_55    (0.9954): 8
+  img_11    (0.9953): 5
+  img_25    (0.9952): 7
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_58(2) : 1.0000
+img_30(7) : 0.9980
+img_47(8) : 0.9965
+img_7(0)  : 0.9964
+img_26(4) : 0.9963
+img_23(1) : 0.9963
+img_24(5) : 0.9960
+img_44(9) : 0.9959
+img_55(8) : 0.9954
+img_11(5) : 0.9953
+img_25(7) : 0.9952
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_27:  img_49, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_49    (1.0000): 6
+  img_30    (0.9967): 7
+  img_26    (0.9965): 4
+  img_47    (0.9963): 8
+  img_51    (0.9957): 6
+  img_23    (0.9956): 1
+  img_11    (0.9955): 5
+  img_13    (0.9955): 4
+  img_24    (0.9953): 5
+  img_58    (0.9952): 2
+  img_25    (0.9949): 7
+
+0.0080sec(s) for main.<locals>.image_processor_run
+img_49(6) : 1.0000
+img_30(7) : 0.9967
+img_26(4) : 0.9965
+img_47(8) : 0.9963
+img_51(6) : 0.9957
+img_23(1) : 0.9956
+img_11(5) : 0.9955
+img_13(4) : 0.9955
+img_24(5) : 0.9953
+img_58(2) : 0.9952
+img_25(7) : 0.9949
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_28:  img_19, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_19    (1.0000): 9
+  img_26    (0.9988): 4
+  img_47    (0.9968): 8
+  img_25    (0.9968): 7
+  img_49    (0.9963): 6
+  img_30    (0.9963): 7
+  img_13    (0.9960): 4
+  img_44    (0.9958): 9
+  img_28    (0.9958): 7
+  img_42    (0.9957): 7
+  img_55    (0.9954): 8
+
+0.0125sec(s) for main.<locals>.image_processor_run
+img_19(9) : 1.0000
+img_26(4) : 0.9988
+img_47(8) : 0.9968
+img_25(7) : 0.9968
+img_49(6) : 0.9963
+img_30(7) : 0.9963
+img_13(4) : 0.9960
+img_44(9) : 0.9958
+img_28(7) : 0.9958
+img_42(7) : 0.9957
+img_55(8) : 0.9954
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_29:  img_57, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_57    (1.0000): 1
+  img_23    (0.9989): 1
+  img_30    (0.9980): 7
+  img_47    (0.9977): 8
+  img_58    (0.9969): 2
+  img_26    (0.9969): 4
+  img_24    (0.9967): 5
+  img_49    (0.9965): 6
+  img_55    (0.9963): 8
+  img_11    (0.9957): 5
+  img_19    (0.9957): 9
+
+0.0080sec(s) for main.<locals>.image_processor_run
+img_57(1) : 1.0000
+img_23(1) : 0.9989
+img_30(7) : 0.9980
+img_47(8) : 0.9977
+img_58(2) : 0.9969
+img_26(4) : 0.9969
+img_24(5) : 0.9967
+img_49(6) : 0.9965
+img_55(8) : 0.9963
+img_11(5) : 0.9957
+img_19(9) : 0.9957
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_30:  img_52, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_52    (1.0000): 8
+  img_11    (0.9968): 5
+  img_13    (0.9958): 4
+  img_47    (0.9957): 8
+  img_26    (0.9953): 4
+  img_49    (0.9948): 6
+  img_58    (0.9948): 2
+  img_57    (0.9946): 1
+  img_40    (0.9945): 6
+  img_23    (0.9945): 1
+  img_19    (0.9939): 9
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_52(8) : 1.0000
+img_11(5) : 0.9968
+img_13(4) : 0.9958
+img_47(8) : 0.9957
+img_26(4) : 0.9953
+img_49(6) : 0.9948
+img_58(2) : 0.9948
+img_57(1) : 0.9946
+img_40(6) : 0.9945
+img_23(1) : 0.9945
+img_19(9) : 0.9939
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_31:   img_5, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_5     (1.0000): 3
+  img_57    (0.9981): 1
+  img_49    (0.9974): 6
+  img_47    (0.9969): 8
+  img_58    (0.9967): 2
+  img_23    (0.9965): 1
+  img_30    (0.9965): 7
+  img_26    (0.9961): 4
+  img_11    (0.9951): 5
+  img_52    (0.9945): 8
+  img_13    (0.9943): 4
+
+0.0136sec(s) for main.<locals>.image_processor_run
+img_5(3)  : 1.0000
+img_57(1) : 0.9981
+img_49(6) : 0.9974
+img_47(8) : 0.9969
+img_58(2) : 0.9967
+img_23(1) : 0.9965
+img_30(7) : 0.9965
+img_26(4) : 0.9961
+img_11(5) : 0.9951
+img_52(8) : 0.9945
+img_13(4) : 0.9943
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_32:  img_14, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_14    (1.0000): 0
+  img_9     (0.9977): 0
+  img_58    (0.9942): 2
+  img_7     (0.9938): 0
+  img_24    (0.9931): 5
+  img_30    (0.9930): 7
+  img_11    (0.9923): 5
+  img_47    (0.9920): 8
+  img_16    (0.9920): 3
+  img_57    (0.9913): 1
+  img_40    (0.9912): 6
+
+0.0080sec(s) for main.<locals>.image_processor_run
+img_14(0) : 1.0000
+img_9(0)  : 0.9977
+img_58(2) : 0.9942
+img_7(0)  : 0.9938
+img_24(5) : 0.9931
+img_30(7) : 0.9930
+img_11(5) : 0.9923
+img_47(8) : 0.9920
+img_16(3) : 0.9920
+img_57(1) : 0.9913
+img_40(6) : 0.9912
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_33:  img_46, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_46    (1.0000): 7
+  img_42    (0.9990): 7
+  img_25    (0.9977): 7
+  img_28    (0.9970): 7
+  img_13    (0.9966): 4
+  img_19    (0.9957): 9
+  img_30    (0.9956): 7
+  img_44    (0.9951): 9
+  img_26    (0.9944): 4
+  img_49    (0.9941): 6
+  img_11    (0.9940): 5
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_46(7) : 1.0000
+img_42(7) : 0.9990
+img_25(7) : 0.9977
+img_28(7) : 0.9970
+img_13(4) : 0.9966
+img_19(9) : 0.9957
+img_30(7) : 0.9956
+img_44(9) : 0.9951
+img_26(4) : 0.9944
+img_49(6) : 0.9941
+img_11(5) : 0.9940
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_34:  img_38, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_35:   img_6, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0120sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_36:  img_12, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_37:  img_18, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_18    (1.0000): 1
+  img_49    (0.9992): 6
+  img_19    (0.9989): 9
+  img_57    (0.9985): 1
+  img_26    (0.9985): 4
+  img_47    (0.9983): 8
+  img_30    (0.9982): 7
+  img_5     (0.9982): 3
+  img_23    (0.9979): 1
+  img_24    (0.9979): 5
+  img_55    (0.9978): 8
+
+0.0096sec(s) for main.<locals>.image_processor_run
+img_18(1) : 1.0000
+img_49(6) : 0.9992
+img_19(9) : 0.9989
+img_57(1) : 0.9985
+img_26(4) : 0.9985
+img_47(8) : 0.9983
+img_30(7) : 0.9982
+img_5(3)  : 0.9982
+img_23(1) : 0.9979
+img_24(5) : 0.9979
+img_55(8) : 0.9978
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_38:   img_1, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_1     (1.0000): 2
+  img_30    (0.9962): 7
+  img_18    (0.9955): 1
+  img_58    (0.9953): 2
+  img_57    (0.9946): 1
+  img_27    (0.9942): 2
+  img_47    (0.9938): 8
+  img_44    (0.9935): 9
+  img_23    (0.9935): 1
+  img_26    (0.9928): 4
+  img_7     (0.9927): 0
+
+0.0095sec(s) for main.<locals>.image_processor_run
+img_1(2)  : 1.0000
+img_30(7) : 0.9962
+img_18(1) : 0.9955
+img_58(2) : 0.9953
+img_57(1) : 0.9946
+img_27(2) : 0.9942
+img_47(8) : 0.9938
+img_44(9) : 0.9935
+img_23(1) : 0.9935
+img_26(4) : 0.9928
+img_7(0)  : 0.9927
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_39:  img_50, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_40:   img_8, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_8     (1.0000): 3
+  img_18    (0.9980): 1
+  img_5     (0.9975): 3
+  img_11    (0.9969): 5
+  img_57    (0.9965): 1
+  img_26    (0.9963): 4
+  img_23    (0.9963): 1
+  img_52    (0.9962): 8
+  img_30    (0.9962): 7
+  img_58    (0.9960): 2
+  img_47    (0.9958): 8
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_8(3)  : 1.0000
+img_18(1) : 0.9980
+img_5(3)  : 0.9975
+img_11(5) : 0.9969
+img_57(1) : 0.9965
+img_26(4) : 0.9963
+img_23(1) : 0.9963
+img_52(8) : 0.9962
+img_30(7) : 0.9962
+img_58(2) : 0.9960
+img_47(8) : 0.9958
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_41:  img_10, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_42:  img_56, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0086sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_43:  img_54, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_44:  img_36, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_36    (1.0000): 2
+  img_18    (0.9990): 1
+  img_30    (0.9978): 7
+  img_57    (0.9972): 1
+  img_47    (0.9971): 8
+  img_49    (0.9960): 6
+  img_5     (0.9956): 3
+  img_58    (0.9944): 2
+  img_19    (0.9943): 9
+  img_26    (0.9942): 4
+  img_11    (0.9940): 5
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_36(2) : 1.0000
+img_18(1) : 0.9990
+img_30(7) : 0.9978
+img_57(1) : 0.9972
+img_47(8) : 0.9971
+img_49(6) : 0.9960
+img_5(3)  : 0.9956
+img_58(2) : 0.9944
+img_19(9) : 0.9943
+img_26(4) : 0.9942
+img_11(5) : 0.9940
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_45:  img_53, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0099sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_46:  img_43, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_43    (1.0000): 4
+  img_18    (0.9972): 1
+  img_30    (0.9966): 7
+  img_51    (0.9965): 6
+  img_26    (0.9964): 4
+  img_44    (0.9963): 9
+  img_58    (0.9956): 2
+  img_55    (0.9954): 8
+  img_25    (0.9948): 7
+  img_23    (0.9946): 1
+  img_24    (0.9946): 5
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_43(4) : 1.0000
+img_18(1) : 0.9972
+img_30(7) : 0.9966
+img_51(6) : 0.9965
+img_26(4) : 0.9964
+img_44(9) : 0.9963
+img_58(2) : 0.9956
+img_55(8) : 0.9954
+img_25(7) : 0.9948
+img_23(1) : 0.9946
+img_24(5) : 0.9946
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_47:  img_21, initial dimension: width = 28, height = 28, depth = 1, metadata: 9
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_21    (1.0000): 9
+  img_19    (0.9983): 9
+  img_28    (0.9976): 7
+  img_18    (0.9974): 1
+  img_26    (0.9970): 4
+  img_25    (0.9969): 7
+  img_42    (0.9968): 7
+  img_44    (0.9968): 9
+  img_13    (0.9964): 4
+  img_30    (0.9964): 7
+  img_46    (0.9960): 7
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_21(9) : 1.0000
+img_19(9) : 0.9983
+img_28(7) : 0.9976
+img_18(1) : 0.9974
+img_26(4) : 0.9970
+img_25(7) : 0.9969
+img_42(7) : 0.9968
+img_44(9) : 0.9968
+img_13(4) : 0.9964
+img_30(7) : 0.9964
+img_46(7) : 0.9960
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_48:  img_41, initial dimension: width = 28, height = 28, depth = 1, metadata: 7
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_41    (1.0000): 7
+  img_36    (0.9984): 2
+  img_47    (0.9983): 8
+  img_55    (0.9983): 8
+  img_30    (0.9982): 7
+  img_58    (0.9982): 2
+  img_18    (0.9981): 1
+  img_57    (0.9977): 1
+  img_24    (0.9974): 5
+  img_26    (0.9974): 4
+  img_44    (0.9973): 9
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_41(7) : 1.0000
+img_36(2) : 0.9984
+img_47(8) : 0.9983
+img_55(8) : 0.9983
+img_30(7) : 0.9982
+img_58(2) : 0.9982
+img_18(1) : 0.9981
+img_57(1) : 0.9977
+img_24(5) : 0.9974
+img_26(4) : 0.9974
+img_44(9) : 0.9973
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_49:  img_48, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_48    (1.0000): 2
+  img_41    (0.9983): 7
+  img_23    (0.9982): 1
+  img_18    (0.9975): 1
+  img_55    (0.9970): 8
+  img_57    (0.9970): 1
+  img_58    (0.9969): 2
+  img_26    (0.9964): 4
+  img_47    (0.9963): 8
+  img_5     (0.9962): 3
+  img_30    (0.9961): 7
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_48(2) : 1.0000
+img_41(7) : 0.9983
+img_23(1) : 0.9982
+img_18(1) : 0.9975
+img_55(8) : 0.9970
+img_57(1) : 0.9970
+img_58(2) : 0.9969
+img_26(4) : 0.9964
+img_47(8) : 0.9963
+img_5(3)  : 0.9962
+img_30(7) : 0.9961
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_50:  img_15, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_15    (1.0000): 4
+  img_21    (0.9981): 9
+  img_13    (0.9978): 4
+  img_18    (0.9970): 1
+  img_26    (0.9961): 4
+  img_46    (0.9961): 7
+  img_42    (0.9959): 7
+  img_28    (0.9956): 7
+  img_55    (0.9956): 8
+  img_25    (0.9955): 7
+  img_43    (0.9954): 4
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_15(4) : 1.0000
+img_21(9) : 0.9981
+img_13(4) : 0.9978
+img_18(1) : 0.9970
+img_26(4) : 0.9961
+img_46(7) : 0.9961
+img_42(7) : 0.9959
+img_28(7) : 0.9956
+img_55(8) : 0.9956
+img_25(7) : 0.9955
+img_43(4) : 0.9954
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_51:  img_35, initial dimension: width = 28, height = 28, depth = 1, metadata: 6
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_35    (1.0000): 6
+  img_51    (0.9980): 6
+  img_18    (0.9974): 1
+  img_41    (0.9962): 7
+  img_49    (0.9953): 6
+  img_30    (0.9952): 7
+  img_26    (0.9949): 4
+  img_58    (0.9947): 2
+  img_57    (0.9947): 1
+  img_43    (0.9947): 4
+  img_47    (0.9944): 8
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_35(6) : 1.0000
+img_51(6) : 0.9980
+img_18(1) : 0.9974
+img_41(7) : 0.9962
+img_49(6) : 0.9953
+img_30(7) : 0.9952
+img_26(4) : 0.9949
+img_58(2) : 0.9947
+img_57(1) : 0.9947
+img_43(4) : 0.9947
+img_47(8) : 0.9944
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_52:  img_33, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_33    (1.0000): 4
+  img_26    (0.9986): 4
+  img_18    (0.9978): 1
+  img_19    (0.9969): 9
+  img_55    (0.9968): 8
+  img_41    (0.9965): 7
+  img_43    (0.9965): 4
+  img_25    (0.9964): 7
+  img_21    (0.9962): 9
+  img_30    (0.9961): 7
+  img_15    (0.9961): 4
+  img_44    (0.9961): 9
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_33(4) : 1.0000
+img_26(4) : 0.9986
+img_18(1) : 0.9978
+img_19(9) : 0.9969
+img_55(8) : 0.9968
+img_41(7) : 0.9965
+img_43(4) : 0.9965
+img_25(7) : 0.9964
+img_21(9) : 0.9962
+img_30(7) : 0.9961
+img_15(4) : 0.9961
+img_44(9) : 0.9961
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_53:  img_45, initial dimension: width = 28, height = 28, depth = 1, metadata: 8
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_45    (1.0000): 8
+  img_18    (0.9978): 1
+  img_47    (0.9972): 8
+  img_49    (0.9969): 6
+  img_13    (0.9967): 4
+  img_11    (0.9964): 5
+  img_36    (0.9964): 2
+  img_51    (0.9963): 6
+  img_41    (0.9963): 7
+  img_57    (0.9960): 1
+  img_30    (0.9959): 7
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_45(8) : 1.0000
+img_18(1) : 0.9978
+img_47(8) : 0.9972
+img_49(6) : 0.9969
+img_13(4) : 0.9967
+img_11(5) : 0.9964
+img_36(2) : 0.9964
+img_51(6) : 0.9963
+img_41(7) : 0.9963
+img_57(1) : 0.9960
+img_30(7) : 0.9959
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_54:  img_39, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_39    (1.0000): 1
+  img_18    (0.9992): 1
+  img_19    (0.9980): 9
+  img_26    (0.9980): 4
+  img_47    (0.9979): 8
+  img_49    (0.9973): 6
+  img_45    (0.9967): 8
+  img_41    (0.9966): 7
+  img_30    (0.9962): 7
+  img_57    (0.9961): 1
+  img_36    (0.9960): 2
+
+0.0138sec(s) for main.<locals>.image_processor_run
+img_39(1) : 1.0000
+img_18(1) : 0.9992
+img_19(9) : 0.9980
+img_26(4) : 0.9980
+img_47(8) : 0.9979
+img_49(6) : 0.9973
+img_45(8) : 0.9967
+img_41(7) : 0.9966
+img_30(7) : 0.9962
+img_57(1) : 0.9961
+img_36(2) : 0.9960
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_55:   img_2, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_2     (1.0000): 0
+  img_18    (0.9962): 1
+  img_9     (0.9959): 0
+  img_14    (0.9956): 0
+  img_41    (0.9950): 7
+  img_30    (0.9944): 7
+  img_47    (0.9941): 8
+  img_58    (0.9938): 2
+  img_24    (0.9937): 5
+  img_57    (0.9935): 1
+  img_7     (0.9934): 0
+
+0.0158sec(s) for main.<locals>.image_processor_run
+img_2(0)  : 1.0000
+img_18(1) : 0.9962
+img_9(0)  : 0.9959
+img_14(0) : 0.9956
+img_41(7) : 0.9950
+img_30(7) : 0.9944
+img_47(8) : 0.9941
+img_58(2) : 0.9938
+img_24(5) : 0.9937
+img_57(1) : 0.9935
+img_7(0)  : 0.9934
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_56:  img_34, initial dimension: width = 28, height = 28, depth = 1, metadata: 2
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_57:  img_20, initial dimension: width = 28, height = 28, depth = 1, metadata: 0
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_20    (1.0000): 0
+  img_40    (0.9969): 6
+  img_14    (0.9966): 0
+  img_11    (0.9965): 5
+  img_7     (0.9961): 0
+  img_18    (0.9960): 1
+  img_41    (0.9955): 7
+  img_52    (0.9952): 8
+  img_58    (0.9951): 2
+  img_9     (0.9943): 0
+  img_48    (0.9940): 2
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_20(0) : 1.0000
+img_40(6) : 0.9969
+img_14(0) : 0.9966
+img_11(5) : 0.9965
+img_7(0)  : 0.9961
+img_18(1) : 0.9960
+img_41(7) : 0.9955
+img_52(8) : 0.9952
+img_58(2) : 0.9951
+img_9(0)  : 0.9943
+img_48(2) : 0.9940
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_58:  img_17, initial dimension: width = 28, height = 28, depth = 1, metadata: 3
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_17    (1.0000): 3
+  img_18    (0.9974): 1
+  img_41    (0.9955): 7
+  img_30    (0.9955): 7
+  img_57    (0.9955): 1
+  img_40    (0.9948): 6
+  img_49    (0.9944): 6
+  img_16    (0.9943): 3
+  img_39    (0.9943): 1
+  img_11    (0.9942): 5
+  img_58    (0.9940): 2
+  img_23    (0.9939): 1
+
+0.0160sec(s) for main.<locals>.image_processor_run
+img_17(3) : 1.0000
+img_18(1) : 0.9974
+img_41(7) : 0.9955
+img_30(7) : 0.9955
+img_57(1) : 0.9955
+img_40(6) : 0.9948
+img_49(6) : 0.9944
+img_16(3) : 0.9943
+img_39(1) : 0.9943
+img_11(5) : 0.9942
+img_58(2) : 0.9940
+img_23(1) : 0.9939
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_59:  img_32, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_60:  img_29, initial dimension: width = 28, height = 28, depth = 1, metadata: 4
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  img_29    (1.0000): 4
+  img_47    (0.9984): 8
+  img_41    (0.9984): 7
+  img_18    (0.9982): 1
+  img_55    (0.9979): 8
+  img_30    (0.9977): 7
+  img_58    (0.9975): 2
+  img_57    (0.9974): 1
+  img_26    (0.9974): 4
+  img_39    (0.9974): 1
+  img_23    (0.9969): 1
+
+0.0120sec(s) for main.<locals>.image_processor_run
+img_29(4) : 1.0000
+img_47(8) : 0.9984
+img_41(7) : 0.9984
+img_18(1) : 0.9982
+img_55(8) : 0.9979
+img_30(7) : 0.9977
+img_58(2) : 0.9975
+img_57(1) : 0.9974
+img_26(4) : 0.9974
+img_39(1) : 0.9974
+img_23(1) : 0.9969
+---------------------------------------------------------------------------------------------------- 
+
+PROCESSOR 1: --------->
+ 43 data loaded into memory
+
+0: 5
+1: 4
+2: 5
+3: 4
+4: 6
+5: 2
+6: 4
+7: 6
+8: 4
+9: 3
+LOADING IMAGE_1: font_1a, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1a   (1.0000): 1
+
+0.0060sec(s) for main.<locals>.image_processor_run
+font_1a(1): 1.0000
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2: font_1b, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0050sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3: font_1c, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0050sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4: font_1d, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0040sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5: font_5a, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_6: font_5b, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_7: font_5c, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5c   (1.0000): 5
+  font_1a   (0.8254): 1
+  font_1b   (0.7429): 1
+
+0.0070sec(s) for main.<locals>.image_processor_run
+font_5c(5): 1.0000
+font_1a(1): 0.8254
+font_1b(1): 0.7429
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_8: font_5d, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5d   (1.0000): 5
+  font_5c   (0.9497): 5
+  font_1a   (0.7992): 1
+  font_1b   (0.7571): 1
+
+0.0070sec(s) for main.<locals>.image_processor_run
+font_5d(5): 1.0000
+font_5c(5): 0.9497
+font_1a(1): 0.7992
+font_1b(1): 0.7571
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_9: font_Aa, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0070sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_10: font_Ab, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_11: font_Ac, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ac   (1.0000): A
+  font_1b   (0.8391): 1
+  font_5c   (0.7663): 5
+  font_5d   (0.7636): 5
+  font_1a   (0.7409): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_Ac(A): 1.0000
+font_1b(1): 0.8391
+font_5c(5): 0.7663
+font_5d(5): 0.7636
+font_1a(1): 0.7409
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_12: font_Ad, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_13: font_Ba, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0070sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_14: font_Bb, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bb   (1.0000): B
+  font_5c   (0.8482): 5
+  font_5d   (0.8036): 5
+  font_Ac   (0.7255): A
+  font_1a   (0.7063): 1
+  font_1b   (0.6955): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_Bb(B): 1.0000
+font_5c(5): 0.8482
+font_5d(5): 0.8036
+font_Ac(A): 0.7255
+font_1a(1): 0.7063
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_15: font_Bc, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bc   (1.0000): B
+  font_5c   (0.8636): 5
+  font_Bb   (0.8494): B
+  font_5d   (0.8157): 5
+  font_1a   (0.8144): 1
+  font_Ac   (0.7898): A
+  font_1b   (0.6955): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_Bc(B): 1.0000
+font_5c(5): 0.8636
+font_Bb(B): 0.8494
+font_5d(5): 0.8157
+font_1a(1): 0.8144
+font_Ac(A): 0.7898
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_16: font_Ca, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ca   (1.0000): C
+  font_Bc   (0.8254): B
+  font_5c   (0.8182): 5
+  font_5d   (0.7955): 5
+  font_Ac   (0.7854): A
+  font_1a   (0.7462): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7333): 1
+
+0.0110sec(s) for main.<locals>.image_processor_run
+font_Ca(C): 1.0000
+font_Bc(B): 0.8254
+font_5c(5): 0.8182
+font_5d(5): 0.7955
+font_Ac(A): 0.7854
+font_1a(1): 0.7462
+font_Bb(B): 0.7374
+font_1b(1): 0.7333
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_17: font_Cb, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cb   (1.0000): C
+  font_Ca   (0.8714): C
+  font_Ac   (0.7904): A
+  font_5c   (0.7818): 5
+  font_5d   (0.7795): 5
+  font_Bc   (0.7762): B
+  font_1a   (0.7576): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7238): 1
+
+0.0100sec(s) for main.<locals>.image_processor_run
+font_Cb(C): 1.0000
+font_Ca(C): 0.8714
+font_Ac(A): 0.7904
+font_5c(5): 0.7818
+font_5d(5): 0.7795
+font_Bc(B): 0.7762
+font_1a(1): 0.7576
+font_Bb(B): 0.7374
+font_1b(1): 0.7238
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_18: font_Cc, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cc   (1.0000): C
+  font_Ca   (0.8889): C
+  font_5c   (0.8519): 5
+  font_5d   (0.8439): 5
+  font_Cb   (0.8273): C
+  font_Bc   (0.7879): B
+  font_Bb   (0.7831): B
+  font_Ac   (0.7802): A
+  font_1b   (0.7333): 1
+  font_1a   (0.7235): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_Cc(C): 1.0000
+font_Ca(C): 0.8889
+font_5c(5): 0.8519
+font_5d(5): 0.8439
+font_Cb(C): 0.8273
+font_Bc(B): 0.7879
+font_Bb(B): 0.7831
+font_Ac(A): 0.7802
+font_1b(1): 0.7333
+font_1a(1): 0.7235
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_19: font_Cd, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cd   (1.0000): C
+  font_Ca   (0.9365): C
+  font_Cc   (0.8737): C
+  font_Cb   (0.8381): C
+  font_5c   (0.7980): 5
+  font_Bc   (0.7884): B
+  font_5d   (0.7854): 5
+  font_Ac   (0.7702): A
+  font_1b   (0.7455): 1
+  font_Bb   (0.7323): B
+  font_1a   (0.7121): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_Cd(C): 1.0000
+font_Ca(C): 0.9365
+font_Cc(C): 0.8737
+font_Cb(C): 0.8381
+font_5c(5): 0.7980
+font_Bc(B): 0.7884
+font_5d(5): 0.7854
+font_Ac(A): 0.7702
+font_1b(1): 0.7455
+font_Bb(B): 0.7323
+font_1a(1): 0.7121
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_20:   plt_1, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_1     (1.0000): 1
+  font_1b   (0.8864): 1
+  font_1a   (0.8007): 1
+  font_Ac   (0.7738): A
+  font_Cb   (0.7682): C
+  font_Cd   (0.7677): C
+  font_Ca   (0.7525): C
+  font_Cc   (0.7440): C
+  font_5d   (0.7319): 5
+  font_5c   (0.7150): 5
+  font_Bc   (0.6566): B
+
+0.0130sec(s) for main.<locals>.image_processor_run
+plt_1(1)  : 1.0000
+font_1b(1): 0.8864
+font_1a(1): 0.8007
+font_Ac(A): 0.7738
+font_Cb(C): 0.7682
+font_Cd(C): 0.7677
+font_Ca(C): 0.7525
+font_Cc(C): 0.7440
+font_5d(5): 0.7319
+font_5c(5): 0.7150
+font_Bc(B): 0.6566
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_21:  plt_1a, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_1a    (1.0000): 1
+  plt_1     (0.9631): 1
+  font_1b   (0.8826): 1
+  font_1a   (0.7986): 1
+  font_Cb   (0.7977): C
+  font_Ac   (0.7812): A
+  font_Cc   (0.7705): C
+  font_Cd   (0.7652): C
+  font_Ca   (0.7551): C
+  font_5d   (0.7488): 5
+  font_5c   (0.7319): 5
+
+0.0110sec(s) for main.<locals>.image_processor_run
+plt_1a(1) : 1.0000
+plt_1(1)  : 0.9631
+font_1b(1): 0.8826
+font_1a(1): 0.7986
+font_Cb(C): 0.7977
+font_Ac(A): 0.7812
+font_Cc(C): 0.7705
+font_Cd(C): 0.7652
+font_Ca(C): 0.7551
+font_5d(5): 0.7488
+font_5c(5): 0.7319
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_22:   plt_5, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_5     (1.0000): 5
+  font_5c   (0.9242): 5
+  font_5d   (0.8864): 5
+  font_Cc   (0.8333): C
+  font_Bc   (0.8213): B
+  font_Bb   (0.8036): B
+  font_Ca   (0.8019): C
+  font_Cd   (0.7874): C
+  font_1a   (0.7810): 1
+  font_Cb   (0.7696): C
+  font_Ac   (0.7582): A
+
+0.0130sec(s) for main.<locals>.image_processor_run
+plt_5(5)  : 1.0000
+font_5c(5): 0.9242
+font_5d(5): 0.8864
+font_Cc(C): 0.8333
+font_Bc(B): 0.8213
+font_Bb(B): 0.8036
+font_Ca(C): 0.8019
+font_Cd(C): 0.7874
+font_1a(1): 0.7810
+font_Cb(C): 0.7696
+font_Ac(A): 0.7582
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_23:   plt_A, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_A     (1.0000): A
+  font_Ac   (0.8720): A
+  plt_1a    (0.8502): 1
+  plt_1     (0.8411): 1
+  font_1b   (0.8130): 1
+  font_Cb   (0.8079): C
+  font_Cc   (0.7891): C
+  font_Cd   (0.7886): C
+  font_Ca   (0.7886): C
+  plt_5     (0.7709): 5
+  font_5d   (0.7652): 5
+
+0.0130sec(s) for main.<locals>.image_processor_run
+plt_A(A)  : 1.0000
+font_Ac(A): 0.8720
+plt_1a(1) : 0.8502
+plt_1(1)  : 0.8411
+font_1b(1): 0.8130
+font_Cb(C): 0.8079
+font_Cc(C): 0.7891
+font_Cd(C): 0.7886
+font_Ca(C): 0.7886
+plt_5(5)  : 0.7709
+font_5d(5): 0.7652
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_24:   plt_B, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_B     (1.0000): B
+  font_Bc   (0.9180): B
+  plt_5     (0.8538): 5
+  font_Bb   (0.8466): B
+  font_5c   (0.8460): 5
+  font_Ca   (0.8228): C
+  font_5d   (0.7980): 5
+  font_Cd   (0.7963): C
+  font_Cc   (0.7854): C
+  font_Cb   (0.7690): C
+  plt_A     (0.7417): A
+
+0.0170sec(s) for main.<locals>.image_processor_run
+plt_B(B)  : 1.0000
+font_Bc(B): 0.9180
+plt_5(5)  : 0.8538
+font_Bb(B): 0.8466
+font_5c(5): 0.8460
+font_Ca(C): 0.8228
+font_5d(5): 0.7980
+font_Cd(C): 0.7963
+font_Cc(C): 0.7854
+font_Cb(C): 0.7690
+plt_A(A)  : 0.7417
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_25:   plt_c, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_c     (1.0000): C
+  font_Ca   (0.8968): C
+  font_Bc   (0.8757): B
+  font_Cc   (0.8662): C
+  font_Cd   (0.8651): C
+  font_5c   (0.8409): 5
+  plt_B     (0.8355): B
+  font_Cb   (0.8310): C
+  font_Ac   (0.8081): A
+  font_5d   (0.8081): 5
+  plt_5     (0.8075): 5
+
+0.0130sec(s) for main.<locals>.image_processor_run
+plt_c(C)  : 1.0000
+font_Ca(C): 0.8968
+font_Bc(B): 0.8757
+font_Cc(C): 0.8662
+font_Cd(C): 0.8651
+font_5c(5): 0.8409
+plt_B(B)  : 0.8355
+font_Cb(C): 0.8310
+font_Ac(A): 0.8081
+font_5d(5): 0.8081
+plt_5(5)  : 0.8075
+---------------------------------------------------------------------------------------------------- 
+
+PROCESSOR 1: --------->
+ 17 data loaded into memory
+
+0: 0
+1: 6
+2: 0
+3: 0
+4: 0
+5: 3
+6: 0
+7: 0
+8: 0
+9: 0
+A: 2
+B: 3
+C: 5
+D: 0
+E: 0
+F: 0
+G: 0
+H: 0
+I: 0
+J: 0
+K: 0
+L: 0
+M: 0
+N: 0
+O: 0
+P: 0
+Q: 0
+R: 0
+S: 0
+T: 0
+U: 0
+V: 0
+W: 0
+X: 0
+Y: 0
+Z: 0
+LOADING IMAGE_1: font_1a, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1a   (1.0000): 1
+
+0.0040sec(s) for main.<locals>.image_processor_run
+font_1a(1): 1.0000
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2: font_1b, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0030sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3: font_1c, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0040sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4: font_1d, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0060sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5: font_5a, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_6: font_5b, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_7: font_5c, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5c   (1.0000): 5
+  font_1a   (0.8254): 1
+  font_1b   (0.7429): 1
+
+0.0110sec(s) for main.<locals>.image_processor_run
+font_5c(5): 1.0000
+font_1a(1): 0.8254
+font_1b(1): 0.7429
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_8: font_5d, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5d   (1.0000): 5
+  font_5c   (0.9497): 5
+  font_1a   (0.7992): 1
+  font_1b   (0.7571): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_5d(5): 1.0000
+font_5c(5): 0.9497
+font_1a(1): 0.7992
+font_1b(1): 0.7571
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_9: font_Aa, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0070sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_10: font_Ab, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_11: font_Ac, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ac   (1.0000): A
+  font_1b   (0.8391): 1
+  font_5c   (0.7663): 5
+  font_5d   (0.7636): 5
+  font_1a   (0.7409): 1
+
+0.0070sec(s) for main.<locals>.image_processor_run
+font_Ac(A): 1.0000
+font_1b(1): 0.8391
+font_5c(5): 0.7663
+font_5d(5): 0.7636
+font_1a(1): 0.7409
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_12: font_Ad, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0080sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_13: font_Ba, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0050sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_14: font_Bb, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bb   (1.0000): B
+  font_5c   (0.8482): 5
+  font_5d   (0.8036): 5
+  font_Ac   (0.7255): A
+  font_1a   (0.7063): 1
+  font_1b   (0.6955): 1
+
+0.0070sec(s) for main.<locals>.image_processor_run
+font_Bb(B): 1.0000
+font_5c(5): 0.8482
+font_5d(5): 0.8036
+font_Ac(A): 0.7255
+font_1a(1): 0.7063
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_15: font_Bc, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bc   (1.0000): B
+  font_5c   (0.8636): 5
+  font_Bb   (0.8494): B
+  font_5d   (0.8157): 5
+  font_1a   (0.8144): 1
+  font_Ac   (0.7898): A
+  font_1b   (0.6955): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_Bc(B): 1.0000
+font_5c(5): 0.8636
+font_Bb(B): 0.8494
+font_5d(5): 0.8157
+font_1a(1): 0.8144
+font_Ac(A): 0.7898
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_16: font_Ca, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ca   (1.0000): C
+  font_Bc   (0.8254): B
+  font_5c   (0.8182): 5
+  font_5d   (0.7955): 5
+  font_Ac   (0.7854): A
+  font_1a   (0.7462): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7333): 1
+
+0.0100sec(s) for main.<locals>.image_processor_run
+font_Ca(C): 1.0000
+font_Bc(B): 0.8254
+font_5c(5): 0.8182
+font_5d(5): 0.7955
+font_Ac(A): 0.7854
+font_1a(1): 0.7462
+font_Bb(B): 0.7374
+font_1b(1): 0.7333
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_17: font_Cb, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cb   (1.0000): C
+  font_Ca   (0.8714): C
+  font_Ac   (0.7904): A
+  font_5c   (0.7818): 5
+  font_5d   (0.7795): 5
+  font_Bc   (0.7762): B
+  font_1a   (0.7576): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7238): 1
+
+0.0120sec(s) for main.<locals>.image_processor_run
+font_Cb(C): 1.0000
+font_Ca(C): 0.8714
+font_Ac(A): 0.7904
+font_5c(5): 0.7818
+font_5d(5): 0.7795
+font_Bc(B): 0.7762
+font_1a(1): 0.7576
+font_Bb(B): 0.7374
+font_1b(1): 0.7238
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_18: font_Cc, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cc   (1.0000): C
+  font_Ca   (0.8889): C
+  font_5c   (0.8519): 5
+  font_5d   (0.8439): 5
+  font_Cb   (0.8273): C
+  font_Bc   (0.7879): B
+  font_Bb   (0.7831): B
+  font_Ac   (0.7802): A
+  font_1b   (0.7333): 1
+  font_1a   (0.7235): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_Cc(C): 1.0000
+font_Ca(C): 0.8889
+font_5c(5): 0.8519
+font_5d(5): 0.8439
+font_Cb(C): 0.8273
+font_Bc(B): 0.7879
+font_Bb(B): 0.7831
+font_Ac(A): 0.7802
+font_1b(1): 0.7333
+font_1a(1): 0.7235
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_19: font_Cd, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cd   (1.0000): C
+  font_Ca   (0.9365): C
+  font_Cc   (0.8737): C
+  font_Cb   (0.8381): C
+  font_5c   (0.7980): 5
+  font_Bc   (0.7884): B
+  font_5d   (0.7854): 5
+  font_Ac   (0.7702): A
+  font_1b   (0.7455): 1
+  font_Bb   (0.7323): B
+  font_1a   (0.7121): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_Cd(C): 1.0000
+font_Ca(C): 0.9365
+font_Cc(C): 0.8737
+font_Cb(C): 0.8381
+font_5c(5): 0.7980
+font_Bc(B): 0.7884
+font_5d(5): 0.7854
+font_Ac(A): 0.7702
+font_1b(1): 0.7455
+font_Bb(B): 0.7323
+font_1a(1): 0.7121
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_20:   plt_1, initial dimension: width = 80, height = 37, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+LOADING IMAGE_1: font_1a, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1a   (1.0000): 1
+
+0.0050sec(s) for main.<locals>.image_processor_run
+font_1a(1): 1.0000
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_2: font_1b, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0030sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_3: font_1c, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0040sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_4: font_1d, initial dimension: width = 28, height = 28, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_1b   (1.0000): 1
+  font_1a   (0.9489): 1
+
+0.0030sec(s) for main.<locals>.image_processor_run
+font_1b(1): 1.0000
+font_1a(1): 0.9489
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_5: font_5a, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0050sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_6: font_5b, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_7: font_5c, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5c   (1.0000): 5
+  font_1a   (0.8254): 1
+  font_1b   (0.7429): 1
+
+0.0080sec(s) for main.<locals>.image_processor_run
+font_5c(5): 1.0000
+font_1a(1): 0.8254
+font_1b(1): 0.7429
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_8: font_5d, initial dimension: width = 28, height = 28, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_5d   (1.0000): 5
+  font_5c   (0.9497): 5
+  font_1a   (0.7992): 1
+  font_1b   (0.7571): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_5d(5): 1.0000
+font_5c(5): 0.9497
+font_1a(1): 0.7992
+font_1b(1): 0.7571
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_9: font_Aa, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_10: font_Ab, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0060sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_11: font_Ac, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ac   (1.0000): A
+  font_1b   (0.8391): 1
+  font_5c   (0.7663): 5
+  font_5d   (0.7636): 5
+  font_1a   (0.7409): 1
+
+0.0090sec(s) for main.<locals>.image_processor_run
+font_Ac(A): 1.0000
+font_1b(1): 0.8391
+font_5c(5): 0.7663
+font_5d(5): 0.7636
+font_1a(1): 0.7409
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_12: font_Ad, initial dimension: width = 28, height = 28, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0100sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_13: font_Ba, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+0.0070sec(s) for main.<locals>.image_processor_run
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_14: font_Bb, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bb   (1.0000): B
+  font_5c   (0.8482): 5
+  font_5d   (0.8036): 5
+  font_Ac   (0.7255): A
+  font_1a   (0.7063): 1
+  font_1b   (0.6955): 1
+
+0.0120sec(s) for main.<locals>.image_processor_run
+font_Bb(B): 1.0000
+font_5c(5): 0.8482
+font_5d(5): 0.8036
+font_Ac(A): 0.7255
+font_1a(1): 0.7063
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_15: font_Bc, initial dimension: width = 28, height = 28, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Bc   (1.0000): B
+  font_5c   (0.8636): 5
+  font_Bb   (0.8494): B
+  font_5d   (0.8157): 5
+  font_1a   (0.8144): 1
+  font_Ac   (0.7898): A
+  font_1b   (0.6955): 1
+
+0.0150sec(s) for main.<locals>.image_processor_run
+font_Bc(B): 1.0000
+font_5c(5): 0.8636
+font_Bb(B): 0.8494
+font_5d(5): 0.8157
+font_1a(1): 0.8144
+font_Ac(A): 0.7898
+font_1b(1): 0.6955
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_16: font_Ca, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Ca   (1.0000): C
+  font_Bc   (0.8254): B
+  font_5c   (0.8182): 5
+  font_5d   (0.7955): 5
+  font_Ac   (0.7854): A
+  font_1a   (0.7462): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7333): 1
+
+0.0120sec(s) for main.<locals>.image_processor_run
+font_Ca(C): 1.0000
+font_Bc(B): 0.8254
+font_5c(5): 0.8182
+font_5d(5): 0.7955
+font_Ac(A): 0.7854
+font_1a(1): 0.7462
+font_Bb(B): 0.7374
+font_1b(1): 0.7333
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_17: font_Cb, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cb   (1.0000): C
+  font_Ca   (0.8714): C
+  font_Ac   (0.7904): A
+  font_5c   (0.7818): 5
+  font_5d   (0.7795): 5
+  font_Bc   (0.7762): B
+  font_1a   (0.7576): 1
+  font_Bb   (0.7374): B
+  font_1b   (0.7238): 1
+
+0.0100sec(s) for main.<locals>.image_processor_run
+font_Cb(C): 1.0000
+font_Ca(C): 0.8714
+font_Ac(A): 0.7904
+font_5c(5): 0.7818
+font_5d(5): 0.7795
+font_Bc(B): 0.7762
+font_1a(1): 0.7576
+font_Bb(B): 0.7374
+font_1b(1): 0.7238
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_18: font_Cc, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cc   (1.0000): C
+  font_Ca   (0.8889): C
+  font_5c   (0.8519): 5
+  font_5d   (0.8439): 5
+  font_Cb   (0.8273): C
+  font_Bc   (0.7879): B
+  font_Bb   (0.7831): B
+  font_Ac   (0.7802): A
+  font_1b   (0.7333): 1
+  font_1a   (0.7235): 1
+
+0.0140sec(s) for main.<locals>.image_processor_run
+font_Cc(C): 1.0000
+font_Ca(C): 0.8889
+font_5c(5): 0.8519
+font_5d(5): 0.8439
+font_Cb(C): 0.8273
+font_Bc(B): 0.7879
+font_Bb(B): 0.7831
+font_Ac(A): 0.7802
+font_1b(1): 0.7333
+font_1a(1): 0.7235
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_19: font_Cd, initial dimension: width = 28, height = 28, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  font_Cd   (1.0000): C
+  font_Ca   (0.9365): C
+  font_Cc   (0.8737): C
+  font_Cb   (0.8381): C
+  font_5c   (0.7980): 5
+  font_Bc   (0.7884): B
+  font_5d   (0.7854): 5
+  font_Ac   (0.7702): A
+  font_1b   (0.7455): 1
+  font_Bb   (0.7323): B
+  font_1a   (0.7121): 1
+
+0.0170sec(s) for main.<locals>.image_processor_run
+font_Cd(C): 1.0000
+font_Ca(C): 0.9365
+font_Cc(C): 0.8737
+font_Cb(C): 0.8381
+font_5c(5): 0.7980
+font_Bc(B): 0.7884
+font_5d(5): 0.7854
+font_Ac(A): 0.7702
+font_1b(1): 0.7455
+font_Bb(B): 0.7323
+font_1a(1): 0.7121
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_20:   plt_1, initial dimension: width = 80, height = 37, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_1     (1.0000): 1
+  font_Cb   (0.8264): C
+  font_1b   (0.8167): 1
+  font_1a   (0.8007): 1
+  font_Cd   (0.7864): C
+  font_Ca   (0.7773): C
+  font_5d   (0.7717): 5
+  font_Ac   (0.7679): A
+  font_Cc   (0.7565): C
+  font_5c   (0.7522): 5
+  font_Bc   (0.7045): B
+
+0.0180sec(s) for main.<locals>.image_processor_run
+plt_1(1)  : 1.0000
+font_Cb(C): 0.8264
+font_1b(1): 0.8167
+font_1a(1): 0.8007
+font_Cd(C): 0.7864
+font_Ca(C): 0.7773
+font_5d(5): 0.7717
+font_Ac(A): 0.7679
+font_Cc(C): 0.7565
+font_5c(5): 0.7522
+font_Bc(B): 0.7045
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_21:  plt_1a, initial dimension: width = 80, height = 37, depth = 1, metadata: 1
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_1a    (1.0000): 1
+  plt_1     (0.9630): 1
+  font_1b   (0.8500): 1
+  font_1a   (0.7986): 1
+  font_Cb   (0.7955): C
+  font_Cc   (0.7633): C
+  font_Ac   (0.7619): A
+  font_Cd   (0.7576): C
+  font_Ca   (0.7475): C
+  font_5d   (0.7464): 5
+  font_5c   (0.7246): 5
+
+0.0270sec(s) for main.<locals>.image_processor_run
+plt_1a(1) : 1.0000
+plt_1(1)  : 0.9630
+font_1b(1): 0.8500
+font_1a(1): 0.7986
+font_Cb(C): 0.7955
+font_Cc(C): 0.7633
+font_Ac(A): 0.7619
+font_Cd(C): 0.7576
+font_Ca(C): 0.7475
+font_5d(5): 0.7464
+font_5c(5): 0.7246
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_22:   plt_5, initial dimension: width = 70, height = 30, depth = 1, metadata: 5
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_5     (1.0000): 5
+  font_5c   (0.9116): 5
+  font_5d   (0.8737): 5
+  font_Cc   (0.8409): C
+  font_Bc   (0.8092): B
+  font_Ca   (0.8043): C
+  font_Bb   (0.8036): B
+  font_Cd   (0.7947): C
+  font_1a   (0.7810): 1
+  font_Cb   (0.7630): C
+  font_Ac   (0.7582): A
+
+0.0150sec(s) for main.<locals>.image_processor_run
+plt_5(5)  : 1.0000
+font_5c(5): 0.9116
+font_5d(5): 0.8737
+font_Cc(C): 0.8409
+font_Bc(B): 0.8092
+font_Ca(C): 0.8043
+font_Bb(B): 0.8036
+font_Cd(C): 0.7947
+font_1a(1): 0.7810
+font_Cb(C): 0.7630
+font_Ac(A): 0.7582
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_23:   plt_A, initial dimension: width = 44, height = 40, depth = 1, metadata: A
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_A     (1.0000): A
+  font_Ac   (0.8750): A
+  plt_1     (0.8301): 1
+  plt_1a    (0.8263): 1
+  font_1b   (0.8261): 1
+  font_Cb   (0.8079): C
+  font_Cc   (0.7935): C
+  font_Ca   (0.7886): C
+  font_Cd   (0.7841): C
+  plt_5     (0.7742): 5
+  font_5d   (0.7652): 5
+
+0.0200sec(s) for main.<locals>.image_processor_run
+plt_A(A)  : 1.0000
+font_Ac(A): 0.8750
+plt_1(1)  : 0.8301
+plt_1a(1) : 0.8263
+font_1b(1): 0.8261
+font_Cb(C): 0.8079
+font_Cc(C): 0.7935
+font_Ca(C): 0.7886
+font_Cd(C): 0.7841
+plt_5(5)  : 0.7742
+font_5d(5): 0.7652
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_24:   plt_B, initial dimension: width = 80, height = 26, depth = 1, metadata: B
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_B     (1.0000): B
+  font_Bc   (0.8786): B
+  font_5c   (0.8568): 5
+  plt_5     (0.8417): 5
+  font_Ca   (0.8357): C
+  font_Cd   (0.8310): C
+  font_Cc   (0.8295): C
+  font_5d   (0.8273): 5
+  font_Bb   (0.8125): B
+  font_Ac   (0.7756): A
+  font_Cb   (0.7597): C
+
+0.0150sec(s) for main.<locals>.image_processor_run
+plt_B(B)  : 1.0000
+font_Bc(B): 0.8786
+font_5c(5): 0.8568
+plt_5(5)  : 0.8417
+font_Ca(C): 0.8357
+font_Cd(C): 0.8310
+font_Cc(C): 0.8295
+font_5d(5): 0.8273
+font_Bb(B): 0.8125
+font_Ac(A): 0.7756
+font_Cb(C): 0.7597
+---------------------------------------------------------------------------------------------------- 
+
+LOADING IMAGE_25:   plt_c, initial dimension: width = 69, height = 27, depth = 1, metadata: C
+PROCESSOR 1: --------->
+ SIMILAR IMAGES:
+  plt_c     (1.0000): C
+  font_Ca   (0.9074): C
+  font_Cc   (0.8763): C
+  font_Bc   (0.8757): B
+  font_Cd   (0.8757): C
+  font_5c   (0.8460): 5
+  font_Cb   (0.8405): C
+  plt_B     (0.8307): B
+  plt_5     (0.8202): 5
+  font_5d   (0.8182): 5
+  font_Ac   (0.8056): A
+
+0.0270sec(s) for main.<locals>.image_processor_run
+plt_c(C)  : 1.0000
+font_Ca(C): 0.9074
+font_Cc(C): 0.8763
+font_Bc(B): 0.8757
+font_Cd(C): 0.8757
+font_5c(5): 0.8460
+font_Cb(C): 0.8405
+plt_B(B)  : 0.8307
+plt_5(5)  : 0.8202
+font_5d(5): 0.8182
+font_Ac(A): 0.8056
+---------------------------------------------------------------------------------------------------- 
+
+PROCESSOR 1: --------->
+ 17 data loaded into memory
+
+0: 0
+1: 6
+2: 0
+3: 0
+4: 0
+5: 3
+6: 0
+7: 0
+8: 0
+9: 0
+A: 2
+B: 3
+C: 5
+D: 0
+E: 0
+F: 0
+G: 0
+H: 0
+I: 0
+J: 0
+K: 0
+L: 0
+M: 0
+N: 0
+O: 0
+P: 0
+Q: 0
+R: 0
+S: 0
+T: 0
+U: 0
+V: 0
+W: 0
+X: 0
+Y: 0
+Z: 0

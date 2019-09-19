@@ -26,3 +26,15 @@ Note
 TESTs
 ======
 when i used 2x2 kernels i got a convergence of 0.009 to 0.012
+
+PROBLEMS
+=========
+The scale and skew of the image[
+	hope to learn this by making it understand the physics of the world
+]
+
+CORE of AGI
+===========
+-Abstract concept representation
+-Language
+-Abstract concept recognition and processing
