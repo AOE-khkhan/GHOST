@@ -1,8 +1,9 @@
 # from python std lib
 import os, random, time, json
+from threading import Thread
 
 # from third party
-import cv2
+import cv2, pyautogui
 import numpy as np
 
 # from the lib code
@@ -11,51 +12,47 @@ from console import Console
 from timer import Timer
 from utils import load_image, toGrey, validateFolderPath
 
-def simulate_experience(img_dir):
-	# the image paths
-	image_names = os.listdir(img_dir)
-	# random.shuffle(image_names)
+from game import Game, UP, DOWN, LEFT, RIGHT, NONE
 
-	for image_name in image_names:
-		yield image_name, load_image('{}/{}'.format(img_dir, image_name))[:28, :28], 'metadata'
+# the key codes for moves
+# MOVES = {UP: 'w', DOWN: 'z', LEFT: 'a', RIGHT: 's'}
+MOVES = {UP: 119, DOWN: 122, LEFT: 97, RIGHT: 115}
 
-def getDataset(dataset_name, ext):
-	# with open('test/img/labels.json') as f:
-	with open(f'test/{dataset_name}/labels.json') as f:
-		mnist_data = json.load(f)
-		for image_name in mnist_data:
-			image_path = f'test/{dataset_name}/{image_name}.{ext}'
-			yield image_name, load_image(image_path),  mnist_data[image_name]
+def getSimulateGamePlay(train_game_play_path='data/game_plays/game_play.json'):
+	# the start and end grid
+	game_play_path = 'game_play.json'
 
-def simulate_sight():
-	# the image paths
-	image_template = np.zeros((28, 28, 3))
+	with open(train_game_play_path) as f:
+		game_plays = json.load(f)
 
-	start_i = 0
-	for i in range(1, (28//7)+1):
-		end_i = i*7
-		
-		start_j = 0
-		for j in range(1, (28//7)+1):
-			end_j = j*7
-			image = image_template.copy()
-			image[start_i:end_i, start_j:end_j] = 255
-			
-			start_j = end_j
-			name = str(time.time()).replace(".", "_")
-			yield 'nameless_{:0<20}.jpg'.format(name), image, 'metadata'
+	for game_configuration in game_plays:
+		a, b, c, d = list(map(int, game_configuration.split(' ')))
 
-		start_i = end_i
-
-def getTrainingData(typ, ext='jpg'):
-	#to dest more definately with fake sharp images
-	# elif typ == 'fake':
-	# 	return simulate_sight()
-
-	# else:
-	# 	return simulate_experience('test/{}'.format(typ))
+		# the start and the target
+		start, target = (a, b), (c, d)
 	
-	return getDataset(typ, ext)
+		# initialize game
+		game_object = Game(start=start, target=target, game_play_path=game_play_path)
+
+		#run discretely
+		game_object.runDiscretely()
+
+		# run continuously
+		# t1 = Thread(target=game_object.runContinously, args=());t1.start()
+		# pyautogui.hotkey('alt', 'tab')
+		# game_object.runContinously()
+
+		for game_play in game_plays[game_configuration]:
+			for move in game_play:
+				# make a move
+				game_object.runDiscretely(MOVES[move])
+
+				image_name = time.time();image_name = f'{image_name:.4f}'[-7:]
+				cv2.imwrite(f'results/{image_name}.jpg', game_object.gw)
+				yield image_name, game_object.gw, move
+		
+		break
+
 
 def main():
 	# initializations
@@ -67,22 +64,18 @@ def main():
 	img_processor = [ImageProcessor(refid=i, kernel_size=3) for i in range(depth)]
 
 	# get training data
-	images = getTrainingData('plate_numbers', 'jpeg')
-	data = {} #to hold all the data trained with
+	images = getSimulateGamePlay()
+	c, limit, data, data_c = 1, 60, {}, {}  # to hold all the data trained with
 
-	c, limit = -1, 60	#counter
-
-	ct = {str(i if i <= 9 else chr(65-10+i)):0 for i in range(36)}
 	for i, (image_name, image, metadata) in enumerate(images):
-		if ct[metadata] == limit/10:
-			continue
+		if metadata not in data_c:
+			data_c[metadata] = 0
 
 		c += 1	
 		if c == limit:
 			break
-
-		# get the grey version of image
-		image = toGrey(image)
+		
+		# image = toGrey(image)
 
 		# the dimensions
 		if len(image.shape) == 3:
@@ -123,7 +116,7 @@ def main():
 				return similar, similar_ratio
 
 			# all collected data
-			ct[metadata] += 1
+			data_c[metadata] += 1
 
 			return similar, similar_ratio
 
@@ -145,11 +138,12 @@ def main():
 			# np.savetxt('indices.txt', img_processor[i].kernel_memory_line.indices)
 			console.log(' {} data loaded into memory\n'.format(len(img_processor[processor_index].image_memory_line.indices)))
 		
-	for metadata in ct:
-		print('{}: {}'.format(metadata, ct[metadata]))
+	for metadata in data_c:
+		print('{}: {}'.format(metadata, data_c[metadata]))
 
 	with open('train.json', 'w') as f:
 		json.dump(data, f)
+
 
 if __name__ == '__main__':
 	main()
