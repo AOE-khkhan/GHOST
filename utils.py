@@ -28,7 +28,7 @@ def getKernels(img, kernel_size):
 def load_image(image_path):
 	image = cv2.imread(image_path)
 	image = image[...,::-1]
-	image = np.array(image, dtype=np.float64)
+	image = np.array(image, dtype=np.int64)
 	return image
 
 def resultant(matrix):

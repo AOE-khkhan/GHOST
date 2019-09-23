@@ -8,6 +8,9 @@ import numpy as np
 # import lib code
 from utils import getKernels, load_image, resultant, is_row_in_array, index_row_in_array
 
+FREQUENCY, DATA, TYPE, CONNECTION = '__frequency__', '__data__', '__type__', '__connection__'
+EXPERIENCE = {FREQUENCY: 0, None:{DATA: None, TYPE: None, FREQUENCY:0, CONNECTION:0}}
+
 class MemoryLine:
 	def __init__(self, kernel_size=3):
 		# initialize console
@@ -23,7 +26,7 @@ class MemoryLine:
 		self.position_weight = np.arange(1, (kernel_size**2) + 1, dtype=np.float64).reshape(self.kernel_size)
 
 		# the memory is none form start
-		self.data = self.indices = None
+		self.data = self.indices = self.experiences = None
 
 		# the mean common diff
 		self.meancd = None
@@ -39,8 +42,12 @@ class MemoryLine:
 		dtp = np.float64 if type(data) != str else str
 		self.data = np.array([data], dtype=dtp)
 
+
+		# initialize experience
+		self.experiences = np.array([])
+
 		# initializer the pegs
-		dtp = np.float64 if type(data_index) != str else str
+		dtp = np.int64 if type(data_index) != str else str
 		self.indices = np.array([data_index], dtype=dtp)
 		return
 
@@ -148,6 +155,7 @@ class MemoryLine:
 		# get the sorted ids
 		self.indices = self.indices[self.sort_indices]
 		self.data = self.data[self.sort_indices]
+		self.experiences = self.experiences[self.sort_indices]
 		return
 
 	def sortAndCluster(self):
@@ -215,4 +223,5 @@ class MemoryLine:
 
 		self.indices = np.append(self.indices, [data_index])
 		self.data = np.concatenate((self.data, [data]))
+		self.experiences = np.append(self.experiences, EXPERIENCE)
 		return data_index

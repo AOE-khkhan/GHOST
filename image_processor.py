@@ -9,15 +9,16 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # import lib code
+from context import Context
 from console import Console
 from memory_line import MemoryLine
 from utils import getKernels, resultant, validateFolderPath, is_row_in_array
 
 # the image processor class
 class ImageProcessor:
-	def __init__(self, refid, kernel_size=3):
+	def __init__(self, cortex, kernel_size=3, context_maxlength=10):
 		'''
-		refid: reference id
+		cortex: object reference of the agent cortex
 		kernel size: kernel size 
 		'''
 
@@ -27,23 +28,21 @@ class ImageProcessor:
 
 		self.console.setLogState(True)
 
-		# the image ref id
-		self.refid = refid
+		# the central processor object
+		self.cortex = cortex
+		self.cortex.image_processor = self
+		
+		# the history
+		self.context = Context(context_maxlength)
 
 		# initialize magnetic_memory_strip
 		self.image_memory_line = MemoryLine(kernel_size)
-		self.kernel_memory_line = MemoryLine(kernel_size)
-		
-
-		# the history
-		self.context = []
-		self.context_length = 10
 
 		self.kernel_size = kernel_size
 
 		# constants
 		self.MEMORY_PATH = 'memory'
-		self.IMAGE_MEMORY_PATH = '{}/images/{}'.format(self.MEMORY_PATH, refid)
+		self.IMAGE_MEMORY_PATH = '{}/images'.format(self.MEMORY_PATH)
 
 		for folder_path in [self.MEMORY_PATH, self.IMAGE_MEMORY_PATH]:
 			validateFolderPath(folder_path)
@@ -112,38 +111,42 @@ class ImageProcessor:
 			ret, labels = cv2.connectedComponents(img)
 			# labeled_img = imshow_components(labels)
 
-			# register in memory
-			self.addToContext(image_name)
-
 			for label in range(1, ret):
+				print(ret)
+
 				pos = np.where(labels == label)
 				ar1, ar2 = pos
 
 				x1, x2 = min(ar1), max(ar1)+1
 				y1, y2 = min(ar2), max(ar2)+1
 
-				print(ar1.mean(), ar2.mean())
+				point = (ar1.mean(), ar2.mean())
 
-				img_objx = imgx.copy()
-				img_objx[np.where(labels != label)] = 0
-				img_objx[np.where(labels == label)] = 1
+				img_objx = np.zeros(imgx.shape, dtype=np.int64)
+				img_objx[np.where(labels != label)] = -1
+				img_objx[np.where(labels == label)] = image[np.where(labels == label)]
 
 				img_objx = img_objx[x1:x2, y1:y2]
 
 				x, y = img_objx.shape
 
-				img_obj = np.zeros((30, 30), dtype=np.int8)
+				img_obj = np.full((30, 30), -1, dtype=np.int64)
 				img_obj[0:x, 0:y] = img_objx
 
-				# self.image_memory_line.add(image_name, resultant(image))
-				_ = self.image_memory_line.add(img_obj, image_name)
-				
 				# get the objects
-				yield self.getSimilar(img_obj)
+				similar_images, similarity_ratios = self.getSimilar(img_obj, 0.1)
+
+				# self.image_memory_line.add(image_name, resultant(image))
+				image_id = self.image_memory_line.add(img_obj, int(time.time()))
+
+				# commit current discovery to the cortex
+				self.cortex.commitImageInfo((image_id, point, (similar_images, similarity_ratios)))
+				
+				# yield similar_images, similarity_ratios
 
 	def compare(self, img_1, img_2):
 		def getSubImage(img):
-			pos = np.where(img == 1)
+			pos = np.where(img != -1)
 			ar1, ar2 = pos
 
 			x1, x2 = min(ar1), max(ar1)+1
@@ -160,13 +163,13 @@ class ImageProcessor:
 		r = c21 if c21 < c11 else c11
 		c = c22 if c22 < c12 else c12
 
-		img_1 = cv2.resize(img_1.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
-		img_2 = cv2.resize(img_2.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
+		# img_1 = cv2.resize(img_1.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
+		# img_2 = cv2.resize(img_2.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
 
-		img_1a, img_1b = np.where(img_1 == 1)
+		img_1a, img_1b = np.where(img_1 != -1)
 		img_1a, img_1b = int(img_1a.mean()), int(img_1b.mean())
 
-		img_2a, img_2b = np.where(img_2 == 1)
+		img_2a, img_2b = np.where(img_2 != -1)
 		img_2a, img_2b = int(img_2a.mean()), int(img_2b.mean())
 
 		d, f = img_1.shape
@@ -200,34 +203,37 @@ class ImageProcessor:
 		r = max((img_1x2, img_2x2))
 		c = max((img_1y2, img_2y2))
 
-		# print(
-		# 	img_1x1, img_1x2, img_1y1, img_1y2, '=>', img_2x1, img_2x2, img_2y1, img_2y2, '=>', d,g, f,h, [r, c],
-		# 	[img_1a, img_1b], [img_2a, img_2b]
-		# )
-
 		# the new images
-		img_n1, img_n2 = np.zeros((r, c), dtype=np.int8), np.zeros((r, c), np.int8)
+		img_n1, img_n2 = np.full((r, c), -1, dtype=np.int64), np.full((r, c), -1, np.int64)
 
 		# the new images
 		img_n1[img_1x1:img_1x2, img_1y1:img_1y2] = img_1
 		img_n2[img_2x1:img_2x2, img_2y1:img_2y2] = img_2
 
 		img_b = img_n1.copy()
-		img_b[img_n2 == 0] = 0
+		img_b[img_n2 == -1] = -1
 
-		m = 255 if np.amax(img_n1) > 1 or np.amax(img_n2) > 1 else 1
+		# m = 255 if np.amax(img_n1) > 1 or np.amax(img_n2) > 1 else 1
+		m = 255
+
+		img_n1[img_n1 == -1] = 255 - img_n2[img_n2 != -1].mean()
+		img_b[img_b == -1] = 255 - img_n2[img_n2 != -1].mean()
+		img_n2[img_n2 == -1] = 255 - img_n1[img_n1 != -1].mean()
 
 		z1 = (m - abs(img_b - img_n2).mean()) / m
 		z2 = (m - abs(img_b - img_n1).mean()) / m
 		z3 = (m - abs(img_n2 - img_n1).mean()) / m
 		
-		return 0.5*(z1 + z2)
+		z = (z1 + z2 + z3) / 3
 
-	def addToContext(self, image_path):
-		self.context.append(image_path)
-		if len(self.context) == self.context_length:
-			self.context.pop(0)
-		return
+		print(
+			img_1x1, img_1x2, img_1y1, img_1y2, '=>', img_2x1, img_2x2, img_2y1, img_2y2, '=>', z
+		)
+
+		if img_n1.shape == (3, 3):
+			print(img_n1)
+		return z
+
 
 	def saveImage(self, image, image_name=None):
 		'''
