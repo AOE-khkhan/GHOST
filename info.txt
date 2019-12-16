@@ -23,6 +23,16 @@ Note
 	right now it is mean of class kernels
 ]
 
+-physics[
+	to find similarity and model physical laws
+	similarity [
+		Ax = B
+		A - image1, B - image2, x is a tranformation matrix representing the physical change that affected the system
+		Min [B - TupleSet(int(Ax))]
+	]
+
+]
+
 TESTs
 ======
 when i used 2x2 kernels i got a convergence of 0.009 to 0.012

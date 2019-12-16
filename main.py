@@ -5,9 +5,13 @@ from threading import Thread
 # from third party
 import cv2, pyautogui
 import numpy as np
+import pandas as pd
+
+from keras.datasets import mnist
 
 # from the lib code
 from image_processor import ImageProcessor
+from keyboard_processor import KeyboardProcessor
 from cortex import Cortex
 from console import Console
 from timer import Timer
@@ -18,6 +22,10 @@ from game import Game, UP, DOWN, LEFT, RIGHT, NONE
 # the key codes for moves
 # MOVES = {UP: 'w', DOWN: 'z', LEFT: 'a', RIGHT: 's'}
 MOVES = {UP: 119, DOWN: 122, LEFT: 97, RIGHT: 115}
+
+# the sensors
+IMAGE_SENSOR, KEYBOARD_SENSOR = '__image_sensor__', '__keyboard_sensor__'
+SENSORS = [IMAGE_SENSOR, KEYBOARD_SENSOR]
 
 def getSimulateGamePlay(train_game_play_path='data/game_plays/game_play.json'):
 	# the start and end grid
@@ -50,10 +58,16 @@ def getSimulateGamePlay(train_game_play_path='data/game_plays/game_play.json'):
 
 				image_name = time.time();image_name = f'{image_name:.4f}'[-7:]
 				# cv2.imwrite(f'results/{image_name}.jpg', game_object.gw)
-				yield image_name, game_object.gw, move
+				yield image_name, game_object.gw.astype(np.int64), move
 		
 		break
 
+def simulateMNISTDigitRecognition(n=10):
+	# (x_train, y_train), (x_test, y_test) = (np.random.randint(255, size=(3, 28, 28)), [1,2,3]), ([], [])
+	(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+	for i in range(n):
+		yield y_train[i], x_train[i].astype(np.int64), y_train[i]
 
 def main():
 	# initializations
@@ -62,17 +76,28 @@ def main():
 
 	# the image image_processor
 	cortex = Cortex()
-	image_processor = ImageProcessor(cortex=cortex, kernel_size=3)
+	image_processor = ImageProcessor(cortex=cortex)
+	keyboard_processor = KeyboardProcessor(cortex=cortex)
 
 	# get training data
-	images = getSimulateGamePlay()
-	c, limit = 1, 60  # to hold all the data trained with
+	# images = getSimulateGamePlay()
+	images = simulateMNISTDigitRecognition()
+	c, limit = 0, 100  # to hold all the data trained with
+	
+	# holds the result report
+	results = {
+		'actual':[],
+		'predicted':[],
+		'probability':[],
+		'error':[],
+		'accuracy':[]
+	}
 
-	for i, (image_name, image, metadata) in enumerate(images):
-		c += 1	
+	# for data in dataset
+	for (image_name, image, metadata) in images:
+		c += 1
 		if c == limit:
 			break
-		
 
 		# the dimensions
 		if len(image.shape) == 3:
@@ -82,17 +107,48 @@ def main():
 			(w, h), d = image.shape, 1
 		
 		# report image information
-		console.log('LOADING IMAGE_{}: {:>7}, initial dimension: width = {}, height = {}, depth = {}, metadata: {}'.format(c+1, image_name, w, h, d, metadata))
+		console.log(f'LOADING IMAGE_{c}: {image_name:>7}, initial dimension: width = {w}, height = {h}, depth = {d}, metadata: {metadata}')
 
 		# processor processing results report
-		timer.run(lambda: image_processor.run(image, image_name, verbose=1))
+		timer.run(lambda: keyboard_processor.run(metadata, verbose=1))
+		timer.run(lambda: image_processor.run(image, verbose=1))
+
+		# the result of model
+		result = cortex.result_vector['probability']
+		predictions = list(zip(result.index, result.values))
+		
+		# the final output values
+		predicted = predictions[0][0] if len(predictions) and len(predictions[0]) else None
+		probability_of_predicted = predictions[0][1] if len(predictions) and len(predictions[0]) else 0
+
+		# populate the overal result dictionary
+		results['actual'].append(metadata)
+		results['predicted'].append(predicted)
+		results['probability'].append(probability_of_predicted)
+		results['error'].append(int(predicted != metadata))
+		results['accuracy'].append(int(predicted == metadata))
 
 		console.log('-'*100, '\n')
-		
-	# processor stats report
-	if image_processor.image_memory_line.indices is not None:
-		console.log(' {} data loaded into memory\n'.format(len(image_processor.image_memory_line.indices)))
+	
+	# display stats
+	console.log('Stats\n============\n')
 
+	# processor stats report
+	if image_processor.image_memory_line.data is not None:
+		console.log(f'{len(image_processor.image_memory_line.data)} image segments discovered and saved into memory')
+
+	#stats report for the key-proc
+	if keyboard_processor.keyboard_memory_line.data is not None:
+		console.log(f'{len(keyboard_processor.keyboard_memory_line.data)} keystroke discovered and saved into memory')
+
+	# cast to a dataframe
+	results = pd.DataFrame(results)
+
+	# display final result
+	console.log(f'\nFinal Results\n=============\n{results}')
+	
+	error, accuracy = results['error'].mean(), results['accuracy'].mean()
+	console.log(f'error = {error}, accuracy = {accuracy}')
 
 if __name__ == '__main__':
 	main()

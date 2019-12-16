@@ -6,7 +6,6 @@ import threading
 # import from third party lib
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
 # import lib code
 from context import Context
@@ -16,7 +15,7 @@ from utils import getKernels, resultant, validateFolderPath, is_row_in_array
 
 # the image processor class
 class ImageProcessor:
-	def __init__(self, cortex, kernel_size=3, context_maxlength=10):
+	def __init__(self, cortex, context_maxlength=10):
 		'''
 		cortex: object reference of the agent cortex
 		kernel size: kernel size 
@@ -31,14 +30,12 @@ class ImageProcessor:
 		# the central processor object
 		self.cortex = cortex
 		self.cortex.image_processor = self
-		
+
 		# the history
 		self.context = Context(context_maxlength)
 
 		# initialize magnetic_memory_strip
-		self.image_memory_line = MemoryLine(kernel_size)
-
-		self.kernel_size = kernel_size
+		self.image_memory_line = MemoryLine()
 
 		# constants
 		self.MEMORY_PATH = 'memory'
@@ -69,19 +66,18 @@ class ImageProcessor:
 			base = udev[threshold]
 
 		# the similar images
-		similar = self.image_memory_line.indices[dev.argsort()[::-1]]
-		similar_ratio = dev[dev.argsort()[::-1]]
-		return similar[similar_ratio >= base], similar_ratio[similar_ratio >= base]
+		similarity_indices = dev.argsort()[::-1]
+		similarity_ratios = dev[similarity_indices]
+		return similarity_indices[similarity_ratios >= base], similarity_ratios[similarity_ratios >= base]
 
-	def run(self, image, image_name, verbose=0):
+	def run(self, image, verbose=0):
 		cls = []
 		image_unique = np.unique(image)
 
-		# # self.image_memory_line.add(image_name, resultant(image))
-		# _ = self.image_memory_line.add(image, image_name)
+		# the time register for current image and all counterparts derived from it
+		timestamp = time.time()
 
-		# get the objects
-		# yield self.getSimilar(image)
+		num_of_inference = 0
 
 		for i in image_unique:
 			m = abs(i - image_unique).flatten()
@@ -93,13 +89,15 @@ class ImageProcessor:
 			img = ((image >= a) & (image <= b)).astype(np.int8)
 
 			valid = False
-			if len(cls) == 0:
+			num_of_classes = len(cls)
+
+			if num_of_classes == 0:
 				cls = np.array([img], dtype=np.int8)
 				last_a, last_b = a, b
 				valid = True
 
 			else:
-				if a > (last_a + last_b)/2 and (not is_row_in_array(img, cls)):
+				if a > 0.475 * (last_a + last_b) and (not is_row_in_array(img, cls)):
 					cls = np.concatenate((cls, [img]))
 					last_a, last_b = a, b
 					valid = True
@@ -112,15 +110,16 @@ class ImageProcessor:
 			# labeled_img = imshow_components(labels)
 
 			for label in range(1, ret):
-				print(ret)
+				num_of_inference += 1
 
+				self.log(f'\nclass {num_of_classes} ret {label}')
 				pos = np.where(labels == label)
 				ar1, ar2 = pos
 
 				x1, x2 = min(ar1), max(ar1)+1
 				y1, y2 = min(ar2), max(ar2)+1
 
-				point = (ar1.mean(), ar2.mean())
+				point = (ar2.mean(), ar1.mean())
 
 				img_objx = np.zeros(imgx.shape, dtype=np.int64)
 				img_objx[np.where(labels != label)] = -1
@@ -134,15 +133,32 @@ class ImageProcessor:
 				img_obj[0:x, 0:y] = img_objx
 
 				# get the objects
-				similar_images, similarity_ratios = self.getSimilar(img_obj, 0.1)
+				similar_images, similarity_ratios = self.getSimilar(img_obj, 3)
 
-				# self.image_memory_line.add(image_name, resultant(image))
-				image_id = self.image_memory_line.add(img_obj, int(time.time()))
+				# the image id the segment will take when saved
+				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data) 
 
 				# commit current discovery to the cortex
-				self.cortex.commitImageInfo((image_id, point, (similar_images, similarity_ratios)))
-				
-				# yield similar_images, similarity_ratios
+				self.cortex.commitImageInfo(
+					img_obj,
+					timestamp,
+					(
+						image_id, 
+						point, 
+						(
+							similar_images, 
+							similarity_ratios
+						)
+					)
+				)
+
+				# self.image_memory_line.add(image_name, resultant(image))
+				self.image_memory_line.add(img_obj, timestamp, allow_duplicate=True)
+		
+		# after all segment has been commited
+		self.cortex.pushImageProcess(num_of_inference)
+
+		return
 
 	def compare(self, img_1, img_2):
 		def getSubImage(img):
@@ -163,8 +179,19 @@ class ImageProcessor:
 		r = c21 if c21 < c11 else c11
 		c = c22 if c22 < c12 else c12
 
-		# img_1 = cv2.resize(img_1.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
-		# img_2 = cv2.resize(img_2.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
+		# base area of image (scaled down vrsion)
+		base_area = r * c
+
+		# size ratio (quantifies reduction/loss of data)
+		sr1 = base_area / (img_1.shape[0] * img_1.shape[1])
+		sr2 = base_area / (img_2.shape[0] * img_2.shape[1])
+
+		# the trust factor for scaling down (consequence of scaling down)
+		scale_weight = sr1*sr2
+
+		# resize images (scale it down to minimum)
+		img_1 = cv2.resize(img_1.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
+		img_2 = cv2.resize(img_2.astype(np.uint8), (c, r), interpolation=cv2.INTER_AREA).astype(np.int8)
 
 		img_1a, img_1b = np.where(img_1 != -1)
 		img_1a, img_1b = int(img_1a.mean()), int(img_1b.mean())
@@ -224,14 +251,7 @@ class ImageProcessor:
 		z2 = (m - abs(img_b - img_n1).mean()) / m
 		z3 = (m - abs(img_n2 - img_n1).mean()) / m
 		
-		z = (z1 + z2 + z3) / 3
-
-		print(
-			img_1x1, img_1x2, img_1y1, img_1y2, '=>', img_2x1, img_2x2, img_2y1, img_2y2, '=>', z
-		)
-
-		if img_n1.shape == (3, 3):
-			print(img_n1)
+		z = scale_weight * (z1 + z2 + z3) / 3		
 		return z
 
 

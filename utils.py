@@ -6,6 +6,8 @@ import cv2
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
+# key identifiers for memory
+TIMESTAMP = '_timestamp_'
 
 def getKernels(img, kernel_size):
 	return as_strided(

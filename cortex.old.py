@@ -49,52 +49,20 @@ class Cortex(object):
 
 		return size / (size + 1)
 
-	def commitImageInfo(self, image, timestamp, info):
-		if self.keyboard_processor.keyboard_memory_line.data is None:
-			return
+	def commitImageInfo(self, info):
+		# the info collected
+		image_index, point, (similar_images, similarity_ratios) = info
 
 		# the data in memory
 		image_data = self.image_processor.image_memory_line.data
 
-		if image_data is None:
-			return
-
-		# the info collected
-		image_index, point, (similar_images, similarity_ratios) = info
+		# the data in keyboard memory
+		keyboard_data = self.keyboard_processor.keyboard_memory_line.data
 
 		# find the related meatadata to image
-		image_metadata = self.getImageMetadata(timestamp)
+		image_metadata = self.getImageMetadata(image_index)
 
-		# numbe of similarities discovered
 		num_of_similar = len(similar_images)
-
-		# the factors that bind the image segments to metadata
-		co_factors = defaultdict(float)
-
-		if image_metadata is not None:
-			# the indices(apperance) of segment in memory
-			indices = index_row_in_array(image, image_data)
-
-			# all metadata associated to a property(segment) of image
-			metadatas = [self.getImageMetadata(index) for index in indices]
-
-		else:
-			metadatas = [None]
-
-		# metadata co_occurrence freq distribution
-		freq_distribution = Counter(metadatas)
-
-		# the number of apperance of image(segment)
-		num_of_occurrence = len(metadatas)
-
-		# the quantity-quality factor
-		factor = self.trustFactor(num_of_occurrence)
-
-		for metadata, freq in freq_distribution.items():
-			# inference factors from image properties to metadata
-			co_factors[metadata] = (factor * freq) / num_of_occurrence
-
-		print(co_factors)
 
 		for similar_image_index, similarity_ratio in zip(similar_images, similarity_ratios):
 			# find the related meatadata to similar image
@@ -119,19 +87,23 @@ class Cortex(object):
 			# the quantity-quality factor
 			factor = self.trustFactor(num_of_occurrence)
 
-			# for metadata, freq in freq_distribution.items():
-			# 	# the inference from image similarity
-			# 	sim_inference_ratio = (factor * freq * similarity_ratio) / num_of_occurrence
+			for metadata, freq in freq_distribution.items():
+				# the indices(apperance) of metadata in memory
+				metadata_indices = index_row_in_array(metadata, keyboard_data)
 
-			self.ik_co_occurrence_probability[similar_image_metadata] += similarity_ratio / num_of_similar
+				num_of_metadata_occurrence = len(metadata_indices)
+
+				metadata_factor = self.trustFactor(num_of_metadata_occurrence)
+
+				self.ik_co_occurrence_probability[metadata] += (
+					factor * metadata_factor * similarity_ratio * freq * freq) / (
+						num_of_occurrence * num_of_metadata_occurrence * num_of_similar
+				)
 
 			print(
-				f'image: {image_index:3d}[{image_metadata}] => {similar_image_index:3d}[{similar_image_metadata}], ',
-			 	f'similarity_ratio = {similarity_ratio:7.4f}, centroid = ({point[0]:7.4f}, {point[1]:7.4f})',
-				# f'{metadatas} {sim_inference_ratio}',
-				# f'{metadatas} {sim_inference_ratio} {self.ik_co_occurrence_probability}',
+				f'image: {image_index:3d}[{image_metadata}] => {similar_image_index:3d}[{similar_image_metadata}], ' +
+			 	f'similarity_ratio = {similarity_ratio:7.4f}, centroid = ({point[0]:7.4f}, {point[1]:7.4f}) {metadatas}'
 			)
-
 		return
 
 	def commitKeyInfo(self, info):
@@ -158,12 +130,8 @@ class Cortex(object):
 		'''
 			returns the [keyboard]metadata associted to the time period[inc] of image
 		'''
-		if type(image_index) == float:
-			image_timestamp = image_index
 
-		else:
-			image_timestamp = self.image_processor.image_memory_line.metadata[image_index][TIMESTAMP]
-
+		image_timestamp = self.image_processor.image_memory_line.metadata[image_index][TIMESTAMP]
 		low = image_timestamp - inc # the lower end of simulteniety
 		
 		# the metadata to serach from

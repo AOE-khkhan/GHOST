@@ -82,8 +82,8 @@ class Game:
         self.gw[self.tg[0]: self.tg[0]+self.g[0], self.tg[1]:self.tg[1] + self.g[1]] = self.target_code
         
         # resize the window
-        cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('frame', 300, 300)
+        # cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow('frame', 300, 300)
 
         # the last state and last state grid
         self.last_s = self.last_sg = None
