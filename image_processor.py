@@ -58,12 +58,15 @@ class ImageProcessor:
 		if type(threshold) == float:
 			base = threshold
 
+		elif threshold == -1:
+			base = 0
+
 		else:
 			if threshold > len(udev)-1:
 				threshold = len(udev) - 1
 
 			# the base of similarity
-			base = udev[threshold]
+			base = udev[threshold-1]
 
 		# the similar images
 		similarity_indices = dev.argsort()[::-1]
@@ -97,7 +100,7 @@ class ImageProcessor:
 				valid = True
 
 			else:
-				if a > 0.475 * (last_a + last_b) and (not is_row_in_array(img, cls)):
+				if a > 0.5 * (last_a + last_b) and (not is_row_in_array(img, cls)):
 					cls = np.concatenate((cls, [img]))
 					last_a, last_b = a, b
 					valid = True
@@ -110,10 +113,13 @@ class ImageProcessor:
 			# labeled_img = imshow_components(labels)
 
 			for label in range(1, ret):
+				# num of segments contributing to info processing
 				num_of_inference += 1
 
-				self.log(f'\nclass {num_of_classes} ret {label}')
 				pos = np.where(labels == label)
+
+				# influence of segment size on prediction
+				factor = pos[0].size / image.size
 				ar1, ar2 = pos
 
 				x1, x2 = min(ar1), max(ar1)+1
@@ -133,10 +139,16 @@ class ImageProcessor:
 				img_obj[0:x, 0:y] = img_objx
 
 				# get the objects
-				similar_images, similarity_ratios = self.getSimilar(img_obj, 3)
+				similar_images, similarity_ratios = self.getSimilar(img_obj, 1)
 
 				# the image id the segment will take when saved
 				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data) 
+
+				# if factor < .1:
+				# 	cv2.imwrite('x.jpg', image)
+				# 	continue
+
+				self.log(f'\nclass {num_of_classes} ret {label}')
 
 				# commit current discovery to the cortex
 				self.cortex.commitImageInfo(
@@ -154,7 +166,7 @@ class ImageProcessor:
 
 				# self.image_memory_line.add(image_name, resultant(image))
 				self.image_memory_line.add(img_obj, timestamp, allow_duplicate=True)
-		
+
 		# after all segment has been commited
 		self.cortex.pushImageProcess(num_of_inference)
 
@@ -237,8 +249,8 @@ class ImageProcessor:
 		img_n1[img_1x1:img_1x2, img_1y1:img_1y2] = img_1
 		img_n2[img_2x1:img_2x2, img_2y1:img_2y2] = img_2
 
-		img_b = img_n1.copy()
-		img_b[img_n2 == -1] = -1
+		img_b = img_n2.copy()
+		img_b[img_n1 == -1] = -1
 
 		# m = 255 if np.amax(img_n1) > 1 or np.amax(img_n2) > 1 else 1
 		m = 255
@@ -251,7 +263,8 @@ class ImageProcessor:
 		z2 = (m - abs(img_b - img_n1).mean()) / m
 		z3 = (m - abs(img_n2 - img_n1).mean()) / m
 		
-		z = scale_weight * (z1 + z2 + z3) / 3		
+		z = scale_weight * (z1 + z2 + z3) / 3
+		# z = scale_weight * (z1 * z3)
 		return z
 
 

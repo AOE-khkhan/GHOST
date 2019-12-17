@@ -1,0 +1,126 @@
+class 0 ret 1
+ sim_image:  34[1] =>   34[1], ssimilarity_ratio =  0.9943
+ sim_image:  34[1] =>    6[1], ssimilarity_ratio =  0.9882
+ sim_image:  34[1] =>   33[9], ssimilarity_ratio =  0.9321
+ sim_image:  34[1] =>   28[9], ssimilarity_ratio =  0.9301
+ sim_image:  34[1] =>   26[8], ssimilarity_ratio =  0.9297
+ sim_image:  34[1] =>   18[5], ssimilarity_ratio =  0.9288
+ sim_image:  34[1] =>   13[1], ssimilarity_ratio =  0.9203
+ sim_image:  34[1] =>   22[1], ssimilarity_ratio =  0.9192
+ sim_image:  34[1] =>   38[4], ssimilarity_ratio =  0.9160
+ sim_image:  34[1] =>   11[1], ssimilarity_ratio =  0.9068
+image:  43[7] =>  34[1],  similarity_ratio =  0.9406, centroid = (13.4458, 13.5014)
+ sim_image:   6[1] =>    6[1], ssimilarity_ratio =  0.9945
+ sim_image:   6[1] =>   34[1], ssimilarity_ratio =  0.9882
+ sim_image:   6[1] =>   33[9], ssimilarity_ratio =  0.9338
+ sim_image:   6[1] =>   28[9], ssimilarity_ratio =  0.9300
+ sim_image:   6[1] =>   18[5], ssimilarity_ratio =  0.9295
+ sim_image:   6[1] =>   26[8], ssimilarity_ratio =  0.9280
+ sim_image:   6[1] =>   13[1], ssimilarity_ratio =  0.9217
+ sim_image:   6[1] =>   22[1], ssimilarity_ratio =  0.9208
+ sim_image:   6[1] =>   38[4], ssimilarity_ratio =  0.9157
+ sim_image:   6[1] =>   11[1], ssimilarity_ratio =  0.9067
+image:  43[7] =>   6[1],  similarity_ratio =  0.9389, centroid = (13.4458, 13.5014)
+ sim_image:  28[9] =>   28[9], ssimilarity_ratio =  0.9918
+ sim_image:  28[9] =>   33[9], ssimilarity_ratio =  0.9629
+ sim_image:  28[9] =>   26[8], ssimilarity_ratio =  0.9336
+ sim_image:  28[9] =>   13[1], ssimilarity_ratio =  0.9319
+ sim_image:  28[9] =>   23[7], ssimilarity_ratio =  0.9314
+ sim_image:  28[9] =>    7[9], ssimilarity_ratio =  0.9306
+ sim_image:  28[9] =>   34[1], ssimilarity_ratio =  0.9294
+ sim_image:  28[9] =>   22[1], ssimilarity_ratio =  0.9293
+ sim_image:  28[9] =>    6[1], ssimilarity_ratio =  0.9293
+ sim_image:  28[9] =>   11[1], ssimilarity_ratio =  0.9250
+image:  43[7] =>  28[9],  similarity_ratio =  0.9311, centroid = (13.4458, 13.5014)
+ sim_image:  33[9] =>   33[9], ssimilarity_ratio =  0.9891
+ sim_image:  33[9] =>   28[9], ssimilarity_ratio =  0.9618
+ sim_image:  33[9] =>   26[8], ssimilarity_ratio =  0.9333
+ sim_image:  33[9] =>    6[1], ssimilarity_ratio =  0.9323
+ sim_image:  33[9] =>    7[9], ssimilarity_ratio =  0.9315
+ sim_image:  33[9] =>   34[1], ssimilarity_ratio =  0.9306
+ sim_image:  33[9] =>   14[4], ssimilarity_ratio =  0.9194
+ sim_image:  33[9] =>   13[1], ssimilarity_ratio =  0.9190
+ sim_image:  33[9] =>   22[1], ssimilarity_ratio =  0.9189
+ sim_image:  33[9] =>   11[1], ssimilarity_ratio =  0.9138
+image:  43[7] =>  33[9],  similarity_ratio =  0.9273, centroid = (13.4458, 13.5014)
+ sim_image:  13[1] =>   13[1], ssimilarity_ratio =  0.9974
+ sim_image:  13[1] =>   22[1], ssimilarity_ratio =  0.9822
+ sim_image:  13[1] =>   11[1], ssimilarity_ratio =  0.9677
+ sim_image:  13[1] =>   28[9], ssimilarity_ratio =  0.9337
+ sim_image:  13[1] =>   38[4], ssimilarity_ratio =  0.9337
+ sim_image:  13[1] =>   27[6], ssimilarity_ratio =  0.9245
+ sim_image:  13[1] =>    7[9], ssimilarity_ratio =  0.9237
+ sim_image:  13[1] =>    6[1], ssimilarity_ratio =  0.9224
+ sim_image:  13[1] =>   18[5], ssimilarity_ratio =  0.9218
+ sim_image:  13[1] =>   34[1], ssimilarity_ratio =  0.9211
+image:  43[7] =>  13[1],  similarity_ratio =  0.9255, centroid = (13.4458, 13.5014)
+ sim_image:  18[5] =>   18[5], ssimilarity_ratio =  0.9957
+ sim_image:  18[5] =>    6[1], ssimilarity_ratio =  0.9297
+ sim_image:  18[5] =>   34[1], ssimilarity_ratio =  0.9291
+ sim_image:  18[5] =>   22[1], ssimilarity_ratio =  0.9218
+ sim_image:  18[5] =>   13[1], ssimilarity_ratio =  0.9213
+ sim_image:  18[5] =>   28[9], ssimilarity_ratio =  0.9121
+ sim_image:  18[5] =>   33[9], ssimilarity_ratio =  0.9093
+ sim_image:  18[5] =>   14[4], ssimilarity_ratio =  0.9092
+ sim_image:  18[5] =>   38[4], ssimilarity_ratio =  0.9068
+ sim_image:  18[5] =>   11[1], ssimilarity_ratio =  0.9041
+image:  43[7] =>  18[5],  similarity_ratio =  0.9251, centroid = (13.4458, 13.5014)
+ sim_image:  38[4] =>   38[4], ssimilarity_ratio =  0.9957
+ sim_image:  38[4] =>   13[1], ssimilarity_ratio =  0.9330
+ sim_image:  38[4] =>    7[9], ssimilarity_ratio =  0.9230
+ sim_image:  38[4] =>   22[1], ssimilarity_ratio =  0.9229
+ sim_image:  38[4] =>   11[1], ssimilarity_ratio =  0.9202
+ sim_image:  38[4] =>   34[1], ssimilarity_ratio =  0.9163
+ sim_image:  38[4] =>    6[1], ssimilarity_ratio =  0.9159
+ sim_image:  38[4] =>   33[9], ssimilarity_ratio =  0.9150
+ sim_image:  38[4] =>   27[6], ssimilarity_ratio =  0.9136
+ sim_image:  38[4] =>   28[9], ssimilarity_ratio =  0.9135
+image:  43[7] =>  38[4],  similarity_ratio =  0.9249, centroid = (13.4458, 13.5014)
+ sim_image:  22[1] =>   22[1], ssimilarity_ratio =  0.9970
+ sim_image:  22[1] =>   13[1], ssimilarity_ratio =  0.9821
+ sim_image:  22[1] =>   11[1], ssimilarity_ratio =  0.9628
+ sim_image:  22[1] =>   28[9], ssimilarity_ratio =  0.9310
+ sim_image:  22[1] =>   38[4], ssimilarity_ratio =  0.9235
+ sim_image:  22[1] =>   27[6], ssimilarity_ratio =  0.9230
+ sim_image:  22[1] =>   18[5], ssimilarity_ratio =  0.9223
+ sim_image:  22[1] =>    6[1], ssimilarity_ratio =  0.9215
+ sim_image:  22[1] =>   33[9], ssimilarity_ratio =  0.9210
+ sim_image:  22[1] =>   34[1], ssimilarity_ratio =  0.9200
+image:  43[7] =>  22[1],  similarity_ratio =  0.9229, centroid = (13.4458, 13.5014)
+ sim_image:  23[7] =>   23[7], ssimilarity_ratio =  0.9872
+ sim_image:  23[7] =>   28[9], ssimilarity_ratio =  0.9293
+ sim_image:  23[7] =>   33[9], ssimilarity_ratio =  0.9124
+ sim_image:  23[7] =>   14[4], ssimilarity_ratio =  0.9105
+ sim_image:  23[7] =>    7[9], ssimilarity_ratio =  0.9053
+ sim_image:  23[7] =>   38[4], ssimilarity_ratio =  0.9029
+ sim_image:  23[7] =>   26[8], ssimilarity_ratio =  0.8975
+ sim_image:  23[7] =>   34[1], ssimilarity_ratio =  0.8966
+ sim_image:  23[7] =>   35[1], ssimilarity_ratio =  0.8961
+ sim_image:  23[7] =>    6[1], ssimilarity_ratio =  0.8958
+image:  43[7] =>  23[7],  similarity_ratio =  0.9210, centroid = (13.4458, 13.5014)
+ sim_image:  35[1] =>   35[1], ssimilarity_ratio =  0.9887
+ sim_image:  35[1] =>   16[3], ssimilarity_ratio =  0.9093
+ sim_image:  35[1] =>   11[1], ssimilarity_ratio =  0.9088
+ sim_image:  35[1] =>   28[9], ssimilarity_ratio =  0.9080
+ sim_image:  35[1] =>   13[1], ssimilarity_ratio =  0.9046
+ sim_image:  35[1] =>   38[4], ssimilarity_ratio =  0.9038
+ sim_image:  35[1] =>   33[9], ssimilarity_ratio =  0.9006
+ sim_image:  35[1] =>   27[6], ssimilarity_ratio =  0.9005
+ sim_image:  35[1] =>   23[7], ssimilarity_ratio =  0.8971
+ sim_image:  35[1] =>   22[1], ssimilarity_ratio =  0.8964
+image:  43[7] =>  35[1],  similarity_ratio =  0.9204, centroid = (13.4458, 13.5014)
+
+Result
+==========
+   probability
+1     4.648279
+9     1.858410
+5     0.925067
+4     0.924943
+7     0.920962
+
+1.1403sec(s) for main.<locals>.<lambda>
+----------------------------------------------------------------------------------------------------
+
+Stats
+============

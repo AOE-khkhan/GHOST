@@ -81,7 +81,7 @@ def main():
 
 	# get training data
 	# images = getSimulateGamePlay()
-	images = simulateMNISTDigitRecognition()
+	images = simulateMNISTDigitRecognition(200)
 	c, limit = 0, 100  # to hold all the data trained with
 	
 	# holds the result report
@@ -93,11 +93,18 @@ def main():
 		'accuracy':[]
 	}
 
+	collected = {x:0 for x in range(10)}
+	
 	# for data in dataset
 	for (image_name, image, metadata) in images:
 		c += 1
-		if c == limit:
+		if len(results['actual']) == 50:
 			break
+
+		if collected[metadata] == 5:
+			continue
+		
+		collected[metadata] += 1
 
 		# the dimensions
 		if len(image.shape) == 3:

@@ -53,82 +53,35 @@ class Cortex(object):
 		if self.keyboard_processor.keyboard_memory_line.data is None:
 			return
 
-		# the data in memory
-		image_data = self.image_processor.image_memory_line.data
-
-		if image_data is None:
-			return
-
 		# the info collected
 		image_index, point, (similar_images, similarity_ratios) = info
 
 		# find the related meatadata to image
 		image_metadata = self.getImageMetadata(timestamp)
 
-		# numbe of similarities discovered
-		num_of_similar = len(similar_images)
-
-		# the factors that bind the image segments to metadata
-		co_factors = defaultdict(float)
-
-		if image_metadata is not None:
-			# the indices(apperance) of segment in memory
-			indices = index_row_in_array(image, image_data)
-
-			# all metadata associated to a property(segment) of image
-			metadatas = [self.getImageMetadata(index) for index in indices]
-
-		else:
-			metadatas = [None]
-
-		# metadata co_occurrence freq distribution
-		freq_distribution = Counter(metadatas)
-
-		# the number of apperance of image(segment)
-		num_of_occurrence = len(metadatas)
-
-		# the quantity-quality factor
-		factor = self.trustFactor(num_of_occurrence)
-
-		for metadata, freq in freq_distribution.items():
-			# inference factors from image properties to metadata
-			co_factors[metadata] = (factor * freq) / num_of_occurrence
-
-		print(co_factors)
-
 		for similar_image_index, similarity_ratio in zip(similar_images, similarity_ratios):
 			# find the related meatadata to similar image
 			similar_image_metadata = self.getImageMetadata(similar_image_index)
-			
-			if similar_image_metadata is not None:
-				# the indices(apperance) of segment in memory
-				indices = index_row_in_array(image_data[similar_image_index], image_data)
-				
-				# all metadata associated to a property(segment) of image
-				metadatas = [self.getImageMetadata(index) for index in indices]
 
-			else:
-				metadatas = [None]
+			# # get the objects
+			# ssimilar_images, ssimilarity_ratios = self.image_processor.getSimilar(
+			# 	self.image_processor.image_memory_line.data[similar_image_index], 4
+			# )
 
-			# metadata co_occurrence freq distribution
-			freq_distribution = Counter(metadatas)
+			# for ssimilar_image_index, ssimilarity_ratio in zip(ssimilar_images, ssimilarity_ratios):
+			# 	ssimilar_image_metadata = self.getImageMetadata(ssimilar_image_index)
 
-			# the number of apperance of image(segment)
-			num_of_occurrence = len(metadatas)
+			# 	print(
+			# 		f' sim_image: {similar_image_index:3d}[{similar_image_metadata}] => ',
+			# 		f'{ssimilar_image_index:3d}[{ssimilar_image_metadata}], ssimilarity_ratio = {ssimilarity_ratio:7.4f}',
+			# 	)
 
-			# the quantity-quality factor
-			factor = self.trustFactor(num_of_occurrence)
-
-			# for metadata, freq in freq_distribution.items():
-			# 	# the inference from image similarity
-			# 	sim_inference_ratio = (factor * freq * similarity_ratio) / num_of_occurrence
-
-			self.ik_co_occurrence_probability[similar_image_metadata] += similarity_ratio / num_of_similar
+			self.ik_co_occurrence_probability[similar_image_metadata] += similarity_ratio
 
 			print(
 				f'image: {image_index:3d}[{image_metadata}] => {similar_image_index:3d}[{similar_image_metadata}], ',
 			 	f'similarity_ratio = {similarity_ratio:7.4f}, centroid = ({point[0]:7.4f}, {point[1]:7.4f})',
-				# f'{metadatas} {sim_inference_ratio}',
+				# f'{} {ssimilarity_ratio}',
 				# f'{metadatas} {sim_inference_ratio} {self.ik_co_occurrence_probability}',
 			)
 
@@ -140,7 +93,7 @@ class Cortex(object):
 	def pushImageProcess(self, number_of_inference=1):
 		# output the results of image process
 		ik_co_occurrence_probability = pd.DataFrame(self.ik_co_occurrence_probability, index=['freq']).T.sort_values('freq', ascending=False)
-		ik_co_occurrence_probability /= number_of_inference
+		# ik_co_occurrence_probability /= number_of_inference
 		# ik_co_occurrence_probability /= ik_co_occurrence_probability.sum().sum()
 		
 		# set the result_vector
