@@ -62,9 +62,12 @@ def getSimulateGamePlay(train_game_play_path='data/game_plays/game_play.json'):
 		
 		break
 
-def simulateMNISTDigitRecognition(n=10):
+def simulateMNISTDigitRecognition(n=None):
 	# (x_train, y_train), (x_test, y_test) = (np.random.randint(255, size=(3, 28, 28)), [1,2,3]), ([], [])
 	(x_train, y_train), (x_test, y_test) = mnist.load_data()
+	
+	if n is None:
+		n = len(x_train)
 
 	for i in range(n):
 		yield y_train[i], x_train[i].astype(np.int64), y_train[i]
@@ -81,7 +84,7 @@ def main():
 
 	# get training data
 	# images = getSimulateGamePlay()
-	images = simulateMNISTDigitRecognition(200)
+	images = simulateMNISTDigitRecognition()
 	c, limit = 0, 100  # to hold all the data trained with
 	
 	# holds the result report
@@ -94,16 +97,17 @@ def main():
 	}
 
 	collected = {x:0 for x in range(10)}
-	
+	cn = 100
+
 	# for data in dataset
 	for (image_name, image, metadata) in images:
-		c += 1
-		if len(results['actual']) == 50:
+		if len(results['actual']) == cn*10:
 			break
 
-		if collected[metadata] == 5:
+		if collected[metadata] == cn:
 			continue
 		
+		c += 1
 		collected[metadata] += 1
 
 		# the dimensions
@@ -154,7 +158,8 @@ def main():
 	# display final result
 	console.log(f'\nFinal Results\n=============\n{results}')
 	
-	error, accuracy = results['error'].mean(), results['accuracy'].mean()
+	n = 0
+	error, accuracy = results[n:]['error'].mean(), results[n:]['accuracy'].mean()
 	console.log(f'error = {error}, accuracy = {accuracy}')
 
 if __name__ == '__main__':

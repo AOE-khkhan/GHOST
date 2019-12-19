@@ -100,7 +100,7 @@ class ImageProcessor:
 				valid = True
 
 			else:
-				if a > 0.5 * (last_a + last_b) and (not is_row_in_array(img, cls)):
+				if abs(a - last_a) > .25*image_unique.std() and (not is_row_in_array(img, cls)):
 					cls = np.concatenate((cls, [img]))
 					last_a, last_b = a, b
 					valid = True
@@ -144,9 +144,9 @@ class ImageProcessor:
 				# the image id the segment will take when saved
 				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data) 
 
-				# if factor < .1:
-				# 	cv2.imwrite('x.jpg', image)
-				# 	continue
+				if factor < .1:
+					# cv2.imwrite('x.jpg', image)
+					continue
 
 				self.log(f'\nclass {num_of_classes} ret {label}')
 
@@ -249,8 +249,8 @@ class ImageProcessor:
 		img_n1[img_1x1:img_1x2, img_1y1:img_1y2] = img_1
 		img_n2[img_2x1:img_2x2, img_2y1:img_2y2] = img_2
 
-		img_b = img_n2.copy()
-		img_b[img_n1 == -1] = -1
+		img_b = img_n1.copy()
+		img_b[img_n2 == -1] = -1
 
 		# m = 255 if np.amax(img_n1) > 1 or np.amax(img_n2) > 1 else 1
 		m = 255
