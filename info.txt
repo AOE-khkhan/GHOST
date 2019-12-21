@@ -29,6 +29,9 @@ Note
 		Ax = B
 		A - image1, B - image2, x is a tranformation matrix representing the physical change that affected the system
 		Min [B - TupleSet(int(Ax))]
+
+		had an idea to use (minimum) energy required to move from one image state to another as a similarit function [maybe a quantum computer can do this]
+		
 	]
 
 ]

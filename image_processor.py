@@ -113,19 +113,25 @@ class ImageProcessor:
 			# labeled_img = imshow_components(labels)
 
 			for label in range(1, ret):
-				# num of segments contributing to info processing
-				num_of_inference += 1
-
 				pos = np.where(labels == label)
 
 				# influence of segment size on prediction
 				factor = pos[0].size / image.size
+
+				# if segment is less than 10% of image size
+				if factor < .1:
+					continue
+				
+				# all activated pos in image label
 				ar1, ar2 = pos
+
+				# num of segments contributing to info processing
+				num_of_inference += 1
 
 				x1, x2 = min(ar1), max(ar1)+1
 				y1, y2 = min(ar2), max(ar2)+1
 
-				point = (ar2.mean(), ar1.mean())
+				# point = (ar2.mean(), ar1.mean())
 
 				img_objx = np.zeros(imgx.shape, dtype=np.int64)
 				img_objx[np.where(labels != label)] = -1
@@ -139,29 +145,20 @@ class ImageProcessor:
 				img_obj[0:x, 0:y] = img_objx
 
 				# get the objects
-				similar_images, similarity_ratios = self.getSimilar(img_obj, 1)
+				similar_images_indices, similarity_ratios = self.getSimilar(img_obj, 15)
 
 				# the image id the segment will take when saved
 				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data) 
-
-				if factor < .1:
-					# cv2.imwrite('x.jpg', image)
-					continue
 
 				self.log(f'\nclass {num_of_classes} ret {label}')
 
 				# commit current discovery to the cortex
 				self.cortex.commitImageInfo(
+					image_id, 
 					img_obj,
-					timestamp,
-					(
-						image_id, 
-						point, 
-						(
-							similar_images, 
-							similarity_ratios
-						)
-					)
+					similar_images_indices,
+					similarity_ratios,
+					timestamp
 				)
 
 				# self.image_memory_line.add(image_name, resultant(image))

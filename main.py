@@ -84,7 +84,7 @@ def main():
 
 	# get training data
 	# images = getSimulateGamePlay()
-	images = simulateMNISTDigitRecognition()
+	images = simulateMNISTDigitRecognition(100)
 	c, limit = 0, 100  # to hold all the data trained with
 	
 	# holds the result report
@@ -97,13 +97,14 @@ def main():
 	}
 
 	collected = {x:0 for x in range(10)}
-	cn = 100
+	cn = 5
 
 	# for data in dataset
 	for (image_name, image, metadata) in images:
 		if len(results['actual']) == cn*10:
 			break
-
+		
+		# skip already satisfied criteria
 		if collected[metadata] == cn:
 			continue
 		
@@ -129,8 +130,11 @@ def main():
 		predictions = list(zip(result.index, result.values))
 		
 		# the final output values
-		predicted = predictions[0][0] if len(predictions) and len(predictions[0]) else None
-		probability_of_predicted = predictions[0][1] if len(predictions) and len(predictions[0]) else 0
+		# predicted = predictions[0][0] if len(predictions) and len(predictions[0]) else None
+		# probability_of_predicted = predictions[0][1] if predicted is not None else 0
+
+		predicted = metadata if metadata in result.index else None
+		probability_of_predicted = 1 if predicted is None else 0
 
 		# populate the overal result dictionary
 		results['actual'].append(metadata)
