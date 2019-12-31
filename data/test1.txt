@@ -1,0 +1,25 @@
+image:  43[7] =>  34[1],  similarity_ratio =  0.9406, centroid = (13.4458, 13.5014)
+image:  43[7] =>   6[1],  similarity_ratio =  0.9389, centroid = (13.4458, 13.5014)
+image:  43[7] =>  28[9],  similarity_ratio =  0.9311, centroid = (13.4458, 13.5014)
+image:  43[7] =>  33[9],  similarity_ratio =  0.9273, centroid = (13.4458, 13.5014)
+image:  43[7] =>  13[1],  similarity_ratio =  0.9255, centroid = (13.4458, 13.5014)
+image:  43[7] =>  18[5],  similarity_ratio =  0.9251, centroid = (13.4458, 13.5014)
+image:  43[7] =>  38[4],  similarity_ratio =  0.9249, centroid = (13.4458, 13.5014)
+image:  43[7] =>  22[1],  similarity_ratio =  0.9229, centroid = (13.4458, 13.5014)
+image:  43[7] =>  23[7],  similarity_ratio =  0.9210, centroid = (13.4458, 13.5014)
+image:  43[7] =>  35[1],  similarity_ratio =  0.9204, centroid = (13.4458, 13.5014)
+
+Result
+==========
+   probability
+1     4.648279
+9     1.858410
+5     0.925067
+4     0.924943
+7     0.920962
+
+1.1403sec(s) for main.<locals>.<lambda>
+----------------------------------------------------------------------------------------------------
+
+Stats
+============
