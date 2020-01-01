@@ -13,7 +13,7 @@ from console import Console
 from memory_line import MemoryLine
 
 # the image processor class
-
+from utils import optimize
 
 class ImageProcessor:
 	def __init__(self, cortex, context_maxlength=10):
@@ -154,7 +154,7 @@ class ImageProcessor:
 			# for each sub segment label
 			for label in range(1, ret):
 				# avoid low res pixel points
-				if image[np.where(labels == label)].std() < 5:
+				if image[np.where(labels == label)].std() < 50:
 					continue
 
 				# get all positions active(i.e equal to 1)
@@ -193,7 +193,7 @@ class ImageProcessor:
 				num_of_segments += 1
 
 				# get the similar objects
-				similar_images_indices, similarity_ratios = self.getSimilar(img_obj, 3)
+				similar_images_indices, similarity_ratios = self.getSimilar(img_obj, 1)
 
 				# the image id the segment will take when saved
 				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data)
@@ -382,9 +382,9 @@ class ImageProcessor:
 		
 		# zy = scale_weight * ((z11 + z22) / 2) * z33
 		# zy = scale_weight * z11 * z22 * z33
-		# zy = scale_weight * (z11 + z22 + z33) / 3
+		zy = scale_weight * (z11 + z22 + z33) / 3
 		# zy = scale_weight * ((.025 * z11) + (.025 * z22) + (.95 * z33))
-		zy = scale_weight * z33
+		# zy = scale_weight * z33
 		return zy
 
 	def compare(self, img_11, img_22):
@@ -442,44 +442,47 @@ class ImageProcessor:
 			img_2[img_2 == int(img_r2)] = -1
 		
 		# size ratio (quantifies reduction/loss of data)
-		scale_weight = 1 - (abs(base_area - (len(np.where(img_1 != -1)[0]) * len(np.where(img_2 != -1)[0]))) / base_area)
-		
+		scale_weight = abs(base_area - (len(np.where(img_1 != -1)[0]) * len(np.where(img_2 != -1)[0]))) / base_area
+
 		# find the coordinates of image 1 and 2 with center as centroid
 		image_1_coordinates = np.array(np.where(img_1 != -1)).T
 		image_2_coordinates = np.array(np.where(img_2 != -1)).T
 		
 		coord1, coord2 = (centralize(image_1_coordinates), centralize(image_2_coordinates))
+		imgx = img_2.copy()
 		
 		if len(image_1_coordinates) > len(image_2_coordinates):
 			coord1, coord2 = coord2, coord1
-			image_1_coordinates, image_2_coordinates = image_2_coordinates, image_1_coordinates\
+			image_1_coordinates, image_2_coordinates = image_2_coordinates, image_1_coordinates
+			imgx = img_1.copy()
 			
-		error1, error2 = [], []
-		self.MAX_SIDE = 28
+		indicesx, indicesy = [], []
+		coord_temp = []
+		MAX_SIDE = 28
 		
 		for index, coord in enumerate(coord1):
 			
 			#position difference
 			diff = abs(coord - coord2).sum(1)
-			
-			#pixel difference
-			x1, y1 = image_1_coordinates[index]
-			x2, y2 = image_2_coordinates[diff.argmin()]
-			color_dev = abs(img_1[x1, y1] - img_2[x2, y2]) / 255
-			
-			#the diff in position (and pixel)
-			coord2[diff.argmin()] = self.MAX_SIDE**2
-			position_dev = diff.min() / self.MAX_SIDE
-			
-			#teh error from position and color
-			error1.append((color_dev + position_dev) / 2)
-		
-		unmatched = coord2[coord2 < self.MAX_SIDE**2]
-		
-		error1 = np.array(error1).mean()
-		error2 = ((abs(unmatched / self.MAX_SIDE) + 1) / 2).mean() if len(unmatched) else 0
-		
-		error = (error1 + error2) / 2
-		similarity = scale_weight * (1 - error)
 
-		return similarity
+			#the diff in position (and pixel)
+			coord2[diff.argmin()] = MAX_SIDE**2
+			position_dev = diff.min()
+
+			#teh error from position and color
+			coord_temp.append(coord2[diff.argmin()])
+			x, y = image_2_coordinates[diff.argmin()]
+			indicesx.append(x)
+			indicesy.append(y)
+		
+		unmatched = coord2[coord2 < MAX_SIDE**2]
+		imgy = np.zeros(imgx.shape)
+		
+		indices = (np.array(indicesx), np.array(indicesy))
+		imgy[indices] = imgx[indices]
+		
+		f = lambda x: x / (x+1)
+		f2 = lambda x,y: (x + y) / (x*y)
+		coord2 = np.array(coord_temp)
+		obj, error = optimize(coord1, coord2, 0)
+		return 1 - ((f(obj) + f(error) + scale_weight + f(len(indices))) / 4)

@@ -140,11 +140,7 @@ def main():
         predicted, probability_of_predicted = cortex.result
 
         # the result of model
-        if len(predicted):
-            predicted = predicted[0]
-
-        else:
-            predicted, probability_of_predicted = None, None
+        predicted, probability_of_predicted = (metadata, probability_of_predicted) if metadata in predicted else (None, None)
 
         # re-set the result_vector
         cortex.result = [], 0

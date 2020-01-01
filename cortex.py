@@ -83,28 +83,28 @@ class Cortex(object):
 			common_indices = set_of_similar_images_indices.intersection(sset_of_similar_images_indices)
 
 			# similarities of the common similarities
-			common_ratio = []
+			common_ratio = 1#[]
 
-			for ssimilar_image_index, ssimilarity_ratio in zip(ssimilar_images_indices, ssimilarity_ratios):
+			# for ssimilar_image_index, ssimilarity_ratio in zip(ssimilar_images_indices, ssimilarity_ratios):
 
-				if ssimilar_image_index not in common_indices:
-					continue
+			# 	if ssimilar_image_index not in common_indices:
+			# 		continue
 
-				common_ratio.append(ssimilarity_ratio)
+			# 	common_ratio.append(ssimilarity_ratio)
 
-				# find the related meatadata to similar image
-				ssimilar_image_metadata = self.getImageMetadata(ssimilar_image_index)
+			# 	# find the related meatadata to similar image
+			# 	ssimilar_image_metadata = self.getImageMetadata(ssimilar_image_index)
 
-				print(
-					f'  image: {similar_image_index:3d}[{similar_image_metadata}] => {ssimilar_image_index:3d}[{ssimilar_image_metadata}], ',
-					f'=> {ssimilarity_ratio:.4f}',
-				)
+			# 	# print(
+			# 	# 	f'  image: {similar_image_index:3d}[{similar_image_metadata}] => {ssimilar_image_index:3d}[{ssimilar_image_metadata}], ',
+			# 	# 	f'=> {ssimilarity_ratio:.4f}',
+			# 	# )
 
-			common_ratio = np.array(common_ratio).sum()**2
-			common_ratio /= (len(set_of_similar_images_indices) * len(sset_of_similar_images_indices))
+			# common_ratio = np.array(common_ratio).sum()**2
+			# common_ratio /= (len(set_of_similar_images_indices) * len(sset_of_similar_images_indices))
 
 			# add to the probability
-			self.image_similar_images[similar_image_index].append(similarity_ratio)
+			self.image_similar_images[similar_image_index].append(similarity_ratio * common_ratio)
 			self.image_similar_images_sources[similar_image_index].append(image_index)
 
 			print(
@@ -120,7 +120,7 @@ class Cortex(object):
 	def pushImageProcess(self):
 		# find the mean similarities of image
 		image_similar_images = {
-			similar_image_index:np.array(values).mean()*self.trustFactor(values) for similar_image_index, values in self.image_similar_images.items()
+			similar_image_index:np.array(values).mean() for similar_image_index, values in self.image_similar_images.items()
 		}
 
 		# output the results of image process
@@ -170,8 +170,7 @@ class Cortex(object):
 		self.result = most_similar_images_metadata, max_similarity
 
 		# show the final results
-		self.log(
-			f'\nResult\n==========\n{image_similar_images}\n{self.result}\n')
+		self.log(f'\nResult\n==========\n{image_similar_images}\n{self.result}\n')
 
 		# re-initialize the image-keyboard co_occurence overall probaility
 		self.image_similar_images = defaultdict(list)
