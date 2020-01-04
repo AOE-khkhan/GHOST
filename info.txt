@@ -51,3 +51,8 @@ CORE of AGI
 -Abstract concept representation
 -Language
 -Abstract concept recognition and processing
+
+
+python -m ipykernel install --user --name=myenv
+jupyter kernelspec list
+jupyter kernelspec uninstall myenv

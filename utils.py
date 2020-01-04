@@ -5,73 +5,10 @@ import os
 import cv2
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
-from scipy.optimize import minimize
+
 
 # key identifiers for memory
 TIMESTAMP = '_timestamp_'
-
-
-def optimize(X, Y, verbose=1):
-    def mse(matrix):
-        return np.sqrt((matrix**2).mean())
-
-    def transform1(x):
-        return np.array(x) * X
-
-    def transform(x):
-        xcoord, ycoord = X[:, 0], X[:, 1]
-        return np.array([(xcoord * x[0]) + x[1], (ycoord * x[2]) + x[3]]).T
-
-    def constraint(x):
-        return mse(Y - transform(x))
-
-    def objective(x):
-        return mse(np.array(x))
-#         return mse(np.array(x)) + (Y - transform(x)).sum()
-
-    def callback(x):
-        solutions.append(x)
-
-    solutions = []
-    max_guess = 100
-    n_params = 4
-
-    # initial guesses
-    # x0=np.random.randint(max_guess, size=total_number_of_options)
-    x0 = np.full(n_params, max_guess)
-
-    # solutions
-    solutions = [x0]
-
-    # the bounds
-    b = (-max_guess, max_guess)
-    bnds = tuple(b for _ in range(n_params))
-
-    # define constriants
-    cons = ([
-        {'type': 'eq', 'fun': constraint},
-    ])
-
-    solution = minimize(objective, x0, method='SLSQP', bounds=bnds,
-                        constraints=cons, callback=callback)
-    x = solution.x
-
-    # show initial objective
-    if verbose:
-        print(X.shape, Y.shape)
-        print('Initial SSE Objective: {:.4f}, x0 = {}, error = {:.4f}'.format(
-            objective(x0), x0, constraint(x0)
-        )
-        )
-
-        # show final objective
-        print('Final SSE Objective: {:.4f}, x = {}, error = {:.4f}'.format(
-            objective(x), x, constraint(x)
-        ), end='\n\n'
-        )
-
-    return objective(x), constraint(x)
-
 
 def load_image(image_path):
     image = cv2.imread(image_path)

@@ -71,19 +71,21 @@ class Cortex(object):
 			# find the related meatadata to similar image
 			similar_image_metadata = self.getImageMetadata(similar_image_index)
 
-			# get the similar objects of similar objects
-			ssimilar_images_indices, ssimilarity_ratios = self.image_processor.getSimilar(
-				self.image_processor.image_memory_line.data[similar_image_index], 3
-			)
+			common_ratio = 1
+			
+			# # get the similar objects of similar objects
+			# ssimilar_images_indices, ssimilarity_ratios = self.image_processor.getSimilar(
+			# 	self.image_processor.image_memory_line.data[similar_image_index], 3
+			# )
 
-			#similar_images_indices set
-			sset_of_similar_images_indices = set(ssimilar_images_indices)
+			# #similar_images_indices set
+			# sset_of_similar_images_indices = set(ssimilar_images_indices)
 
-			# common in similar_images_indices and ssimilar_images_indices
-			common_indices = set_of_similar_images_indices.intersection(sset_of_similar_images_indices)
+			# # common in similar_images_indices and ssimilar_images_indices
+			# common_indices = set_of_similar_images_indices.intersection(sset_of_similar_images_indices)
 
 			# similarities of the common similarities
-			common_ratio = 1#[]
+			# common_ratio = []
 
 			# for ssimilar_image_index, ssimilarity_ratio in zip(ssimilar_images_indices, ssimilarity_ratios):
 

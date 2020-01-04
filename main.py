@@ -92,7 +92,7 @@ def main():
 
     # get training data
     # images = getSimulateGamePlay()
-    images = simulateMNISTDigitRecognition(200)
+    images = simulateMNISTDigitRecognition(50)
 
     # holds the result report
     accuracy = []
@@ -105,7 +105,7 @@ def main():
     }
 
     collected = {x: 0 for x in range(10)}
-    cn = 10
+    cn = 3
 
     counter = 0  # to hold all the data trained with
 

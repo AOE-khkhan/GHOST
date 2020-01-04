@@ -6,6 +6,7 @@ from collections import defaultdict
 import cv2
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
+from sklearn.metrics.pairwise import cosine_similarity
 
 # import lib code
 from context import Context
@@ -13,8 +14,6 @@ from console import Console
 from memory_line import MemoryLine
 
 # the image processor class
-from utils import optimize
-
 class ImageProcessor:
 	def __init__(self, cortex, context_maxlength=10):
 		'''
@@ -80,25 +79,14 @@ class ImageProcessor:
 				yield high_end.min(), high_end.max()
 
 	def getKernels(self, img, kernel_size):
-		kx, ky = (kernel_size, kernel_size) if type(
-			kernel_size) == int else kernel_size
+		kx, ky = (kernel_size, kernel_size) if type(kernel_size) == int else kernel_size
 		sx, sy = img.shape
 		s1, s2 = img.strides
 
 		return as_strided(
 			img,
-			shape=(
-				sx - kx+1,
-				sy - ky+1,
-				kx,
-				ky
-			),
-			strides=(
-				s1,
-				s2,
-				s1,
-				s2
-			),
+			shape=(sx - kx+1, sy - ky+1, kx, ky),
+			strides=(s1, s2, s1, s2),
 			writeable=False,
 		)
 
@@ -110,7 +98,20 @@ class ImageProcessor:
 			return [], []
 
 		# the deviations
-		dev = np.array([self.compare(image, img) for img in self.image_memory_line.data], dtype=np.float64)
+		dev = np.array([self.compare(image, img, index) for index, img in enumerate(self.image_memory_line.data)], dtype=np.float64)
+		indices = np.array(range(len(dev)))
+
+		for i in range(4):
+			selected = np.where(dev[:, i] == dev[:, i].min())
+			dev = dev[selected]
+			indices = indices[selected]
+
+			print(dev.shape)
+
+			if len(dev == 1):
+				return indices, dev[:, -1]
+
+		
 		udev = np.unique(dev)[::-1]
 
 		if type(threshold) == float:
@@ -193,7 +194,7 @@ class ImageProcessor:
 				num_of_segments += 1
 
 				# get the similar objects
-				similar_images_indices, similarity_ratios = self.getSimilar(img_obj, 1)
+				similar_images_indices, similarity_ratios = self.getSimilar(img_obj, 5)
 
 				# the image id the segment will take when saved
 				image_id = 0 if self.image_memory_line.data is None else len(self.image_memory_line.data)
@@ -387,7 +388,7 @@ class ImageProcessor:
 		# zy = scale_weight * z33
 		return zy
 
-	def compare(self, img_11, img_22):
+	def compare(self, img_11, img_22, indexx):
 		def centralize(img_coordinates):
 			return np.array([row - row.mean() for row in img_coordinates], dtype=np.float64)
 
@@ -413,9 +414,9 @@ class ImageProcessor:
 		r = c21 if c21 < c11 else c11
 		c = c22 if c22 < c12 else c12
 		
-		# base area of image (scaled down vrsion)
-		base_area = len(np.where(img_1 != -1)[0]) * len(np.where(img_2 != -1)[0])
-
+		# pixel points before scale alteration
+		n_pixels_before = np.array([len(np.where(img_1 != -1)[0]), len(np.where(img_2 != -1)[0])])
+	
 		# the place holder pixel, using 255 - x cos of background and foreground can blend
 		r1 = 255 - img_1[img_1 != -1].mean()
 		img_r1 = None if r1 in img_1 else r1
@@ -442,47 +443,76 @@ class ImageProcessor:
 			img_2[img_2 == int(img_r2)] = -1
 		
 		# size ratio (quantifies reduction/loss of data)
-		scale_weight = abs(base_area - (len(np.where(img_1 != -1)[0]) * len(np.where(img_2 != -1)[0]))) / base_area
-
+		n_pixels_after = np.array([len(np.where(img_1 != -1)[0]), len(np.where(img_2 != -1)[0])])
+		scale_error = (abs(n_pixels_after - n_pixels_before) / n_pixels_before).mean()
+		
 		# find the coordinates of image 1 and 2 with center as centroid
 		image_1_coordinates = np.array(np.where(img_1 != -1)).T
 		image_2_coordinates = np.array(np.where(img_2 != -1)).T
 		
 		coord1, coord2 = (centralize(image_1_coordinates), centralize(image_2_coordinates))
-		imgx = img_2.copy()
+		imgX, imgY = img_1.copy(), img_2.copy()
 		
 		if len(image_1_coordinates) > len(image_2_coordinates):
 			coord1, coord2 = coord2, coord1
 			image_1_coordinates, image_2_coordinates = image_2_coordinates, image_1_coordinates
-			imgx = img_1.copy()
-			
-		indicesx, indicesy = [], []
-		coord_temp = []
-		MAX_SIDE = 28
+			imgX, imgY = img_2.copy(), img_1.copy()
+				
+		deviation_angles, deviation_distances, deviation_pixels = [], [], []
+		active_positions = np.array(range(len(coord2)))
+		alpha, MAX_SIDE = 10e-10, 28
 		
 		for index, coord in enumerate(coord1):
+			unmatched = coord2[(active_positions, )]
 			
-			#position difference
-			diff = abs(coord - coord2).sum(1)
+			if not len(active_positions):
+				break
+				
+			#position difference, alpha to avoid zero values and round to make same vector have sim =1
+			vec_sims = np.round(cosine_similarity([coord+alpha], unmatched+alpha)[0], 4)
+		
+			if vec_sims.max() < 0:
+				continue
+			
+			coord_sign = coord[0] * coord[1]
+			sign = unmatched[:, 0] * unmatched[:, 1]
+			# most_sim_indices = active_positions[vec_sims == vec_sims.max()]
+	        most_sim_indices = active_positions[((vec_sims == vec_sims.max()) & ((coord_sign > 0) == (sign > 0)))]
 
-			#the diff in position (and pixel)
-			coord2[diff.argmin()] = MAX_SIDE**2
-			position_dev = diff.min()
+			#the distance away for pixel coord
+			deviation_distance = abs(coord - coord2[most_sim_indices]).mean(1)
+			
+			#collect error in angle and distance
+			deviation_angles.append(1 - vec_sims.max())
+			deviation_distances.append(deviation_distance.min())
+			
+			#the index of pixel eliminated
+			eliminated_index = most_sim_indices[deviation_distance.argmin()]
 
 			#teh error from position and color
-			coord_temp.append(coord2[diff.argmin()])
-			x, y = image_2_coordinates[diff.argmin()]
-			indicesx.append(x)
-			indicesy.append(y)
+			x1, y1 = image_1_coordinates[index]
+			x2, y2 = image_2_coordinates[eliminated_index]
+			deviation_pixels.append(abs(imgX[x1, y1] - imgY[x2, y2]))
+			
+			#the diff in position (and pixel)
+			active_positions = np.delete(active_positions, np.argwhere(active_positions==eliminated_index))
+			
+		unmatched = coord2[(active_positions,)]
+		unmatched = abs(unmatched).mean(1).mean() if len(unmatched) else 0
+
+		deviation_distance = np.array(deviation_distances).mean() / MAX_SIDE
+		deviation_angle = np.array(deviation_angles).mean()
+		deviation_pixel = np.array(deviation_pixels).mean()
+
+		f = lambda x: x / (x + 1)
+		factor = 1
+		# factor = f(len(coord1) / len(coord2))
+		# factor = (len(coord1) / len(coord2))
 		
-		unmatched = coord2[coord2 < MAX_SIDE**2]
-		imgy = np.zeros(imgx.shape)
-		
-		indices = (np.array(indicesx), np.array(indicesy))
-		imgy[indices] = imgx[indices]
-		
-		f = lambda x: x / (x+1)
-		f2 = lambda x,y: (x + y) / (x*y)
-		coord2 = np.array(coord_temp)
-		obj, error = optimize(coord1, coord2, 0)
-		return 1 - ((f(obj) + f(error) + scale_weight + f(len(indices))) / 4)
+		error = ((deviation_angle) + (deviation_distance) + f(f(unmatched)) + f(scale_error)) / 4
+		# error = (np.array([deviation_angle, deviation_distance, f(scale_error), f(unmatched)]) * np.array([1/2, 1/2, 0, .0])).sum()
+		# error = (error + f(f(unmatched))) / 2
+
+		print(f"index = {indexx:2d}, angle_error = {deviation_angle:.4f}, distance_error = {deviation_distance:.4f}, scale_error = {f(scale_error):.4f}, unmatched = {f(f(unmatched)):.4f} = > {1 - error:.4f}")
+		# return factor * (1-error)
+		return np.array([deviation_angle, deviation_distance, f(scale_error), f(unmatched), 1-error])
