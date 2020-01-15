@@ -92,7 +92,7 @@ def main():
 
     # get training data
     # images = getSimulateGamePlay()
-    images = simulateMNISTDigitRecognition(50)
+    images = simulateMNISTDigitRecognition(150)
 
     # holds the result report
     accuracy = []
@@ -105,7 +105,7 @@ def main():
     }
 
     collected = {x: 0 for x in range(10)}
-    cn = 3
+    cn = 10
 
     counter = 0  # to hold all the data trained with
 
@@ -179,11 +179,6 @@ def main():
     accuracy1 = sum(accuracy) / len(accuracy) if len(accuracy) > 0 else 1
     accuracy2 = sum(accuracy) / len(results) if len(results) > 0 else 1
     console.log(f'accuracy: local = {accuracy1:.4f}, global = {accuracy2:.4f}')
-
-    # save the sampled training
-    np.save('trainX.npy', np.array(cortex.train_images_input_batch))
-    np.save('trainY.npy', np.array(cortex.train_images_output_batch))
-
 
 if __name__ == '__main__':
     main()

@@ -37,10 +37,6 @@ class Cortex(object):
 		self.image_similar_images = defaultdict(list)
 		self.image_similar_images_sources = defaultdict(list)
 
-		# batch of images to train the network with
-		self.train_images_input_batch = []
-		self.train_images_output_batch = []
-
 		# the output prediction from cortex
 		self.result = [], 0
 
@@ -63,55 +59,18 @@ class Cortex(object):
 		# find the related meatadata to image
 		image_metadata = self.getImageMetadata(timestamp)
 
-		#similar_images_indices set
-		set_of_similar_images_indices = set(similar_images_indices)
-
 		for similar_image_index, similarity_ratio in zip(similar_images_indices, similarity_ratios):
 			
 			# find the related meatadata to similar image
 			similar_image_metadata = self.getImageMetadata(similar_image_index)
-
-			common_ratio = 1
 			
-			# # get the similar objects of similar objects
-			# ssimilar_images_indices, ssimilarity_ratios = self.image_processor.getSimilar(
-			# 	self.image_processor.image_memory_line.data[similar_image_index], 3
-			# )
-
-			# #similar_images_indices set
-			# sset_of_similar_images_indices = set(ssimilar_images_indices)
-
-			# # common in similar_images_indices and ssimilar_images_indices
-			# common_indices = set_of_similar_images_indices.intersection(sset_of_similar_images_indices)
-
-			# similarities of the common similarities
-			# common_ratio = []
-
-			# for ssimilar_image_index, ssimilarity_ratio in zip(ssimilar_images_indices, ssimilarity_ratios):
-
-			# 	if ssimilar_image_index not in common_indices:
-			# 		continue
-
-			# 	common_ratio.append(ssimilarity_ratio)
-
-			# 	# find the related meatadata to similar image
-			# 	ssimilar_image_metadata = self.getImageMetadata(ssimilar_image_index)
-
-			# 	# print(
-			# 	# 	f'  image: {similar_image_index:3d}[{similar_image_metadata}] => {ssimilar_image_index:3d}[{ssimilar_image_metadata}], ',
-			# 	# 	f'=> {ssimilarity_ratio:.4f}',
-			# 	# )
-
-			# common_ratio = np.array(common_ratio).sum()**2
-			# common_ratio /= (len(set_of_similar_images_indices) * len(sset_of_similar_images_indices))
-
 			# add to the probability
-			self.image_similar_images[similar_image_index].append(similarity_ratio * common_ratio)
+			self.image_similar_images[similar_image_index].append(similarity_ratio)
 			self.image_similar_images_sources[similar_image_index].append(image_index)
 
 			print(
 				f'image: {image_index:3d}[{image_metadata}] => {similar_image_index:3d}[{similar_image_metadata}], ',
-				f'=> {similarity_ratio:.4f}, intersection = {common_ratio:.4f} -> {similarity_ratio * common_ratio:.4f}',
+				f'=> {similarity_ratio:.4f}',
 			)
 			
 		return
@@ -139,34 +98,7 @@ class Cortex(object):
 		most_similar_images_indices = similarities[similarities == max_similarity].index
 
 		# the metadata of the most similar images
-		most_similar_images_metadata = []
-		
-		# update the batch of images
-		for most_similar_image_index in most_similar_images_indices:
-
-			# save most similar metadata
-			most_similar_images_metadata.append(self.getImageMetadata(most_similar_image_index))
-
-			# similarities between sim image and image
-			sims = self.image_similar_images[most_similar_image_index]
-
-			# get all similar pairs
-			for i, image_index in enumerate(self.image_similar_images_sources[most_similar_image_index]):
-				
-				# similarity betweenn most_similar_image_index and image index
-				sim = sims[i]
-
-				# if sim  == max_similarity:
-				# 	continue
-
-				# save a similar pair
-				self.train_images_input_batch.append([
-					self.image_processor.image_memory_line.data[image_index],
-					self.image_processor.image_memory_line.data[most_similar_image_index],
-				])
-
-				actual_prediction = int(most_similar_images_metadata[-1] != self.getImageMetadata(image_index))
-				self.train_images_output_batch.append([[0], [actual_prediction]])
+		most_similar_images_metadata = [self.getImageMetadata(most_similar_image_index) for most_similar_image_index in most_similar_images_indices]
 
 		# set the result_vector
 		self.result = most_similar_images_metadata, max_similarity
