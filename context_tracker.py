@@ -1,52 +1,95 @@
+from copy import deepcopy
+import networkx as nx
 
 VAR = '<var>'
+MEMORY = set()
+TRACKS = {VAR:{}}
 
 def context_tracker(text):
-    context = [VAR]
-    token_memory = set()
+    graph = {VAR:{}}
+    leaves = [(graph, VAR)]
 
-    for index, token in enumerate(text):
-        print(text[:index+1])
-        
+    tracks = [[TRACKS[VAR], '']]
+
+    for token in text:        
         # bool value of token in memory
-        token_in_memory = token in token_memory
+        token_in_memory = token in MEMORY
 
         # temp hold of old context padded with var
-        other_context = []
+        new_leaves, new_tracks = [], []
 
         # update the context
-        for context_index in range(len(context)):
-            
+        for parent_node, key in leaves:
+            node = parent_node[key]
+            added_var = False
+
             # add var padded context to other context
-            if context[context_index].endswith(VAR):
-                other_context.append(context[context_index])
+            if key != VAR:
+                node[VAR] = {}
+                added_var = True
+                new_node, new_node_token = (node, VAR)
 
             else:
-                new_context = VAR.join(context[context_index].split(VAR)[1:]) + VAR
-                if (context[context_index] + VAR).count(VAR) < 3:
-                    other_context.append(context[context_index] + VAR)
-                
-                else:
-                    if new_context not in other_context:
-                        other_context.append(new_context)
+                new_node, new_node_token = (parent_node, VAR)
 
+            new_leaves.append((new_node, new_node_token))
+            
             # if token seen before highlight and break
             if token_in_memory:
-                other_context.append(context[context_index] + token)
+                node[token] = {}
+                new_leaves.append((node, token))
+
+            for track in tracks:
+                last_node_checked, track_model = track
+
+                if not token_in_memory or token not in last_node_checked:
+                    last_node_checked[token] = {}
+                    track_model_pad = ''
+
+                else:
+                    track_model_pad = token
+
+                new_tracks.append([last_node_checked[token], track_model+track_model_pad])
+
+                if not added_var:
+                    continue
+
+                if VAR not in last_node_checked:
+                    last_node_checked[VAR] = {}
+                    track_model_pad = ''
+
+                else:
+                    track_model_pad = VAR
+
+                new_tracks.append([last_node_checked[VAR], track_model+track_model_pad])
 
         # add VAR padded  context with main context
-        context = other_context.copy()
+        leaves = new_leaves.copy()
+        tracks = new_tracks.copy()
 
         # add token to memory
-        token_memory.add(token)
-    return context
+        MEMORY.add(token)
+
+    tracks = set(x[1] for x in tracks)
+    return graph, tracks
+
+def rprint(graph, indent=''):
+    for key in graph:
+        print(indent + key)
+        rprint(graph[key], indent + '...')
 
 def main():
-    text = 'count 1 to 5~1~2~3~4~5~count 1 to 10~'#1~2~3~4~5~6~7~8~9~10~count 13 to 65~'
-    context = context_tracker(text.replace(' ', '_'))
+    document = 'count 1 to 5~1~2~3~4~5~count 1 to 10~'#1~2~3~4~5~6~7~8~9~10~count 13 to 65~'
+    sentences = document.split('~')
 
-    for con in  context:
-        print(con)
+    for sentence in sentences:
+        text = sentence.replace(' ', '_')
+        graph, tracks = context_tracker(text)
+
+        print(text)
+        # rprint(graph)
+        for track in tracks:
+            print('  ', track)
 
 if __name__ == "__main__":
     main()
