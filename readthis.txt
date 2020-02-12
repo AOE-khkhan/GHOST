@@ -1,0 +1,2 @@
+the next step is to analyse the completion part of a prob model that where accurate and learn the distribution to pic which is right to use it
+

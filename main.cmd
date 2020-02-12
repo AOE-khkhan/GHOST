@@ -1,4 +1,4 @@
 @echo off
+title GHOST
 cls
 python main.py
-REM python main.py >> result.txt
