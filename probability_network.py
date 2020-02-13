@@ -9,25 +9,35 @@ class ProbabilityNetwork:
         # all pgrapghs
         self.probability_graphs = [ProbabilityGraph(idx) for idx in range(len(self.context_manager.indices))]
 
-    def run(self, expected):
-        max_accuracy, max_confidence, max_prediction = 0, 0, 'VOID'
+    def run(self, input_value, verbose=0):
+        # the previous context information before update
+        old_context = self.context_manager.context
+        old_contexts = self.context_manager.contexts.copy()
+
+        # update the context manager
+        self.context_manager.add(input_value)
+
+        # the initials
+        max_confidence, max_prediction = 0, 'VOID'
 
         for index, probability_graph in enumerate(self.probability_graphs):
-            if index >= len(self.context_manager.contexts):
-                continue
-
-            accuracy, prediction, confidence = probability_graph.run(
-                self.context_manager.contexts[index], expected, self.context_manager.context
-            )
-
-            if accuracy < max_accuracy:
+            if index >= len(old_contexts):
                 continue
             
-            max_accuracy = accuracy
+            # update the p graph
+            probability_graph.update(old_contexts[index], input_value, old_context)
+
+            # infer with the pgraph
+            prediction, confidence = probability_graph.predict(
+                self.context_manager.contexts[index], self.context_manager.context
+            )
+
+            if confidence < max_confidence:
+                continue
+            
             max_confidence = confidence
             max_prediction = prediction
 
-        self.context_manager.add(expected)
         return f'({max_prediction:>4}, {max_confidence:.4f})'
 
     def save(self):
