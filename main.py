@@ -20,16 +20,16 @@ def simulate_count(start, stop):
 
 def main():
     # intials
-    start, end = 1, 30
+    start, end = 1, 101
     number_of_iterations = 10
 
     # the data set
     x_train = ''.join(
         [simulate_count(1, randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
+        + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
+        + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
     )
-    x_test = simulate_count(7, 10)
+    x_test = simulate_count(1, 10)
     # x_test = simulate_addition(1, 2)
 
     # initialize the ProbabilityGraph
@@ -48,7 +48,7 @@ def main():
         # display the info
         print(probability_network.context_manager.context, x_test[index+1], prediction, sep=' -> ')
 
-    probability_network.save()
+    # probability_network.save()
 
 
 if __name__ == "__main__":

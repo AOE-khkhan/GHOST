@@ -32,6 +32,9 @@ class ProbabilityNetwork:
                 self.context_manager.contexts[index], self.context_manager.context
             )
 
+            # if self.context_manager.context == '~co':
+            #     print(self.context_manager.context, self.context_manager.contexts[index], prediction, confidence)
+
             if confidence < max_confidence:
                 continue
             

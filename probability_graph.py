@@ -7,6 +7,7 @@ from modeler import Modeler
 def data_confidence(x):
     return x / (x + 1)
 
+
 class ProbabilityGraph:
     def __init__(self, idx):
         # the identity of the graph
@@ -31,7 +32,7 @@ class ProbabilityGraph:
 
         if key not in self.graph:
             self.graph[key] = defaultdict(int)
-            self.graph_models[key] = Modeler(batch_size=2)
+            self.graph_models[key] = Modeler(batch_size=1)
 
         # update the freq counter for the relationship between key-value
         self.graph[key][expected] += 1
@@ -65,8 +66,12 @@ class ProbabilityGraph:
         # data collected on context
         data = pd.DataFrame(self.graph[key], index=[0]).T[0]
 
+        # data count
+        data_sum = data.sum()
+        
         # update by the classifier probabilty and use classifier to check if context is a class member
-        prediction = abs(self.graph_models[key].predict(context)) * (data / data.sum())
+        prediction = abs(self.graph_models[key].predict(context)) * (data / data_sum) * data_confidence(data_sum)
+        # prediction = (data / data.sum())
         
         return prediction.idxmax(), prediction[prediction.idxmax()]
 
@@ -76,5 +81,5 @@ class ProbabilityGraph:
             json.dump(obj, f)
 
     def save(self):
-        self.write_json(f'graph_{self.idx}.json', self.graph)
-        self.write_json(f'graph_life_{self.idx}.json', self.graph_life)
+        self.write_json(f'cache/graph_{self.idx}.json', self.graph)
+        self.write_json(f'cache/graph_life_{self.idx}.json', self.graph_life)
