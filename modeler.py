@@ -6,8 +6,8 @@ class Modeler:
     '''
     model the classes of input and output the probability
     '''
-    
-    def __init__(self, batch_size):
+
+    def __init__(self, batch_size=1):
         # train callback multiple
         self.batch_size = batch_size
 

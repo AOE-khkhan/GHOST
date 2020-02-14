@@ -20,20 +20,20 @@ def simulate_count(start, stop):
 
 def main():
     # intials
-    start, end = 1, 101
+    start, end = 1, 31
     number_of_iterations = 10
 
     # the data set
     x_train = ''.join(
         [simulate_count(1, randint(start, end)) for _ in range(number_of_iterations)]
-        + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
-        + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
+        # + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
+        # + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
     )
-    x_test = simulate_count(1, 10)
+    x_test = simulate_count(7, 10)
     # x_test = simulate_addition(1, 2)
 
     # initialize the ProbabilityGraph
-    probability_network = ProbabilityNetwork(3)
+    probability_network = ProbabilityNetwork(context_size=3, num_of_processes=7)
 
     # ------------------------- train the ProbabilityGraph ---------------------------------------
     for character in tqdm(x_train):
@@ -46,7 +46,7 @@ def main():
         prediction = probability_network.run(character, 1)
 
         # display the info
-        print(probability_network.context_manager.context, x_test[index+1], prediction, sep=' -> ')
+        print(probability_network.context, x_test[index+1], prediction, sep=' -> ')
 
     # probability_network.save()
 

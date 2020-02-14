@@ -1,27 +1,13 @@
 The Convention
 ===============
 Variable names: lowercase_separated by underscores
-Functions and methods: camelCase
+Functions and methods: lower_with_underscore
 Constants: UPPERCASE seperated by underscore
 Class name: Capitalize each word
 
 Note
 =====
--for the clustering: mean of all or mean of non-zeros can be used[
-	this change can be effected in the sortIndices method in memory_line.py
-	mean+stdev can also be considered
-	*mean of nonzero is being used as it seem to converge than the rest
-]
 
--for the indices: euclidean distance is used but is not unique and concides with matrices that not similar(bad for clustering)[
-	the change can be effected in the util.py resultant function
-	also change the deafult argument by_indices to True in sortIndices method in memory_line.py
-]
-
-
--for the daton, there is  the choice to use subset of the mean of class kernels or mean of class kernels as it is[
-	right now it is mean of class kernels
-]
 
 -physics[
 	to find similarity and model physical laws
@@ -38,13 +24,10 @@ Note
 
 TESTs
 ======
-when i used 2x2 kernels i got a convergence of 0.009 to 0.012
+
 
 PROBLEMS
 =========
-The scale and skew of the image[
-	hope to learn this by making it understand the physics of the world
-]
 
 CORE of AGI
 ===========

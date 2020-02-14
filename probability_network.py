@@ -1,35 +1,77 @@
+import numpy as np
+
+from collections import defaultdict
+
 from probability_graph import ProbabilityGraph
-from context_manager import ContextManager
 
 class ProbabilityNetwork:
-    def __init__(self, size):
-        # create context
-        self.context_manager = ContextManager(size)
+    def __init__(self, context_size, num_of_processes):
+        # the size of the context
+        self.context_size = context_size
+
+        # the number of sampling to be done
+        self.num_of_processes = num_of_processes
 
         # all pgrapghs
-        self.probability_graphs = [ProbabilityGraph(idx) for idx in range(len(self.context_manager.indices))]
+        self.probability_graphs = defaultdict(ProbabilityGraph)
+        # [ProbabilityGraph(idx) for idx in range(len(self.context_manager.indices))]
+
+        self.context = ''
+        self.context_list = []
+        self.context_array = np.array([])
+    
+    def update_context(self, token):
+        # add token to context
+        self.context_list.append(token)
+
+        # if size is more than specified then remove oldest
+        if len(self.context_list) > self.context_size:
+            self.context_list.pop(0)
+
+        # the context string
+        self.context = ''.join(self.context_list)
+        self.context_array = np.array(self.context_list)
 
     def run(self, input_value, verbose=0):
         # the previous context information before update
-        old_context = self.context_manager.context
-        old_contexts = self.context_manager.contexts.copy()
+        old_context = self.context
+        old_context_array = self.context_array.copy()
+
+        # if the context size is up to size (for starters)
+        if len(self.context_list) != self.context_size:
+            return
 
         # update the context manager
-        self.context_manager.add(input_value)
+        self.update_context(input_value)
 
         # the initials
         max_confidence, max_prediction = 0, 'VOID'
 
-        for index, probability_graph in enumerate(self.probability_graphs):
-            if index >= len(old_contexts):
+        # the ones used or called
+        processed = set([0])
+
+        # checking if all processing has been achieved
+        while len(processed) < self.num_of_processes + 1:
+            # indices sampled
+            indices = np.where(np.random.randint(2, size=self.context_size) == 1)[0]
+
+            # decimal of indices
+            idx = (2**indices).sum()
+
+            if idx in processed:
                 continue
             
-            # update the p graph
-            probability_graph.update(old_contexts[index], input_value, old_context)
+            # register the sampled indices
+            processed.add(idx)
+
+            # select the probability graph
+            self.probability_graphs[idx].update(
+                ''.join(old_context_array[indices]), input_value, old_context
+            )
 
             # infer with the pgraph
-            prediction, confidence = probability_graph.predict(
-                self.context_manager.contexts[index], self.context_manager.context
+            prediction, confidence = self.probability_graphs[idx].predict(
+                ''.join(self.context_array[indices]), self.context
             )
 
             # if self.context_manager.context == '~co':
