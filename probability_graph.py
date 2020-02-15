@@ -4,8 +4,9 @@ from collections import defaultdict
 import pandas as pd
 from modeler import Modeler
 
-def data_confidence(x):
-    return x / (x + 1)
+
+def calc_trust_factor(x):
+    return x / (x + 1) if x else 0
 
 
 class ProbabilityGraph:
@@ -31,6 +32,8 @@ class ProbabilityGraph:
         
         if key not in self.graph:
             self.graph[key] = defaultdict(int)
+            self.graph_life[key] = defaultdict(tuple)
+            self.graph_score[key] = defaultdict(int)
             self.graph_models[key] = defaultdict(Modeler)
 
         # update the freq counter for the relationship between key-value
@@ -45,17 +48,14 @@ class ProbabilityGraph:
         # if it got it right
         score = int(data.idxmax() == expected)
         
-        # id for data storage
-        idx = (key, expected)
-
         # update the score
-        self.graph_score[idx] += score
+        self.graph_score[key][expected] += score
 
         # accuracy of key
-        accuracy = self.graph_score[idx] / data_sum
+        accuracy = self.graph_score[key][expected] / data_sum
 
         # update graph life
-        self.graph_life[idx] = (accuracy, int(data_sum))
+        self.graph_life[key][expected] = (accuracy, int(data_sum))
 
         # update context and score relationship (for modeler: classifier)
         self.graph_models[key][expected].add_data(context, score)
@@ -71,12 +71,18 @@ class ProbabilityGraph:
         # data count
         data_sum = data.sum()
         
+        # normalize data occurence (probabilty)
+        data /= data_sum
+
         # update by the classifier probabilty and use classifier to check if context is a class member
         max_prediction, max_confidence = None, -1
 
+        # data trust
+        trust_factor = calc_trust_factor(data_sum)
+
         for prediction, model in self.graph_models[key].items():
             # check for model prediction
-            confidence = abs(model.predict(context)) * (data / data_sum) * data_confidence(data_sum)
+            confidence = abs(model.predict(context)) * data[prediction] * trust_factor
             
             # check if value can uppdate max
             if confidence < max_confidence:
@@ -94,7 +100,3 @@ class ProbabilityGraph:
     def write_json(self, filepath, obj):
         with open(filepath, 'w') as f:
             json.dump(obj, f)
-
-    def save(self):
-        self.write_json(f'cache/graph_{self.idx}.json', self.graph)
-        self.write_json(f'cache/graph_life_{self.idx}.json', self.graph_life)

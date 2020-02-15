@@ -26,14 +26,14 @@ def main():
     # the data set
     x_train = ''.join(
         [simulate_count(1, randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
+        + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
+        + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
     )
     x_test = simulate_count(7, 10)
     # x_test = simulate_addition(1, 2)
 
     # initialize the ProbabilityGraph
-    probability_network = ProbabilityNetwork(context_size=3, num_of_processes=7)
+    probability_network = ProbabilityNetwork(context_size=8, num_of_processes=64)
 
     # ------------------------- train the ProbabilityGraph ---------------------------------------
     for character in tqdm(x_train):
@@ -48,7 +48,7 @@ def main():
         # display the info
         print(probability_network.context, x_test[index+1], prediction, sep=' -> ')
 
-    # probability_network.save()
+    probability_network.save()
 
 
 if __name__ == "__main__":

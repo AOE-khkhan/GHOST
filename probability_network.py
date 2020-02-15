@@ -1,7 +1,7 @@
+import pickle
 import numpy as np
 
 from collections import defaultdict
-
 from probability_graph import ProbabilityGraph
 
 class ProbabilityNetwork:
@@ -37,12 +37,12 @@ class ProbabilityNetwork:
         old_context = self.context
         old_context_array = self.context_array.copy()
 
-        # if the context size is up to size (for starters)
-        if len(self.context_list) != self.context_size:
-            return
-
         # update the context manager
         self.update_context(input_value)
+
+        # if the context size is up to size (for starters)
+        if len(old_context_array) != self.context_size:
+            return
 
         # the initials
         max_confidence, max_prediction = 0, 'VOID'
@@ -56,7 +56,7 @@ class ProbabilityNetwork:
             indices = np.where(np.random.randint(2, size=self.context_size) == 1)[0]
 
             # decimal of indices
-            idx = (2**indices).sum()
+            idx = int((2**(self.context_size - indices - 1)).sum())
 
             if idx in processed:
                 continue
@@ -65,17 +65,19 @@ class ProbabilityNetwork:
             processed.add(idx)
 
             # select the probability graph
+            old_context_token = ''.join(old_context_array[indices])
             self.probability_graphs[idx].update(
-                ''.join(old_context_array[indices]), input_value, old_context
+                old_context_token, input_value, old_context
             )
 
             # infer with the pgraph
+            context_token = ''.join(self.context_array[indices])
             prediction, confidence = self.probability_graphs[idx].predict(
-                ''.join(self.context_array[indices]), self.context
+                context_token, self.context
             )
 
-            # if self.context_manager.context == '~co':
-            #     print(self.context_manager.context, self.context_manager.contexts[index], prediction, confidence)
+            # if self.context == 't_7':
+            #     print(self.context, context_token, prediction, confidence, self.probability_graphs[idx].graph.get(context_token), sep=' => ')
 
             if confidence < max_confidence:
                 continue
@@ -86,5 +88,7 @@ class ProbabilityNetwork:
         return f'({max_prediction:>4}, {max_confidence:.4f})'
 
     def save(self):
-        for probability_graph in self.probability_graphs:
-            probability_graph.save()
+        # Store data (serialize)
+        with open('cache/probability_graphs.pickle', 'wb') as handle:
+            pickle.dump(self.probability_graphs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
