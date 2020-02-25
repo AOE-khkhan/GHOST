@@ -6,7 +6,10 @@ from collections import defaultdict, Counter
 from utils import trust_factor
 
 class ProbabilityModel:
-    def __init__(self, context_size):
+    def __init__(self, context_size, models_garbage_batch):
+        # the muliple of memory size the model should collect garbage
+        self.MODELS_GARBAGE_BATCH = models_garbage_batch
+
         # the size of the context
         self.context_size = context_size
 
@@ -128,53 +131,71 @@ class ProbabilityModel:
         max_prediction, max_confidence = None, 0
 
         # all models that are close to the context
-        model_keys = set()
+        processed_model_keys = set()
 
         # get all models that relate to tokens in context
         for index, token in enumerate(self.context_list):
-            model_keys.update(self.models_index[index][token])
+            model_keys = self.models_index[index][token]
 
-        # check for the model that can infer from context
-        for indices, tokens in model_keys:
-            if not (self.context_array[np.array(indices)] == np.array(tokens)).all():
-                continue
-            
-            # the identity of model
-            model_key = (indices, tokens)
+            # check for the model that can infer from context
+            for indices, tokens in model_keys:
+                # the identity of model
+                model_key = (indices, tokens)
 
-            # the distribution of toekns for model
-            distribution = self.models_distribution[model_key]
+                if model_key in processed_model_keys:
+                    continue
 
-            distr = []
-            for index, token in enumerate(self.context_list):
-                n, N = distribution[index].get(token, [0, 0])
-                attribution = (trust_factor(N) * n) / N if N else 0
+                processed_model_keys.add(model_key)
 
-                distr.append(attribution)
+                if not (self.context_array[np.array(indices)] == np.array(tokens)).all():
+                    continue
 
-            # probability of context being in the model class
-            in_class = sum(distr) / len(distr) if len(distr) else 0
+                # the expectations
+                expectation = self.models.get(model_key, None)
 
-            # the expectations
-            expectation = self.models[model_key]
-            
-            # analyse the expectations
-            expectation = pd.DataFrame(expectation, index=[0]).T[0]
-            expectation = (trust_factor(expectation.sum()) * expectation) / expectation.sum()
+                if expectation is None:
+                    continue
+                
+                # analyse the expectations
+                expectation = pd.DataFrame(expectation, index=[0]).T[0]
+                expectation_size = expectation.sum()
 
-            # infer prediction
-            prediction = expectation.idxmax()
-            confidence = in_class * expectation[prediction]
+                # normalize the expectation
+                expectation = (trust_factor(expectation_size) * expectation) / expectation_size
 
-            # save this inference to update in next inference
-            self.last_prediction.append((model_key, prediction))
+                # remove model key when the accuarcy is chaotic
+                if expectation_size and not expectation_size % self.MODELS_GARBAGE_BATCH and not (expectation > 0.5).any():
+                    model_keys.remove(model_key)
+                    self.models.pop(model_key, None)
+                    self.models_distribution.pop(model_key, None)
+                    continue
 
-            # pick the bext prediction
-            if confidence < max_confidence:
-                continue
+                # the distribution of toekns for model
+                distribution = self.models_distribution[model_key]
 
-            max_confidence = confidence
-            max_prediction = prediction
+                distr = [] #temp list of all attribution ratio to model based on token
+                for index, token in enumerate(self.context_list):
+                    n, N = distribution[index].get(token, [0, 0])
+                    attribution = (trust_factor(N) * n) / N if N else 0
+
+                    distr.append(attribution)
+
+                # probability of context being in the model class
+                in_class = sum(distr) / len(distr) if len(distr) else 0
+
+                # infer prediction
+                prediction = expectation.idxmax()
+                confidence = in_class * expectation[prediction]
+
+                # save this inference to update in next inference
+                self.last_prediction.append((model_key, prediction))
+
+                # pick the bext prediction
+                if confidence < max_confidence:
+                    continue
+
+                max_confidence = confidence
+                max_prediction = prediction
 
         return max_prediction, max_confidence
 
@@ -195,7 +216,7 @@ class ProbabilityModel:
         self.y.append(input_value)
 
         # make data into array
-        self.input_array = np.array(self.x, dtype='int')
+        self.input_array  = np.array(self.x, dtype='int')
         self.output_array = np.array(self.y, dtype='int')
 
         # update the network

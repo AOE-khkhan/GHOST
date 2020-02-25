@@ -20,20 +20,20 @@ def simulate_count(start, stop):
 
 def main():
     # intials
-    start, end = 1, 31
+    start, end = 21, 31
     number_of_iterations = 10
 
     # the data set
     x_train = ''.join(
         [simulate_count(1, randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
-        # + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
+        + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
+        + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
     )
     x_test = simulate_count(1, 10)
     # x_test = simulate_addition(1, 2)
 
     # initialize the ProbabilityGraph
-    probability_model = ProbabilityModel(context_size=8)
+    probability_model = ProbabilityModel(context_size=8, models_garbage_batch=8)
 
     # ------------------------- train the ProbabilityGraph ---------------------------------------
     for character in tqdm(x_train):
@@ -48,19 +48,16 @@ def main():
         # character as an integer
         input_value = ord(character)
 
-        old_context_list = probability_model.context_list.copy()
-
         # pass current context into ProbabilityGraph to predict the possible outcome
         prediction, confidence = probability_model.run(input_value)
 
-        prediction = chr(prediction) if prediction is not None else None
+        note = '*' if confidence < .5 or prediction != ord(x_test[index+1]) else ''
 
         # display the info
         print(
-            ''.join(list(map(chr, old_context_list))),
-            character,
-            prediction,
-            f"{confidence:.4f}",
+            ''.join(list(map(chr, probability_model.context_list))),
+            chr(prediction) if prediction is not None else '%',
+            f"{confidence:.4f} {note}",
             sep=' -> '
         )
 
