@@ -6,12 +6,16 @@ from collections import defaultdict, Counter
 from utils import trust_factor
 
 class ProbabilityModel:
-    def __init__(self, context_size, models_garbage_batch):
+    def __init__(self, idx, space_batch_size, time_batch_size, models_garbage_batch):
+        self.id = idx #the focus of the model
+        self.space_batch_size = space_batch_size
+        self.time_batch_size = time_batch_size
+
         # the muliple of memory size the model should collect garbage
         self.MODELS_GARBAGE_BATCH = models_garbage_batch
 
         # the size of the context
-        self.context_size = context_size
+        self.context_size = space_batch_size * time_batch_size
 
         # the contexts
         self.context_list = []
@@ -199,7 +203,10 @@ class ProbabilityModel:
 
         return max_prediction, max_confidence
 
-    def run(self, input_value):
+    def run(self, input_state):
+        # the value for the modeler
+        input_value = input_state[self.id]
+
         # update the last models based on the new info
         self.update_model(input_value)
 
@@ -208,7 +215,7 @@ class ProbabilityModel:
 
         # if the context is partial
         if len(self.context_list) < self.context_size:
-            self.update_context(input_value)  # update the context manager
+            self.update_context(input_state)  # update the context manager
             return best_context_indices, confidence #do nothing except return deafult
 
         # update data
@@ -228,7 +235,7 @@ class ProbabilityModel:
             self.create_model(model_context_indices, model_distribution, input_value)
 
         # update the context manager
-        self.update_context(input_value)
+        self.update_context(input_state)
         
         # try to predict using curent models discovered
         prediction, confidence = self.predict()
@@ -240,13 +247,13 @@ class ProbabilityModel:
         with open('cache/probability_model.pickle', 'wb') as handle:
             pickle.dump(self, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    def update_context(self, token):
-            # add token to context
-        self.context_list.append(token)
+    def update_context(self, state):
+        # add token to context
+        self.context_list.extend(state)
 
         # if size is more than specified then remove oldest
         if len(self.context_list) > self.context_size:
-            self.context_list.pop(0)
+            self.context_list = self.context_list[self.space_batch_size:]
 
         # the context string
         self.context_array = np.array(self.context_list)

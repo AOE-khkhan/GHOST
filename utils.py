@@ -1,11 +1,16 @@
+import pickle
 from random import randint
+
 import numpy as np
 
+def mean(li):
+    return sum(li)/len(li) if len(li) else 0
+    
 def trust_factor(x):
     return x / (x + 1) if x else 0
 
 def transform(token):
-    if type(token) == str:
+    if type(token) == str or type(token) == np.str_:
         return ord(token)
 
     return chr(token)
@@ -17,6 +22,11 @@ def simulate_addition(start, stop):
             text += f'{num1}+{num2}~{num1+num2}~'
     return text
 
+
+def save(obj):
+    # Store data (serialize)
+    with open('cache/probability_model.pickle', 'wb') as handle:
+        pickle.dump(obj, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 def simulate_count(start, stop):
     text = f'count_{start}_to_{stop}~'
@@ -37,6 +47,8 @@ class SimulateGridWorld:
         self.current_index = (0, 0)
         self.world[self.current_index] = agent_token
 
+        self.ARRAY_START = np.array([0, 0])
+        self.ARRAY_END = np.array(self.world.shape)
 
     def __str__(self):
         output = '\n'
@@ -63,21 +75,17 @@ class SimulateGridWorld:
 
         return np.array(step)
 
-    def move(self, tracks, callback=lambda self: self):
-        for track_token in tracks.lower():
-            new_index = np.array(self.current_index) + self.track(track_token)
-            
-            if not (new_index < 0).any():
-                self.world[self.current_index]=self.space_token
-                self.current_index=tuple(new_index % np.array(self.world.shape))
-                self.world[self.current_index] = self.agent_token
+    def move(self, track_token, callback=lambda self: self):
+        new_index = np.array(self.current_index) + self.track(track_token.lower())
+        
+        if (new_index >= self.ARRAY_START).all() and (new_index < self.ARRAY_END).all():
+            self.world[self.current_index] = self.space_token
+            self.current_index = tuple(new_index % self.ARRAY_END)
+            self.world[self.current_index] = self.agent_token
 
+        return callback(self)
+
+    def moving(self, tracks, callback=lambda self: self):
+        for track_token in tracks:
+            self.move(track_token, callback, simulation)
             yield callback(self)
-    
-if __name__ == "__main__":
-    grid_world = SimulateGridWorld(5)
-
-    for world in grid_world.move('r', lambda self: self.world):
-        print(world)
-
-
