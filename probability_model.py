@@ -135,7 +135,7 @@ class ProbabilityModel:
 
         # get all models that relate to tokens in context
         for index, token in enumerate(self.context_list):
-            model_keys = self.models_index[index][token]
+            model_keys = self.models_index[index][token].copy()
 
             # check for the model that can infer from context
             for indices, tokens in model_keys:
@@ -165,9 +165,9 @@ class ProbabilityModel:
 
                 # remove model key when the accuarcy is chaotic
                 if expectation_size and not expectation_size % self.MODELS_GARBAGE_BATCH and not (expectation > 0.5).any():
-                    model_keys.remove(model_key)
                     self.models.pop(model_key, None)
                     self.models_distribution.pop(model_key, None)
+                    self.models_index[index][token].discard(model_key)
                     continue
 
                 # the distribution of toekns for model

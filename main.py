@@ -1,44 +1,27 @@
 from random import randint
+
+# from Library code
 from probability_model import ProbabilityModel
+from utils import simulate_addition, simulate_count, transform
 
+# from thrid pirty
 from tqdm import tqdm
-
-def simulate_addition(start, stop):
-    text = ''
-    for num1 in range(start, stop+1):
-        for num2 in range(start, stop+1):
-            text += f'{num1}+{num2}~{num1+num2}~'
-    return text
-
-
-def simulate_count(start, stop):
-    text = f'count_{start}_to_{stop}~'
-    for number in range(start, stop+1):
-        text += f'{number}~'
-    return text
-
 
 def main():
     # intials
-    start, end = 21, 31
-    number_of_iterations = 10
+    number_of_iterations = 71
 
     # the data set
-    x_train = ''.join(
-        [simulate_count(1, randint(start, end)) for _ in range(number_of_iterations)]
-        + [simulate_count(randint(start, end), randint(start, end)) for _ in range(number_of_iterations)]
-        + [simulate_addition(1, 10) for _ in range(number_of_iterations)]
-    )
-    x_test = simulate_count(1, 10)
-    # x_test = simulate_addition(1, 2)
+    x_train = ''.join([simulate_count(1, end) for end in range(10, number_of_iterations, 10)])
+    x_test = simulate_count(71, 81)
 
     # initialize the ProbabilityGraph
-    probability_model = ProbabilityModel(context_size=8, models_garbage_batch=8)
+    probability_model = ProbabilityModel(context_size=3, models_garbage_batch=8)
 
     # ------------------------- train the ProbabilityGraph ---------------------------------------
     for character in tqdm(x_train):
         # character as an integer
-        input_value = ord(character)
+        input_value = transform(character)
 
         # pass current context into ProbabilityGraph to predict the possible outcome
         probability_model.run(input_value)
@@ -46,17 +29,17 @@ def main():
     # ------------------------- test the ProbabilityGraph ---------------------------------------
     for index, character in enumerate(x_test[:-1]):
         # character as an integer
-        input_value = ord(character)
+        input_value = transform(character)
 
         # pass current context into ProbabilityGraph to predict the possible outcome
         prediction, confidence = probability_model.run(input_value)
 
-        note = '*' if confidence < .5 or prediction != ord(x_test[index+1]) else ''
+        note = '*' if confidence < .5 or prediction != transform(x_test[index+1]) else ''
 
         # display the info
         print(
-            ''.join(list(map(chr, probability_model.context_list))),
-            chr(prediction) if prediction is not None else '%',
+            ''.join(list(map(transform, probability_model.context_list))),
+            transform(prediction) if prediction is not None else '%',
             f"{confidence:.4f} {note}",
             sep=' -> '
         )
